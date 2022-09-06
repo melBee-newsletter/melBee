@@ -20,18 +20,18 @@ In `melBee/backend`,
     python -m venv env
     ```
 
-    If you're a Mac or Windows Bash user,
+If you're a Mac or Windows Bash user,
 
     ```shell
     source ./env/bin/activate
     ```
 
-    If you're a Windows PowerShell user,
+If you're a Windows PowerShell user,
 
     ```shell
     .\env\Scripts\Activate.ps1
     ```
-    
+
 In `melBee/backend/app`,
     ```shell
     uvicorn main:app
