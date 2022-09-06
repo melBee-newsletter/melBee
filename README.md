@@ -33,9 +33,10 @@ If you're using Windows PowerShell,
   ```
 
 In `melBee/backend/app`,
-    ```shell
-    uvicorn main:app
-    ```
+
+  ```shell
+  uvicorn main:app
+  ```
 
 **3. Run the React server**
 
