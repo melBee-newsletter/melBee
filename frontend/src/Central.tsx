@@ -6,10 +6,10 @@ function Central(){
     return (
         <div className="App">
           <Header />
-          <header className="App-header">
+          <main className="App-header">
               🚧 melBee 開発中・・・ 🚧　<br />
               完成までしばらくお待ちください
-          </header>
+          </main>
           <Footer />
         </div>
       );
