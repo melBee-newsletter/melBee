@@ -7,8 +7,10 @@ function Header(){
 
     return (
         <div>
-            <img src={ headerLogo } alt="melBee_logo" />
-            /*TODO: Add the hamburger component*/
+            <a href="/">
+            <img src={ headerLogo } alt="melBee_logo" height={"100px"} className="logo" />
+            </a>
+            {/*TODO: Add the hamburger component*/}
             { loggedIn ? <p>三</p> : null }
         </div>
     );
