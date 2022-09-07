@@ -4,13 +4,17 @@ function Signup() {
   return (
     <div>
       <h1>新規登録</h1>
-
       <form>
-        <label htmlFor="mail">メールアドレス</label>
-        <input type="mail" name="" id="mail" />
-        <label htmlFor="">パスワード</label>
-        <input type="password" name="" id="パスワード" />
-        <input type="submit" value="登録する"></input>
+        <label htmlFor="mail_signup">新規登録</label>
+        <input
+          type="mail"
+          name=""
+          placeholder="youremail@example.com"
+          id="mail_signup"
+        />
+        <label htmlFor="password_signup">パスワード</label>
+        <input type="password" name="" id="password_signup" />
+        <input type="submit" value="新規登録する"></input>
       </form>
     </div>
   );
