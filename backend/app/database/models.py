@@ -1,17 +1,17 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy.dialects.postgresql import BYTEA
 from sqlalchemy.orm import relationship
 from database.database import Base
 
 
 class User(Base):
-    __tablename__ = "users"
+    __tablename__ = "user"
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
-    is_active = Column(Boolean, default=True)
-
-    items = relationship("Item", back_populates="owner")
+    hashed_password = Column(BYTEA)
+    first_name = Column(String)
+    last_name = Column(String)
 
 
 class Item(Base):
