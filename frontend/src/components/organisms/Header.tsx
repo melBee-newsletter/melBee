@@ -6,9 +6,11 @@ function Header() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   return (
-    <div>
+    <div style={{backgroundColor: "#f5f5f5"}}>
+      <a href="">
       <img src={headerLogo} alt="melBee_logo" width="80" />
-      /*TODO: Add the hamburger component*/
+      </a>
+      {/*TODO: Add the hamburger component*/}
       {loggedIn ? <p>三</p> : null}
     </div>
   );
