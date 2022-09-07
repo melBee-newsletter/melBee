@@ -1,2 +1,4 @@
 app/__pycache__/
+app/database/__pycache__/
+app/database/.env.local
 /env
