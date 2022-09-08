@@ -55,10 +55,10 @@ Open up the local postgreSQL by running `psql` and create a database called "mel
   CREATE DATABASE melBee;
   ```
 
-In `melBee/backend/database`, create a `.env.local` file and add information below.
+In `melBee/backend/app/database`, create a `.env.local` file and add information below.
 
   ```
-  DATABASE_URL=postgresql://YOUR DB USERNAME:YOUR DB PASSWORD@localhost/melBee
+  DATABASE_URL=postgresql://YOUR DB USERNAME:YOUR DB PASSWORD@localhost/melbee
   ```
   
 
