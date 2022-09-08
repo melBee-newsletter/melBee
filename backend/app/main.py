@@ -9,7 +9,7 @@ import uvicorn
 models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
-# Dependency
+# DB Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -21,7 +21,9 @@ def get_db():
 async def root():
     return {"message": "Hello World"}
 
-@app.post("/users/", response_model=schemas.User)
+# ----- /user ------ #
+
+@app.post("/user/signup", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user:
