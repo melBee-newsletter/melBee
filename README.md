@@ -44,6 +44,18 @@ In `melBee/backend/database`, create a `.env.local` file and add information bel
   DATABASE_URL=postgresql://YOUR DB USERNAME:YOUR DB PASSWORD@localhost/melBee
   ```
 
+
+**Set up react-router-dom**
+  ```
+  npm install react-router-dom
+  ```
+
+**Set up tailwindcss**
+  ```
+  npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+  ```
+  
+
 **Run the server**
 
 In `melBee/backend/app`,
