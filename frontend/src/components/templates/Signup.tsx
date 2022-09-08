@@ -1,20 +1,47 @@
 import React from "react";
+import { SignUpForm } from "./Interfaces";
+import axios,  { AxiosResponse, AxiosError } from "axios";
 
 function Signup() {
+  const BASE_URL = "http://localhost:8000";
+
+  const handleSubmit = () => {
+    const form: SignUpForm | null = document.getElementById("signup-form");
+    const email: string =  form!["email_signup"]!.value;
+    const password: string = form!["password_signup"]!.value;
+
+    axios({
+      method: "post",
+      url: `${BASE_URL}/user/signup`,
+      data: {
+        "email": email,
+        "password": password
+      }
+    })
+    .then((res: AxiosResponse) => {
+      // TODO: Show something when successfully singed up
+      console.log(res.data)
+    })
+    .catch((err: AxiosError<{ error: string }>) => {
+      // TODO: Show something when error caused
+      console.log(err.response!.data)
+    })
+  }
+
   return (
     <div>
       <h1>新規登録</h1>
-      <form>
-        <label htmlFor="mail_signup">新規登録</label>
+      <form id="signup-form">
+        <label htmlFor="email_signup">新規登録</label>
         <input
-          type="mail"
+          type="email"
           name=""
           placeholder="youremail@example.com"
-          id="mail_signup"
+          id="email_signup"
         />
         <label htmlFor="password_signup">パスワード</label>
         <input type="password" name="" id="password_signup" />
-        <input type="submit" value="新規登録する"></input>
+        <input type="button" value="新規登録する" onClick={handleSubmit}></input>
       </form>
     </div>
   );

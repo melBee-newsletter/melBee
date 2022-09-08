@@ -1,13 +1,23 @@
 from fastapi import FastAPI
 from typing import List
 from fastapi import Depends, FastAPI, HTTPException
+from starlette.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from database import crud, models, schemas
 from database.database import SessionLocal, engine
 import uvicorn
 
 models.Base.metadata.create_all(bind=engine)
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 # DB Dependency
 def get_db():
