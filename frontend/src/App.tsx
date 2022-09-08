@@ -28,7 +28,7 @@ function App() {
         <div>
           <div>
             <p>無料でログインまたは新規登録</p>
-            <p>Let’s get started with…</p>
+            <p>Let's get started with…</p>
           </div>
           <div>
             <form action="">
