@@ -73,7 +73,7 @@ export default function EditorBox() {
             "removeformat | help",
           export_image_proxy: "proxy.php",
           file_picker_callback: function (cb, value, meta) {
-            var input = document.createElement("input");
+            let input = document.createElement("input");
             input.setAttribute("type", "file");
             input.setAttribute("accept", "image/*");
 
