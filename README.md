@@ -29,6 +29,7 @@ In `melBee/backend`,
 
   ```shell
   pip3 install fastapi uvicorn psycopg2-binary SQLAlchemy
+  pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
   ```
 
 **Set up local database**
