@@ -4,17 +4,17 @@ function Login() {
   return (
     <div>
       <h1>ログイン</h1>
-      <form>
-        <label htmlFor="mail">メールアドレス</label>
+      <form id="login-form">
+        <label htmlFor="email">メールアドレス</label>
         <input
-          type="mail"
+          type="email"
           name=""
           placeholder="youremail@example.com"
-          id="mail"
+          id="email"
         />
-        <label htmlFor="">パスワード</label>
-        <input type="password" name="" id="パスワード" />
-        <input type="submit" value="ログインする"></input>
+        <label htmlFor="password">パスワード</label>
+        <input type="password" name="" id="password" />
+      <input type="button" value="ログインする" />
       </form>
     </div>
   );
