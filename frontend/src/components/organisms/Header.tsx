@@ -7,7 +7,9 @@ function Header() {
 
   return (
     <div className="header px-5 drop-shadow-md">
-      <img src={headerLogo} alt="melBee_logo" className="py-2" width="80" />
+      <a href="/">
+        <img src={headerLogo} alt="melBee_logo" className="py-2" width="80" />
+      </a>
       {(loggedIn) ? (
         <>
         <button className="hamburger my-3">
