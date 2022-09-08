@@ -1,4 +1,4 @@
-export interface SignInForm extends HTMLElement {
+export interface LogInForm extends HTMLElement {
   email?: HTMLInputElement;
   password?: HTMLInputElement;
 }
