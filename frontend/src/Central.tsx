@@ -1,19 +1,20 @@
-import React from 'react';
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import React from "react";
+// import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Header from "./components/organisms/Header";
 import Footer from "./components/organisms/Footer";
 
-function Central(){
-    return (
-        <div className="App">
-          <Header />
-          <main className="App-header">
-              🚧 melBee 開発中・・・ 🚧　<br />
-              完成までしばらくお待ちください
-          </main>
-          <Footer />
-        </div>
-      );
-};
+function Central() {
+  return (
+    <div className="App">
+      <Header />
+      <main className="App-header px-5 py-5">
+        🚧 melBee 開発中・・・ 🚧
+        <br />
+        完成までしばらくお待ちください
+      </main>
+      <Footer />
+    </div>
+  );
+}
 
 export default Central;

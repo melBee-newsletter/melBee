@@ -125,6 +125,12 @@ code {
 }
 
 /* top */
-.contentLeft {
-  
+.mainTtl {
+  margin-bottom: 40px;
 }
+
+.contentCenter {
+  writing-mode: vertical-rl;
+  height: 100%;
+  border-right: 1px solid #959494;
+  }

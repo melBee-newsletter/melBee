@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+// import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Header from "./components/organisms/Header";
 import Footer from "./components/organisms/Footer";
@@ -13,13 +13,15 @@ function App() {
       <main className="App-header">
         <div className="flex">
           <div className="contentLeft">
-            <h2 className="text-left text-8xl font-bold">
+            <h2 className="mainTtl text-left text-8xl font-bold">
               想い<span className="font-light">を</span>
               <br />
               カタチ<span className="font-light">に</span>
             </h2>
-            <p>
-              melBeeは、さまざまなデザインテンプレートの中から招待状やメルマガを作り、
+            <p className="text-left leading-loose">
+              melBeeは、さまざまなデザインテンプレート
+              <br />
+              の中から招待状やメルマガを作り、
               <br />
               相手にそのまま送信もできる デザインツールです。
               <br />
@@ -27,11 +29,11 @@ function App() {
               デザインをもっと身近に、簡単に。
             </p>
           </div>
+          <div className="contentCenter flex text-base">
+            <p>無料でログインまたは新規登録</p>
+            <p>Let's get started with…</p>
+          </div>
           <div className="contentRight">
-            <div>
-              <p>無料でログインまたは新規登録</p>
-              <p>Let's get started with…</p>
-            </div>
             <div>
               <form action="">
                 <input
