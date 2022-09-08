@@ -1,5 +1,8 @@
 from __future__ import print_function
+from asyncio.windows_events import NULL
+from cgitb import html
 from email import message
+import email
 import os
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -46,7 +49,7 @@ def getService():
 
 
 def create_message(sender, to, subject, message_text):
-    message = MIMEText(message_text)
+    message = MIMEText(message_text, "html")
     message['to'] = to
     message['from'] = sender
     message['subject'] = subject
@@ -85,7 +88,6 @@ if __name__ == '__main__':
     sender = "melbee.noreply@gmail.com"
     to = "julioquiezi@gmail.com"
     subject = "TEST"
-    body = "I am testing!"
-
+    body = "<p>Super Hello <b>World</b>Normal Hello WorldMini Hello World</p><img src='https://dim.mcusercontent.com/cs/f31e7d37d2b73d7d30d5e1924/images/96bb7a24-88af-90b0-b1fa-e68dc96dba9e.jpg?w=564&dpr=2'>"
     msg = create_message(sender, to, subject, body)
     send_message(service, user_id, msg)
