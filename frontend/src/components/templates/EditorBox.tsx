@@ -64,6 +64,7 @@ export default function EditorBox() {
             "export",
             "emoticons",
             "quickbars",
+            "autosave",
           ],
           toolbar:
             "undo redo restoredraft | " +
