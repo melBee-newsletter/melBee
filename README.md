@@ -3,17 +3,10 @@
 ## Getting Started
 To make a copy up to your local environment, follow the steps below.
 
-**1. Install libraries**
-  
-In `melBee/backend`,
+**1. Run the backend server**
 
-  ```shell
-  pip3 install fastapi
-  pip3 install uvicorn
-  ```
-    
-**2. Run the backend server**
-  
+**Set up virtual environment**
+
 In `melBee/backend`,
 
   ```shell
@@ -32,6 +25,27 @@ If you're using Windows PowerShell,
   .\env\Scripts\Activate.ps1
   ```
 
+In `melBee/backend`,
+
+  ```shell
+  pip3 install fastapi uvicorn psycopg2-binary SQLAlchemy
+  ```
+
+**Set up local database**
+Open up the local postgreSQL by running `psql` and create a database called "melBee".
+
+  ```sql
+  CREATE DATABASE melBee;
+  ```
+
+In `melBee/backend/database`, create a `.env.local` file and add information below.
+
+  ```
+  DATABASE_URL=postgresql://YOUR DB USERNAME:YOUR DB PASSWORD@localhost/melBee
+  ```
+
+**Run the server**
+
 In `melBee/backend/app`,
 
   ```shell
@@ -41,6 +55,6 @@ In `melBee/backend/app`,
 **3. Run the React server**
 
 In `melBee/frontend`,
-    ```shell
-    npm start
-    ```
+  ```shell
+  npm start
+  ```

@@ -1,4 +1,10 @@
 app/__pycache__/
+<<<<<<< HEAD
 /env
 token.json
 credentials.json
+=======
+app/database/__pycache__/
+app/database/.env.local
+/env
+>>>>>>> 6de4e38965d932351aa86d64b92063e197894c0c
