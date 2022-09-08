@@ -85,9 +85,9 @@ def send_message(service, user_id, message):
 if __name__ == '__main__':
     service = getService()
     user_id = "me"
-    sender = "melbee.noreply@gmail.com"
-    to = "julioquiezi@gmail.com"
+    sender = "test@gmail.com"
+    to = "test@gmail.com"
     subject = "TEST"
-    body = "<p>Super Hello <b>World</b>Normal Hello WorldMini Hello World</p><img src='https://dim.mcusercontent.com/cs/f31e7d37d2b73d7d30d5e1924/images/96bb7a24-88af-90b0-b1fa-e68dc96dba9e.jpg?w=564&dpr=2'>"
+    body = "TEST"
     msg = create_message(sender, to, subject, body)
     send_message(service, user_id, msg)
