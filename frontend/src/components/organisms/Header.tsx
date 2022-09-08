@@ -6,10 +6,40 @@ function Header() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   return (
-    <div>
-      <img src={headerLogo} alt="melBee_logo" width="80" />
+    <div className="header px-5 drop-shadow-md">
+      <img src={headerLogo} alt="melBee_logo" className="py-2" width="80" />
+      <button className="hamburger my-3">
+        <span className="hamburger_bar"></span>
+        <span className="hamburger_bar"></span>
+        <span className="hamburger_bar"></span>
+      </button>
+      <nav className="nav">
+        <ul className="nav-list">
+          <li className="nav-item">
+            <a href="">ナビゲーション1</a>
+          </li>
+          <li className="nav-item">
+            <a href="">ナビゲーション2</a>
+          </li>
+          <li className="nav-item">
+            <a href="">ナビゲーション3</a>
+          </li>
+          <li className="nav-item">
+            <a href="">ナビゲーション4</a>
+          </li>
+          <li className="nav-item">
+            <a href="">ナビゲーション5</a>
+          </li>
+        </ul>
+      </nav>
       /*TODO: Add the hamburger component*/
-      {loggedIn ? <p>三</p> : null}
+      {loggedIn ? (
+        <button className="hamburger">
+          <span className="hamburger_bar"></span>
+          <span className="hamburger_bar"></span>
+          <span className="hamburger_bar"></span>
+        </button>
+      ) : null}
     </div>
   );
 }
