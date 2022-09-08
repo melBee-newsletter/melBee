@@ -28,6 +28,11 @@ code {
   background: #F5F5F5;
 }
 
+/* index */
+.App-header {
+
+}
+
 .header {
   position: relative;
   background: #F5F5F5;
@@ -117,4 +122,9 @@ code {
 .footer_nav {
   justify-content: space-between !important;
   color: #7C7B7B;
+}
+
+/* top */
+.contentLeft {
+  
 }
