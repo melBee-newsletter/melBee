@@ -22,12 +22,13 @@ class Item(ItemBase):
 class UserBase(BaseModel):
     email: str
 
-
 class UserCreate(UserBase):
     password: str
 
+
 class UserVerify(UserBase):
     password: str
+
 
 class User(UserBase):
     id: int
