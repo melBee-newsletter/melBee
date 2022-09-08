@@ -82,17 +82,17 @@ export default function EditorBox() {
                 file = input.files[0];
               }
 
-              var reader = new FileReader();
+              let reader = new FileReader();
               reader.onload = function () {
-                var id = "blobid" + new Date().getTime();
-                var blobCache =
+                let id = "blobid" + new Date().getTime();
+                let blobCache =
                   window.tinymce.activeEditor.editorUpload.blobCache;
-                var base64;
+                let base64;
                 console.log(reader.result);
                 if (typeof reader.result === "string") {
                   base64 = reader.result.split(",")[1];
                 }
-                var blobInfo = blobCache.create(id, file, base64);
+                let blobInfo = blobCache.create(id, file, base64);
                 blobCache.add(blobInfo);
 
                 /* call the callback and populate the Title field with the file name */
