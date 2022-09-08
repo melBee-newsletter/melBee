@@ -68,7 +68,7 @@ export default function EditorBox() {
           ],
           toolbar:
             "undo redo restoredraft | " +
-            "fontfamily fontsize emoticons bold italic forecolor backcolor |  image |alignleft aligncenter " +
+            "fontfamily fontsize emoticons bold italic forecolor backcolor link |  image |alignleft aligncenter " +
             "alignright alignjustify | bullist numlist | " +
             "removeformat | help",
           export_image_proxy: "proxy.php",
@@ -76,10 +76,10 @@ export default function EditorBox() {
             let input = document.createElement("input");
             input.setAttribute("type", "file");
             input.setAttribute("accept", "image/*");
-
             input.onchange = function () {
               let file: any;
-              if (input.files) {
+
+              if (input.files !== null) {
                 file = input.files[0];
               }
 
@@ -89,13 +89,11 @@ export default function EditorBox() {
                 let blobCache =
                   window.tinymce.activeEditor.editorUpload.blobCache;
                 let base64;
-                console.log(reader.result);
                 if (typeof reader.result === "string") {
                   base64 = reader.result.split(",")[1];
                 }
                 let blobInfo = blobCache.create(id, file, base64);
                 blobCache.add(blobInfo);
-
                 /* call the callback and populate the Title field with the file name */
                 cb(blobInfo.blobUri(), { title: file.name });
               };
