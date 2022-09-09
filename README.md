@@ -28,8 +28,24 @@ If you're using Windows PowerShell,
 In `melBee/backend`,
 
   ```shell
-  pip3 install fastapi uvicorn psycopg2-binary SQLAlchemy
+  pip3 install fastapi uvicorn psycopg2-binary SQLAlchemy passlib python-dotenv
   pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+  ```
+
+**Set up Gmail API**
+Go to Google Developers Console, create an app and download your client ID from your app in OAuth consent screen tab.
+Rename the file to credentials.json and add it into your "app" folder.
+Change "sender" and "to" email.
+
+ ```shell
+    sender = "YOUR_EMAIL@gmail.com"
+    to = "RECEIVER_EMAIL@domain.com"
+  ```
+
+Run the following comands to send test emails.
+
+ ```shell
+  python app/mailSender.py
   ```
 
 **Set up local database**
@@ -39,10 +55,10 @@ Open up the local postgreSQL by running `psql` and create a database called "mel
   CREATE DATABASE melBee;
   ```
 
-In `melBee/backend/database`, create a `.env.local` file and add information below.
+In `melBee/backend/app/database`, create a `.env.local` file and add information below.
 
   ```
-  DATABASE_URL=postgresql://YOUR DB USERNAME:YOUR DB PASSWORD@localhost/melBee
+  DATABASE_URL=postgresql://YOUR DB USERNAME:YOUR DB PASSWORD@localhost/melbee
   ```
   
 

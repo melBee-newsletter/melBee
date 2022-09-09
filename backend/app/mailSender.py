@@ -86,10 +86,10 @@ html = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://
 if __name__ == '__main__':
     service = getService()
     user_id = "me"
-    sender = "melbee.noreply@gmail.com"
-    to = "melbee.noreply@gmail.com"
-    subject = "Email From melBee"
-    body = html
+    sender = "test@gmail.com"
+    to = "test@gmail.com"
+    subject = "TEST"
+    body = "TEST"
     msg = create_message(sender, to, subject, body)
     send_message(service, user_id, msg)
 

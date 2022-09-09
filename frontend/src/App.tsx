@@ -5,6 +5,7 @@ import Header from "./components/organisms/Header";
 import Footer from "./components/organisms/Footer";
 import Login from "./components/templates/Login";
 import Signup from "./components/templates/Signup";
+import EditorBox from "./components/templates/EditorBox";
 
 function App() {
   return (
