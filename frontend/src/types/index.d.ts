@@ -8,7 +8,6 @@ declare global {
     activeEditor: activeEditor;
   }
   interface tinyMCEEditor {
-    current: current;
     getContent: getContent;
   }
 }
