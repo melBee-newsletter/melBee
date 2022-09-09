@@ -6,17 +6,6 @@ type Props = {
 };
 
 const PreviewBox: React.FC<Props> = ({ editedFile, setEditedFile }) => {
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setEditedFile(localStorage.melBeeTempStoragedraft);
-    console.log(localStorage.melBeeTempStoragedraft, "LOCALSTORAGE");
-    console.log(editedFile, "EDITEDFILE");
-    setTimeout(() => {
-      setLoaded(!loaded);
-    }, 1000);
-  });
-
   return (
     <div style={{ backgroundColor: "yellow" }}>
       <h3>プレビュー</h3>
@@ -24,7 +13,7 @@ const PreviewBox: React.FC<Props> = ({ editedFile, setEditedFile }) => {
       <br />
       <div
         dangerouslySetInnerHTML={{
-          __html: editedFile,
+          __html: localStorage.melBeeTempStoragedraft,
         }}
       />
     </div>
