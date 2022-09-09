@@ -28,8 +28,7 @@ If you're using Windows PowerShell,
 In `melBee/backend`,
 
   ```shell
-  pip3 install fastapi uvicorn psycopg2-binary SQLAlchemy passlib python-dotenv
-  pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+  pip3 install -r requirements.txt
   ```
 
 **Set up Gmail API**
@@ -67,7 +66,7 @@ In `melBee/backend/app/database`, create a `.env.local` file and add information
 In `melBee/backend/app`,
 
   ```shell
-  uvicorn main:app
+  uvicorn main:app --reload
   ```
 
 **3. Run the React server**
@@ -78,7 +77,7 @@ In `melBee/frontend`,
 **Set up react-router-dom tailwindcss axios**
 
   ```
-  npm install react-router-dom tailwindcss@latest axios
+  npm install react-router-dom tailwindcss@latest axios @tinymce/tinymce-react
   ```
   
   
