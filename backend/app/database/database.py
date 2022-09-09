@@ -13,8 +13,6 @@ uri = (os.environ.get("DATABASE_URL") if os.environ.get("DATABASE_URL") else os.
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 
-# SQLALCHEMY_DATABASE_URL = "uri"
-
 engine = create_engine(uri)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
