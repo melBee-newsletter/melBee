@@ -78,7 +78,7 @@ In `melBee/frontend`,
 **Set up react-router-dom tailwindcss axios**
 
   ```
-  npm install react-router-dom tailwindcss@latest axios
+  npm install react-router-dom tailwindcss@latest axios @tinymce/tinymce-react
   ```
   
   
