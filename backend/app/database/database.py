@@ -9,9 +9,13 @@ load_dotenv(verbose=True)
 dotenv_path = join(dirname(__file__), '.env.local')
 load_dotenv(dotenv_path)
 
+uri = os.getenv("DATABASE_URL")
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+
 SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL")
 
-engine = create_engine("postgresql://postgres:mel@localhost/melbee")
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
