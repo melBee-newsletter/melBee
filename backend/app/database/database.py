@@ -13,7 +13,7 @@ uri = os.getenv("DATABASE_URL")
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 
-SQLALCHEMY_DATABASE_URL = os.environ.get("DATABASE_URL")
+SQLALCHEMY_DATABASE_URL = uri
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
