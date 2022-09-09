@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import { EmailForm } from "./components/templates/Interfaces";
@@ -7,9 +7,16 @@ import Header from "./components/organisms/Header";
 import Footer from "./components/organisms/Footer";
 import Login from "./components/templates/Login";
 import Signup from "./components/templates/Signup";
+import EditorBox from "./components/templates/EditorBox";
 
 function App() {
   const BASE_URL = "http://localhost:8000";
+  const [isUserSignnedUP, setisUserSignnedUP] = useState(false);
+  const [isEmailSubmitted, setisEmailSubmitted] = useState(false);
+  const [email, setEmail] = useState("");
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
 
   const handleSubmit = () => {
     const form: EmailForm | null = document.getElementById("mailForm");
@@ -25,6 +32,12 @@ function App() {
       .then((res: AxiosResponse) => {
         // TODO: Show something when successfully singed up
         console.log(res.data);
+        setisEmailSubmitted(true);
+        if (res.data["isUserSignnedUp"] === true) {
+          setisUserSignnedUP(true);
+        } else {
+          setisUserSignnedUP(false);
+        }
       })
       .catch((err: AxiosError<{ error: string }>) => {
         // TODO: Show something when error caused
@@ -64,18 +77,20 @@ function App() {
                 <input
                   type="mail"
                   name=""
+                  value={email}
+                  onChange={(e) => handleChange(e)}
                   placeholder="youremail@example.com"
                   id="email_signup"
                 />
                 <input
-                  type="submit"
-                  value="新規登録する"
+                  type="button"
+                  value="送信する"
                   onClick={handleSubmit}
                 ></input>
               </form>
             </div>
-            <Login />
-            <Signup />
+            {isUserSignnedUP && isEmailSubmitted && <Login email={email} />}
+            {isEmailSubmitted && !isUserSignnedUP && <Signup email={email} />}
           </div>
         </div>
       </main>
