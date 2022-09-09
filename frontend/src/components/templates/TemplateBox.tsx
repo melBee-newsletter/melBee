@@ -7,7 +7,13 @@ type template = {
     title: string;
 };
 
-const TemplateBox: React.FC = () => {
+type Props = {
+    setDisplayComponent: Function;
+    setView: Function;
+    setEditedFile: Function;
+}
+
+const TemplateBox: React.FC<Props> = ({ setDisplayComponent, setView, setEditedFile }) => {
     const [templates, setTemplates] = useState<template[]>([]);
 
     // This is just for test.
@@ -31,7 +37,7 @@ const TemplateBox: React.FC = () => {
             <div className='px-5 py-3'>
                 <div className='grid gap-4 grid-cols-4 grid-rows-4'>
                     {templates.map(template => {
-                        return (<Template template={template} />)
+                        return (<Template template={template} setDisplayComponent={setDisplayComponent} setView={setView} setEditedFile={setEditedFile} />)
                     })}
                 </div>
             </div>
