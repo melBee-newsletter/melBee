@@ -1,4 +1,4 @@
-import { useState, ReactNode } from 'react';
+import { useState, ReactNode, useEffect } from 'react';
 import "./App.css";
 import Header from "./components/organisms/Header";
 import Footer from "./components/organisms/Footer";
@@ -10,32 +10,40 @@ import SendComplete from './components/templates/SendComplete';
 
 
 function Central(){
-  const [display, setDisplay] = useState<ReactNode>(<TemplateBox />);
   const [view, setView] = useState<string>("template");
+  const [displayComponent, setDisplayComponent] = useState<ReactNode>();
+  const [editedFile, setEditedFile] = useState<string>("");
+
+  useEffect(() => {
+    setDisplayComponent(<TemplateBox setDisplayComponent={setDisplayComponent} setView={setView} setEditedFile={setEditedFile} />);
+  }, [])
 
   return (
       <div className="App">
+        <header className='fixed w-full'>
         <Header />
-        <main className="App-header">
+        </header>
+        <main className="App-header pt-24">
           <div className="flex">
-            <div className='contentLeft'>
-              {display}
+            <div className='contentCenter'>
+              {displayComponent}
             </div>
             <div className="contentRight">
-              {(view !== "done")?
+              {(view !== "done" && view !== "template")?
               <button onClick={(e) => {
                 e.preventDefault();
                 if (view === "template") {
-                  setDisplay(<EditorBox />);
+                  setDisplayComponent(<EditorBox setEditedFile={setEditedFile} />);
+                  setDisplayComponent(<EditorBox setEditedFile={setEditedFile} />);
                   setView("edit");
                 } else if (view === "edit") {
-                  setDisplay(<PreviewBox />);
+                  setDisplayComponent(<PreviewBox editedFile={editedFile} />);
                   setView("preview");
                 } else if (view === "preview") {
-                  setDisplay(<ReceiverSelect />);
+                  setDisplayComponent(<ReceiverSelect />);
                   setView("send");
                 } else if (view === "send") {
-                  setDisplay(<SendComplete />);
+                  setDisplayComponent(<SendComplete />);
                   setView("done");
                 }
               }}>
@@ -47,16 +55,16 @@ function Central(){
               <button onClick={(e) => {
                 e.preventDefault();
                 if (view === "send") {
-                  setDisplay(<PreviewBox />);
+                  setDisplayComponent(<PreviewBox editedFile={editedFile} />);
                   setView("preview");
                 } else if (view === "preview") {
-                  setDisplay(<EditorBox />);
+                  setDisplayComponent(<EditorBox setEditedFile={setEditedFile} />);
                   setView("edit");
                 } else if (view === "edit") {
-                  setDisplay(<TemplateBox />);
+                  setDisplayComponent(<TemplateBox setDisplayComponent={setDisplayComponent} setView={setView} setEditedFile={setEditedFile} />);
                   setView("template");
                 } else if (view === "done") {
-                  setDisplay(<TemplateBox />);
+                  setDisplayComponent(<TemplateBox setDisplayComponent={setDisplayComponent} setView={setView} setEditedFile={setEditedFile} />);
                   setView("template");
                 }
               }}>
