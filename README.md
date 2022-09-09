@@ -29,6 +29,7 @@ In `melBee/backend`,
 
   ```shell
   pip3 install fastapi uvicorn psycopg2-binary SQLAlchemy
+  pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
   ```
 
 **Set up local database**
@@ -43,6 +44,7 @@ In `melBee/backend/database`, create a `.env.local` file and add information bel
   ```
   DATABASE_URL=postgresql://YOUR DB USERNAME:YOUR DB PASSWORD@localhost/melBee
   ```
+  
 
 **Run the server**
 
@@ -55,6 +57,15 @@ In `melBee/backend/app`,
 **3. Run the React server**
 
 In `melBee/frontend`,
+
+
+**Set up react-router-dom tailwindcss axios**
+
+  ```
+  npm install react-router-dom tailwindcss@latest axios
+  ```
+  
+  
   ```shell
   npm start
   ```
