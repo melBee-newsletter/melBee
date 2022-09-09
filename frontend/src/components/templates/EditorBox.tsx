@@ -24,7 +24,7 @@ const EditorBox: React.FC<Props> = ({ setEditedFile }) => {
 
   return (
     <div
-      onChange={(e) => {
+      onInput={(e) => {
         console.log("nice");
         setEditedFile(editorRef.current?.getContent());
       }}
