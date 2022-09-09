@@ -27,7 +27,7 @@ export default function EditorBox() {
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue='<div style = "font-size: 12px; font-family: verdana; color: blue;">Try Editing This!</div><img class = "hi" src = "https://i.picsum.photos/id/452/600/700.jpg?hmac=bEplEmPzbvCTY4hrbJNhH_6u2nHWx_whjNK9mxEiFGA" width = "200px" height = "300px"> <br> This too!'
+        initialValue='<div style = "font-size: 12px; font-family: verdana; color: blue;">Try Editing This!</div><img class = "hi" src = "https://i.ibb.co/Kb5gPZC/melbee.png" width = "200px" height = "300px"> <br> This too! <img src=”https://www.google-analytics.com/collect?v=1&tid=G-T0831DXLWR&cid=555&t=event&ec=emails&ea=open&dt=your%20email%20subject%20line”>'
         init={{
           language: "ja",
           content_style: "body {font-family: Arial;}",
