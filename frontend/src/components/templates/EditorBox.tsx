@@ -24,12 +24,7 @@ const EditorBox: React.FC<Props> = ({ setEditedFile }) => {
   // };
 
   return (
-    <div
-      onInput={(e) => {
-        console.log("nice");
-        setEditedFile(editorRef.current?.getContent());
-      }}
-    >
+    <div>
       <div
         style={{ width: "200px", height: "40px" }}
         className="toolbararea"
@@ -37,12 +32,18 @@ const EditorBox: React.FC<Props> = ({ setEditedFile }) => {
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue="<body><img src = 'https://i.ibb.co/Kb5gPZC/melbee.png' >it was too long!!! This is a test. Please change me. Please! <br> test test <br> test test </body>
-        "
+        initialValue={
+          localStorage.melBeeTempStoragedraft
+            ? localStorage.melBeeTempStoragedraft
+            : "this is a default! <img src = 'https://i.ibb.co/Kb5gPZC/melbee.png'>"
+        }
         init={{
           toolbar_mode: "sliding",
           language: "ja",
           content_style: "body {font-family: Arial;}",
+          autosave_interval: "1s",
+          autosave_prefix: "melBeeTempStorage",
+          autosave_retention: "10m",
           font_formats:
             "Arial=arial,helvetica,sans-serif; Century Gothic = century gothic; Courier New=courier new,courier; Garamond = garamond; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Lucida = lucida; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva",
           convert_fonts_to_spans: true,

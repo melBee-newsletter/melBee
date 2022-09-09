@@ -9,9 +9,9 @@ import ReceiverSelect from "./components/templates/ReceiverSelect";
 import SendComplete from "./components/templates/SendComplete";
 
 function Central() {
+  const [editedFile, setEditedFile] = useState<string>("");
   const [view, setView] = useState<string>("template");
   const [displayComponent, setDisplayComponent] = useState<ReactNode>();
-  const [editedFile, setEditedFile] = useState<string>("");
 
   useEffect(() => {
     setDisplayComponent(
@@ -42,7 +42,12 @@ function Central() {
                     );
                     setView("edit");
                   } else if (view === "edit") {
-                    setDisplayComponent(<PreviewBox editedFile={editedFile} />);
+                    setDisplayComponent(
+                      <PreviewBox
+                        editedFile={editedFile}
+                        setEditedFile={setEditedFile}
+                      />
+                    );
                     setView("preview");
                   } else if (view === "preview") {
                     setDisplayComponent(<ReceiverSelect />);
@@ -63,7 +68,12 @@ function Central() {
                 onClick={(e) => {
                   e.preventDefault();
                   if (view === "send") {
-                    setDisplayComponent(<PreviewBox editedFile={editedFile} />);
+                    setDisplayComponent(
+                      <PreviewBox
+                        editedFile={editedFile}
+                        setEditedFile={setEditedFile}
+                      />
+                    );
                     setView("preview");
                   } else if (view === "preview") {
                     setDisplayComponent(
