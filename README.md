@@ -67,7 +67,7 @@ In `melBee/backend/app/database`, create a `.env.local` file and add information
 In `melBee/backend/app`,
 
   ```shell
-  uvicorn main:app
+  uvicorn main:app --reload
   ```
 
 **3. Run the React server**
