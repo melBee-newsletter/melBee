@@ -1,6 +1,9 @@
 import React, { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
+type Props = {
+  setEditedFile: Function;
+}
 //use the onInput on the div where the EditorBox is located to get the content data
 //     <div
 //       onInput={(e) => {
@@ -10,11 +13,12 @@ import { Editor } from "@tinymce/tinymce-react";
 //       <Edit />
 //     </div>
 
-export default function EditorBox() {
+const EditorBox: React.FC<Props> = ({setEditedFile}) => {
   const editorRef = useRef<tinyMCEEditor | null>(null);
   const log = () => {
     if (editorRef.current) {
-      console.log(editorRef.current.getContent());
+      setEditedFile(editorRef.current.getContent());
+      // console.log(typeof editorRef.current.getContent());
     }
   };
 
@@ -27,7 +31,7 @@ export default function EditorBox() {
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue='<div style = "font-size: 12px; font-family: verdana; color: blue;">Try Editing This!</div><img class = "hi" src = "https://i.ibb.co/Kb5gPZC/melbee.png" width = "200px" height = "300px"> <br> This too! <img src=”https://www.google-analytics.com/collect?v=1&tid=G-T0831DXLWR&cid=555&t=event&ec=emails&ea=open&dt=your%20email%20subject%20line”>'
+        initialValue='<div style = "font-size: 12px; font-family: verdana; color: blue;">Try Editing This!</div><img class = "hi" src = "https://i.picsum.photos/id/452/600/700.jpg?hmac=bEplEmPzbvCTY4hrbJNhH_6u2nHWx_whjNK9mxEiFGA" width = "200px" height = "300px"> <br> This too!'
         init={{
           language: "ja",
           content_style: "body {font-family: Arial;}",
@@ -112,4 +116,6 @@ export default function EditorBox() {
       <button onClick={log}>Log editor content</button>
     </div>
   );
-}
+};
+
+export default EditorBox;
