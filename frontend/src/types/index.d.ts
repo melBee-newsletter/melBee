@@ -7,4 +7,8 @@ declare global {
   interface tinymce {
     activeEditor: activeEditor;
   }
+  interface tinyMCEEditor {
+    current: current;
+    getContent: getContent;
+  }
 }

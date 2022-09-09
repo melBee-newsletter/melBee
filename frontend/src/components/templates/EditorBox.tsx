@@ -11,7 +11,13 @@ import { Editor } from "@tinymce/tinymce-react";
 //     </div>
 
 export default function EditorBox() {
-  const editorRef = useRef({});
+  const editorRef = useRef<tinyMCEEditor | null>(null);
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+    }
+  };
+
   return (
     <div>
       <div
@@ -72,7 +78,7 @@ export default function EditorBox() {
             "alignright alignjustify | bullist numlist | " +
             "removeformat | help",
           export_image_proxy: "proxy.php",
-          file_picker_callback: function (cb, value, meta) {
+          file_picker_callback: function (cb: Function) {
             let input = document.createElement("input");
             input.setAttribute("type", "file");
             input.setAttribute("accept", "image/*");
@@ -103,6 +109,7 @@ export default function EditorBox() {
           },
         }}
       ></Editor>
+      <button onClick={log}>Log editor content</button>
     </div>
   );
 }
