@@ -9,7 +9,7 @@ load_dotenv(verbose=True)
 dotenv_path = join(dirname(__file__), '.env.local')
 load_dotenv(dotenv_path)
 
-uri = os.getenv("DATABASE_URL")
+uri = os.getenv(dotenv_path)
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 
