@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import { setFlagsFromString } from "v8";
 
 type Props = {
   setEditedFile: Function;
@@ -30,7 +31,7 @@ const EditorBox: React.FC<Props> = ({ setEditedFile }) => {
       }}
     >
       <div
-        style={{ width: "100%", height: "40px" }}
+        style={{ width: "200px", height: "40px" }}
         className="toolbararea"
       ></div>
       <Editor
@@ -39,6 +40,7 @@ const EditorBox: React.FC<Props> = ({ setEditedFile }) => {
         initialValue="<body><img src = 'https://i.ibb.co/Kb5gPZC/melbee.png' >it was too long!!! This is a test. Please change me. Please! <br> test test <br> test test </body>
         "
         init={{
+          toolbar_mode: "sliding",
           language: "ja",
           content_style: "body {font-family: Arial;}",
           font_formats:
@@ -54,7 +56,8 @@ const EditorBox: React.FC<Props> = ({ setEditedFile }) => {
           toolbar_location: "top",
           inline: true,
           statusbar: false,
-          height: 500,
+          width: "690",
+          height: "500",
           menubar: false,
           quickbars_selection_toolbar:
             "bold italic image| fontfamily fontsize| quicklink",
