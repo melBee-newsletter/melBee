@@ -1,5 +1,4 @@
 import React from 'react';
-// import templateImage from "../atoms/template_sample.png";
 
 type Props = {
     template: {
@@ -10,11 +9,13 @@ type Props = {
 
 const Template: React.FC<Props> = ({template}) => {
     return (
-        <div style={{backgroundColor: "lightgray"}}>
-            <p className='text-sm'>{template.title}</p>
+        <div className='px-2 pb-2 pt-2' style={{backgroundColor: "pink"}}>
+            <p className='text-base pb-3'>{template.title}</p>
+            <div className='w-max'>
                 <a href="">
                     <img src={template.thumbnail} alt="template" width={200}/>
                 </a>
+            </div>
         </div>
     );
 
