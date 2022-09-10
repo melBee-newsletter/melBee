@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-type Props = {
-  editedFile: string;
-  setEditedFile: Function;
-};
-
-const PreviewBox: React.FC<Props> = ({ editedFile, setEditedFile }) => {
+const PreviewBox: React.FC = () => {
   return (
     <div style={{ backgroundColor: "yellow" }}>
       <h3>プレビュー</h3>

@@ -1,10 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { setFlagsFromString } from "v8";
 
-type Props = {
-  setEditedFile: Function;
-};
 //use the onInput on the div where the EditorBox is located to get the content data
 //     <div
 //       onInput={(e) => {
@@ -14,7 +11,7 @@ type Props = {
 //       <Edit />
 //     </div>
 
-const EditorBox: React.FC<Props> = ({ setEditedFile }) => {
+const EditorBox: React.FC = () => {
   const editorRef = useRef<tinyMCEEditor | null>(null);
   // const log = () => {
   //   if (editorRef.current) {
