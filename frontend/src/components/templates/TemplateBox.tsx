@@ -1,32 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import Template from '../molecules/Template';
+import templateImage from "../atoms/template_sample.png";
 
 type template = {
     thumbnail: string;
     title: string;
 };
 
-const TemplateBox: React.FC = () => {
+type Props = {
+    setDisplayComponent: Function;
+    setView: Function;
+    setEditedFile: Function;
+}
+
+const TemplateBox: React.FC<Props> = ({ setDisplayComponent, setView, setEditedFile }) => {
     const [templates, setTemplates] = useState<template[]>([]);
 
     // This is just for test.
     const sample = {
-        thumbnail: "https://dim.mcusercontent.com/cs/f31e7d37d2b73d7d30d5e1924/images/96bb7a24-88af-90b0-b1fa-e68dc96dba9e.jpg?w=564&dpr=2",
-        title: "Florist"
+        thumbnail: templateImage,
+        title: "Florist",
+    };
+
+    const sample1 = {
+        thumbnail: templateImage,
+        title: "Wedding Invitation",
     };
 
     useEffect(() => {
-            setTemplates(prevTemplate => [...prevTemplate, sample,]);
+        setTemplates(prevTemplate => [...prevTemplate, sample, sample1,]);
     },[]);
 
     return (
-        <div style={{backgroundColor: "yellow"}}>
+        <div style={{backgroundColor: "gray"}}>
             <h3>テンプレートをお選びください</h3>
-            <div className='flex flexrow'>
-                <div className='basis-1/4'>
+            <div className='px-5 py-3'>
+                <div className='grid gap-4 grid-cols-4 grid-rows-4'>
                     {templates.map(template => {
-                        return (<Template template={template} />);
-                    })};
+                        return (<Template template={template} setDisplayComponent={setDisplayComponent} setView={setView} setEditedFile={setEditedFile} />)
+                    })}
                 </div>
             </div>
         </div>
