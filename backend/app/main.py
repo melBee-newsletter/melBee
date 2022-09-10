@@ -4,7 +4,9 @@ from typing import List
 from fastapi import Depends, FastAPI, HTTPException
 from starlette.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemyseed import Seeder
 from database import crud, models, schemas
+from database.seed.seed import initial_templates
 from database.database import SessionLocal, engine
 import uvicorn
 
@@ -27,6 +29,11 @@ def get_db():
         yield db
     finally:
         db.close()
+
+# # Initializing Seeder
+# seeder = Seeder(Session)
+# seeder.seed(initial_templates)
+# Session.commit()  # or seeder.session.commit()
 
 @app.get("/")
 async def root():
