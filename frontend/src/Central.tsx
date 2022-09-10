@@ -1,6 +1,5 @@
 import React from "react";
-//import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { useState, ReactNode } from "react";
+import { useState, ReactNode, useEffect } from 'react';
 import "./App.css";
 import Header from "./components/organisms/Header";
 import Footer from "./components/organisms/Footer";
@@ -10,60 +9,65 @@ import PreviewBox from "./components/templates/PreviewBox";
 import ReceiverSelect from "./components/templates/ReceiverSelect";
 import SendComplete from "./components/templates/SendComplete";
 
-function Central() {
-  const [display, setDisplay] = useState<ReactNode>(<TemplateBox />);
+function Central(){
   const [view, setView] = useState<string>("template");
+  const [displayComponent, setDisplayComponent] = useState<ReactNode>();
+  const [editedFile, setEditedFile] = useState<string>("");
+
+  useEffect(() => {
+    setDisplayComponent(<TemplateBox setDisplayComponent={setDisplayComponent} setView={setView} setEditedFile={setEditedFile} />);
+  }, [])
 
   return (
-    <div className="App">
-      <Header />
-      <main className="App-header">
-        <div className="flex">
-          <div className="contentLeft">{display}</div>
-          <div className="contentRight">
-            {view !== "done" ? (
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (view === "template") {
-                    setDisplay(<EditorBox />);
-                    setView("edit");
-                  } else if (view === "edit") {
-                    setDisplay(<PreviewBox />);
-                    setView("preview");
-                  } else if (view === "preview") {
-                    setDisplay(<ReceiverSelect />);
-                    setView("send");
-                  } else if (view === "send") {
-                    setDisplay(<SendComplete />);
-                    setView("done");
-                  }
-                }}
-              >
+      <div className="App">
+        <header className='fixed w-full'>
+        <Header />
+        </header>
+        <main className="App-header pt-24">
+          <div className="flex">
+            <div className='contentCenter'>
+              {displayComponent}
+            </div>
+            <div className="contentRight">
+              {(view !== "done" && view !== "template")?
+              <button onClick={(e) => {
+                e.preventDefault();
+                if (view === "template") {
+                  setDisplayComponent(<EditorBox setEditedFile={setEditedFile} />);
+                  setDisplayComponent(<EditorBox setEditedFile={setEditedFile} />);
+                  setView("edit");
+                } else if (view === "edit") {
+                  setDisplayComponent(<PreviewBox editedFile={editedFile} />);
+                  setView("preview");
+                } else if (view === "preview") {
+                  setDisplayComponent(<ReceiverSelect />);
+                  setView("send");
+                } else if (view === "send") {
+                  setDisplayComponent(<SendComplete />);
+                  setView("done");
+                }
+              }}>
                 ⏩ 次へ
-              </button>
-            ) : null}
-            <br />
-
-            {view !== "template" ? (
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (view === "send") {
-                    setDisplay(<PreviewBox />);
-                    setView("preview");
-                  } else if (view === "preview") {
-                    setDisplay(<EditorBox />);
-                    setView("edit");
-                  } else if (view === "edit") {
-                    setDisplay(<TemplateBox />);
-                    setView("template");
-                  } else if (view === "done") {
-                    setDisplay(<TemplateBox />);
-                    setView("template");
-                  }
-                }}
-              >
+              </button> : null}
+              <br />
+              
+              {(view !== "template")?
+              <button onClick={(e) => {
+                e.preventDefault();
+                if (view === "send") {
+                  setDisplayComponent(<PreviewBox editedFile={editedFile} />);
+                  setView("preview");
+                } else if (view === "preview") {
+                  setDisplayComponent(<EditorBox setEditedFile={setEditedFile} />);
+                  setView("edit");
+                } else if (view === "edit") {
+                  setDisplayComponent(<TemplateBox setDisplayComponent={setDisplayComponent} setView={setView} setEditedFile={setEditedFile} />);
+                  setView("template");
+                } else if (view === "done") {
+                  setDisplayComponent(<TemplateBox setDisplayComponent={setDisplayComponent} setView={setView} setEditedFile={setEditedFile} />);
+                  setView("template");
+                }
+              }}>
                 ⏪ 戻る
               </button>
             ) : null}
