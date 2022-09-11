@@ -1,9 +1,7 @@
 import React, { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import { setFlagsFromString } from "v8";
 
-type Props = {
-  setEditedFile: Function;
-}
 //use the onInput on the div where the EditorBox is located to get the content data
 //     <div
 //       onInput={(e) => {
@@ -13,28 +11,36 @@ type Props = {
 //       <Edit />
 //     </div>
 
-const EditorBox: React.FC<Props> = ({setEditedFile}) => {
+const EditorBox: React.FC = () => {
   const editorRef = useRef<tinyMCEEditor | null>(null);
-  const log = () => {
-    if (editorRef.current) {
-      setEditedFile(editorRef.current.getContent());
-      // console.log(typeof editorRef.current.getContent());
-    }
-  };
+  // const log = () => {
+  //   if (editorRef.current) {
+  //     setEditedFile(editorRef.current.getContent());
+  //     // console.log(typeof editorRef.current.getContent());
+  //   }
+  // };
 
   return (
     <div>
       <div
-        style={{ width: "100%", height: "40px" }}
+        style={{ width: "200px", height: "40px" }}
         className="toolbararea"
       ></div>
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue='<div style = "font-size: 12px; font-family: verdana; color: blue;">Try Editing This!</div><img class = "hi" src = "https://i.picsum.photos/id/452/600/700.jpg?hmac=bEplEmPzbvCTY4hrbJNhH_6u2nHWx_whjNK9mxEiFGA" width = "200px" height = "300px"> <br> This too!'
+        initialValue={
+          localStorage.melBeeTempStoragedraft
+            ? localStorage.melBeeTempStoragedraft
+            : "this is a default! <img src = 'https://i.ibb.co/Kb5gPZC/melbee.png'>"
+        }
         init={{
+          toolbar_mode: "sliding",
           language: "ja",
           content_style: "body {font-family: Arial;}",
+          autosave_interval: "1s",
+          autosave_prefix: "melBeeTempStorage",
+          autosave_retention: "10m",
           font_formats:
             "Arial=arial,helvetica,sans-serif; Century Gothic = century gothic; Courier New=courier new,courier; Garamond = garamond; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Lucida = lucida; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva",
           convert_fonts_to_spans: true,
@@ -48,7 +54,8 @@ const EditorBox: React.FC<Props> = ({setEditedFile}) => {
           toolbar_location: "top",
           inline: true,
           statusbar: false,
-          height: 500,
+          width: "690",
+          height: "500",
           menubar: false,
           quickbars_selection_toolbar:
             "bold italic image| fontfamily fontsize| quicklink",
@@ -113,6 +120,10 @@ const EditorBox: React.FC<Props> = ({setEditedFile}) => {
           },
         }}
       ></Editor>
+<<<<<<< HEAD
+=======
+      {/* <button onClick={log}>Log editor content</button> */}
+>>>>>>> main
     </div>
   );
 };
