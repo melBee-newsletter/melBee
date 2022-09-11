@@ -41,7 +41,7 @@ const EditorBox: React.FC = () => {
           autosave_interval: "1s",
           autosave_prefix: "melBeeTempStorage",
           autosave_retention: "10m",
-          font_formats:
+          font__family_formats:
             "Arial=arial,helvetica,sans-serif; Century Gothic = century gothic; Courier New=courier new,courier; Garamond = garamond; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Lucida = lucida; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva",
           convert_fonts_to_spans: true,
           fontsize_formats: "8pt,10pt,12pt,14pt,18pt,24pt,36pt",
