@@ -89,7 +89,7 @@ const EditorBox: React.FC = () => {
             "alignright alignjustify | bullist numlist | " +
             "removeformat | help",
           export_image_proxy: "proxy.php",
-          file_picker_callback: function (cb, value, meta) {
+          file_picker_callback: function (cb: Function) {
             let input = document.createElement("input");
             input.setAttribute("type", "file");
             input.setAttribute("accept", "image/*");
@@ -120,10 +120,7 @@ const EditorBox: React.FC = () => {
           },
         }}
       ></Editor>
-<<<<<<< HEAD
-=======
       {/* <button onClick={log}>Log editor content</button> */}
->>>>>>> main
     </div>
   );
 };

@@ -1,0 +1,7 @@
+app/__pycache__/
+/env
+token.json
+credentials.json
+app/database/__pycache__/
+app/database/.env.local
+/env
