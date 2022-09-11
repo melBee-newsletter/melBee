@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import Template from '../molecules/Template';
-import templateImage from "../atoms/template_sample.png";
+import React from 'react';
 
-type template = {
-    thumbnail: string;
-    title: string;
-};
+function TemplateBox(){
+
 
 const TemplateBox: React.FC = () => {
     const [templates, setTemplates] = useState<template[]>([]);

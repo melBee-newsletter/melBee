@@ -26,6 +26,4 @@ const Template: React.FC<Props> = ({ template }) => {
         </div>
     );
 
-};
-
 export default Template;
