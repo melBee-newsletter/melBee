@@ -18,6 +18,7 @@ class Item(ItemBase):
     class Config:
         orm_mode = True
 
+# ---- User ----- #
 
 class UserBase(BaseModel):
     email: str
@@ -35,3 +36,10 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+# ---- Template ---- # 
+
+class TemplateBase(BaseModel):
+    title: str
+    thumbnail: str
+    body: str

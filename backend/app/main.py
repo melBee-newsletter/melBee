@@ -69,5 +69,12 @@ def create_user(user: schemas.UserVerify, db: Session = Depends(get_db)):
     
     return db_user
 
+@app.get("/template/{id}", response_model=schemas.TemplateBase)
+def get_template(id: int, db: Session = Depends(get_db)):
+    db_template = crud.get_template_by_id(db, id)
+    if not db_template:
+        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+    return db_template
+
 if __name__ == '__main__':
     uvicorn.run(app=app)
