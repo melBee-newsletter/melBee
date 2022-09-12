@@ -19,6 +19,7 @@ const Template: React.FC<Props> = ({ template }) => {
         <a
           onClick={(e) => {
             e.preventDefault();
+            //second parameter should be the tempate HTML string.
             localStorage.setItem(
               "melBeeTempStoragedraft",
               "default page! <img src = 'https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/0d286852-c67d-4694-9d4d-815aceb001d1'></img><img src = 'https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/0d286852-c67d-4694-9d4d-815aceb001d1'></img><img src = 'https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/0d286852-c67d-4694-9d4d-815aceb001d1'></img>"
