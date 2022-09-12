@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 import database.models as models
 import database.schemas as schemas
 from passlib.context import CryptContext
-from database.seed.seed import initial_templates
+import database.seed.templates as templates
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -46,7 +46,12 @@ def get_template_by_id(db: Session, id: int):
     return db.query(models.Template).filter(models.Template.id == id).first()
 
 def seed_template(db: Session):
-    db_template = models.Template(title=initial_templates["title"], thumbnail=initial_templates["thumbnail"], body=initial_templates["body"])
+    len = db.query(models.Template).count()
+    # TODO: Keep the limit up-to-date with the number of our templates
+    if len >= 1:
+        return None
+
+    db_template = models.Template(title="flower_shop", thumbnail="test", body=templates.flower_shop)
     db.add(db_template)
     db.commit()
     return db_template
