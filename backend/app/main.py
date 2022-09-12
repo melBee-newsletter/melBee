@@ -7,7 +7,6 @@ from sqlalchemy.orm import Session
 from database import crud, models, schemas
 from database.database import SessionLocal, engine
 import uvicorn
-import json
 
 models.Base.metadata.create_all(bind=engine)
 
