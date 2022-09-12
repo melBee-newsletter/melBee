@@ -52,7 +52,10 @@ def seed_template(db: Session):
     if len >= limit:
         return None
 
-    db_template = models.Template(title="flower_shop", thumbnail="test", body=templates.flower_shop)
-    db.add(db_template)
+    db_template_flower = models.Template(title="flower_shop", thumbnail="test", body=templates.flower_shop)
+    db.add(db_template_flower)
+    db_template_wedding = models.Template(title="wedding_invitation", thumbnail="test", body=templates.wedding)
+    db.add(db_template_wedding)
     db.commit()
-    return db_template
+    
+    return db_template_wedding
