@@ -32,7 +32,7 @@ const EditorBox: React.FC = () => {
         initialValue={
           localStorage.melBeeTempStoragedraft
             ? localStorage.melBeeTempStoragedraft
-            : "hi Hiro!!!!!! <img src = 'https://i.ibb.co/Kb5gPZC/melbee.png'>"
+            : "Good job Hiro!! <img src = 'https://i.ibb.co/Kb5gPZC/melbee.png'>"
         }
         init={{
           toolbar_mode: "sliding",
