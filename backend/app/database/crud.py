@@ -47,8 +47,9 @@ def get_template_by_id(db: Session, id: int):
 
 def seed_template(db: Session):
     len = db.query(models.Template).count()
-    # TODO: Keep the limit up-to-date with the number of our templates
-    if len >= 1:
+
+    limit = 2
+    if len >= limit:
         return None
 
     db_template = models.Template(title="flower_shop", thumbnail="test", body=templates.flower_shop)
