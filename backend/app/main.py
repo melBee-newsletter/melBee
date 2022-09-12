@@ -69,6 +69,8 @@ def create_user(user: schemas.UserVerify, db: Session = Depends(get_db)):
     
     return db_user
 
+# ----- /template ------ #
+
 @app.get("/template/{id}", response_model=schemas.TemplateBase)
 def get_template(id: int, db: Session = Depends(get_db)):
     db_template = crud.get_template_by_id(db, id)
