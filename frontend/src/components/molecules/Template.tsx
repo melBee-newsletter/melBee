@@ -33,6 +33,4 @@ const Template: React.FC<Props> = ({ template }) => {
   );
 };
 
-};
-
 export default Template;
