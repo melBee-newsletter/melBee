@@ -33,6 +33,7 @@ const EditorBox: React.FC = () => {
           localStorage.melBeeTempStoragedraft
             ? localStorage.melBeeTempStoragedraft
             : "Good job Hiro!! <img src = 'https://i.ibb.co/Kb5gPZC/melbee.png'>"
+
         }
         init={{
           toolbar_mode: "sliding",
@@ -41,7 +42,7 @@ const EditorBox: React.FC = () => {
           autosave_interval: "1s",
           autosave_prefix: "melBeeTempStorage",
           autosave_retention: "10m",
-          font_formats:
+          font_family_formats:
             "Arial=arial,helvetica,sans-serif; Century Gothic = century gothic; Courier New=courier new,courier; Garamond = garamond; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Lucida = lucida; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva",
           convert_fonts_to_spans: true,
           fontsize_formats: "8pt,10pt,12pt,14pt,18pt,24pt,36pt",
@@ -89,7 +90,7 @@ const EditorBox: React.FC = () => {
             "alignright alignjustify | bullist numlist | " +
             "removeformat | help",
           export_image_proxy: "proxy.php",
-          file_picker_callback: function (cb: Function) {
+          file_picker_callback: function (cb, value, meta) {
             let input = document.createElement("input");
             input.setAttribute("type", "file");
             input.setAttribute("accept", "image/*");
@@ -120,7 +121,7 @@ const EditorBox: React.FC = () => {
           },
         }}
       ></Editor>
-      {/* <button onClick={log}>Log editor content</button> */}
+
     </div>
   );
 };
