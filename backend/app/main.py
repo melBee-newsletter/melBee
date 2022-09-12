@@ -32,6 +32,13 @@ def get_db():
 async def root():
     return {"message": "Hello World"}
 
+# ----- /tomatoTest ------ #
+@app.post("/jwt")
+def test():
+    token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIn0.gdvwkiNW_Il_XZq-ZxsuM7bczINyBzJX18-A95jrr_6sxyQmJnpe5s3UGqukB2oyRFM-r87VSUh5nsNLAblDXPx2qzD70Mu87BSIxDKnUejAuyXRUZHtM-Nb7pZNU4rULB47bQqT2ATbO8BQdHgJCqSBr1agMOzLCdwRUh0JPzqvcZrnsGP1-T3BrYDm_Kf-p7wYvkgPGIXfWgbjHvBqWiuLyH9gkK8AhGemfZwQgitiDuk6ylJlYcGLy2z8xhD13or7ZyaaEoh_3EdOki1_RDZIvdqp1uwcycF5Bp0dDdsMwtn3JvvLcUG10mlsJrOElLd_nr0zd_YY5wFXFY1b0w"
+    return {"token":token}
+
+
 # ----- /user ------ #
 
 @app.post("/user/check", response_model={})
