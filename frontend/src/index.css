@@ -126,3 +126,7 @@ code {
 /* top */
 .contentLeft {
 }
+
+.contentCenter {
+  width: 800px;
+}
