@@ -7,7 +7,7 @@ type Props = {
 };
 
 const Login: React.FC<Props> = ({ email }) => {
-  const BASE_URL = "http://localhost:8000";
+  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 
   const handleSubmit = () => {
     const form: LogInForm | null = document.getElementById("login-form");
