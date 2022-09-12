@@ -49,11 +49,13 @@ def getService():
     return service
 
 
-def create_message(sender, to, subject, message_text):
+def create_message(sender, to, subject, message_text, bcc=None, cc=None):
     message = MIMEText(message_text, "html")
     message['to'] = to
     message['from'] = sender
     message['subject'] = subject
+    message['bcc'] = bcc
+    message['cc'] = cc
     raw_message = base64.urlsafe_b64encode(message.as_string().encode("utf-8"))
     return {
         'raw': raw_message.decode("utf-8")
@@ -82,13 +84,15 @@ def send_message(service, user_id, message):
         print('An error occurred: %s' % e)
         return None
 
+
 if __name__ == '__main__':
     service = getService()
     user_id = "me"
-    sender = "test@gmail.com"
-    to = "test@gmail.com"
+    sender = "YOUR_EMAIL@gmail.com"
+    to = "RECEIVER_EMAIL@domain.com"
     subject = "TEST"
     body = f"Hello, {flower_template.html}"
-    msg = create_message(sender, to, subject, body)
+    bcc = "BCC_EMAIL@domain.com"
+    cc = "CC_EMAIL@domain.com"
+    msg = create_message(sender, to, subject, body, bcc, cc)
     send_message(service, user_id, msg)
-
