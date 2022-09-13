@@ -10,10 +10,34 @@ import { Editor } from "@tinymce/tinymce-react";
 //       <Edit />
 //     </div>
 
+type Event = {
+  target: {
+    value: string;
+  };
+};
+
+type clickEvent = {
+  preventDefault: Function;
+};
+
 const EditorBox: React.FC = () => {
   const BASE_URL = "http://localhost:8000";
 
   const editorRef = useRef<tinyMCEEditor | null>(null);
+
+  const [analytics, setAnalytics] = useState("");
+
+  const handleChange = (event: Event) => {
+    setAnalytics(event.target.value);
+    // console.log("value is:", event.target.value);
+    // const analyticsPixel = `<img src=https://www.google-analytics.com/collect?v=1&tid=${event.target.value}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
+    // localStorage.melBeeTempStoragedraft += analyticsPixel;
+  };
+
+  const handleClick = (event: clickEvent) => {
+    event.preventDefault();
+    localStorage.melBeeTempStoragedraft += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
+  };
 
   return (
     <div>
@@ -117,8 +141,11 @@ const EditorBox: React.FC = () => {
           },
         }}
       ></Editor>
-      <label>Analyticsタグ:</label>
-      <input type="text"></input>
+      <div>
+        <label>Analyticsタグ:</label>
+        <input type="text" onChange={handleChange} value={analytics}></input>
+        <button onClick={handleClick}>Click to insert Google Analytics</button>
+      </div>
     </div>
   );
 };
