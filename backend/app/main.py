@@ -70,7 +70,7 @@ def send_email(receivers: schemas.Receivers, subject: schemas.Subject, message_b
     for mail in receivers.email:
         crud.send_email(mail, subject.subject,
                         message_body.message_body)
-    return {"message": "Email sent!"}
+    return {"message": "Email sent! メールを送りました。"}
 
 
 if __name__ == '__main__':
