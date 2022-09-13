@@ -93,6 +93,16 @@ def get_template(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
     return db_template
 
+# ----- /email ------ #
+
+
+@app.post("/email/send", response_model={})
+def send_email(receivers: schemas.Receivers, subject: schemas.Subject, message_body: schemas.MessageBody):
+    for mail in receivers.email:
+        crud.send_email(mail, subject.subject,
+                        message_body.message_body)
+    return {"message": "Email sent! メールを送りました。"}
+
 
 if __name__ == '__main__':
     uvicorn.run(app=app)

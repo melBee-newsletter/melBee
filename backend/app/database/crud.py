@@ -3,6 +3,7 @@ import database.models as models
 import database.schemas as schemas
 from passlib.context import CryptContext
 import database.seed.templates as templates
+import mailSender
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -64,3 +65,7 @@ def seed_template(db: Session):
     db.commit()
 
     return db_template_wedding
+
+
+def send_email(receivers, subject, message_body):
+    return mailSender.send_email(receivers, subject, message_body)

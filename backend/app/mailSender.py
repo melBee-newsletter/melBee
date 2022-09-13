@@ -16,7 +16,6 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 import mimetypes
 import base64
-import flower_template
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://mail.google.com/']

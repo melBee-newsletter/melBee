@@ -56,3 +56,15 @@ class Template(TemplateBase):
 
     class Config:
         orm_mode = True
+
+
+class Receivers(BaseModel):
+    email: List[str]
+
+
+class Subject(BaseModel):
+    subject: str
+
+
+class MessageBody(BaseModel):
+    message_body: str
