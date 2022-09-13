@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Login: React.FC<Props> = ({ email }) => {
-  const BASE_URL = "http://localhost:8000";
+  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 
   const navigate = useNavigate();
   const TEMPLATE_PATH = "/user/templates";
