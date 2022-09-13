@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import EditorBox from "../templates/EditorBox";
+import axios, { AxiosResponse, AxiosError } from "axios";
 
 type Props = {
   template: {
+    id: number;
     thumbnail: string;
     title: string;
   };
@@ -11,6 +12,19 @@ type Props = {
 
 const Template: React.FC<Props> = ({ template }) => {
   const navigate = useNavigate();
+  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
+
+  const getTemplate = (id: number) => {
+    axios({
+      method: "get",
+      url: `${BASE_URL}/template/${id}`,
+    })
+      .then((res) => {
+        const data = res.data;
+        localStorage.setItem("melBeeTempStoragedraft", data.body);
+      })
+      .then(() => navigate("/user/edit"));
+  };
 
   return (
     <div className="px-2 pb-2 pt-2" style={{ backgroundColor: "pink" }}>
@@ -19,11 +33,7 @@ const Template: React.FC<Props> = ({ template }) => {
         <a
           onClick={(e) => {
             e.preventDefault();
-            localStorage.setItem(
-              "melBeeTempStoragedraft",
-              "Hi Hiro! <img src = 'https://i.ibb.co/Kb5gPZC/melbee.png'>"
-            );
-            navigate("/user/edit");
+            getTemplate(template.id);
           }}
         >
           <img src={template.thumbnail} alt="template" width={200} />
@@ -31,8 +41,6 @@ const Template: React.FC<Props> = ({ template }) => {
       </div>
     </div>
   );
-};
-
 };
 
 export default Template;

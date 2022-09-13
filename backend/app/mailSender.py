@@ -16,7 +16,6 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 import mimetypes
 import base64
-import flower_template
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://mail.google.com/']
@@ -49,11 +48,13 @@ def getService():
     return service
 
 
-def create_message(sender, to, subject, message_text):
-    message = MIMEText(message_text, "html")
+def create_message(sender, subject, message_body, to=None, bcc=None, cc=None):
+    message = MIMEText(message_body, "html")
     message['to'] = to
     message['from'] = sender
     message['subject'] = subject
+    message['bcc'] = bcc
+    message['cc'] = cc
     raw_message = base64.urlsafe_b64encode(message.as_string().encode("utf-8"))
     return {
         'raw': raw_message.decode("utf-8")
@@ -82,13 +83,15 @@ def send_message(service, user_id, message):
         print('An error occurred: %s' % e)
         return None
 
-if __name__ == '__main__':
+
+def send_email(receivers, subject, message_body):
     service = getService()
     user_id = "me"
-    sender = "test@gmail.com"
-    to = "test@gmail.com"
-    subject = "TEST"
-    body = f"Hello, {flower_template.html}"
-    msg = create_message(sender, to, subject, body)
+    sender = "melbee.noreply@gmail.com"
+    to = "melbee.noreply@gmail.com"
+    subject = subject
+    message_body = message_body
+    receivers = receivers
+    msg = create_message(sender, subject, message_body,
+                         to, receivers, cc=None)
     send_message(service, user_id, msg)
-
