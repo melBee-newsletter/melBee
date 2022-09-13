@@ -4,6 +4,7 @@ from typing import List
 from fastapi import Depends, FastAPI, HTTPException
 from starlette.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemyseed import Seeder
 from database import crud, models, schemas
 from database.database import SessionLocal, engine
 import uvicorn
@@ -27,6 +28,11 @@ def get_db():
         yield db
     finally:
         db.close()
+
+# # Initializing Seeder
+# seeder = Seeder(Session)
+# seeder.seed(initial_templates)
+# Session.commit()  # or seeder.session.commit()
 
 @app.get("/")
 async def root():
@@ -68,6 +74,20 @@ def create_user(user: schemas.UserVerify, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Email not matches password. メールアドレスとパスワードがマッチしません。")
     
     return db_user
+
+# ----- /template ------ #
+
+@app.post("/template/seed")
+def seed_templates(db: Session = Depends(get_db)):
+    db_template = crud.seed_template(db)
+    print(db_template)
+
+@app.get("/template/{id}", response_model=schemas.Template)
+def get_template(id: int, db: Session = Depends(get_db)):
+    db_template = crud.get_template_by_id(db, id)
+    if not db_template:
+        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+    return db_template
 
 if __name__ == '__main__':
     uvicorn.run(app=app)

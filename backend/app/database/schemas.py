@@ -18,6 +18,7 @@ class Item(ItemBase):
     class Config:
         orm_mode = True
 
+# ---- User ----- #
 
 class UserBase(BaseModel):
     email: str
@@ -33,5 +34,20 @@ class UserVerify(UserBase):
 class User(UserBase):
     id: int
 
+    class Config:
+        orm_mode = True
+
+# ---- Template ---- # 
+
+class TemplateBase(BaseModel):
+    title: str
+    thumbnail: str
+    body: str
+
+class Template(TemplateBase):
+    title: str
+    thumbnail: str
+    body: str
+    
     class Config:
         orm_mode = True

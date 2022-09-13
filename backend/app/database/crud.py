@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 import database.models as models
 import database.schemas as schemas
 from passlib.context import CryptContext
+import database.seed.templates as templates
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -40,3 +41,21 @@ def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db.commit()
     db.refresh(db_item)
     return db_item
+
+def get_template_by_id(db: Session, id: int):
+    return db.query(models.Template).filter(models.Template.id == id).first()
+
+def seed_template(db: Session):
+    len = db.query(models.Template).count()
+
+    limit = 2
+    if len >= limit:
+        return None
+
+    db_template_flower = models.Template(title="flower_shop", thumbnail="test", body=templates.flower_shop)
+    db.add(db_template_flower)
+    db_template_wedding = models.Template(title="wedding_invitation", thumbnail="test", body=templates.wedding)
+    db.add(db_template_wedding)
+    db.commit()
+    
+    return db_template_wedding
