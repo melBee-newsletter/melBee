@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { setFlagsFromString } from "v8";
+import axios, { AxiosResponse, AxiosError } from "axios";
 
 //use the onInput on the div where the EditorBox is located to get the content data
 //     <div
@@ -12,6 +13,8 @@ import { setFlagsFromString } from "v8";
 //     </div>
 
 const EditorBox: React.FC = () => {
+  const BASE_URL = "http://localhost:8000";
+
   const editorRef = useRef<tinyMCEEditor | null>(null);
   // const log = () => {
   //   if (editorRef.current) {
@@ -22,26 +25,27 @@ const EditorBox: React.FC = () => {
 
   return (
     <div>
-      <div
-        style={{ width: "200px", height: "40px" }}
-        className="toolbararea"
-      ></div>
+      <div className="toolbararea"></div>
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}
         initialValue={
           localStorage.melBeeTempStoragedraft
             ? localStorage.melBeeTempStoragedraft
-            : "hi Hiro!!!!!! <img src = 'https://i.ibb.co/Kb5gPZC/melbee.png'>"
+            : "default page! <img src = 'https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/0d286852-c67d-4694-9d4d-815aceb001d1'>"
         }
         init={{
+          tinydrive_token_provider: "http://localhost:8000/jwt",
+          tinydrive_skin: "oxide",
+          tinydrive_upload_path: "/uploads",
+          tinydrive_max_image_dimension: 1024,
           toolbar_mode: "sliding",
           language: "ja",
           content_style: "body {font-family: Arial;}",
           autosave_interval: "1s",
           autosave_prefix: "melBeeTempStorage",
           autosave_retention: "10m",
-          font_family_formats:
+          font_family_family_formats:
             "Arial=arial,helvetica,sans-serif; Century Gothic = century gothic; Courier New=courier new,courier; Garamond = garamond; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Symbol=symbol; Lucida = lucida; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva",
           convert_fonts_to_spans: true,
           fontsize_formats: "8pt,10pt,12pt,14pt,18pt,24pt,36pt",
@@ -60,6 +64,7 @@ const EditorBox: React.FC = () => {
           quickbars_selection_toolbar:
             "bold italic image| fontfamily fontsize| quicklink",
           plugins: [
+            "tinydrive",
             "advlist",
             "autolink",
             "lists",
@@ -84,9 +89,9 @@ const EditorBox: React.FC = () => {
             "autosave",
           ],
           toolbar:
-            "undo redo restoredraft | " +
-            "fontfamily fontsize emoticons bold italic forecolor backcolor link |  image |alignleft aligncenter " +
-            "alignright alignjustify | bullist numlist | " +
+            "undo redo restoredraft image| " +
+            "fontfamily fontsize emoticons bold italic forecolor backcolor link |alignleft aligncenter " +
+            "alignright alignjustify | bullist numlist | insertfile | " +
             "removeformat | help",
           export_image_proxy: "proxy.php",
           file_picker_callback: function (cb: Function) {
