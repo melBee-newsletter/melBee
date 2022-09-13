@@ -21,13 +21,17 @@ const Central: React.FC<Props> = ({displayComponent}) => {
   const SENT_PATH = '/user/sent';
 
   const [editedFile, setEditedFile] = useState<string>("");
+  const session: null|string = sessionStorage.getItem("isLoggedIn");
+  const isLoggedIn = true ? session != null : false;
 
   return (
     <div className="App">
       <header className='fixed w-full'>
         <Header />
       </header>
+
       <main className="App-header pt-24">
+      {isLoggedIn && 
         <div className="flex">
           <div className='contentCenter'>
             {displayComponent}
@@ -60,7 +64,13 @@ const Central: React.FC<Props> = ({displayComponent}) => {
             <br />
           </div>
         </div>
+      }
+
+      {!isLoggedIn && 
+        <h1>melBeeはログインした方のみご利用になれます。</h1>
+      }
       </main>
+
       <footer className='w-full'>
       <Footer />
       </footer>
