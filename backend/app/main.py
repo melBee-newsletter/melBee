@@ -51,6 +51,12 @@ def test():
 
 # ----- /user ------ #
 
+@app.post("/user/check", response_model={})
+def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if not db_user:
+        return {"isUserSignnedUp": False}
+    return {"isUserSignnedUp": True}
 
 @app.post("/user/signup", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
