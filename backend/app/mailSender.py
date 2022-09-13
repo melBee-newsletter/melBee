@@ -30,9 +30,11 @@ def getService():
     # created automatically when the authorization flow completes for the first
     # time.
 
-    credentials_json = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
-    print("------TEST------")
-    print(credentials_json)
+    isDevelopment = False if os.getenv("DATABASE_URL") else True
+    if isDevelopment:
+        PORT = 8080
+    else:
+        PORT = 0
 
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
@@ -42,8 +44,8 @@ def getService():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                './credentials.json', SCOPES)
-            creds = flow.run_local_server(port=8080)
+                'google-credentials.json', SCOPES)
+            creds = flow.run_local_server(port=PORT)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
