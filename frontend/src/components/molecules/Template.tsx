@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
 
@@ -13,6 +13,18 @@ type Props = {
 const Template: React.FC<Props> = ({ template }) => {
   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
+
+  const seedTemplate = () => {
+    axios({
+      method: "post",
+      url: `${BASE_URL}/template/seed`,
+      data: "tomatoTest",
+    });
+  }
+
+  useEffect(() => {
+    seedTemplate();
+  }, []);
 
   const getTemplate = (id: number) => {
     axios({
