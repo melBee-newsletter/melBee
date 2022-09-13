@@ -117,6 +117,8 @@ const EditorBox: React.FC = () => {
           },
         }}
       ></Editor>
+      <label>Analyticsタグ:</label>
+      <input type="text"></input>
     </div>
   );
 };

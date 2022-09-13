@@ -1,5 +1,6 @@
 import React from "react";
 import { LogInForm } from "./Interfaces";
+import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
 
 type Props = {
@@ -8,6 +9,9 @@ type Props = {
 
 const Login: React.FC<Props> = ({ email }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
+
+  const navigate = useNavigate();
+  const TEMPLATE_PATH = "/user/templates";
 
   const handleSubmit = () => {
     const form: LogInForm | null = document.getElementById("login-form");
@@ -25,10 +29,14 @@ const Login: React.FC<Props> = ({ email }) => {
       .then((res: AxiosResponse) => {
         // TODO: Show something when successfully logged in
         console.log(res.data);
+        //ここでページ遷移
+        navigate(TEMPLATE_PATH);
       })
       .catch((err: AxiosError<{ error: string }>) => {
         // TODO: Show something when error caused
+        window.confirm("メールアドレスとパスワードがマッチしません。");
         console.log(err.response!.data);
+        //ダメだったら、エラーテキスト表示。
       });
   };
 

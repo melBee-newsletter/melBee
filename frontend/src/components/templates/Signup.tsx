@@ -1,5 +1,6 @@
 import React from "react";
 import { SignUpForm } from "./Interfaces";
+import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
 
 type Props = {
@@ -8,6 +9,9 @@ type Props = {
 
 const Signup: React.FC<Props> = ({ email }) => {
   const BASE_URL = "http://localhost:8000";
+
+  const navigate = useNavigate();
+  const TEMPLATE_PATH = "/user/templates";
 
   const handleSubmit = () => {
     const form: SignUpForm | null = document.getElementById("signup-form");
@@ -25,9 +29,11 @@ const Signup: React.FC<Props> = ({ email }) => {
       .then((res: AxiosResponse) => {
         // TODO: Show something when successfully singed up
         console.log(res.data);
+        navigate(TEMPLATE_PATH);
       })
       .catch((err: AxiosError<{ error: string }>) => {
         // TODO: Show something when error caused
+        window.confirm("パスワードが入力されていません。");
         console.log(err.response!.data);
       });
   };

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "fastapi": "^0.0.8"
+  }
+}
