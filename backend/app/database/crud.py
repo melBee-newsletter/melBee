@@ -52,7 +52,7 @@ def get_template_by_id(db: Session, id: int):
 def seed_template(db: Session):
     len = db.query(models.Template).count()
 
-    limit = 2
+    limit = 3
     if len >= limit:
         return None
 
@@ -62,6 +62,8 @@ def seed_template(db: Session):
     db_template_wedding = models.Template(
         title="wedding_invitation", thumbnail="test", body=templates.wedding)
     db.add(db_template_wedding)
+    db_template_tomato = models.Template(title="tomatoShop", thumbnail="test", body=templates.tomato)
+    db.add(db_template_tomato)
     db.commit()
 
     return db_template_wedding

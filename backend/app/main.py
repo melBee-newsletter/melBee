@@ -4,7 +4,6 @@ from typing import List
 from fastapi import Depends, FastAPI, HTTPException
 from starlette.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
-from sqlalchemyseed import Seeder
 from database import crud, models, schemas
 from database.database import SessionLocal, engine
 import uvicorn
@@ -41,8 +40,8 @@ def get_db():
 async def root():
     return {"message": "Hello World"}
 
-# ----- /tomatoTest ------ #
 
+# ----- /jwt for our data storage (rsa256) ask tom for private key------ #
 
 @app.post("/jwt")
 def test():
