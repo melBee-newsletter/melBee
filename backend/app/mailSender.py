@@ -49,8 +49,8 @@ def getService():
     return service
 
 
-def create_message(sender, to, subject, message_text, bcc=None, cc=None):
-    message = MIMEText(message_text, "html")
+def create_message(sender, subject, message_body, to=None, bcc=None, cc=None):
+    message = MIMEText(message_body, "html")
     message['to'] = to
     message['from'] = sender
     message['subject'] = subject
@@ -85,14 +85,14 @@ def send_message(service, user_id, message):
         return None
 
 
-if __name__ == '__main__':
+def send_email(receivers, subject, message_body):
     service = getService()
     user_id = "me"
-    sender = "YOUR_EMAIL@gmail.com"
-    to = "RECEIVER_EMAIL@domain.com"
-    subject = "TEST"
-    body = f"Hello, {flower_template.html}"
-    bcc = "BCC_EMAIL@domain.com"
-    cc = "CC_EMAIL@domain.com"
-    msg = create_message(sender, to, subject, body, bcc, cc)
+    sender = "melbee.noreply@gmail.com"
+    to = "melbee.noreply@gmail.com"
+    subject = subject
+    message_body = message_body
+    receivers = receivers
+    msg = create_message(sender, subject, message_body,
+                         to, receivers, cc=None)
     send_message(service, user_id, msg)
