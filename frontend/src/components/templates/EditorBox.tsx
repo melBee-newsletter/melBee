@@ -29,9 +29,6 @@ const EditorBox: React.FC = () => {
 
   const handleChange = (event: Event) => {
     setAnalytics(event.target.value);
-    // console.log("value is:", event.target.value);
-    // const analyticsPixel = `<img src=https://www.google-analytics.com/collect?v=1&tid=${event.target.value}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
-    // localStorage.melBeeTempStoragedraft += analyticsPixel;
   };
 
   const handleClick = (event: clickEvent) => {
