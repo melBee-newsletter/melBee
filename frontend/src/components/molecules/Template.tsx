@@ -13,7 +13,6 @@ type Props = {
 const Template: React.FC<Props> = ({ template }) => {
   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
-  const isMounted = useRef(false);
 
   const getTemplate = (id: number) => {
     axios({
