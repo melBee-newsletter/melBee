@@ -18,10 +18,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <BrowserRouter>
-        <Routes>
+          <Routes>
           <Route path="/" element={<App />} />
-          {/*TODO : Make the paths under /user/:component to be PRIVATE
-          which means user must be logged in to view those paths */}
           {/* <Route path="/user" element={<Central />} /> */}
           <Route path="/user/templates" element={<Central displayComponent={<TemplateBox />} />} />
           <Route path="/user/edit" element={<Central displayComponent={<EditorBox />} />} />
