@@ -1,54 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-function ReceiverSelect(){
-    const [receivers, setReceivers] = useState<string []>([]);
-    const [email, setEmail] =useState<string>("");
+function ReceiverSelect() {
+  const [receivers, setReceivers] = useState<string[]>([]);
+  const [email, setEmail] = useState<string>("");
 
-    const handleAdd = (e: React.ChangeEvent<any>): void => {
-            e.preventDefault();
-            setReceivers(prevEmail =>[...prevEmail, email]);
-            setEmail("");
-    };
+  const handleAdd = (e: React.ChangeEvent<any>): void => {
+    e.preventDefault();
+    setReceivers((prevEmail) => [...prevEmail, email]);
+    setEmail("");
+  };
 
-    const handleRemove = async (e: React.ChangeEvent<any>): Promise<any> => {
-        e.preventDefault();
-        let index = Number(e.target.id);
-        let left = receivers.slice(0, index);
-        let right = receivers.slice(index + 1);
-        setReceivers([...left, ...right]);
-    };
+  const handleRemove = async (e: React.ChangeEvent<any>): Promise<any> => {
+    e.preventDefault();
+    let index = Number(e.target.id);
+    let left = receivers.slice(0, index);
+    let right = receivers.slice(index + 1);
+    setReceivers([...left, ...right]);
+  };
 
-    const handleSend = (e: React.ChangeEvent<any>): void => {
-        e.preventDefault();
-        //TODO: once we get the endpoints to send the recipient email list, need to implement here.
-    };
-    
-    const displayEmail = (email: string, i: number) => {
-        return(
-            <div className='inline-flex align-middle pt-4 pb-4'>
-                <p >{email}</p>
-                <button type="submit" id={String(i)} onClick={handleRemove}>❌</button>
-            </div>
-        );
-    }
-    
+  const handleSend = (e: React.ChangeEvent<any>): void => {
+    e.preventDefault();
+    //TODO: once we get the endpoints to send the recipient email list, need to implement here.
+  };
+
+  const displayEmail = (email: string, i: number) => {
     return (
-        <div style={{backgroundColor: "yellow"}}>
-            <h3>送信先のメールアドレスをご入力ください</h3>
-            <div className='bg-white h-fit w-fit rounded-xl'>
-                {receivers.map((email, i) => {
-                    return displayEmail(email, i);
-                })}
-            </div>
-            <div>
-                <form onSubmit={handleAdd}>
-                    <input type="email" value={email} placeholder='メールアドレス' onChange={(e) => setEmail(e.target.value)} />
-                    <button> 追加 </button>
-                </form>
-                <button type="submit" onClick={handleSend} className="bg-black text-white" >送信</button>
-            </div>
-        </div>
+      <div className="bg-gray-200 rounded-lg  mr-3 p-3 flex">
+        <p>{email}</p>
+        <button type="submit" id={String(i)} onClick={handleRemove}>
+          <span className="deleteBtn ml-2"></span>
+        </button>
+      </div>
     );
-};
+  };
+
+  return (
+    <div className="sendArea">
+      <h3 className="text-xl mb-6">送信先メールアドレスをご入力ください</h3>
+      <div className="flex mb-6">
+        {receivers.map((email, i) => {
+          return displayEmail(email, i);
+        })}
+      </div>
+      <div>
+        <form onSubmit={handleAdd}>
+          <input
+            className="border-2 rounded-lg p-2"
+            type="email"
+            value={email}
+            placeholder="メールアドレス"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <button className="bg-amber-400 rounded-lg p-3 ml-3"> 追加 </button>
+        </form>
+        <div className="flex justify-center mt-6">
+          <p className="bg-neutral-400 rounded-lg mr-3">
+            <a href={"/user/edit"} className="p-3 block">
+              &lt; 戻る
+            </a>
+          </p>
+          <button
+            type="submit"
+            onClick={handleSend}
+            className="bg-cyan-400 rounded-lg p-3"
+          >
+            送信 &gt;
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default ReceiverSelect;
