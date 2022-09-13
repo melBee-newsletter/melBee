@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import EditorBox from "../templates/EditorBox";
+import axios, { AxiosResponse, AxiosError } from "axios";
 
 type Props = {
   template: {
+    id: number;
     thumbnail: string;
     title: string;
   };
@@ -11,6 +12,20 @@ type Props = {
 
 const Template: React.FC<Props> = ({ template }) => {
   const navigate = useNavigate();
+  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
+  const isMounted = useRef(false);
+
+  const getTemplate = (id: number) => {
+    axios({
+      method: "get",
+      url: `${BASE_URL}/template/${id}`,
+    })
+      .then((res) => {
+        const data = res.data;
+        localStorage.setItem("melBeeTempStoragedraft", data.body);
+      })
+      .then(() => navigate("/user/edit"));
+  };
 
   return (
     <div className="px-2 pb-2 pt-2" style={{ backgroundColor: "pink" }}>
@@ -19,12 +34,7 @@ const Template: React.FC<Props> = ({ template }) => {
         <a
           onClick={(e) => {
             e.preventDefault();
-            //second parameter should be the tempate HTML string.
-            localStorage.setItem(
-              "melBeeTempStoragedraft",
-              "This is your melBee default page! <img src = 'https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/0d286852-c67d-4694-9d4d-815aceb001d1'></img><img src = 'https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/0d286852-c67d-4694-9d4d-815aceb001d1'></img><img src = 'https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/0d286852-c67d-4694-9d4d-815aceb001d1'></img>"
-            );
-            navigate("/user/edit");
+            getTemplate(template.id);
           }}
         >
           <img src={template.thumbnail} alt="template" width={200} />
