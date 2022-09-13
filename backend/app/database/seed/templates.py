@@ -1265,3 +1265,9 @@ wedding = """
 
 </html>
 """
+
+tomato = """
+<html>
+<body>This is a TOMATO.</body>
+</html>
+"""

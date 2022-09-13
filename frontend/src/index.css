@@ -50,7 +50,7 @@ code {
   z-index: 2;
 }
 
-.toggleButon>span {
+.toggleButon > span {
   position: absolute;
   top: 0;
   right: 0;
@@ -75,27 +75,27 @@ code {
   transform: translate(0, 20px);
 }
 
-.toggleButon[aria-expanded="true"]>.line-1 {
+.toggleButon[aria-expanded="true"] > .line-1 {
   transform: translate(0, 0) rotate(-45deg);
 }
 
-.toggleButon[aria-expanded="true"]>.line-2 {
+.toggleButon[aria-expanded="true"] > .line-2 {
   transform: translate(0, 0) rotate(45deg);
 }
 
-.toggleButon[aria-expanded="true"]>.line-3 {
+.toggleButon[aria-expanded="true"] > .line-3 {
   display: none;
 }
 
 .navigation {
   display: none;
+  width: 40%;
   align-items: flex-start;
   justify-content: flex-start;
   padding: 5rem 2rem;
   position: fixed;
   top: 0;
   right: 0;
-  left: 0;
   height: 100vh;
   background-color: rgba(255, 255, 255, 0.87);
 }
@@ -115,8 +115,8 @@ code {
 }
 
 .navigation ul li a:hover {
-  color: #D8A20B;
-  border-bottom: 1px solid #D8A20B;
+  color: #d8a20b;
+  border-bottom: 1px solid #d8a20b;
 }
 .nav {
   position: absolute;
@@ -160,8 +160,9 @@ code {
 }
 
 .contentCenter {
-  writing-mode: vertical-rl;
+  margin-top: 30px;
+  width: 900px;
+
   height: 100%;
   border-right: 1px solid #959494;
 }
-
