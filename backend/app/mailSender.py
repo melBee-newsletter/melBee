@@ -46,7 +46,7 @@ def getService():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                "GOOGLE_APPLICATION_CREDENTIALS", SCOPES)
+                'google-credentials.json', SCOPES)
             creds = flow.run_local_server(port=PORT)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
