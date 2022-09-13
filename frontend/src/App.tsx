@@ -13,6 +13,7 @@ function App() {
   const BASE_URL = "http://localhost:8000";
   const [isUserSignnedUP, setisUserSignnedUP] = useState(false);
   const [isEmailSubmitted, setisEmailSubmitted] = useState(false);
+
   const [email, setEmail] = useState("");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -74,19 +75,23 @@ function App() {
           <div className="contentRight">
             <div>
               <form id="mailForm">
-                <input
-                  type="mail"
-                  name=""
-                  value={email}
-                  onChange={(e) => handleChange(e)}
-                  placeholder="youremail@example.com"
-                  id="email_signup"
-                />
-                <input
-                  type="button"
-                  value="送信する"
-                  onClick={handleSubmit}
-                ></input>
+                {!isEmailSubmitted ? (
+                  <>
+                    <input
+                      type="mail"
+                      name=""
+                      value={email}
+                      onChange={(e) => handleChange(e)}
+                      placeholder="youremail@example.com"
+                      id="email_signup"
+                    />
+                    <input
+                      type="button"
+                      value="送信する"
+                      onClick={handleSubmit}
+                    ></input>
+                  </>
+                ) : null}
               </form>
             </div>
             {isUserSignnedUP && isEmailSubmitted && <Login email={email} />}
