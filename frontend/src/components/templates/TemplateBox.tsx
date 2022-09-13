@@ -41,16 +41,16 @@ const TemplateBox: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ backgroundColor: "gray" }}>
-      <h3>テンプレートをお選びください</h3>
-      <div className="px-5 py-3">
-        <div className="grid gap-4 grid-cols-4 grid-rows-4">
-          {templates.map((template) => {
-            return <Template template={template} />;
-          })}
+      <div style={{ backgroundColor: "gray" }}>
+        <h3>テンプレートをお選びください</h3>
+        <div className="px-5 py-3">
+          <div className="grid gap-4 grid-cols-4 grid-rows-4">
+            {templates.map((template) => {
+              return <Template template={template} />;
+            })}
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 
