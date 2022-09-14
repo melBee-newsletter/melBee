@@ -13,19 +13,19 @@ function ReceiverSelect(){
         localStorage.setItem("subject", subject);
     };
 
-    const handleAdd = (e: React.ChangeEvent<any>): void => {
-            e.preventDefault();
-            setReceivers(prevEmail =>[...prevEmail, email]);
-            setEmail("");
-    };
+  const handleAdd = (e: React.ChangeEvent<any>): void => {
+    e.preventDefault();
+    setReceivers((prevEmail) => [...prevEmail, email]);
+    setEmail("");
+  };
 
-    const handleRemove = async (e: React.ChangeEvent<any>): Promise<any> => {
-        e.preventDefault();
-        let index = Number(e.target.id);
-        let left = receivers.slice(0, index);
-        let right = receivers.slice(index + 1);
-        setReceivers([...left, ...right]);
-    };
+  const handleRemove = async (e: React.ChangeEvent<any>): Promise<any> => {
+    e.preventDefault();
+    let index = Number(e.target.id);
+    let left = receivers.slice(0, index);
+    let right = receivers.slice(index + 1);
+    setReceivers([...left, ...right]);
+  };
 
     const data = {
         "receivers": {
@@ -60,9 +60,9 @@ function ReceiverSelect(){
     
     const displayEmail = (email: string, i: number) => {
         return(
-            <div className='inline-flex align-middle pr-4 pl-4 m-px text-base'>
+            <div className="bg-gray-200 rounded-lg  mr-3 p-3 flex">
                 <p >{email}</p>
-                <button type="submit" id={String(i)} onClick={handleRemove}>❌</button>
+                <button type="submit" id={String(i)} onClick={handleRemove}><span className="deleteBtn ml-2"></span></button>
             </div>
         );
     };
@@ -96,6 +96,44 @@ function ReceiverSelect(){
             <button type="submit" onClick={handleSend} className="bg-black text-white" >送信</button>
         </div>
     );
-};
+  };
+
+  return (
+    <div className="sendArea">
+      <h3 className="text-xl mb-6">送信先メールアドレスをご入力ください</h3>
+      <div className="flex mb-6">
+        {receivers.map((email, i) => {
+          return displayEmail(email, i);
+        })}
+      </div>
+      <div>
+        <form onSubmit={handleAdd}>
+          <input
+            className="border-2 rounded-lg p-2"
+            type="email"
+            value={email}
+            placeholder="メールアドレス"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <button className="bg-amber-400 rounded-lg p-3 ml-3"> 追加 </button>
+        </form>
+        <div className="flex justify-center mt-6">
+          <p className="bg-neutral-400 rounded-lg mr-3">
+            <a href={"/user/edit"} className="p-3 block">
+              &lt; 戻る
+            </a>
+          </p>
+          <button
+            type="submit"
+            onClick={handleSend}
+            className="bg-cyan-400 rounded-lg p-3"
+          >
+            送信 &gt;
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default ReceiverSelect;
