@@ -72,32 +72,6 @@ function ReceiverSelect(){
         localStorage.setItem("subject", subject);
     };
     
-    return (
-        <div style={{backgroundColor: "yellow"}}>
-            <p>送信先のメールアドレスと件名をご入力ください</p>
-            <div className='bg-white w-200 h-200 pt-10 pb-10'>
-                <div className='bg-gray-300 h-fit w-fit rounded-xl'>
-                    {receivers.map((email, i) => {
-                        return displayEmail(email, i);
-                    })}
-                </div>
-            </div>
-            <div>
-                <form onSubmit={handleAdd}>
-                <p>メールアドレス</p>
-                    <input type="email" value={email} placeholder='メールアドレス' onChange={(e) => setEmail(e.target.value)} />
-                    <button> 追加 </button>
-                </form>
-            </div>
-            <div>
-                <p>件名</p>
-                    <input type="text" placeholder='件名' onChange={(e) => handleSubject(e.target.value)} id='subjectId' value={subject} />
-            </div>
-            <button type="submit" onClick={handleSend} className="bg-black text-white" >送信</button>
-        </div>
-    );
-  };
-
   return (
     <div className="sendArea">
       <h3 className="text-xl mb-6">送信先メールアドレスをご入力ください</h3>
@@ -134,6 +108,6 @@ function ReceiverSelect(){
       </div>
     </div>
   );
-}
+};
 
 export default ReceiverSelect;
