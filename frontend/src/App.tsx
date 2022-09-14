@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import Landing from './Landing';
@@ -10,6 +10,8 @@ import ReceiverSelect from './components/templates/ReceiverSelect';
 import SendComplete from './components/templates/SendComplete';
 
 function App() {
+  const [analytics, setAnalytics] = useState("");
+  
   return (
     <BrowserRouter>
         <Routes>
@@ -18,9 +20,9 @@ function App() {
           which means user must be logged in to view those paths */}
           {/* <Route path="/user" element={<Central />} /> */}
           <Route path="/user/templates" element={<Central displayComponent={<TemplateBox />} />} />
-          <Route path="/user/edit" element={<Central displayComponent={<EditorBox />} />} />
+          <Route path="/user/edit" element={<Central displayComponent={<EditorBox analytics={analytics} setAnalytics={setAnalytics}/>} />} />
           <Route path="/user/preview" element={<Central displayComponent={<PreviewBox />} />} />
-          <Route path="/user/send" element={<Central displayComponent={<ReceiverSelect />} />} />
+          <Route path="/user/send" element={<Central displayComponent={<ReceiverSelect analytics={analytics}/>} />} />
           <Route path="/user/sent" element={<Central displayComponent={<SendComplete />} />} />
         </Routes>
       </BrowserRouter>

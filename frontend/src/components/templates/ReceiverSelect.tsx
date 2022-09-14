@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import axios, { AxiosResponse, AxiosError }  from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function ReceiverSelect(){
+type Props = {
+  analytics: string,
+}
+
+const ReceiverSelect: React.FC<Props> = ({analytics}) => {
     const BASE_URL = "http://localhost:8000";
     const [receivers, setReceivers] = useState<string []>([]);
     const [email, setEmail] =useState<string>("");
@@ -35,7 +39,7 @@ function ReceiverSelect(){
             "subject": subject,
           },
           "message_body": {
-            "message_body": localStorage.melBeeTempStoragedraft,
+            "message_body": localStorage.melBeeTempStoragedraft += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`,
           }
     };
 
