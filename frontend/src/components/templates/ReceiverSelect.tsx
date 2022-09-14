@@ -78,6 +78,10 @@ const ReceiverSelect: React.FC<Props> = ({analytics}) => {
     
   return (
     <div className="sendArea">
+       <div>
+        <h3 className="text-xl mb-6">件名</h3>
+          <input type="text" placeholder='件名' onChange={(e) => handleSubject(e.target.value)} id='subjectId' value={subject} className="border-2 rounded-lg p-2 w-fit" />
+        </div>
       <h3 className="text-xl mb-6">送信先メールアドレスをご入力ください</h3>
       <div className="flex mb-6">
         {receivers.map((email, i) => {
