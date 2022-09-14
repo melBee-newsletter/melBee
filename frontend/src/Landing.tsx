@@ -48,16 +48,16 @@ function Landing() {
   };
 
   return (
-    <div className="App">
+    <div className="App top">
       <Header />
       <main className="main_top">
         <div className="mv lg:flex mainMiddle_top">
           <div className="lg:flex contentL_top lg:justify-between">
             <div className="">
               <h2 className="mainTtl text-left text-8xl font-bold">
-                想い<span className="font-light text-8xl">を</span>
+                想い<span className="font-light text-7xl">を</span>
                 <br />
-                カタチ<span className="font-light text-8xl">に</span>
+                カタチ<span className="font-light text-7xl">に</span>
               </h2>
               <p className="text-left leading-loose text-base">
                 melBeeは、さまざまなデザインテンプレート

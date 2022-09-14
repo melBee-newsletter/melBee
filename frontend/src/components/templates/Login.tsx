@@ -38,10 +38,10 @@ const Login: React.FC<Props> = ({ email }) => {
 
   return (
     <div className="bg-white p-5 shadow-xl">
-      <h1 className="mb-5 ttl_top text-lg">ログイン</h1>
+      <h1 className="mb-5 ttl_top text-lg text-gray-700">ログイン</h1>
       <form id="login-form">
         <div className="lg:flex mb-4">
-          <label htmlFor="email" className="lg:w-52 text-base">
+          <label htmlFor="email" className="lg:w-52 text-base text-gray-700">
             メールアドレス
           </label>
           <input
@@ -54,7 +54,7 @@ const Login: React.FC<Props> = ({ email }) => {
           />
         </div>
         <div className="lg:flex">
-          <label htmlFor="password" className="lg:w-52 text-base">
+          <label htmlFor="password" className="lg:w-52 text-base text-gray-700">
             パスワード
           </label>
           <input
