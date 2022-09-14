@@ -30,12 +30,6 @@ def get_db():
     finally:
         db.close()
 
-# # Initializing Seeder
-# seeder = Seeder(Session)
-# seeder.seed(initial_templates)
-# Session.commit()  # or seeder.session.commit()
-
-
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
