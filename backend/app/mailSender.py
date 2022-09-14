@@ -30,7 +30,7 @@ def getService():
     # created automatically when the authorization flow completes for the first
     # time.
 
-    isDevelopment = False if os.getenv("DATABASE_URL") else True
+    isDevelopment = (False if os.getenv("DATABASE_URL") else True)
     if isDevelopment:
         PORT = 8080
     else:
