@@ -19,8 +19,6 @@ import base64
 
 # If modifying these scopes, delete the file token.json.
 
-SCOPES = ['https://mail.google.com/']
-
 
 def getService():
     """Shows basic usage of the Gmail API.
@@ -33,18 +31,28 @@ def getService():
     # time.
 
     SCOPES = ['https://mail.google.com/']
-    SERVICE_ACCOUNT_FILE = os.environ.get('GOOGLE_CREDENTIALS')
-
-    credentials = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-
     isDevelopment = (False if os.getenv("DATABASE_URL") else True)
     if isDevelopment:
         PORT = 8080
+        if os.path.exists('token.json'):
+            creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+        # If there are no (valid) credentials available, let the user log in.
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+            else:
+                flow = InstalledAppFlow.from_client_secrets_file(
+                    './credentials.json', SCOPES)
+                creds = flow.run_local_server(port=PORT)
+            # Save the credentials for the next run
+            with open('token.json', 'w') as token:
+                token.write(creds.to_json())
+
     else:
         PORT = 0
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "google-credentials.json"
 
-    service = build('gmail', 'v1', creds=credentials)
+    service = build('gmail', 'v1', credentials=creds)
 
     return service
 
