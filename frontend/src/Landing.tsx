@@ -49,29 +49,31 @@ function Landing() {
     <div className="App">
       <Header />
       <main className="App-header">
-        <div className="flex">
-          <div className="contentLeft">
-            <h2 className="mainTtl text-left text-8xl font-bold">
-              想い<span className="font-light">を</span>
-              <br />
-              カタチ<span className="font-light">に</span>
-            </h2>
-            <p className="text-left leading-loose">
-              melBeeは、さまざまなデザインテンプレート
-              <br />
-              の中から招待状やメルマガを作り、
-              <br />
-              相手にそのまま送信もできる デザインツールです。
-              <br />
-              あなたの「作りたい！」がきっとある。 <br />
-              デザインをもっと身近に、簡単に。
-            </p>
+        <div className="mv flex">
+          <div className="flex contentL_top justify-between">
+            <div className="">
+              <h2 className="mainTtl text-left text-8xl font-bold">
+                想い<span className="font-light">を</span>
+                <br />
+                カタチ<span className="font-light">に</span>
+              </h2>
+              <p className="text-left leading-loose">
+                melBeeは、さまざまなデザインテンプレート
+                <br />
+                の中から招待状やメルマガを作り、
+                <br />
+                相手にそのまま送信もできる デザインツールです。
+                <br />
+                あなたの「作りたい！」がきっとある。 <br />
+                デザインをもっと身近に、簡単に。
+              </p>
+            </div>
+            <div className="flex text-base writing-v">
+              <p>無料でログインまたは新規登録</p>
+              <p>Let's get started with…</p>
+            </div>
           </div>
-          <div className="contentCenter flex text-base">
-            <p>無料でログインまたは新規登録</p>
-            <p>Let's get started with…</p>
-          </div>
-          <div className="contentRight">
+          <div className="contentR_top">
             <div>
               <form id="mailForm">
                 {!isEmailSubmitted ? (
@@ -80,6 +82,7 @@ function Landing() {
                       type="mail"
                       name=""
                       value={email}
+                      className="inputArea border-gray"
                       onChange={(e) => handleChange(e)}
                       placeholder="youremail@example.com"
                       id="email_signup"

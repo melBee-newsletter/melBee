@@ -5,6 +5,7 @@ from email import message
 import email
 import os
 from google.auth.transport.requests import Request
+from google.oauth2 import service_account
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
@@ -17,7 +18,6 @@ from email.mime.text import MIMEText
 import mimetypes
 import base64
 
-# If modifying these scopes, delete the file token.json.
 
 SCOPES = ['https://mail.google.com/']
 
@@ -26,14 +26,12 @@ def getService():
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
-
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
 
-    json_str = os.environ.get('GOOGLE_CREDENTIALS')
-    isDevelopment = False if os.getenv("DATABASE_URL") else True
+    isDevelopment = (False if os.getenv("DATABASE_URL") else True)
     if isDevelopment:
         PORT = 8080
     else:
@@ -46,14 +44,13 @@ def getService():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(json_str, SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file(
+                '../google-credentials.json', SCOPES)
             creds = flow.run_local_server(port=PORT)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
-
     service = build('gmail', 'v1', credentials=creds)
-
     return service
 
 
