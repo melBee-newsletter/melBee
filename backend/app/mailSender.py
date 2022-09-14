@@ -18,7 +18,6 @@ import mimetypes
 import base64
 
 # If modifying these scopes, delete the file token.json.
-
 SCOPES = ['https://mail.google.com/']
 
 
@@ -26,13 +25,12 @@ def getService():
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
-
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
 
-    isDevelopment = (False if os.getenv("DATABASE_URL") else True)
+    isDevelopment = False if os.getenv("DATABASE_URL") else True
     if isDevelopment:
         PORT = 8080
     else:
@@ -51,9 +49,7 @@ def getService():
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
-
     service = build('gmail', 'v1', credentials=creds)
-
     return service
 
 
