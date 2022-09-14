@@ -13,14 +13,15 @@ flower_shop = """
 <!--<![endif]-->
 <p><img src="https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/db9eb298-79dd-41a8-bafa-b9f888b915a9"
         data-mce-src="https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/db9eb298-79dd-41a8-bafa-b9f888b915a9"
-        width="902" height="503"></p><!-- [if IE]><div class="ie-container"><![endif]-->
+        width="1004" height="560"></p><!-- [if IE]><div class="ie-container"><![endif]-->
 <p><br></p><!-- [if mso]><div class="mso-container"><![endif]-->
 <table id="u_body" cellpadding="0" cellspacing="0"
     data-mce-style="border-collapse: collapse; table-layout: fixed; border-spacing: 0px; vertical-align: top; min-width: 320px; margin: 0px auto; background-color: rgb(244, 226, 226); width: 99.8888%; height: 1670px;"
     style="border-collapse: collapse; table-layout: fixed; border-spacing: 0px; vertical-align: top; min-width: 320px; margin: 0px auto; background-color: rgb(244, 226, 226); width: 99.8888%; height: 1670px;">
     <tbody>
-        <tr style="vertical-align: top;">
-            <td style="word-break: break-word; vertical-align: top; border-collapse: collapse !important; width: 100%;">
+        <tr style="vertical-align: top;" data-mce-style="vertical-align: top;">
+            <td style="word-break: break-word; vertical-align: top; border-collapse: collapse !important; width: 100%;"
+                data-mce-style="word-break: break-word; vertical-align: top; border-collapse: collapse !important; width: 100%;">
                 <!-- [if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color: #f4e2e2;"><![endif]-->
                 <div class="u-row-container" style="padding: 0px; background-color: transparent;"
                     data-mce-style="padding: 0px; background-color: transparent;">
@@ -693,13 +694,9 @@ flower_shop = """
                                                                     style="box-sizing: border-box; display: inline-block; font-family: 'Cabin',sans-serif; text-decoration: none; -webkit-text-size-adjust: none; text-align: center; color: #ffffff; background-color: #3aaee0; border-radius: 20px; -webkit-border-radius: 20px; -moz-border-radius: 20px; width: auto; max-width: 100%; overflow-wrap: break-word; word-break: break-word; word-wrap: break-word; mso-border-alt: none;"
                                                                     data-mce-style="box-sizing: border-box; display: inline-block; font-family: 'Cabin',sans-serif; text-decoration: none; -webkit-text-size-adjust: none; text-align: center; color: #ffffff; background-color: #3aaee0; border-radius: 20px; -webkit-border-radius: 20px; -moz-border-radius: 20px; width: auto; max-width: 100%; overflow-wrap: break-word; word-break: break-word; word-wrap: break-word; mso-border-alt: none;"
                                                                     data-mce-href="https://www.google.com"
-                                                                    rel="noopener">　リンク用ボタン　</a></span><span
-                                                                style="font-size: 14pt;"
-                                                                data-mce-style="font-size: 14pt;"></span>
+                                                                    rel="noopener">　リンク用ボタン　</a></span>
                                                         </div>
-                                                        <div align="center"><span style="font-size: 14pt;"
-                                                                data-mce-style="font-size: 14pt;"><br
-                                                                    data-mce-bogus="1"></span></div>
+                                                        <div align="center"><br></div>
                                                         <div align="center">
                                                             <p style="font-size: 14px; line-height: 120%;"
                                                                 data-mce-style="font-size: 14px; line-height: 120%;">
@@ -709,11 +706,7 @@ flower_shop = """
                                                             </p>
                                                             <p style="font-size: 14px; line-height: 120%;"
                                                                 data-mce-style="font-size: 14px; line-height: 120%;">
-                                                                <span
-                                                                    style="font-size: 18pt; font-family: arial, helvetica, sans-serif;"
-                                                                    data-mce-style="font-size: 18pt; font-family: arial, helvetica, sans-serif;"><br
-                                                                        data-mce-bogus="1"></span></p><span
-                                                                style="font-size: 14pt;"
+                                                                <br></p><span style="font-size: 14pt;"
                                                                 data-mce-style="font-size: 14pt;"><a
                                                                     href="https://www.google.com" target="_blank"
                                                                     style="box-sizing: border-box; display: inline-block; font-family: 'Cabin',sans-serif; text-decoration: none; -webkit-text-size-adjust: none; text-align: center; color: #ffffff; background-color: #3aaee0; border-radius: 20px; -webkit-border-radius: 20px; -moz-border-radius: 20px; width: auto; max-width: 100%; overflow-wrap: break-word; word-break: break-word; word-wrap: break-word; mso-border-alt: none;"
@@ -921,7 +914,8 @@ flower_shop = """
             </td>
         </tr>
         <tr>
-            <td style="word-break: break-word; vertical-align: top; width: 100%; border-collapse: collapse !important;">
+            <td style="word-break: break-word; vertical-align: top; width: 100%; border-collapse: collapse !important;"
+                data-mce-style="word-break: break-word; vertical-align: top; width: 100%; border-collapse: collapse !important;">
                 <div class="u-row-container" style="padding: 0px; background-color: transparent;"
                     data-mce-style="padding: 0px; background-color: transparent;">
                     <div class="u-row"
