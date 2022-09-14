@@ -20,13 +20,14 @@ type clickEvent = {
   preventDefault: Function;
 };
 
-const EditorBox: React.FC = () => {
+type Props = {
+  analytics: string;
+  setAnalytics: Function;
+}
+
+const EditorBox: React.FC<Props> = ({analytics, setAnalytics}) => {
   const BASE_URL = "http://localhost:8000";
-
   const editorRef = useRef<tinyMCEEditor | null>(null);
-
-  // TODO: Move the state analytics/setAnalytics to Central (parent) component, and pass the props to ReceiverSelect page
-  const [analytics, setAnalytics] = useState("");
   const [analyticsEdit, setAnalyticsEdit] = useState(true);
 
   const handleChange = (event: Event) => {
@@ -36,8 +37,6 @@ const EditorBox: React.FC = () => {
   const handleClick = (event: clickEvent) => {
     event.preventDefault();
     setAnalytics(analytics);
-    // TODO: move this line into the ReceiverSelect page to be added with the data
-    localStorage.melBeeTempStoragedraft += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
     setAnalyticsEdit(false)
   };
 
