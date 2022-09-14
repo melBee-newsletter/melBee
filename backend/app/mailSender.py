@@ -18,7 +18,7 @@ from email.mime.text import MIMEText
 import mimetypes
 import base64
 
-# If modifying these scopes, delete the file token.json.
+
 SCOPES = ['https://mail.google.com/']
 
 
@@ -45,7 +45,7 @@ def getService():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                '../oogle-credentials.json', SCOPES)
+                '../google-credentials.json', SCOPES)
             creds = flow.run_local_server(port=PORT)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
