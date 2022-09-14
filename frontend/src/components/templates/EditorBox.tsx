@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
 //use the onInput on the div where the EditorBox is located to get the content data
@@ -25,7 +25,9 @@ const EditorBox: React.FC = () => {
 
   const editorRef = useRef<tinyMCEEditor | null>(null);
 
+  // TODO: Move the state analytics/setAnalytics to Central (parent) component, and pass the props to ReceiverSelect page
   const [analytics, setAnalytics] = useState("");
+  const [analyticsEdit, setAnalyticsEdit] = useState(true);
 
   const handleChange = (event: Event) => {
     setAnalytics(event.target.value);
@@ -33,7 +35,15 @@ const EditorBox: React.FC = () => {
 
   const handleClick = (event: clickEvent) => {
     event.preventDefault();
+    setAnalytics(analytics);
+    // TODO: move this line into the ReceiverSelect page to be added with the data
     localStorage.melBeeTempStoragedraft += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
+    setAnalyticsEdit(false)
+  };
+
+  const handleEdit = (event: clickEvent) => {
+    event.preventDefault();
+    setAnalyticsEdit(true);
   };
 
   return (
@@ -138,11 +148,20 @@ const EditorBox: React.FC = () => {
           },
         }}
       ></Editor>
+      {analyticsEdit ? (
       <div>
-        <label>Analyticsタグ:</label>
-        <input type="text" onChange={handleChange} value={analytics}></input>
-        <button onClick={handleClick}>Click to insert Google Analytics</button>
+        <label>Analyticsタグの入力:</label>
+        <input type="text" onChange={handleChange} value={analytics} placeholder="Google Analyticsタグ" ></input>
+        <button onClick={handleClick}>確定</button>
       </div>
+      ) : (
+        <div>
+          <h3>Google Analyticsは設定済みです</h3>
+          <button className="bg-yellow-300 pr-4 pl-4 rounded" onClick={handleEdit}>Analyticsタグを編集する</button>
+        </div>
+      )
+      }
+      
     </div>
   );
 };
