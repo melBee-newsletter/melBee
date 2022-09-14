@@ -32,7 +32,7 @@ def getService():
     # created automatically when the authorization flow completes for the first
     # time.
 
-    json_str = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+    json_str = os.environ.get('GOOGLE_CREDENTIALS')
     isDevelopment = False if os.getenv("DATABASE_URL") else True
     if isDevelopment:
         PORT = 8080
