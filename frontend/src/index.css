@@ -205,7 +205,7 @@ code {
 }
 
 .mv {
-  width: 1200px;
+  width: 1000px;
   margin: 0 auto;
 }
 
@@ -258,7 +258,7 @@ code {
   font-size: 9rem;
   font-family: 'Poppins';
   font-weight: bold;
-  left: 7%;
+  left: 12%;
   top: -10%;
 }
 
@@ -271,7 +271,7 @@ code {
   font-size: 9rem;
   font-family: 'Poppins';
   font-weight: bold;
-  left: 7%;
+  left: 12%;
   bottom: 32%;
 }
 .main_top::after {
@@ -283,7 +283,7 @@ code {
   font-size: 9rem;
   font-family: 'Poppins';
   font-weight: bold;
-  left: 7%;
+  left: 12%;
   bottom: -3.8%;
 }
 
