@@ -1,7 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import { setFlagsFromString } from "v8";
-import axios, { AxiosResponse, AxiosError } from "axios";
 
 //use the onInput on the div where the EditorBox is located to get the content data
 //     <div
@@ -12,16 +10,31 @@ import axios, { AxiosResponse, AxiosError } from "axios";
 //       <Edit />
 //     </div>
 
+type Event = {
+  target: {
+    value: string;
+  };
+};
+
+type clickEvent = {
+  preventDefault: Function;
+};
+
 const EditorBox: React.FC = () => {
   const BASE_URL = "http://localhost:8000";
 
   const editorRef = useRef<tinyMCEEditor | null>(null);
-  // const log = () => {
-  //   if (editorRef.current) {
-  //     setEditedFile(editorRef.current.getContent());
-  //     // console.log(typeof editorRef.current.getContent());
-  //   }
-  // };
+
+  const [analytics, setAnalytics] = useState("");
+
+  const handleChange = (event: Event) => {
+    setAnalytics(event.target.value);
+  };
+
+  const handleClick = (event: clickEvent) => {
+    event.preventDefault();
+    localStorage.melBeeTempStoragedraft += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
+  };
 
   return (
     <div>
@@ -35,6 +48,7 @@ const EditorBox: React.FC = () => {
             : "default page! <img src = 'https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/0d286852-c67d-4694-9d4d-815aceb001d1'>"
         }
         init={{
+          fixed_toolbar_container: "toolbararea",
           tinydrive_token_provider: "http://localhost:8000/jwt",
           tinydrive_skin: "oxide",
           tinydrive_upload_path: "/uploads",
@@ -89,8 +103,7 @@ const EditorBox: React.FC = () => {
             "autosave",
           ],
           toolbar:
-            "undo redo restoredraft image| " +
-            "fontfamily fontsize emoticons bold italic forecolor backcolor link |alignleft aligncenter " +
+            "undo redo image | fontfamily fontsize  emoticons bold italic forecolor backcolor link |alignleft aligncenter " +
             "alignright alignjustify | bullist numlist | insertfile | " +
             "removeformat | help",
           export_image_proxy: "proxy.php",
@@ -125,9 +138,11 @@ const EditorBox: React.FC = () => {
           },
         }}
       ></Editor>
-      <label>Analyticsタグ:</label>
-      <input type="text"></input>
-      {/* <button onClick={log}>Log editor content</button> */}
+      <div>
+        <label>Analyticsタグ:</label>
+        <input type="text" onChange={handleChange} value={analytics}></input>
+        <button onClick={handleClick}>Click to insert Google Analytics</button>
+      </div>
     </div>
   );
 };

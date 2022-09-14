@@ -1,3 +1,4 @@
+import email
 from typing import List, Optional
 from pydantic import BaseModel
 
@@ -18,9 +19,12 @@ class Item(ItemBase):
     class Config:
         orm_mode = True
 
+# ---- User ----- #
+
 
 class UserBase(BaseModel):
     email: str
+
 
 class UserCreate(UserBase):
     password: str
@@ -35,3 +39,32 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+# ---- Template ---- #
+
+
+class TemplateBase(BaseModel):
+    title: str
+    thumbnail: str
+    body: str
+
+
+class Template(TemplateBase):
+    title: str
+    thumbnail: str
+    body: str
+
+    class Config:
+        orm_mode = True
+
+
+class Receivers(BaseModel):
+    email: List[str]
+
+
+class Subject(BaseModel):
+    subject: str
+
+
+class MessageBody(BaseModel):
+    message_body: str

@@ -16,9 +16,9 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 import mimetypes
 import base64
-import flower_template
 
 # If modifying these scopes, delete the file token.json.
+
 SCOPES = ['https://mail.google.com/']
 
 
@@ -26,10 +26,18 @@ def getService():
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
+
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
+
+    isDevelopment = (False if os.getenv("DATABASE_URL") else True)
+    if isDevelopment:
+        PORT = 8080
+    else:
+        PORT = 0
+
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
@@ -37,9 +45,22 @@ def getService():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
+            CREDENTIALS = {
+                "type": "service_account",
+                "project_id": "melbee-361804",
+                "private_key_id": os.environ["PRIVATE_KEY_ID"],
+                "private_key": os.environ["PRIVATE_KEY"],
+                "client_email": os.environ["CLIENT_EMAIL"],
+                "client_id": os.environ["CLIENT_ID"],
+                "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                "token_uri": "https://oauth2.googleapis.com/token",
+                "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+                "client_x509_cert_url": os.environ["CLIENT_X509_CERT_URL"]
+            }
+
             flow = InstalledAppFlow.from_client_secrets_file(
-                './credentials.json', SCOPES)
-            creds = flow.run_local_server(port=8080)
+                CREDENTIALS, SCOPES)
+            creds = flow.run_local_server(port=PORT)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
@@ -49,8 +70,8 @@ def getService():
     return service
 
 
-def create_message(sender, to, subject, message_text, bcc=None, cc=None):
-    message = MIMEText(message_text, "html")
+def create_message(sender, subject, message_body, to=None, bcc=None, cc=None):
+    message = MIMEText(message_body, "html")
     message['to'] = to
     message['from'] = sender
     message['subject'] = subject
@@ -85,14 +106,14 @@ def send_message(service, user_id, message):
         return None
 
 
-if __name__ == '__main__':
+def send_email(receivers, subject, message_body):
     service = getService()
     user_id = "me"
-    sender = "YOUR_EMAIL@gmail.com"
-    to = "RECEIVER_EMAIL@domain.com"
-    subject = "TEST"
-    body = f"Hello, {flower_template.html}"
-    bcc = "BCC_EMAIL@domain.com"
-    cc = "CC_EMAIL@domain.com"
-    msg = create_message(sender, to, subject, body, bcc, cc)
+    sender = "melbee.noreply@gmail.com"
+    to = "melbee.noreply@gmail.com"
+    subject = subject
+    message_body = message_body
+    receivers = receivers
+    msg = create_message(sender, subject, message_body,
+                         to, receivers, cc=None)
     send_message(service, user_id, msg)
