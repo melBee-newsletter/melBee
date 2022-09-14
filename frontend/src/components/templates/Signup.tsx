@@ -39,7 +39,7 @@ const Signup: React.FC<Props> = ({ email }) => {
   };
 
   return (
-    <div className="bg-white p-5 shadow-xl">
+    <div className="bg-white p-5 shadow-xl z-50 ml-6">
       <h1 className="mb-5 ttl_top text-lg">新規登録</h1>
       <form id="signup-form">
         <div className="lg:flex mb-4">
