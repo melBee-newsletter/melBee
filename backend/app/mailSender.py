@@ -18,7 +18,6 @@ import mimetypes
 import base64
 
 # If modifying these scopes, delete the file token.json.
-
 SCOPES = ['https://mail.google.com/']
 
 
@@ -26,13 +25,12 @@ def getService():
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
-
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
 
-    isDevelopment = (False if os.getenv("DATABASE_URL") else True)
+    isDevelopment = False if os.getenv("DATABASE_URL") else True
     if isDevelopment:
         PORT = 8080
     else:
@@ -45,28 +43,13 @@ def getService():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            CREDENTIALS = {
-                "type": "service_account",
-                "project_id": "melbee-361804",
-                "private_key_id": os.environ["PRIVATE_KEY_ID"],
-                "private_key": os.environ["PRIVATE_KEY"],
-                "client_email": os.environ["CLIENT_EMAIL"],
-                "client_id": os.environ["CLIENT_ID"],
-                "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-                "token_uri": "https://oauth2.googleapis.com/token",
-                "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-                "client_x509_cert_url": os.environ["CLIENT_X509_CERT_URL"]
-            }
-
             flow = InstalledAppFlow.from_client_secrets_file(
-                CREDENTIALS, SCOPES)
+                'google-credentials.json', SCOPES)
             creds = flow.run_local_server(port=PORT)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
-
     service = build('gmail', 'v1', credentials=creds)
-
     return service
 
 
