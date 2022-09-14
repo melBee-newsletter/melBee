@@ -19,7 +19,7 @@ const Header: FC = () => {
       <a href="/" className="px-5">
         <img src={headerLogo} alt="melBee_logo" className="py-2" width="80" />
       </a>
-      {isLoggedIn ? (
+      {isLoggedIn && (
         <>
           <ToggleButton
             open={open}
@@ -29,7 +29,7 @@ const Header: FC = () => {
           />
           <Navigation id="navigation" open={open} />
         </>
-      ) : null}
+      )}
     </div>
   );
 };
