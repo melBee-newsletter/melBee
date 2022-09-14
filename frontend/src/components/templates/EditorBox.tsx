@@ -23,10 +23,10 @@ type clickEvent = {
 type Props = {
   analytics: string;
   setAnalytics: Function;
-}
+};
 
-const EditorBox: React.FC<Props> = ({analytics, setAnalytics}) => {
-  const BASE_URL = "http://localhost:8000";
+const EditorBox: React.FC<Props> = ({ analytics, setAnalytics }) => {
+  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const editorRef = useRef<tinyMCEEditor | null>(null);
   const [analyticsEdit, setAnalyticsEdit] = useState(true);
 
@@ -37,7 +37,7 @@ const EditorBox: React.FC<Props> = ({analytics, setAnalytics}) => {
   const handleClick = (event: clickEvent) => {
     event.preventDefault();
     setAnalytics(analytics);
-    setAnalyticsEdit(false)
+    setAnalyticsEdit(false);
   };
 
   const handleEdit = (event: clickEvent) => {
@@ -148,19 +148,27 @@ const EditorBox: React.FC<Props> = ({analytics, setAnalytics}) => {
         }}
       ></Editor>
       {analyticsEdit ? (
-      <div>
-        <label>Analyticsタグの入力:</label>
-        <input type="text" onChange={handleChange} value={analytics} placeholder="Google Analyticsタグ" ></input>
-        <button onClick={handleClick}>確定</button>
-      </div>
+        <div>
+          <label>Analyticsタグの入力:</label>
+          <input
+            type="text"
+            onChange={handleChange}
+            value={analytics}
+            placeholder="Google Analyticsタグ"
+          ></input>
+          <button onClick={handleClick}>確定</button>
+        </div>
       ) : (
         <div>
           <h3>Google Analyticsは設定済みです</h3>
-          <button className="bg-yellow-300 pr-4 pl-4 rounded" onClick={handleEdit}>Analyticsタグを編集する</button>
+          <button
+            className="bg-yellow-300 pr-4 pl-4 rounded"
+            onClick={handleEdit}
+          >
+            Analyticsタグを編集する
+          </button>
         </div>
-      )
-      }
-      
+      )}
     </div>
   );
 };
