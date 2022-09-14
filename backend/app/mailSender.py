@@ -32,19 +32,40 @@ def getService():
     # created automatically when the authorization flow completes for the first
     # time.
 
-    SCOPES = ['https://mail.google.com/']
-    SERVICE_ACCOUNT_FILE = os.environ.get('GOOGLE_CREDENTIALS')
-
-    credentials = service_account.Credentials.from_service_account_file(
-        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-
     isDevelopment = (False if os.getenv("DATABASE_URL") else True)
     if isDevelopment:
         PORT = 8080
     else:
         PORT = 0
 
-    service = build('gmail', 'v1', creds=credentials)
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            CREDENTIALS = {
+                "type": "service_account",
+                "project_id": "melbee-361804",
+                "private_key_id": os.environ["PRIVATE_KEY_ID"],
+                "private_key": os.environ["PRIVATE_KEY"],
+                "client_email": os.environ["CLIENT_EMAIL"],
+                "client_id": os.environ["CLIENT_ID"],
+                "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                "token_uri": "https://oauth2.googleapis.com/token",
+                "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+                "client_x509_cert_url": os.environ["CLIENT_X509_CERT_URL"]
+            }
+
+            flow = InstalledAppFlow.from_client_secrets_file(
+                CREDENTIALS, SCOPES)
+            creds = flow.run_local_server(port=PORT)
+        # Save the credentials for the next run
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+
+    service = build('gmail', 'v1', credentials=creds)
 
     return service
 
