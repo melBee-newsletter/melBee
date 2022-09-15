@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import Header from "./components/organisms/Header";
 import Footer from "./components/organisms/Footer";
+import NotLoggedIn from "./components/templates/NotLoggedIn";
 
 type Props = {
   displayComponent: ReactNode;
@@ -26,7 +27,7 @@ const Central: React.FC<Props> = ({ displayComponent }) => {
 
   return (
     <div className="App">
-      <header className="fixed w-full">
+      <header className="fixed w-full z-50">
         <Header />
       </header>
 
@@ -72,7 +73,7 @@ const Central: React.FC<Props> = ({ displayComponent }) => {
           </div>
         )}
 
-        {!isLoggedIn && <h1>melBeeはログインした方のみご利用になれます。</h1>}
+        {!isLoggedIn && <NotLoggedIn />}
       </main>
 
       <footer className="w-full">

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import { EmailForm } from "./components/templates/Interfaces";
@@ -9,7 +11,7 @@ import Login from "./components/templates/Login";
 import Signup from "./components/templates/Signup";
 
 function Landing() {
-  const BASE_URL = "http://localhost:8000";
+  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const [isUserSignnedUP, setisUserSignnedUP] = useState(false);
   const [isEmailSubmitted, setisEmailSubmitted] = useState(false);
 
@@ -46,58 +48,76 @@ function Landing() {
   };
 
   return (
-    <div className="App">
+    <div className="App top">
       <Header />
-      <main className="App-header">
-        <div className="mv flex">
-          <div className="flex contentL_top justify-between">
-            <div className="">
-              <h2 className="mainTtl text-left text-8xl font-bold">
-                想い<span className="font-light">を</span>
-                <br />
-                カタチ<span className="font-light">に</span>
-              </h2>
-              <p className="text-left leading-loose">
-                melBeeは、さまざまなデザインテンプレート
-                <br />
-                の中から招待状やメルマガを作り、
-                <br />
-                相手にそのまま送信もできる デザインツールです。
-                <br />
-                あなたの「作りたい！」がきっとある。 <br />
-                デザインをもっと身近に、簡単に。
-              </p>
+      <main className="main_top">
+        <div className="mv mainMiddle_top">
+          <div className="lg:flex lg:justify-center">
+            <div className="lg:flex contentL_top lg:justify-between lg:items-center">
+              <div>
+                <h2 className="mainTtl text-left font-bold">
+                  想い<span className="font-light text-7xl">を</span>
+                  <br />
+                  カタチ<span className="font-light text-7xl">に</span>
+                </h2>
+                <p className="text-left leading-loose text-base">
+                  melBeeは、さまざまなデザインテンプレート
+                  <br />
+                  の中から招待状やメルマガを作り、
+                  <br />
+                  相手にそのまま送信もできる デザインツールです。
+                  <br />
+                  あなたの「作りたい！」がきっとある。 <br />
+                  デザインをもっと身近に、簡単に。
+                </p>
+              </div>
+              <div className="flex text-base writing-v">
+                <p className="mb-3 text-base text-gray-500">
+                  ログインまたは無料で新規登録
+                </p>
+                <p className="text-base font-bold text-gray-600">
+                  Let's get started with…
+                </p>
+              </div>
             </div>
-            <div className="flex text-base writing-v">
-              <p>無料でログインまたは新規登録</p>
-              <p>Let's get started with…</p>
-            </div>
-          </div>
-          <div className="contentR_top">
-            <div>
-              <form id="mailForm">
-                {!isEmailSubmitted ? (
-                  <>
-                    <input
-                      type="mail"
-                      name=""
-                      value={email}
-                      className="inputArea border-gray"
-                      onChange={(e) => handleChange(e)}
-                      placeholder="youremail@example.com"
-                      id="email_signup"
-                    />
-                    <input
+            <div className="contentR_top lg:flex lg:justify-center lg:items-center">
+              <div>
+                <form id="mailForm">
+                  {!isEmailSubmitted ? (
+                    <>
+                      <div className="relative">
+                        <input
+                          type="mail"
+                          name=""
+                          value={email}
+                          className="inputArea bg-gray-100 border-gray rounded lg:w-96"
+                          onChange={(e) => handleChange(e)}
+                          placeholder="youremail@example.com"
+                          id="email_signup"
+                        />
+                        {/* <input
                       type="button"
                       value="送信する"
                       onClick={handleSubmit}
-                    ></input>
-                  </>
-                ) : null}
-              </form>
+                    ></input> */}
+                        <button
+                          type="button"
+                          className="lg:absolute lg:top-1.5 submitBtn"
+                          onClick={handleSubmit}
+                        >
+                          <FontAwesomeIcon
+                            icon={faArrowRight}
+                            className="bg-yellow-300 p-3 rounded-3xl text-white"
+                          />
+                        </button>
+                      </div>
+                    </>
+                  ) : null}
+                </form>
+              </div>
+              {isUserSignnedUP && isEmailSubmitted && <Login email={email} />}
+              {isEmailSubmitted && !isUserSignnedUP && <Signup email={email} />}
             </div>
-            {isUserSignnedUP && isEmailSubmitted && <Login email={email} />}
-            {isEmailSubmitted && !isUserSignnedUP && <Signup email={email} />}
           </div>
         </div>
       </main>

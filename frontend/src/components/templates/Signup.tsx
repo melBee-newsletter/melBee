@@ -28,7 +28,7 @@ const Signup: React.FC<Props> = ({ email }) => {
     })
       .then((res: AxiosResponse) => {
         // TODO: Show something when successfully singed up
-        console.log(res.data);
+        sessionStorage.setItem("isLoggedIn", "true");
         navigate(TEMPLATE_PATH);
       })
       .catch((err: AxiosError<{ error: string }>) => {
@@ -39,21 +39,36 @@ const Signup: React.FC<Props> = ({ email }) => {
   };
 
   return (
-    <div className="display">
-      <h1>新規登録</h1>
+    <div className="bg-white p-5 shadow-xl z-50 ml-6">
+      <h1 className="mb-5 ttl_top text-lg">新規登録</h1>
       <form id="signup-form">
-        <label htmlFor="email_signup">新規登録</label>
-        <input
-          type="email"
-          value={email}
-          name=""
-          placeholder="youremail@example.com"
-          id="email_signup"
-        />
-        <label htmlFor="password_signup">パスワード</label>
-        <input type="password" name="" id="password_signup" />
+        <div className="lg:flex mb-4">
+          <label htmlFor="email_signup" className="lg:w-52 text-base">
+            新規登録
+          </label>
+          <input
+            type="email"
+            value={email}
+            className="border-solid border border-gray-300 p-1"
+            name=""
+            placeholder="youremail@example.com"
+            id="email_signup"
+          />
+        </div>
+        <div className="lg:flex mb-4">
+          <label htmlFor="password_signup" className="lg:w-52 text-base">
+            パスワード
+          </label>
+          <input
+            className="border-solid border border-gray-300 p-1 bg-gray-100 focus:bg-white"
+            type="password"
+            name=""
+            id="password_signup"
+          />
+        </div>
         <input
           type="button"
+          className="mt-6 p-2 color-yellow text-sm"
           value="新規登録する"
           onClick={handleSubmit}
         ></input>
