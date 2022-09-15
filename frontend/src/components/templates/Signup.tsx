@@ -28,7 +28,7 @@ const Signup: React.FC<Props> = ({ email }) => {
     })
       .then((res: AxiosResponse) => {
         // TODO: Show something when successfully singed up
-        console.log(res.data);
+        sessionStorage.setItem("isLoggedIn", "true");
         navigate(TEMPLATE_PATH);
       })
       .catch((err: AxiosError<{ error: string }>) => {
