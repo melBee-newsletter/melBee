@@ -51,6 +51,13 @@ def test():
 
 # ----- /user ------ #
 
+@app.get("/user/{id}")
+def get_user(id: int, db: Session = Depends(get_db)):
+    db_user = crud.get_user(db, id)
+    if not db_user:
+        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+    return db_user
+
 @app.post("/user/check", response_model={})
 def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
