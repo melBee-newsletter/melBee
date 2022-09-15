@@ -28,6 +28,9 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.refresh(db_user)
     return db_user
 
+def add_user_template(user: schemas.User, db: Session, usertemplate: schemas.TemplateBase):
+    setattr(user, 'usertemplate', usertemplate)
+    return user
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
