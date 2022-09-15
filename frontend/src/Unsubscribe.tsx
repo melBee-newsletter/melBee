@@ -62,7 +62,7 @@ const Unsubscribe: React.FC = () => {
         if (otherReason) {
             allGivenReasons.push(otherReason);
         }
-        console.log("Unsubscribe Reason:", allGivenReasons);
+        // console.log("Unsubscribe Reason:", allGivenReasons);
         //TODO : Able to add sender's email as part of the email to send the unsubscribed reason of a contact
         axios({
             method: "post",
@@ -88,34 +88,37 @@ const Unsubscribe: React.FC = () => {
             </header>
             <div>
             {(validLink === "unsubscribe") ? (
-                <div>
-                    <h1 className="text-xl font-bold">配信停止</h1>
+                <div style={{width: "80%", margin: "0 auto"}}>
+                    <h1 className="text-3xl font-bold pb-5">配信停止</h1>
                     <p>ページ最下部の「配信停止」ボタンを押すと、配信停止処理が完了します。</p>
                     <br />
                     <div className="justify-center">
-                    <h5>よろしければ以下のアンケートにご回答ください。</h5>
+                    <h5 className="pb-3">よろしければ以下のアンケートにご回答ください。</h5>
                     <form action="" className="text-left justify-center">
-                        <div className="bg-slate-300 border-solid border-2 border-slate-400">
+                        <div className="bg-slate-300 border-solid border-2 border-slate-400 px-10 py-5">
                         <p>メールを配信停止する理由 （あてはまる項目に、いくつでもチェックしてください）</p>
                         </div>
-                        <div className="border-solid border-2 border-slate-400 border-y-0">
-                        <ul>
-                            {reasonOptions.map((reason, i) => {
-                            return (
-                            <li>
-                                <input type="checkbox" onChange={()=>handleCheck(i)} /><span>{reason}</span>
-                            </li>
-                            )})}
-                        </ul>
+                        <div className="border-solid border-2 border-slate-400 border-y-0 px-20 py-2">
+                            <ul>
+                                {reasonOptions.map((reason, i) => {
+                                return (
+                                <li key={`reason${i}`} className="py-1">
+                                    <input type="checkbox" onChange={()=>handleCheck(i)} /><span className="pl-2">{reason}</span>
+                                </li>
+                                )})}
+                            </ul>
                         </div>
-                        <div className="bg-slate-300 border-solid border-2 border-slate-400">
-                        <p>上記以外の理由や詳しい理由 <br />
-                            ※お問合せ等は、こちらにご記入された場合、お答えできかねますので何卒ご了承ください。</p>
+                        <div className="bg-slate-300 border-solid border-2 border-slate-400 px-10 py-5">
+                            <p>上記以外の理由や詳しい理由 <br />
+                                <span className="pl-7">※お問合せ等は、こちらにご記入された場合、お答えできかねますので何卒ご了承ください。</span>
+                            </p>
                         </div>
-                            <div className="border-solid border-2 border-slate-400 border-y-0">
-                                <input type="form" placeholder="解約理由" onChange={handleReason} style={{width: 600, height: 100}} value={otherReason} />
-                            </div>
-                        <button onClick={handleConfirm} className="bg-violet-300 rounded-lg px-4 py-1">配信停止</button>
+                        <div className="border-solid border-2 border-slate-400 border-t-0 px-20">
+                            <input type="form" placeholder="解約理由" onChange={handleReason} style={{width: "100%", height: 100}} value={otherReason} className="my-3 px-10" />
+                        </div>
+                        <div className="flex justify-center pt-4">
+                            <button onClick={handleConfirm} className="bg-violet-300 rounded-lg px-4 py-1">配信停止</button>
+                        </div>
                     </form>
                     </div>
                 </div>
