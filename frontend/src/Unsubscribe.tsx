@@ -47,7 +47,7 @@ const Unsubscribe: React.FC = () => {
 
     const data = {
         receivers: {
-          email: ["melbee.noreply@gmail.com", "hiro_k@live.com"],
+          email: ["melbee.noreply@gmail.com"],
         },
         subject: {
           subject: "Notification of unsubscribed contact from melBee",
