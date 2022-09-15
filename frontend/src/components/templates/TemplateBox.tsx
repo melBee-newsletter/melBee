@@ -30,8 +30,20 @@ const TemplateBox: React.FC = () => {
       });
   };
 
+  const seedTemplate = () => {
+    axios({
+      method: "post",
+      url: `${BASE_URL}/template/seed`,
+      data: "tomatoTest",
+    });
+  };
+
   useEffect(() => {
-    for (let i = 1; i <= 4; i++) {
+    seedTemplate();
+  }, []);
+
+  useEffect(() => {
+    for (let i = 1; i <= 5; i++) {
       getTemplate(i);
     }
   }, []);
