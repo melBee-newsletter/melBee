@@ -27,7 +27,7 @@ const Central: React.FC<Props> = ({ displayComponent }) => {
 
   return (
     <div className="App">
-      <header className="fixed w-full">
+      <header className="fixed w-full z-50">
         <Header />
       </header>
 
