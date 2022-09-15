@@ -14,18 +14,6 @@ const Template: React.FC<Props> = ({ template }) => {
   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 
-  const seedTemplate = () => {
-    axios({
-      method: "post",
-      url: `${BASE_URL}/template/seed`,
-      data: "tomatoTest",
-    });
-  }
-
-  useEffect(() => {
-    seedTemplate();
-  }, []);
-
   const getTemplate = (id: number) => {
     axios({
       method: "get",
