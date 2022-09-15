@@ -8,6 +8,7 @@ import EditorBox from './components/templates/EditorBox';
 import PreviewBox from './components/templates/PreviewBox';
 import ReceiverSelect from './components/templates/ReceiverSelect';
 import SendComplete from './components/templates/SendComplete';
+import Unsubscribe from './Unsubscribe';
 
 function App() {
   const [analytics, setAnalytics] = useState("");
@@ -24,6 +25,7 @@ function App() {
           <Route path="/user/preview" element={<Central displayComponent={<PreviewBox />} />} />
           <Route path="/user/send" element={<Central displayComponent={<ReceiverSelect analytics={analytics}/>} />} />
           <Route path="/user/sent" element={<Central displayComponent={<SendComplete />} />} />
+          <Route path="/unsubscribe/:user/:contact" element={<Unsubscribe />} />
         </Routes>
       </BrowserRouter>
   );
