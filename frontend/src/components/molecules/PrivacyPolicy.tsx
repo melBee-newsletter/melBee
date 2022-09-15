@@ -7,8 +7,8 @@ type Props = {
 const PrivacyPolicy: React.FC<Props> = ({ displayPP }) => {
     
     return (
-        <div className="bg-sky-400 p-10">
-            <div className="py-4 px-4 bg-white"/*textArea_privacy*/>
+        <div className="bg-sky-400 fixed top-10 left-0 right-0 p-10 z-50" style={{width: "70%", height: 800, margin: "0 auto"}}>
+            <div className="py-4 px-4 bg-white overflow-y-auto h-full">
                 <h4 className="text-lg">プライバシーポリシー</h4>
                     <div className="text-left">
                         melBee,
@@ -136,7 +136,7 @@ const PrivacyPolicy: React.FC<Props> = ({ displayPP }) => {
             <button onClick={(e) => {
             e.preventDefault();
             displayPP(false);
-            }}>
+            }} className="bg-slate-500 text-white px-4 py-1 mt-1 rounded-xl">
             閉じる
             </button>
       </div>
