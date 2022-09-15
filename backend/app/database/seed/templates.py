@@ -1,3 +1,6 @@
+default = """
+"""
+
 flower_shop = """
 <!-- [if gte mso 9]>
 <xml>
