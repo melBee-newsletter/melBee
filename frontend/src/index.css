@@ -10,11 +10,14 @@
 html,
 body,
 #root {
+  margin: 0;
+  padding: 0;
   height: 100%;
 }
 
 body {
   margin: 0;
+  padding: 0;
   font-family: "Noto Sans JP", "Poppins", -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif;
@@ -22,10 +25,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #FFFDF7;
 }
-/* 
-html {
-  font-size: 62.5%;
-} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -33,6 +32,10 @@ code {
 }
 
 /* footer */
+footer {
+  height: 80px;
+  margin-top: auto;
+}
 .footer {
   background: #f5f5f5;
 }
@@ -164,6 +167,7 @@ code {
   background: none;
 }
 .mainTtl {
+  font-size: 6.5rem;
   line-height: 1.15;
   margin-bottom: 30px;
 }
@@ -205,7 +209,8 @@ code {
 }
 
 .mv {
-  width: 1000px;
+  width: 1200px;
+  height: calc(100% - 166px);
   margin: 0 auto;
 }
 
@@ -243,9 +248,15 @@ code {
   background-color: #F8C128;
 }
 
+.App.top{    
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .main_top {
-  /* height: 100vh; */
   padding: 55px 0;
+  margin-top: auto;
   position: relative;
 }
 
@@ -255,11 +266,11 @@ code {
   background: linear-gradient(90deg, #f4f3f0 0%, #f1e4bc);
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 9rem;
+  font-size: 10rem;
   font-family: 'Poppins';
   font-weight: bold;
-  left: 12%;
-  top: -10%;
+  left: 9%;
+  top: -15%;
 }
 
 .mainMiddle_top::before {
@@ -268,11 +279,11 @@ code {
   background: linear-gradient(90deg, #f4f3f0 0%, #f1e4bc);
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 9rem;
+  font-size: 10rem;
   font-family: 'Poppins';
   font-weight: bold;
-  left: 12%;
-  bottom: 32%;
+  left: 9%;
+  bottom: 34%;
 }
 .main_top::after {
   content: "Simple";
@@ -280,11 +291,11 @@ code {
   background: linear-gradient(90deg, #f4f3f0 0%, #f1e4bc);
   background-clip: text;
   -webkit-text-fill-color: transparent;  
-  font-size: 9rem;
+  font-size: 10rem;
   font-family: 'Poppins';
   font-weight: bold;
-  left: 12%;
-  bottom: -3.8%;
+  left: 9%;
+  bottom: 0%;
 }
 
 .ttl_top {
@@ -305,4 +316,12 @@ code {
 
 .ttl_top::after {
   margin-left: 2rem;
+}
+
+@media (min-width: 1536px) {
+  .main_top::before,
+  .mainMiddle_top::before,
+  .main_top::after {
+    left: 13%;
+  }
 }
