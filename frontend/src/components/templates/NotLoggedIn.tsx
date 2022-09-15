@@ -44,47 +44,41 @@ const NotLoggedIn: React.FC = () => {
     };
 
     return (
-        <div>
-            <h1>melBeeはログインされた方のみご利用になれます。</h1>
-            <div className="flex">
-              <p className="mb-3 text-gray-500">
-                ログインまたは無料で新規登録
-              </p>
-            </div>
-            <div className="contentR_top lg:flex lg:justify-center lg:items-center">
-            <div>
-              <form id="mailForm">
-                {!isEmailSubmitted ? (
-                  <>
-                    <div className="relative">
-                      <input
-                        type="mail"
-                        name=""
-                        value={email}
-                        className="inputArea bg-gray-100 border-gray rounded lg:w-96"
-                        onChange={(e) => handleChange(e)}
-                        placeholder="youremail@example.com"
-                        id="email_signup"
+      <div className="justify-center">
+        <h1>melBeeはログインされた方のみご利用になれます。</h1>
+          <p className="mb-3 text-gray-500">
+            ログインまたは無料で新規登録
+          </p>
+          <div className="felx justify-center items-center">
+            <form id="mailForm">
+              {!isEmailSubmitted && (
+                  <div className="items-center">
+                    <input
+                      type="mail"
+                      name=""
+                      value={email}
+                      className="inputArea bg-gray-100 border-gray rounded lg:w-96"
+                      onChange={(e) => handleChange(e)}
+                      placeholder="youremail@example.com"
+                      id="email_signup"
+                    />
+                    <button
+                      type="button"
+                      className="lg:absolute lg:top-1.5 submitBtn"
+                      onClick={handleSubmit}
+                    >
+                      <FontAwesomeIcon
+                        icon={faArrowRight}
+                        className="bg-yellow-300 p-3 rounded-3xl text-white"
                       />
-                      <button
-                        type="button"
-                        className="lg:absolute lg:top-1.5 submitBtn"
-                        onClick={handleSubmit}
-                      >
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="bg-yellow-300 p-3 rounded-3xl text-white"
-                        />
-                      </button>
-                    </div>
-                  </>
-                ) : null}
+                    </button>
+                  </div>
+              )}
               </form>
             </div>
             {isUserSignnedUP && isEmailSubmitted && <Login email={email} />}
             {isEmailSubmitted && !isUserSignnedUP && <Signup email={email} />}
-          </div>
-        </div>
+      </div>
     );
 };
 
