@@ -35,7 +35,7 @@ def getService():
     if isDevelopment:
         PORT = 8080
     else:
-        PORT = 0
+        PORT = 8080
 
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
