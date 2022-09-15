@@ -39,12 +39,14 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
 
   const handleAdd = (e: React.ChangeEvent<any>): void => {
     e.preventDefault();
-    //TODO: send the email to database to check it is NOT duplicated, 
-    // >> and if it's NOT duplicated, add to database.
-    // >> if duplicated, popup error message to let user know.
-    setAllEmails((prevEmail) => [...prevEmail, email]);
-    setIsChecked((prevStat) => [...prevStat, true]);
-    setEmail("");
+    if (email) {
+      //TODO: send the email to database to check it is NOT duplicated, 
+      // >> and if it's NOT duplicated, add to database.
+      // >> if duplicated, popup error message to let user know.
+      setAllEmails((prevEmail) => [...prevEmail, email]);
+      setIsChecked((prevStat) => [...prevStat, true]);
+      setEmail("");
+    };
   };
 
   const displayEmailWithCheckbox = (email: string, i: number) => {
