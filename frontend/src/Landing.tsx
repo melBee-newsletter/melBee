@@ -11,7 +11,7 @@ import Login from "./components/templates/Login";
 import Signup from "./components/templates/Signup";
 
 function Landing() {
-  const BASE_URL = "http://localhost:8000";
+  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const [isUserSignnedUP, setisUserSignnedUP] = useState(false);
   const [isEmailSubmitted, setisEmailSubmitted] = useState(false);
 
