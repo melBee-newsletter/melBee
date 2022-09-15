@@ -66,11 +66,6 @@ const NotLoggedIn: React.FC = () => {
                         placeholder="youremail@example.com"
                         id="email_signup"
                       />
-                      {/* <input
-                      type="button"
-                      value="送信する"
-                      onClick={handleSubmit}
-                    ></input> */}
                       <button
                         type="button"
                         className="lg:absolute lg:top-1.5 submitBtn"
