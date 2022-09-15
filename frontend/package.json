@@ -6,7 +6,6 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-brands-svg-icons": "^6.2.0",
     "@fortawesome/free-regular-svg-icons": "^6.2.0",
-    "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@fortawesome/sharp-solid-svg-icons": "^6.2.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -50,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@types/react": "^18.0.19",
     "autoprefixer": "^10.4.8",
     "parcel": "^2.7.0",
