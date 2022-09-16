@@ -13,6 +13,16 @@ class User(Base):
     hashed_password = Column(String)
     usertemplate = Column(String)
 
+class UserTemplate(Base):
+    __tablename__ = "usertemplate"
+
+    id = Column(Integer, primary_key=True, index=True)
+    userid = Column(Integer, ForeignKey("user.id"))
+    title = Column(String, unique=True, nullable=False)
+    thumbnail = Column(String, nullable=False)
+    body = Column(String, nullable=False)
+
+
 class Template(Base):
     __tablename__ = "template"
 

@@ -44,8 +44,11 @@ const TemplateBox: React.FC = () => {
       url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
     })
       .then((res: AxiosResponse) => {
+        console.log(res.data);
         let data = res.data;
-        setTemplates((current) => [data, ...current]);
+        data.map((singleTemplate: template) => {
+          setTemplates((current) => [singleTemplate, ...current]);
+        });
       })
       .catch((err: AxiosError<{ error: string }>) => {
         console.log(err.response!.data);

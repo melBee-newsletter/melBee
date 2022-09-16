@@ -61,10 +61,11 @@ def get_user(id: int, db: Session = Depends(get_db)):
 
 @app.get("/user/{id}/template")
 def get_user(id: int, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, id)
-    if not db_user:
+    templateuser = crud.get_user_template(db, id)
+    print(templateuser)
+    if not templateuser:
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
-    return json.loads(db_user.usertemplate)
+    return templateuser
 
 @app.post("/user/{id}/template", response_model={})
 def add_user_template(id: int, template: schemas.TemplateBase, db: Session = Depends(get_db)):
