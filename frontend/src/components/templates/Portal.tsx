@@ -3,10 +3,15 @@ import Profile from "../organisms/Profile";
 import ContactList from "../organisms/ContactList";
 import SentHistory from "../organisms/SentHistory";
 
-const Portal: React.FC = () => {
+type Props = {
+    analytics: string;
+    setAnalytics: Function;
+};
+
+const Portal: React.FC<Props> = ({ analytics, setAnalytics }) => {
     return (
         <div style={{width: 1400, margin: "0 auto"}}>
-            <Profile />
+            <Profile analytics={analytics} setAnalytics={setAnalytics} />
 
             <ContactList />
 
