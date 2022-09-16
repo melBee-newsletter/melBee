@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from database import crud, models, schemas
 from database.database import SessionLocal, engine
 import uvicorn
+import json
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -57,6 +58,13 @@ def get_user(id: int, db: Session = Depends(get_db)):
     if not db_user:
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
     return db_user
+
+@app.get("/user/{id}/template")
+def get_user(id: int, db: Session = Depends(get_db)):
+    db_user = crud.get_user(db, id)
+    if not db_user:
+        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+    return json.loads(db_user.usertemplate)
 
 @app.post("/user/{id}/template", response_model={})
 def add_user_template(id: int, template: schemas.TemplateBase, db: Session = Depends(get_db)):
