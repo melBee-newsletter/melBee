@@ -84,8 +84,6 @@ const EditorBox: React.FC<Props> = ({ analytics, setAnalytics }) => {
           width: "690",
           height: "500",
           menubar: false,
-          quickbars_selection_toolbar:
-            "bold italic image| fontfamily fontsize| quicklink",
           plugins: [
             "tinydrive",
             "advlist",
@@ -108,7 +106,6 @@ const EditorBox: React.FC<Props> = ({ analytics, setAnalytics }) => {
             "wordcount",
             "export",
             "emoticons",
-            "quickbars",
             "autosave",
           ],
           toolbar:
