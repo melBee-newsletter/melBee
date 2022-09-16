@@ -11,6 +11,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
+    usertemplate = Column(String)
 
 class Template(Base):
     __tablename__ = "template"
@@ -19,6 +20,7 @@ class Template(Base):
     title = Column(String, unique=True, nullable=False)
     thumbnail = Column(String, nullable=False)
     body = Column(String, nullable=False)
+
 
 # TODO: Migrate other tables
 # class Email_Sent(Base):

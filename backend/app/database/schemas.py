@@ -48,6 +48,9 @@ class TemplateBase(BaseModel):
     thumbnail: str
     body: str
 
+    class Config:
+        orm_mode = True
+
 
 class Template(TemplateBase):
     title: str

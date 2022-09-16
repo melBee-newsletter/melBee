@@ -26,6 +26,7 @@ const Login: React.FC<Props> = ({ email }) => {
       },
     })
       .then((res: AxiosResponse) => {
+        sessionStorage.setItem("melbeeID", res.data.id);
         sessionStorage.setItem("isLoggedIn", "true");
         navigate(TEMPLATE_PATH);
       })
