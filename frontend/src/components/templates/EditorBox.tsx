@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
 //use the onInput on the div where the EditorBox is located to get the content data
@@ -45,7 +45,7 @@ const EditorBox: React.FC<Props> = ({ analytics, setAnalytics }) => {
   };
 
   return (
-    <div className="pt-10" style={{ width: 1200 }}>
+    <div>
       <div className="toolbararea"></div>
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
@@ -83,6 +83,9 @@ const EditorBox: React.FC<Props> = ({ analytics, setAnalytics }) => {
           width: "690",
           height: "500",
           menubar: false,
+          quickbars_insert_toolbar: "table | image",
+          quickbars_selection_toolbar:
+            "bold italic image| fontfamily fontsize| quicklink",
           plugins: [
             "tinydrive",
             "advlist",
@@ -105,6 +108,7 @@ const EditorBox: React.FC<Props> = ({ analytics, setAnalytics }) => {
             "wordcount",
             "export",
             "emoticons",
+            "quickbars",
             "autosave",
           ],
           toolbar:

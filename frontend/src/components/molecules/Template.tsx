@@ -32,6 +32,7 @@ const Template: React.FC<Props> = ({ template }) => {
       url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
     })
       .then((res: AxiosResponse) => {
+        console.log(res);
         let data = res.data;
         localStorage.setItem("melBeeTempStoragedraft", data.body);
       })
