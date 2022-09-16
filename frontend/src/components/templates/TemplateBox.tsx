@@ -14,6 +14,14 @@ const TemplateBox: React.FC = () => {
   const [templates, setTemplates] = useState<template[]>([]);
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 
+  const seedTemplate = () => {
+    axios({
+      method: "post",
+      url: `${BASE_URL}/template/seed`,
+      data: "tomatoTest",
+    });
+  };
+
   const getTemplate = (id: number) => {
     axios({
       method: "get",
@@ -30,10 +38,32 @@ const TemplateBox: React.FC = () => {
       });
   };
 
+  const getSavedTemplate = () => {
+    axios({
+      method: "get",
+      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
+    })
+      .then((res: AxiosResponse) => {
+        let data = res.data;
+        setTemplates((current) => [data, ...current]);
+      })
+      .catch((err: AxiosError<{ error: string }>) => {
+        console.log(err.response!.data);
+      });
+  };
+
   useEffect(() => {
-    for (let i = 1; i <= 4; i++) {
+    seedTemplate();
+  }, []);
+
+  useEffect(() => {
+    for (let i = 1; i <= 5; i++) {
       getTemplate(i);
     }
+  }, []);
+
+  useEffect(() => {
+    getSavedTemplate();
   }, []);
 
   return (
