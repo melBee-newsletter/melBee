@@ -1,5 +1,5 @@
 from ctypes.wintypes import BYTE
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date
 from sqlalchemy.dialects.postgresql import BYTEA
 from sqlalchemy.orm import relationship
 from database.database import Base
@@ -18,7 +18,7 @@ class UserTemplate(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     userid = Column(Integer, ForeignKey("user.id"))
-    title = Column(String, unique=True, nullable=False)
+    title = Column(String, nullable=False)
     thumbnail = Column(String, nullable=False)
     body = Column(String, nullable=False)
 
@@ -30,6 +30,15 @@ class Template(Base):
     title = Column(String, unique=True, nullable=False)
     thumbnail = Column(String, nullable=False)
     body = Column(String, nullable=False)
+
+class SentHistory(Base):
+    __tablename__ = "senthistory"
+
+    id = Column(Integer, primary_key=True, index=True)
+    recipients = (String)
+    template = (String)
+    date_sent = (Date)
+    userid = Column(Integer, ForeignKey("user.id"))
 
 
 # TODO: Migrate other tables

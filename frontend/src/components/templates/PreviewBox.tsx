@@ -10,7 +10,7 @@ const PreviewBox: React.FC = () => {
       method: "post",
       url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
       data: {
-        title: `Saved Template += ${Date().toLocaleString()}`,
+        title: `Saved Template ${Date().toLocaleString()}`,
         thumbnail:
           "https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/2dee0dc9-0afd-4bf9-a258-559073a64208",
         body: localStorage.melBeeTempStoragedraft,
