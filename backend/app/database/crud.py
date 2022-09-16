@@ -19,6 +19,11 @@ def get_user_by_email(db: Session, email: str):
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.User).offset(skip).limit(limit).all()
 
+def get_user_template(db: Session, id: int):
+    return db.query(models.UserTemplate).filter(models.UserTemplate.user_id == id).all()
+
+def get_user_history(db: Session, id: int):
+    return db.query(models.SentHistory).filter(models.SentHistory.user_id == id).all()
 
 def create_user(db: Session, user: schemas.UserCreate):
     hashed_password = pwd_context.hash(user.password)
@@ -29,10 +34,19 @@ def create_user(db: Session, user: schemas.UserCreate):
     return db_user
 
 def add_user_template(user: schemas.User, db: Session, usertemplate: schemas.TemplateBase):
-    setattr(user, 'usertemplate', usertemplate.json())
+    usertemplate = models.UserTemplate(user_id = user.id, title = usertemplate.title, thumbnail = usertemplate.thumbnail, body = usertemplate.body)
+    db.add(usertemplate)
+    # setattr(user, 'usertemplate', usertemplate.json())
     db.commit()
-    db.refresh(user)
-    return user
+    db.refresh(usertemplate)
+    return usertemplate
+
+def add_sent_history(user: schemas.User, db: Session, senthistory: schemas.SentHistory):
+    senthistory = models.SentHistory(user_id = user.id, recipients = senthistory.recipients, template = senthistory.template, date_sent = senthistory.date_sent)
+    db.add(senthistory)
+    db.commit()
+    db.refresh(senthistory)
+    return senthistory
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)

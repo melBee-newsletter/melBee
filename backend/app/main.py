@@ -61,10 +61,10 @@ def get_user(id: int, db: Session = Depends(get_db)):
 
 @app.get("/user/{id}/template")
 def get_user(id: int, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, id)
-    if not db_user:
+    templateuser = crud.get_user_template(db, id)
+    if not templateuser:
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
-    return json.loads(db_user.usertemplate)
+    return templateuser
 
 @app.post("/user/{id}/template", response_model={})
 def add_user_template(id: int, template: schemas.TemplateBase, db: Session = Depends(get_db)):
@@ -74,6 +74,22 @@ def add_user_template(id: int, template: schemas.TemplateBase, db: Session = Dep
             status_code=400, detail="You are foolish"
         )
     return crud.add_user_template(user = db_user, db=db, usertemplate=template)
+
+@app.get("/user/{id}/sent_history")
+def get_user(id: int, db: Session = Depends(get_db)):
+    userhistory = crud.get_user_history(db, id)
+    if not userhistory:
+        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+    return userhistory
+
+@app.post("/user/{id}/sent_history", response_model={})
+def add_sent_history(id: int, senthistory: schemas.SentHistory, db: Session = Depends(get_db)):
+    db_user = crud.get_user(db, id)
+    if not db_user:
+        raise HTTPException(
+            status_code=400, detail="You are foolish"
+        )
+    return crud.add_sent_history(user = db_user, db=db, senthistory = senthistory)
 
 @app.post("/user/check", response_model={})
 def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
