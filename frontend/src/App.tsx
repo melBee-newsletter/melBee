@@ -18,9 +18,9 @@ function App() {
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/user" element={<Central displayComponent={<Portal />} />} />
+          <Route path="/user" element={<Central displayComponent={<Portal analytics={analytics} setAnalytics={setAnalytics} />} />} />
           <Route path="/user/templates" element={<Central displayComponent={<TemplateBox />} />} />
-          <Route path="/user/edit" element={<Central displayComponent={<EditorBox analytics={analytics} setAnalytics={setAnalytics}/>} />} />
+          <Route path="/user/edit" element={<Central displayComponent={<EditorBox />} />} />
           <Route path="/user/preview" element={<Central displayComponent={<PreviewBox />} />} />
           <Route path="/user/send" element={<Central displayComponent={<ReceiverSelect analytics={analytics}/>} />} />
           <Route path="/user/sent" element={<Central displayComponent={<SendComplete />} />} />
