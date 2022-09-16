@@ -46,7 +46,7 @@ const EditorBox: React.FC<Props> = ({ analytics, setAnalytics }) => {
   };
 
   return (
-    <div>
+    <div style={{width: 1200}}>
       <div className="toolbararea"></div>
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"

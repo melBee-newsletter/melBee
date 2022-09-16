@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { LogInForm } from "./Interfaces";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
@@ -26,7 +26,6 @@ const Login: React.FC<Props> = ({ email }) => {
       },
     })
       .then((res: AxiosResponse) => {
-        console.log(res.data);
         sessionStorage.setItem("isLoggedIn", "true");
         navigate(TEMPLATE_PATH);
       })
