@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
 
@@ -26,6 +26,19 @@ const Template: React.FC<Props> = ({ template }) => {
       .then(() => navigate("/user/edit"));
   };
 
+  const getSavedTemplate = () => {
+    axios({
+      method: "get",
+      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
+    })
+      .then((res: AxiosResponse) => {
+        let data = res.data;
+        console.log(data);
+        localStorage.setItem("melBeeTempStoragedraft", data.body);
+      })
+      .then(() => navigate("/user/edit"));
+  };
+
   return (
     <div className="px-2 pb-2 pt-2" style={{ backgroundColor: "pink" }}>
       <p className="text-base pb-3">{template.title}</p>
@@ -33,7 +46,11 @@ const Template: React.FC<Props> = ({ template }) => {
         <a
           onClick={(e) => {
             e.preventDefault();
-            getTemplate(template.id);
+            if (template.title === "Saved Template") {
+              getSavedTemplate();
+            } else {
+              getTemplate(template.id);
+            }
           }}
         >
           <img src={template.thumbnail} alt="template" width={200} />
