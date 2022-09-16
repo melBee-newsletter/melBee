@@ -45,7 +45,6 @@ const TemplateBox: React.FC = () => {
     })
       .then((res: AxiosResponse) => {
         let data = res.data;
-        console.log(data);
         setTemplates((current) => [data, ...current]);
       })
       .catch((err: AxiosError<{ error: string }>) => {

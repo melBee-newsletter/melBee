@@ -33,7 +33,6 @@ const Template: React.FC<Props> = ({ template }) => {
     })
       .then((res: AxiosResponse) => {
         let data = res.data;
-        console.log(data);
         localStorage.setItem("melBeeTempStoragedraft", data.body);
       })
       .then(() => navigate("/user/edit"));
