@@ -10,7 +10,7 @@ type Props = {
 const Login: React.FC<Props> = ({ email }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
-  const TEMPLATE_PATH = "/user/templates";
+  const USER_PORTAL = "/user";
 
   const handleSubmit = () => {
     const form: LogInForm | null = document.getElementById("login-form");
@@ -28,7 +28,7 @@ const Login: React.FC<Props> = ({ email }) => {
       .then((res: AxiosResponse) => {
         sessionStorage.setItem("melbeeID", res.data.id);
         sessionStorage.setItem("isLoggedIn", "true");
-        navigate(TEMPLATE_PATH);
+        navigate(USER_PORTAL);
       })
       .catch((err: AxiosError<{ error: string }>) => {
         window.confirm("メールアドレスとパスワードがマッチしません。");
