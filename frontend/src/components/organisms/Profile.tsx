@@ -53,7 +53,7 @@ const Profile: React.FC<Props> = ({ analytics, setAnalytics }) => {
 
   return (
       <div className="bg-neutral-500 justify-center my-2">
-          <div className="flex justify-between px-10 py-3 text-xl text-white ">
+          <div className="flex justify-between px-10 py-3 text-xl text-white font-bold">
               <h3>登録情報</h3>
               <button className={direction} onClick={handleExpand}>▷</button>
           </div>
