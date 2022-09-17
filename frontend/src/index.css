@@ -97,7 +97,7 @@ footer {
 
 .navigation {
   display: none;
-  width: 40%;
+  width: 250px;
   align-items: flex-start;
   justify-content: flex-start;
   padding: 5rem 2rem;
