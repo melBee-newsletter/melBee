@@ -24,7 +24,7 @@ const EditorBox: React.FC = () => {
   const editorRef = useRef<tinyMCEEditor | null>(null);
 
   return (
-    <div>
+    <div className="w-screen px-56">
       <div className="toolbararea"></div>
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
