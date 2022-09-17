@@ -51,7 +51,8 @@ const MyTemplates: React.FC = () => {
         })
         .then((res: AxiosResponse) => {
           let data = res.data;
-          localStorage.setItem("melBeeTempStoragedraft", data[i].body);
+          const index = data.length -1 -i;
+          localStorage.setItem("melBeeTempStoragedraft", data[index].body);
         })
         .then(() => navigate("/user/edit"));
     };
