@@ -40,8 +40,8 @@ const ContactList: React.FC = () => {
     };
 
     return (
-        <div className="bg-orange-200">
-            <div className="flex justify-between px-10 py-3 text-xl">
+        <div className="bg-neutral-500 my-2">
+            <div className="flex justify-between px-10 py-3 text-xl text-white">
                 <h3>連絡先一覧</h3>
                 <button className={direction} onClick={handleExpand}>▷</button>
             </div>
