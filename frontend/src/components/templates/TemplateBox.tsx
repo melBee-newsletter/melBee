@@ -12,6 +12,7 @@ type template = {
 const TemplateBox: React.FC = () => {
   const [melBeeTemplates, setMelBeeTemplates] = useState<template []>([]);
   const [myTemplates, setMyTemplates] = useState<template []>([]);
+  const [seedDone, setSeedDone] = useState<boolean>(false);
   const [fetchTemplate, setFetchTemplate] = useState<boolean>(false);
   // const [loading, setLoading] = useState<boolean>(true);
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
@@ -23,10 +24,13 @@ const TemplateBox: React.FC = () => {
       method: "post",
       url: `${BASE_URL}/template/seed`,
       data: "tomatoTest",
-    });
-    for (let i = 1; i <= numOfTemplates; i++) {
-      getTemplate(i);
-    };
+    })
+    .then(() => {
+      for (let i = 1; i <= numOfTemplates; i++) {
+        getTemplate(i);
+      };
+    })
+    .then(() => setSeedDone(true));
   };
 
   const getTemplate = (id: number) => {
@@ -62,9 +66,12 @@ const TemplateBox: React.FC = () => {
 
   useEffect(() => {
     seedTemplate();
+  }, []);
+
+  useEffect(() => {
     getSavedTemplate();
     setFetchTemplate(true);
-  }, []);
+  }, [seedDone]);
 
   // TODO: if possible, render a loading component until the fetching is done.
   // useEffect(() => {
