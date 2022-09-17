@@ -17,6 +17,9 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
   const [isChecked, setIsChecked] = useState<boolean[]>(new Array(allEmails.length).fill(false));
   const [selectAll, setSelectAll] = useState<boolean>(false);
 
+  const TEMPLATE = localStorage.melBeeTempStoragedraft += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
+  const DATE = new Date();
+
   if (!localStorage.getItem("subject")) {
     localStorage.setItem("subject", subject);
   }
@@ -73,8 +76,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
       subject: subject,
     },
     message_body: {
-      message_body:
-        (localStorage.melBeeTempStoragedraft += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`),
+      message_body: TEMPLATE,
     },
   };
 
@@ -96,6 +98,23 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
         alert(
           "エラーが生じました。お宛先のメールアドレス及び件名を今一度ご確認ください。"
         );
+        console.log(err.response!.data);
+      });
+      axios({
+        method: "post",
+        url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
+        data: {
+          recipients: JSON.stringify(receivers),
+          template: TEMPLATE,
+          date_sent: DATE.toString(),
+          user_id: sessionStorage.melbeeID
+        }
+      })
+      .then((res: AxiosResponse) => {
+        // TODO: Show something when successfully sent
+      })
+      .catch((err: AxiosError<{ error: string }>) => {
+        // TODO: Show something when error
         console.log(err.response!.data);
       });
     } else {
