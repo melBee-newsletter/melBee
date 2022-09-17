@@ -5,7 +5,6 @@ type Props = {
     id: number;
     thumbnail: string;
     title: string;
-    body: string;
   };
 };
 
