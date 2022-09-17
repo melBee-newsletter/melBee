@@ -11,13 +11,13 @@ const Navigation: FC<Props> = ({ open, id }) => {
     <nav id={id} aria-hidden={!open} className="navigation">
       <ul>
         <li className="mb-2">
-          <a className="block" href="#">
-            &gt; 新規登録
+          <a className="block" href="/user">
+            &gt; 登録情報
           </a>
         </li>
         <li className="mb-2">
-          <a className="block" href="#">
-            &gt; 登録アドレスリスト
+          <a className="block" href="/user/templates">
+            &gt; 新規作成
           </a>
         </li>
         <li>
