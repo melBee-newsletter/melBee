@@ -59,7 +59,7 @@ const Profile: React.FC<Props> = ({ analytics, setAnalytics }) => {
           </div>
           {(expand) && (
               <div className="flex justify-center">
-              <div className="bg-white w-full">
+              <div className="bg-white w-full text-lg">
                   <p>登録内容</p>
                 <div>
                   {analyticsEdit ? (
@@ -70,8 +70,9 @@ const Profile: React.FC<Props> = ({ analytics, setAnalytics }) => {
                         onChange={handleChange}
                         value={analytics}
                         placeholder="Google Analyticsタグ"
+                        className="border-2 rounded-lg px-3 mx-3"
                       ></input>
-                      <button onClick={handleClick} className="bg-sky-300 pr-4 pl-4 rounded-xl" >確定</button>
+                      <button onClick={handleClick} className="bg-sky-300 px-4 rounded-lg" >確定</button>
                     </div>
                   ) : (
                   <div className="justify-center">
