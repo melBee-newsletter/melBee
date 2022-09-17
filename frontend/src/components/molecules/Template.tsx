@@ -1,6 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import axios, { AxiosResponse, AxiosError } from "axios";
 
 type Props = {
   template: {
@@ -11,50 +9,14 @@ type Props = {
 };
 
 const Template: React.FC<Props> = ({ template }) => {
-  const navigate = useNavigate();
-  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
-
-  const getTemplate = (id: number) => {
-    axios({
-      method: "get",
-      url: `${BASE_URL}/template/${id}`,
-    })
-      .then((res) => {
-        const data = res.data;
-        localStorage.setItem("melBeeTempStoragedraft", data.body);
-      })
-      .then(() => navigate("/user/edit"));
-  };
-
-  const getSavedTemplate = () => {
-    axios({
-      method: "get",
-      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-    })
-      .then((res: AxiosResponse) => {
-        console.log(res);
-        let data = res.data;
-        localStorage.setItem("melBeeTempStoragedraft", data.body);
-      })
-      .then(() => navigate("/user/edit"));
-  };
 
   return (
-    <div className="px-2 pb-2 pt-2" style={{ backgroundColor: "pink" }}>
-      <p className="text-base pb-3">{template.title}</p>
-      <div className="w-max">
-        <a
-          onClick={(e) => {
-            e.preventDefault();
-            if (template.title === "Saved Template") {
-              getSavedTemplate();
-            } else {
-              getTemplate(template.id);
-            }
-          }}
-        >
+    <div className="flex-1 justify-center px-2 py-4 h-96 bg-yellow-400 rounded-lg" >
+      <div className="w-full">
+          <p className="text-2xl font-bold pb-3">{template.title.slice(0, 20)}</p>
+      </div>
+      <div className="flex justify-center w-full">
           <img src={template.thumbnail} alt="template" width={200} />
-        </a>
       </div>
     </div>
   );
