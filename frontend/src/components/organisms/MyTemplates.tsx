@@ -65,17 +65,24 @@ const MyTemplates: React.FC = () => {
             {(expand) && (
             <div className="flex justify-center">
                 <div className="bg-white w-full">
-                    <div className="grid grid-cols-4 gap-4 bg-gray-200 mx-5 my-4 rounded-lg p-6">
-                    {myTemplates.map((template, i) => {
-                        return (
-                        <a key={`myTemp${i}`} onClick={(e)=> {
-                            e.preventDefault();
-                            handleMyTemplate(i)}}>
-                            <Template template={template} />
-                        </a>
-                        )
-                    })}
-                    </div>
+                    {(myTemplates.length > 0) ? (
+                        <div className="grid grid-cols-4 gap-4 bg-gray-200 mx-5 my-4 rounded-lg p-6">
+                        {myTemplates.map((template, i) => {
+                            return (
+                            <a key={`myTemp${i}`} onClick={(e)=> {
+                                e.preventDefault();
+                                handleMyTemplate(i)}}>
+                                <Template template={template} />
+                            </a>
+                            )
+                        })}
+                        </div>
+                    ) : (
+                        <div>
+                            <p className="text-xl my-4">保存されている個人テンプレートはまだございません</p>
+                        </div>
+                    )}
+                    
                 </div>
             </div>
             )}
