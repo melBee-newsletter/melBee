@@ -68,7 +68,7 @@ const SentHistory: React.FC = () => {
 
     const displayHistory = (history: history, i: number) => {
         return (
-            <div>
+            <div key={`history${i}`} >
                 {!viewHistory[i] ? 
                 <div className="flex justify-start bg-sky-800 m-5 rounded-xl py-3 pl-5">
                     <div className="flex justify-end items-center mr-5"> 
