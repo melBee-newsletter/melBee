@@ -63,7 +63,6 @@ const SentHistory: React.FC = () => {
     const handleClose = (position: number) => {
         const updateView = viewHistory.map((stat, i) => i === position ? !stat : stat);
         setViewHistory(updateView);
-        console.log("YAHOO", viewHistory)
     };
 
     const displayHistory = (history: history, i: number) => {
