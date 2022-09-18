@@ -13,6 +13,7 @@ const SentHistory: React.FC = () => {
     const [expand, setExpand] = useState<boolean>(false);
     const [direction, setDirection] = useState<string>(DOWN);
     const [sentHistory, setSentHistory] = useState<history[]>([]);
+    const [viewHistory, setViewHistory] = useState<boolean[]>(new Array(sentHistory.length).fill(false));
 
     const handleExpand = (e: any) => {
         e.preventDefault();
@@ -32,6 +33,7 @@ const SentHistory: React.FC = () => {
             let data = res.data;
             data.map((history: history) => {
                 setSentHistory((current) => [history, ...current]);
+                setViewHistory((prevStat) => [...prevStat, false]);
             })
         })
         .catch((err: AxiosError<{ error: string }>) => {
@@ -53,44 +55,75 @@ const SentHistory: React.FC = () => {
         )
     };
 
-    const displayHistory = (history: history) => {
+    const handleView = (position: number) => {
+        const updateView = viewHistory.map((stat, i) => i === position ? !stat : stat);
+        setViewHistory(updateView);
+    };
+
+    const handleClose = (position: number) => {
+        const updateView = viewHistory.map((stat, i) => i === position ? !stat : stat);
+        setViewHistory(updateView);
+        console.log("YAHOO", viewHistory)
+    };
+
+    const displayHistory = (history: history, i: number) => {
         return (
-            <div className="flex1 justify-center bg-sky-800 m-5">
-                <div className="grid grid-cols-2 p-6 h-full w-full">
-                    <div className="pl-3">
-                        <div className="flex justify-end items-center mb-3 mr-5"> 
-                            <h3 className="pr-5 text-lg text-white font-bold">送信日時 :</h3> 
-                            <div className="bg-white rounded-lg py-1 px-4 text-left w-5/6">{convertDate(history.date_sent)}
-                            </div>
-                        </div>
-                        <div className="flex justify-end items-center mb-3 mr-5">
-                            <h3 className="pr-5 text-lg text-white font-bold">件名 :</h3>
-                            <div className="bg-white rounded-lg py-1 px-4 text-left w-5/6">『melBee』からのお便り
-                            </div>
-                        </div>
-                        <div className="flex-1">
-                            <h3 className="pr-5 text-left text-lg ml-9 text-white font-bold">送信先 :</h3>
-                        <div className="bg-gray-500 flex my-3 mr-5 flex-wrap p-4 rounded-xl h-max-36 overflow-y-auto">
-                            {JSON.parse(history.recipients).map((email: string, i: number) => {
-                                return (
-                            <div key={`email${i}`} className="bg-gray-200 rounded-lg  mr-3 p-3 flex h-fit text-base my-1">
-                                <p>{email}</p>
-                            </div>)
-                                })}
-                        </div>
+            <div>
+                {!viewHistory[i] ? 
+                <div className="flex justify-start bg-sky-800 m-5 rounded-xl py-3 pl-5">
+                    <div className="flex justify-end items-center mr-5"> 
+                        <h3 className="pr-5 text-lg text-white font-bold">送信日時 :</h3> 
+                        <div className="bg-white rounded-lg py-1 px-4 text-left">{convertDate(history.date_sent)}
                         </div>
                     </div>
-                    <div className="w-full px-2 py-3 " style={{height: 600}}>
-                        <div className="h-full overflow-y-scroll bg-white border-solid border-8 border-yellow-400">
-                            <div
-                            dangerouslySetInnerHTML={{
-                            __html: history.template,
-                            }}
-                            className="block w-full"
-                            />
-                        </div> 
+                    <div className="flex justify-end items-center mr-5">
+                        <h3 className="pr-5 text-lg text-white font-bold">件名 :</h3>
+                        <div className="bg-white rounded-lg py-1 px-4 text-left">『melBee』からのお便り
+                        </div>
+                    </div>
+                    <button onClick={()=>handleView(i)} className="bg-yellow-400 rounded-xl px-3 ml-auto mr-10">詳細を見る</button>
+                </div> :
+                <div className="flex1 justify-center bg-sky-800 m-5 rounded-xl">
+                    <div className="grid grid-cols-2 p-6 h-full w-full">
+                        <div className="pl-3">
+                            <div className="flex justify-end items-center mb-3 mr-5"> 
+                                <h3 className="pr-5 text-lg text-white font-bold">送信日時 :</h3> 
+                                <div className="bg-white rounded-lg py-1 px-4 text-left w-5/6">{convertDate(history.date_sent)}
+                                </div>
+                            </div>
+                            <div className="flex justify-end items-center mb-3 mr-5">
+                                <h3 className="pr-5 text-lg text-white font-bold">件名 :</h3>
+                                <div className="bg-white rounded-lg py-1 px-4 text-left w-5/6">『melBee』からのお便り
+                                </div>
+                            </div>
+                            <div className="flex-1">
+                                <h3 className="pr-5 text-left text-lg ml-9 text-white font-bold">送信先 :</h3>
+                            <div className="bg-gray-500 flex my-3 mr-5 flex-wrap p-4 rounded-xl h-max-36 overflow-y-auto">
+                                {JSON.parse(history.recipients).map((email: string, i: number) => {
+                                    return (
+                                <div key={`email${i}`} className="bg-gray-200 rounded-lg  mr-3 p-3 flex h-fit text-base my-1">
+                                    <p>{email}</p>
+                                </div>)
+                                    })}
+                            </div>
+                            </div>
+                        </div>
+                        <div className="w-full px-2 py-3 " style={{height: 600}}>
+                            <div className="h-full overflow-y-scroll bg-white border-solid border-8 border-yellow-400">
+                                <div
+                                dangerouslySetInnerHTML={{
+                                __html: history.template,
+                                }}
+                                className="block w-full"
+                                />
+                            </div> 
+                        </div>
+                        <div className="flex justify-center w-full">
+                            <button onClick={()=>handleClose(i)} className="bg-red-400 rounded-xl px-3 mx-auto">閉じる</button>
+                        </div>
                     </div>
                 </div>
+                }
             </div>
         );
     };
@@ -109,7 +142,7 @@ const SentHistory: React.FC = () => {
                         {sentHistory.map((history, i) => {
                             return (
                                 <div key={`history${i}`}>
-                                    {displayHistory(history)}
+                                    {displayHistory(history, i)}
                                 </div>
                             )
                         })}
