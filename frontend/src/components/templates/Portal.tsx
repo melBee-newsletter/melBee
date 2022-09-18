@@ -14,9 +14,9 @@ const Portal: React.FC<Props> = ({ analytics, setAnalytics }) => {
     const navigate = useNavigate();
 
     return (
-        <div style={{width: "100vw", margin: "0 auto"}} className="px-10">
-            <div>
-                <button onClick={(e) => { navigate("/user/templates")}} className="bg-yellow-400 rounded-xl px-4 my-10 border-solid border-black border-4">
+        <div className="px-10 w-screen h-screen">
+            <div className="flex justify-end">
+                <button onClick={(e) => { navigate("/user/templates")}} className="bg-yellow-400 rounded-xl px-5 py-1 my-3 border-solid border-black border-4">
                     新規作成
                 </button>
             </div>
