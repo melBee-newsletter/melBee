@@ -48,32 +48,48 @@ const SentHistory: React.FC = () => {
         const min = test.getMinutes();
         return (
             <div>
-                <p>{`${year}年 ${month}月 ${date}日 ${hour}:${min}`}</p>
+                <p>{`${year}年${month}月${date}日 ${hour}時${min}分`}</p>
             </div>
         )
     };
 
     const displayHistory = (history: history) => {
         return (
-            <div className="bg-rose-300 m-5">
-                <div className="">
-                    <p className=""> 送信日時 <span>{convertDate(history.date_sent)}</span> </p>
-                    <div className="bg-gray-500 flex my-3 mx-6 flex-wrap p-4 rounded-xl h-max-36 overflow-y-auto">
-                        {JSON.parse(history.recipients).map((email: string, i: number) => {
-                            return (
+            <div className="flex1 justify-center bg-sky-800 m-5">
+                <div className="grid grid-cols-2 p-6 h-full w-full">
+                    <div className="pl-3">
+                        <div className="flex justify-end items-center mb-3 mr-5"> 
+                            <h3 className="pr-5 text-lg text-white font-bold">送信日時 :</h3> 
+                            <div className="bg-white rounded-lg py-1 px-4 text-left w-5/6">{convertDate(history.date_sent)}
+                            </div>
+                        </div>
+                        <div className="flex justify-end items-center mb-3 mr-5">
+                            <h3 className="pr-5 text-lg text-white font-bold">件名 :</h3>
+                            <div className="bg-white rounded-lg py-1 px-4 text-left w-5/6">『melBee』からのお便り
+                            </div>
+                        </div>
+                        <div className="flex-1">
+                            <h3 className="pr-5 text-left text-lg ml-9 text-white font-bold">送信先 :</h3>
+                        <div className="bg-gray-500 flex my-3 mr-5 flex-wrap p-4 rounded-xl h-max-36 overflow-y-auto">
+                            {JSON.parse(history.recipients).map((email: string, i: number) => {
+                                return (
                             <div key={`email${i}`} className="bg-gray-200 rounded-lg  mr-3 p-3 flex h-fit text-base my-1">
                                 <p>{email}</p>
                             </div>)
-                        })}
+                                })}
+                        </div>
+                        </div>
                     </div>
-                </div>
-                <div className="block p-5">
-                <div
-                    dangerouslySetInnerHTML={{
-                    __html: history.template,
-                    }}
-                    className="bg-white"
-                    />
+                    <div className="w-full px-2 py-3 " style={{height: 600}}>
+                        <div className="h-full overflow-y-scroll bg-white border-solid border-8 border-yellow-400">
+                            <div
+                            dangerouslySetInnerHTML={{
+                            __html: history.template,
+                            }}
+                            className="block w-full"
+                            />
+                        </div> 
+                    </div>
                 </div>
             </div>
         );
