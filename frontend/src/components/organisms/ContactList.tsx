@@ -74,6 +74,12 @@ const ContactList: React.FC = () => {
                     </div>
                     <div className="flex justify-between px-2">
                         <div>
+                            {(selectedEmail.length > 0) && <div>
+                                <button className="bg-rose-400 rounded-lg p-2 ml-3 text-lg w-28"> 削除 </button>
+                                <p className="text-base">選択したメールアドレスを連絡先から削除する</p>
+                            </div>}
+                        </div>
+                        <div>
                             <form onSubmit={handleAdd}>
                             <input
                                 className="border-2 rounded-lg p-2 text-base"
@@ -85,12 +91,8 @@ const ContactList: React.FC = () => {
                                 />
                             <button className="bg-amber-400 rounded-lg p-2 ml-3 text-lg w-28"> 登録 </button>
                             </form>
-                            <p className="text-base">メールアドレスを連絡先に新規登録する</p>
+                            <p className="text-base text-left">メールアドレスを連絡先に新規登録する</p>
                         </div>
-                    {(selectedEmail.length > 0) && <div>
-                        <button className="bg-rose-400 rounded-lg p-2 ml-3 text-lg w-28"> 削除 </button>
-                        <p className="text-base">選択したメールアドレスを連絡先から削除する</p>
-                    </div>}
                     </div>
                     {(blackList.length > 0) && <div className="my-5">
                         <h3 className="text-base">配信停止済み</h3>
