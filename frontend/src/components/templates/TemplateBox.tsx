@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Template from "../molecules/Template";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
+import Loading from "../molecules/Loading";
 
 type template = {
   id: number;
@@ -15,7 +16,7 @@ const TemplateBox: React.FC = () => {
   const [myTemplates, setMyTemplates] = useState<template []>([]);
   const [seedDone, setSeedDone] = useState<boolean>(false);
   const [fetchTemplate, setFetchTemplate] = useState<boolean>(false);
-  // const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
 
@@ -73,9 +74,11 @@ const TemplateBox: React.FC = () => {
   }, [seedDone]);
 
   // TODO: if possible, render a loading component until the fetching is done.
-  // useEffect(() => {
-  //   setLoading(false);
-  // }, [fetchTemplate]);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  }, [fetchTemplate]);
 
   const handleMyTemplate = (i: number) => {
     axios({
@@ -105,6 +108,8 @@ const TemplateBox: React.FC = () => {
 
   return (
     <div className="bg-white w-screen px-8">
+      {loading ? <Loading word={"L O A D I N G"} /> :
+      <>
       <h3>テンプレートをお選びください</h3>
       <div className="px-5 py-3 mx-8">
         {(myTemplates.length > 0) && (
@@ -146,6 +151,8 @@ const TemplateBox: React.FC = () => {
           </div>
         </div>
       </div>
+      </>
+      }
     </div>
   );
 };
