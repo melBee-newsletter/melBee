@@ -59,7 +59,7 @@ const MyTemplates: React.FC = () => {
     };
 
     return (
-        <div className="bg-neutral-500 my-2">
+        <div className="bg-neutral-500 hover:bg-neutral-600 my-2">
             <div className="flex justify-between px-10 py-3 text-xl text-white font-bold" onClick={handleExpand}>
                 <h3>個人テンプレート一覧</h3>
                 <span className={direction}>▷</span>
