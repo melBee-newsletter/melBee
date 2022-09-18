@@ -7,6 +7,7 @@ type template = {
     id: number;
     thumbnail: string;
     title: string;
+    body: string;
 };
 
 const MyTemplates: React.FC = () => {
