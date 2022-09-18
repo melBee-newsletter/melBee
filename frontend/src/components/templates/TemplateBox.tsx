@@ -25,11 +25,6 @@ const TemplateBox: React.FC = () => {
       url: `${BASE_URL}/template/seed`,
       data: "tomatoTest",
     })
-    .then(() => {
-      for (let i = 1; i <= numOfTemplates; i++) {
-        getTemplate(i);
-      };
-    })
     .then(() => setSeedDone(true));
   };
 
@@ -66,6 +61,9 @@ const TemplateBox: React.FC = () => {
 
   useEffect(() => {
     seedTemplate();
+    for (let i = 1; i <= numOfTemplates; i++) {
+      getTemplate(i);
+    };
   }, []);
 
   useEffect(() => {
