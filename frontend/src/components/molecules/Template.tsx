@@ -5,6 +5,7 @@ type Props = {
     id: number;
     thumbnail: string;
     title: string;
+    body: string;
   };
 };
 
@@ -16,7 +17,13 @@ const Template: React.FC<Props> = ({ template }) => {
       </div>
       <div className="w-full h-full px-2 py-3 pb-8">
         <div className="h-full overflow-y-scroll bg-white">
-            <img src={template.thumbnail} alt="template" width={200} className="object-cover h-full w-full"/>
+            {/* <img src={template.thumbnail} alt="template" width={200} className="object-cover h-full w-full"/> */}
+            <div
+              dangerouslySetInnerHTML={{
+                  __html: template.body,
+                }}
+                className="block w-full"
+            />
         </div>
       </div>
     </div>
