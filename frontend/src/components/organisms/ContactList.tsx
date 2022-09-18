@@ -52,7 +52,6 @@ const ContactList: React.FC = () => {
           return (isChecked[i]);
         });
         setSelectedEmail(selected);
-        console.log(selectedEmail);
       }, [isChecked]);
 
     return (
