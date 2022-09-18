@@ -60,9 +60,9 @@ const MyTemplates: React.FC = () => {
 
     return (
         <div className="bg-neutral-500 my-2">
-            <div className="flex justify-between px-10 py-3 text-xl text-white font-bold">
+            <div className="flex justify-between px-10 py-3 text-xl text-white font-bold" onClick={handleExpand}>
                 <h3>個人テンプレート一覧</h3>
-                <button className={direction} onClick={handleExpand}>▷</button>
+                <span className={direction}>▷</span>
             </div>
             {(expand) && (
             <div className="flex justify-center">
