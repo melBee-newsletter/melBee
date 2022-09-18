@@ -7,6 +7,7 @@ type template = {
   id: number;
   thumbnail: string;
   title: string;
+  body: string;
 };
 
 const TemplateBox: React.FC = () => {
@@ -103,9 +104,9 @@ const TemplateBox: React.FC = () => {
   };
 
   return (
-    <div className="bg-white w-screen mx-80">
+    <div className="bg-white w-screen px-8">
       <h3>テンプレートをお選びください</h3>
-      <div className="px-5 py-3 mx-20">
+      <div className="px-5 py-3 mx-8">
         {(myTemplates.length > 0) && (
           <div>
           <h3 className="my-6 font-bold">カスタマイズされたテンプレート</h3>
@@ -114,7 +115,7 @@ const TemplateBox: React.FC = () => {
               <a onClick={(e)=> {
                 e.preventDefault();
                 navigate("/user/edit")}}>
-                <Template template={{id: NaN, thumbnail: "https://us.123rf.com/450wm/iqoncept/iqoncept1702/iqoncept170200081/71501375-%E6%9C%80%E5%88%9D%E5%88%9D%E6%9C%9F%E3%81%97%E3%82%88%E3%81%86%E3%81%A8%E8%A9%A6%E3%81%BF%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97-%E3%83%89%E3%83%A9%E3%83%95%E3%83%88-3-d-%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E5%8D%98%E8%AA%9E.jpg?ver=6", title: "下書き"}} />
+                <Template template={{id: NaN, thumbnail: "https://us.123rf.com/450wm/iqoncept/iqoncept1702/iqoncept170200081/71501375-%E6%9C%80%E5%88%9D%E5%88%9D%E6%9C%9F%E3%81%97%E3%82%88%E3%81%86%E3%81%A8%E8%A9%A6%E3%81%BF%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97-%E3%83%89%E3%83%A9%E3%83%95%E3%83%88-3-d-%E3%82%A4%E3%83%A9%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E5%8D%98%E8%AA%9E.jpg?ver=6", title: "下書き", body: localStorage.melBeeTempStoragedraft}} />
               </a>
             )}
             {myTemplates.map((template, i) => {
