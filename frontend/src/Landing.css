@@ -1,6 +1,7 @@
 /* top */
 .top .header {
   background: none;
+  z-index: 9999;
 }
 .mainTtl {
   font-size: 6.5rem;

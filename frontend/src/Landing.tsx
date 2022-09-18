@@ -75,7 +75,7 @@ function Landing() {
                 </p>
               </div>
               {!isLoggedIn && (
-                <div className="flex text-base writing-v border-r-2 border-slate-800 pr-4">
+                <div className="flex text-base writing-v border-r border-slate-800 pr-4">
                   <p className="mb-3 text-base text-gray-500">
                     ログインまたは無料で新規登録
                   </p>
