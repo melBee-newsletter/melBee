@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import { EmailForm } from "./components/templates/Interfaces";
 import axios, { AxiosResponse, AxiosError } from "axios";
@@ -14,8 +13,11 @@ function Landing() {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const [isUserSignnedUP, setisUserSignnedUP] = useState(false);
   const [isEmailSubmitted, setisEmailSubmitted] = useState(false);
-
   const [email, setEmail] = useState("");
+  
+  const session: null | string = sessionStorage.getItem("isLoggedIn");
+  const isLoggedIn = true ? session != null : false;
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -60,7 +62,7 @@ function Landing() {
                   <br />
                   カタチ<span className="font-light text-7xl">に</span>
                 </h2>
-                <p className="text-left leading-loose text-base">
+                <p className="text-left leading-loose text-base z-20">
                   melBeeは、さまざまなデザインテンプレート
                   <br />
                   の中から招待状やメルマガを作り、
@@ -71,19 +73,21 @@ function Landing() {
                   デザインをもっと身近に、簡単に。
                 </p>
               </div>
-              <div className="flex text-base writing-v">
+              {!isLoggedIn &&
+              <div className="flex text-base writing-v border-r-2 border-slate-800 pr-4">
                 <p className="mb-3 text-base text-gray-500">
                   ログインまたは無料で新規登録
                 </p>
                 <p className="text-base font-bold text-gray-600">
                   Let's get started with…
                 </p>
-              </div>
+              </div>}
             </div>
+            {!isLoggedIn &&
             <div className="contentR_top lg:flex lg:justify-center lg:items-center">
               <div>
                 <form id="mailForm">
-                  {!isEmailSubmitted ? (
+                  {!isEmailSubmitted && (
                     <>
                       <div className="relative">
                         <input
@@ -95,11 +99,6 @@ function Landing() {
                           placeholder="youremail@example.com"
                           id="email_signup"
                         />
-                        {/* <input
-                      type="button"
-                      value="送信する"
-                      onClick={handleSubmit}
-                    ></input> */}
                         <button
                           type="button"
                           className="lg:absolute lg:top-1.5 submitBtn"
@@ -112,12 +111,12 @@ function Landing() {
                         </button>
                       </div>
                     </>
-                  ) : null}
+                  )}
                 </form>
               </div>
               {isUserSignnedUP && isEmailSubmitted && <Login email={email} />}
               {isEmailSubmitted && !isUserSignnedUP && <Signup email={email} />}
-            </div>
+            </div>}
           </div>
         </div>
       </main>
