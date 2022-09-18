@@ -103,9 +103,9 @@ const TemplateBox: React.FC = () => {
   };
 
   return (
-    <div className="bg-white w-screen mx-80">
+    <div className="bg-white w-screen px-8">
       <h3>テンプレートをお選びください</h3>
-      <div className="px-5 py-3 mx-20">
+      <div className="px-5 py-3 mx-8">
         {(myTemplates.length > 0) && (
           <div>
           <h3 className="my-6 font-bold">カスタマイズされたテンプレート</h3>
