@@ -163,7 +163,7 @@ footer {
   color: #7c7b7b;
 }
 
-/* top */
+/* top
 .top .header {
   background: none;
 }
@@ -213,11 +213,10 @@ footer {
   width: 1200px;
   height: calc(100% - 166px);
   margin: 0 auto;
-}
+} */
 
-.contentL_top {
+/* .contentL_top {
   width: 670px;
-  /* border-right: 1px solid #959494; */
   padding-right: 1.25rem;
   z-index: 49;
 }
@@ -326,4 +325,4 @@ footer {
   .main_top::after {
     left: 13%;
   }
-}
+} */
