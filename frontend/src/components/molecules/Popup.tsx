@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import headerLogo from "../atoms/logo.png";
 
+/** HOW TO USE POPUP::
+ * in the component you want the popup, please add;
+ *      (1) import Popup from "__dir/Popup";
+ *      (2) <Popup title={"ENTER_ERROR_TITLE"} content={"ENTER_ERROR_MESSAGE"} type={"success"} />
+ * Currently we have basic 3 types of colors (feel free to change!)
+ */
+
 type Props = {
     title: string;
     content: string;
