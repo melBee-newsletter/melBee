@@ -39,13 +39,32 @@ const SentHistory: React.FC = () => {
         });
     }, []);
 
+    const convertDate = (stringDate: string) => {
+        const test = new Date(stringDate);
+        const year = test.getFullYear();
+        const month = test.getMonth();
+        const date = test.getDate();
+        const hour = test.getHours();
+        const min = test.getMinutes();
+        return (
+            <div>
+                <p>{`${year}年 ${month}月 ${date}日 ${hour}:${min}`}</p>
+            </div>
+        )
+    };
+
     const displayHistory = (history: history) => {
         return (
             <div className="bg-rose-300 m-5">
                 <div className="">
-                    <p className=""> {history.date_sent} </p>
+                    <p className=""> 送信日時 <span>{convertDate(history.date_sent)}</span> </p>
                     <div className="bg-gray-500 flex my-3 mx-6 flex-wrap p-4 rounded-xl h-max-36 overflow-y-auto">
-                        {(history.recipients)}
+                        {JSON.parse(history.recipients).map((email: string, i: number) => {
+                            return (
+                            <div key={`email${i}`} className="bg-gray-200 rounded-lg  mr-3 p-3 flex h-fit text-base my-1">
+                                <p>{email}</p>
+                            </div>)
+                        })}
                     </div>
                 </div>
                 <div className="block p-5">
