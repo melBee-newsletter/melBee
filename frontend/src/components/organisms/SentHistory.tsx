@@ -12,9 +12,11 @@ type history = {
 type Props = {
     expand: boolean;
     setExpand: Function;
+    countSent: number;
+    setCountSent: Function;
 };
 
-const SentHistory: React.FC<Props> = ({ expand, setExpand }) => {
+const SentHistory: React.FC<Props> = ({ expand, setExpand, countSent, setCountSent }) => {
     const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
     const DOWN = "rotate-90";
     const UP = "-rotate-90";
@@ -22,6 +24,19 @@ const SentHistory: React.FC<Props> = ({ expand, setExpand }) => {
     const [sentHistory, setSentHistory] = useState<history[]>([]);
     const [viewHistory, setViewHistory] = useState<boolean[]>(new Array(sentHistory.length).fill(false));
 
+    const date = new Date();
+    const TODAY = {
+        year: date.getFullYear(),
+        month: date.getMonth()+1,
+        day: date.getDay(),
+    };
+
+    const checkSentDate = (stringDate: string) => {
+        const sentDate = new Date(stringDate);
+        if (sentDate.getFullYear() === TODAY.year && sentDate.getMonth()+1 === TODAY.month && sentDate.getDay() === TODAY.day) {
+            setCountSent(countSent++);
+        };
+    };
     const handleExpand = (e: any) => {
         e.preventDefault();
         setExpand({history: !expand});
@@ -41,6 +56,7 @@ const SentHistory: React.FC<Props> = ({ expand, setExpand }) => {
             data.map((history: history) => {
                 setSentHistory((current) => [history, ...current]);
                 setViewHistory((prevStat) => [...prevStat, false]);
+                checkSentDate(history.date_sent);
             })
         })
         .catch((err: AxiosError<{ error: string }>) => {
