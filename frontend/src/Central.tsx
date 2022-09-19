@@ -35,7 +35,7 @@ const Central: React.FC<Props> = ({ displayComponent, reachLimit }) => {
           <div>
             <div>{displayComponent}</div>
             <div className="contentRight">
-              {currentView === EDIT_PATH || currentView === PREVIEW_PATH && !reachLimit && (
+              {(currentView === EDIT_PATH || currentView === PREVIEW_PATH && !reachLimit) ? (
                 <button
                   onClick={(e) => {
                     e.preventDefault();
@@ -48,10 +48,10 @@ const Central: React.FC<Props> = ({ displayComponent, reachLimit }) => {
                   className="text-sm bg-sky-500 text-white pt-2 pb-2 pr-4 pl-4"
                 >
                   {"次に進む >"}
-                </button>)}
+                </button>) : null}
               <br />
 
-              {currentView === EDIT_PATH || currentView === PREVIEW_PATH && (
+              {currentView === EDIT_PATH || currentView === PREVIEW_PATH ? (
                 <button
                   onClick={(e) => {
                     e.preventDefault();
@@ -64,7 +64,7 @@ const Central: React.FC<Props> = ({ displayComponent, reachLimit }) => {
                   className="text-sm bg-amber-500 text-white pt-2 pb-2 pr-4 pl-4"
                 >
                   {"< 戻る"}
-                </button>)}
+                </button>) : null}
               <br />
             </div>
           </div>
