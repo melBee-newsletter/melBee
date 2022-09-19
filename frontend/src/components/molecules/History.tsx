@@ -5,6 +5,7 @@ type Props = {
         date_sent: string;
         recipients: string;
         template: string;
+        subject: string;
     };
     i: number;
     viewHistory: boolean[];
@@ -47,7 +48,7 @@ const History: React.FC<Props> = ({ history, i, viewHistory, setViewHistory }) =
                 </div>
                 <div className="flex justify-end items-center mr-5">
                     <h3 className="pr-5 text-lg text-white font-bold">件名 :</h3>
-                    <div className="bg-white rounded-lg py-1 px-4 text-xl text-left">『melBee』からのお便り
+                    <div className="bg-white rounded-lg py-1 px-4 text-xl text-left">{history.subject}
                     </div>
                 </div>
                 <button onClick={()=>handleView(i)} className="bg-yellow-400 rounded-xl px-3 ml-auto mr-10 text-xl">詳細を見る</button>
@@ -62,7 +63,7 @@ const History: React.FC<Props> = ({ history, i, viewHistory, setViewHistory }) =
                         </div>
                         <div className="flex justify-end items-center mb-3 mr-5">
                             <h3 className="pr-5 text-lg text-white font-bold">件名 :</h3>
-                            <div className="bg-white rounded-lg py-1 px-4 text-left w-5/6">『melBee』からのお便り
+                            <div className="bg-white rounded-lg py-1 px-4 text-left w-5/6">{history.subject}
                             </div>
                         </div>
                         <div className="flex-1">
