@@ -5,9 +5,10 @@ import Loading from "../molecules/Loading";
 
 type Props = {
   analytics: string;
+  reachLimit: boolean;
 };
 
-const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
+const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
 
@@ -133,6 +134,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
   return (
     <>
     {loading && <Loading word={"S E N D I N G"} />}
+    {!reachLimit ?
     <div className="sendArea">
       <div className="flex items-center justify-center">
         <h3 className="text-xl mr-3">件名 :</h3>
@@ -186,7 +188,10 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
         送信
       </button>
       </div>
-    </div>
+    </div> : 
+    (<div className="flex justify-center">
+        <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
+    </div>)}
     </>
   );
 };
