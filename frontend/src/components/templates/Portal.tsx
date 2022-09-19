@@ -35,15 +35,15 @@ const Portal: React.FC<Props> = ({ analytics, setAnalytics, countSent, setCountS
                 {!reachLimit ? 
                     (<div>
                         <p>{`本日 ${countSent}通 送信されました。残り${sendLimit-countSent}通 送信できます。`}</p>
-                        <div className="flex justify-end">
-                            <button onClick={(e) => { navigate("/user/templates")}} className="bg-yellow-400 rounded-xl px-5 py-1 my-3 mr-6 border-solid border-black border-4 animate-pulse font-bold">
-                                新規作成
-                            </button>
-                        </div>
                     </div>) : 
                     (<div className="flex justify-center">
-                        <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
+                        <h3>本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。</h3>
                     </div>)}
+                    <div className="flex justify-end">
+                        <button onClick={(e) => { navigate("/user/templates")}} className="bg-yellow-400 rounded-xl px-5 py-1 my-3 mr-6 border-solid border-black border-4 animate-pulse font-bold">
+                            新規作成
+                        </button>
+                    </div>
                 
             <Profile analytics={analytics} setAnalytics={setAnalytics} expand={expand.profile} setExpand={setExpand} />
 
