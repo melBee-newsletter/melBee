@@ -8,6 +8,10 @@ import SentHistory from "../organisms/SentHistory";
 type Props = {
     analytics: string;
     setAnalytics: Function;
+    countSent: number;
+    setCountSent: Function;
+    reachLimit: boolean;
+    sendLimit: number;
 };
 
 interface expand {
@@ -18,7 +22,7 @@ interface expand {
     [key: string]: boolean;
 };
 
-const Portal: React.FC<Props> = ({ analytics, setAnalytics }) => {
+const Portal: React.FC<Props> = ({ analytics, setAnalytics, countSent, setCountSent, sendLimit, reachLimit }) => {
     const navigate = useNavigate();
     const [expand, setExpand] = useState<expand>({
         profile: false,
@@ -28,19 +32,26 @@ const Portal: React.FC<Props> = ({ analytics, setAnalytics }) => {
 
     return (
         <div className="px-10 w-screen h-screen">
-            <div className="flex justify-end">
-                <button onClick={(e) => { navigate("/user/templates")}} className="bg-yellow-400 rounded-xl px-5 py-1 my-3 mr-6 border-solid border-black border-4 animate-pulse font-bold">
-                    新規作成
-                </button>
-            </div>
-
+                {!reachLimit ? 
+                    (<div>
+                        <p>{`本日 ${countSent}通 送信されました。残り${sendLimit-countSent}通 送信できます。`}</p>
+                        <div className="flex justify-end">
+                            <button onClick={(e) => { navigate("/user/templates")}} className="bg-yellow-400 rounded-xl px-5 py-1 my-3 mr-6 border-solid border-black border-4 animate-pulse font-bold">
+                                新規作成
+                            </button>
+                        </div>
+                    </div>) : 
+                    (<div className="flex justify-center">
+                        <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
+                    </div>)}
+                
             <Profile analytics={analytics} setAnalytics={setAnalytics} expand={expand.profile} setExpand={setExpand} />
 
             <ContactList expand={expand.contact} setExpand={setExpand} />
 
             <MyTemplates expand={expand.template} setExpand={setExpand} />
             
-            <SentHistory expand={expand.history} setExpand={setExpand} />
+            <SentHistory expand={expand.history} setExpand={setExpand} countSent={countSent} setCountSent={setCountSent} />
         </div>
     );
 };
