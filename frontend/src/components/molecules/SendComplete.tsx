@@ -4,12 +4,10 @@ import headerLogo from "../atoms/logo.png";
 
 type Props = {
   reachLimit: boolean;
+  setSendComplete: Function;
 };
 
-const SendComplete: React.FC<Props> = ({ reachLimit }) => {
-  const session: null|string = sessionStorage.getItem("isLoggedIn");
-  const isLoggedIn = true ? session != null : false;
-
+const SendComplete: React.FC<Props> = ({ reachLimit, setSendComplete }) => {
   return (
     <>
       <div className="flex justify-center">
@@ -21,7 +19,7 @@ const SendComplete: React.FC<Props> = ({ reachLimit }) => {
       </div>
       {!reachLimit ? <div className="flex justify-around">
         <div>
-          <Link to={"/user/send/"} className="bg-sky-400 text-white rounded px-4 mr-5">宛先を追加</Link>
+          <button className="bg-sky-400 text-white rounded px-4 mr-5" onClick={()=>setSendComplete(false)}>宛先を追加</button>
         </div>
         <div>
           <Link to={"/user/templates"} className="bg-amber-300 text-white rounded px-4 ml-5">新規作成</Link>
