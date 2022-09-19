@@ -3,6 +3,7 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 
+
 class ItemBase(BaseModel):
     title: str
     description: Optional[str] = None
@@ -48,6 +49,9 @@ class TemplateBase(BaseModel):
     thumbnail: str
     body: str
 
+    class Config:
+        orm_mode = True
+
 
 class Template(TemplateBase):
     title: str
@@ -68,3 +72,10 @@ class Subject(BaseModel):
 
 class MessageBody(BaseModel):
     message_body: str
+
+# --- SentHistory --- #
+class SentHistory(BaseModel):
+    recipients: str
+    template: str
+    date_sent: str
+    user_id: int

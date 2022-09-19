@@ -10,11 +10,14 @@
 html,
 body,
 #root {
+  margin: 0;
+  padding: 0;
   height: 100%;
 }
 
 body {
   margin: 0;
+  padding: 0;
   font-family: "Noto Sans JP", "Poppins", -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif;
@@ -29,6 +32,10 @@ code {
 }
 
 /* footer */
+footer {
+  height: 80px;
+  margin-top: auto;
+}
 .footer {
   background: #f5f5f5;
 }
@@ -36,7 +43,8 @@ code {
 /* index */
 
 .header {
-  position: relative;
+  position: fixed;
+  width: 100%;
   background: #f5f5f5;
 }
 
@@ -48,7 +56,7 @@ code {
   width: 38px;
   height: 45px;
   overflow: hidden;
-  z-index: 2;
+  z-index: 7;
 }
 
 .toggleButon > span {
@@ -90,7 +98,7 @@ code {
 
 .navigation {
   display: none;
-  width: 40%;
+  width: 250px;
   align-items: flex-start;
   justify-content: flex-start;
   padding: 5rem 2rem;
@@ -153,74 +161,4 @@ code {
 .footer_nav {
   justify-content: space-between !important;
   color: #7c7b7b;
-}
-
-/* top */
-.mainTtl {
-  margin-bottom: 40px;
-}
-
-.contentCenter {
-  margin-top: 30px;
-  width: 1000px;
-
-  height: 100%;
-  border-right: 1px solid #959494;
-}
-
-.deleteBtn {
-  display: block;
-  position: relative;
-  width: 15px;
-  height: 15px;
-}
-
-.deleteBtn::before, .deleteBtn::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 3px;
-  height: 16px;
-  background: #333;
-  background-color: rgb(6 182 212);
-}
-
-.deleteBtn::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.deleteBtn::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.writing-v {
-  writing-mode: vertical-lr;
-}
-
-.mv {
-  width: 1200px;
-  margin: 0 auto;
-}
-
-.contentL_top {
-  width: 670px;
-  border-right: 1px solid #959494;
-  padding-right: 1.25rem;
-}
-
-.contentR_top {
-  width: 504px;
-}
-
-.inputArea {
-  padding: 14px 20px;
-}
-.border-gray {
-  border: 1px solid #707070;
-  background-color: #F5F4F4;
-}
-
-.border-gray:focus {
-  background-color: #ffffff;
 }

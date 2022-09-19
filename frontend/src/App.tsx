@@ -8,6 +8,8 @@ import EditorBox from './components/templates/EditorBox';
 import PreviewBox from './components/templates/PreviewBox';
 import ReceiverSelect from './components/templates/ReceiverSelect';
 import SendComplete from './components/templates/SendComplete';
+import Unsubscribe from './Unsubscribe';
+import Portal from './components/templates/Portal';
 
 function App() {
   const [analytics, setAnalytics] = useState("");
@@ -16,14 +18,13 @@ function App() {
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
-          {/*TODO : Make the paths under /user/:component to be PRIVATE
-          which means user must be logged in to view those paths */}
-          {/* <Route path="/user" element={<Central />} /> */}
+          <Route path="/user" element={<Central displayComponent={<Portal analytics={analytics} setAnalytics={setAnalytics} />} />} />
           <Route path="/user/templates" element={<Central displayComponent={<TemplateBox />} />} />
-          <Route path="/user/edit" element={<Central displayComponent={<EditorBox analytics={analytics} setAnalytics={setAnalytics}/>} />} />
+          <Route path="/user/edit" element={<Central displayComponent={<EditorBox />} />} />
           <Route path="/user/preview" element={<Central displayComponent={<PreviewBox />} />} />
           <Route path="/user/send" element={<Central displayComponent={<ReceiverSelect analytics={analytics}/>} />} />
           <Route path="/user/sent" element={<Central displayComponent={<SendComplete />} />} />
+          <Route path="/unsubscribe/:user/:contact" element={<Unsubscribe />} />
         </Routes>
       </BrowserRouter>
   );

@@ -1,8 +1,9 @@
-import React, { useState, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import Header from "./components/organisms/Header";
 import Footer from "./components/organisms/Footer";
+import NotLoggedIn from "./components/templates/NotLoggedIn";
 
 type Props = {
   displayComponent: ReactNode;
@@ -18,15 +19,13 @@ const Central: React.FC<Props> = ({ displayComponent }) => {
   const EDIT_PATH = "/user/edit";
   const PREVIEW_PATH = "/user/preview";
   const SEND_PATH = "/user/send";
-  const SENT_PATH = "/user/sent";
 
-  const [editedFile, setEditedFile] = useState<string>("");
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
 
   return (
     <div className="App">
-      <header className="fixed w-full">
+      <header className="fixed w-full z-50">
         <Header />
       </header>
 
@@ -72,7 +71,7 @@ const Central: React.FC<Props> = ({ displayComponent }) => {
           </div>
         )}
 
-        {!isLoggedIn && <h1>melBeeはログインした方のみご利用になれます。</h1>}
+        {!isLoggedIn && <NotLoggedIn />}
       </main>
 
       <footer className="w-full">

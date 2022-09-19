@@ -20,33 +20,11 @@ type clickEvent = {
   preventDefault: Function;
 };
 
-type Props = {
-  analytics: string;
-  setAnalytics: Function;
-}
-
-const EditorBox: React.FC<Props> = ({analytics, setAnalytics}) => {
-  const BASE_URL = "http://localhost:8000";
+const EditorBox: React.FC = () => {
   const editorRef = useRef<tinyMCEEditor | null>(null);
-  const [analyticsEdit, setAnalyticsEdit] = useState(true);
-
-  const handleChange = (event: Event) => {
-    setAnalytics(event.target.value);
-  };
-
-  const handleClick = (event: clickEvent) => {
-    event.preventDefault();
-    setAnalytics(analytics);
-    setAnalyticsEdit(false)
-  };
-
-  const handleEdit = (event: clickEvent) => {
-    event.preventDefault();
-    setAnalyticsEdit(true);
-  };
 
   return (
-    <div>
+    <div className="w-screen px-56">
       <div className="toolbararea"></div>
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
@@ -84,6 +62,7 @@ const EditorBox: React.FC<Props> = ({analytics, setAnalytics}) => {
           width: "690",
           height: "500",
           menubar: false,
+          quickbars_insert_toolbar: "table | image",
           quickbars_selection_toolbar:
             "bold italic image| fontfamily fontsize| quicklink",
           plugins: [
@@ -147,20 +126,6 @@ const EditorBox: React.FC<Props> = ({analytics, setAnalytics}) => {
           },
         }}
       ></Editor>
-      {analyticsEdit ? (
-      <div>
-        <label>Analyticsタグの入力:</label>
-        <input type="text" onChange={handleChange} value={analytics} placeholder="Google Analyticsタグ" ></input>
-        <button onClick={handleClick}>確定</button>
-      </div>
-      ) : (
-        <div>
-          <h3>Google Analyticsは設定済みです</h3>
-          <button className="bg-yellow-300 pr-4 pl-4 rounded" onClick={handleEdit}>Analyticsタグを編集する</button>
-        </div>
-      )
-      }
-      
     </div>
   );
 };
