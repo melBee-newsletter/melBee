@@ -32,20 +32,24 @@ const Portal: React.FC<Props> = ({ analytics, setAnalytics, countSent, setCountS
 
     return (
         <div className="px-10 w-screen h-screen pt-5">
-                {!reachLimit ? 
-                    (<div className="text-left mb-2">
-                        <h3 className="font-bold text-4xl">melBeeへようこそ！</h3>
-                        <p className="text-lg mt-4 pl-4">本日 <strong>{countSent} 通</strong> 送信されました。残り <strong>{sendLimit-countSent} 通</strong> 送信できます。</p>
-                    </div>) : 
-                    (<div className="text-left mb-2">
-                        <h3 className="font-bold text-4xl">melBeeへようこそ！</h3>
-                        <p className="text-lg mt-4 pl-4">本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。</p>
-                    </div>)}
-                    <div className="flex justify-end">
-                        <button onClick={(e) => { navigate("/user/templates")}} className="bg-orange-400 rounded-xl px-6 py-5 my-3 mr-6 drop-shadow-xl text-lg text-white font-medium">
-                            新規作成
-                        </button>
-                    </div>
+            <div className="flex justify-between mb-6">
+                <div className="text-left mb-2 ml-10">
+                    <h3 className="font-bold text-4xl">melBeeへようこそ！</h3>
+                    {!reachLimit ?  
+                    <p className="text-lg mt-4 pl-4">
+                        本日 <strong>{countSent} 通</strong> 送信されました。残り <strong>{sendLimit-countSent} 通</strong> 送信できます。
+                    </p> :
+                    <p className="text-lg mt-4 pl-4">
+                        本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。
+                    </p>
+                    }
+                </div>
+                <div className="flex justify-end mr-10">
+                    <button onClick={(e) => { navigate("/user/templates")}} className="bg-orange-400 rounded-xl px-6 py-5 my-3 drop-shadow-xl text-lg text-white font-medium">
+                        新規作成
+                    </button>
+                </div>
+            </div>  
                 
             <Profile analytics={analytics} setAnalytics={setAnalytics} expand={expand.profile} setExpand={setExpand} />
 
