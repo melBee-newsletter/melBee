@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const ContactList: React.FC = () => {
+type Props = {
+    expand: boolean;
+    setExpand: Function;
+};
+
+const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
     const DOWN = "rotate-90";
     const UP = "-rotate-90";
-    const [expand, setExpand] = useState<boolean>(false);
     const [direction, setDirection] = useState<string>(DOWN);
 
     const [contactList, setContactList] = useState<string[]>([]);
@@ -14,7 +18,7 @@ const ContactList: React.FC = () => {
 
     const handleExpand = (e: any) => {
         e.preventDefault();
-        setExpand(!expand);
+        setExpand({contact: !expand});
     };
 
     useEffect(() => {

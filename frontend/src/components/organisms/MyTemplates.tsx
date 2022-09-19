@@ -10,18 +10,22 @@ type template = {
     body: string;
 };
 
-const MyTemplates: React.FC = () => {
+type Props = {
+    expand: boolean;
+    setExpand: Function;
+};
+
+const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
     const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
     const navigate = useNavigate()
     const DOWN = "rotate-90";
     const UP = "-rotate-90";
-    const [expand, setExpand] = useState<boolean>(false);
     const [direction, setDirection] = useState<string>(DOWN);
     const [myTemplates, setMyTemplates] = useState<template []>([]);
 
     const handleExpand = (e: any) => {
         e.preventDefault();
-        setExpand(!expand);
+        setExpand({template: !expand});
     };
 
     useEffect(() => {

@@ -8,18 +8,22 @@ type history = {
     template: string;
 };
 
-const SentHistory: React.FC = () => {
+type Props = {
+    expand: boolean;
+    setExpand: Function;
+};
+
+const SentHistory: React.FC<Props> = ({ expand, setExpand }) => {
     const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
     const DOWN = "rotate-90";
     const UP = "-rotate-90";
-    const [expand, setExpand] = useState<boolean>(false);
     const [direction, setDirection] = useState<string>(DOWN);
     const [sentHistory, setSentHistory] = useState<history[]>([]);
     const [viewHistory, setViewHistory] = useState<boolean[]>(new Array(sentHistory.length).fill(false));
 
     const handleExpand = (e: any) => {
         e.preventDefault();
-        setExpand(!expand);
+        setExpand({history: !expand});
     };
 
     useEffect(() => {

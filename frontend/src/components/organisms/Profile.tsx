@@ -13,17 +13,18 @@ type clickEvent = {
 type Props = {
     analytics: string;
     setAnalytics: Function;
+    expand: boolean;
+    setExpand: Function;
 };
 
-const Profile: React.FC<Props> = ({ analytics, setAnalytics }) => {
+const Profile: React.FC<Props> = ({ analytics, setAnalytics, expand, setExpand }) => {
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
-  const [expand, setExpand] = useState<boolean>(false);
   const [direction, setDirection] = useState<string>(DOWN);
 
   const handleExpand = (e: any) => {
       e.preventDefault();
-      setExpand(!expand);
+      setExpand({profile: !expand});
   };
 
   useEffect(() => {
