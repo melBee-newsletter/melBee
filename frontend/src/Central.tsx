@@ -7,9 +7,10 @@ import NotLoggedIn from "./components/templates/NotLoggedIn";
 
 type Props = {
   displayComponent: ReactNode;
+  reachLimit: boolean;
 };
 
-const Central: React.FC<Props> = ({ displayComponent }) => {
+const Central: React.FC<Props> = ({ displayComponent, reachLimit }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -34,7 +35,7 @@ const Central: React.FC<Props> = ({ displayComponent }) => {
           <div>
             <div>{displayComponent}</div>
             <div className="contentRight">
-              {currentView === EDIT_PATH || currentView === PREVIEW_PATH ? (
+              {currentView === EDIT_PATH || currentView === PREVIEW_PATH && !reachLimit && (
                 <button
                   onClick={(e) => {
                     e.preventDefault();
@@ -47,11 +48,10 @@ const Central: React.FC<Props> = ({ displayComponent }) => {
                   className="text-sm bg-sky-500 text-white pt-2 pb-2 pr-4 pl-4"
                 >
                   {"次に進む >"}
-                </button>
-              ) : null}
+                </button>)}
               <br />
 
-              {currentView === EDIT_PATH || currentView === PREVIEW_PATH ? (
+              {currentView === EDIT_PATH || currentView === PREVIEW_PATH && (
                 <button
                   onClick={(e) => {
                     e.preventDefault();
@@ -64,8 +64,7 @@ const Central: React.FC<Props> = ({ displayComponent }) => {
                   className="text-sm bg-amber-500 text-white pt-2 pb-2 pr-4 pl-4"
                 >
                   {"< 戻る"}
-                </button>
-              ) : null}
+                </button>)}
               <br />
             </div>
           </div>
