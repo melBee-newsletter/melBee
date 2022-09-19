@@ -56,9 +56,11 @@ def seed_template(db: Session):
     if len >= limit:
         return None
 
-    db_template_flower = models.Template(title="flower_shop", thumbnail="test", body=templates.flower_shop)
+    db_template_flower = models.Template(
+        title="flower_shop", thumbnail="test", body=templates.flower_shop)
     db.add(db_template_flower)
-    db_template_wedding = models.Template(title="wedding_invitation", thumbnail="https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/75a11271-7c01-4411-8caf-7dd2d17b12c9", body=templates.wedding)
+    db_template_wedding = models.Template(
+        title="wedding_invitation", thumbnail="https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/75a11271-7c01-4411-8caf-7dd2d17b12c9", body=templates.wedding)
     db.add(db_template_wedding)
     # db_template_tomato = models.Template(title="tomatoShop", thumbnail="https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/2987c80d-40bb-4bc1-8740-3b5c278aecda", body=templates.tomato)
     # db.add(db_template_tomato)
