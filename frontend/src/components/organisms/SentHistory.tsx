@@ -6,6 +6,7 @@ type history = {
     date_sent: string;
     recipients: string;
     template: string;
+    subject: string;
 };
 
 type Props = {

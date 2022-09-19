@@ -114,7 +114,8 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
           recipients: JSON.stringify(receivers),
           template: TEMPLATE,
           date_sent: DATE.toString(),
-          user_id: sessionStorage.melbeeID
+          user_id: sessionStorage.melbeeID,
+          subject: subject
         }
       })
       .then((res: AxiosResponse) => {
