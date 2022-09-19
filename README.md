@@ -1,6 +1,7 @@
 # melBee
 
 ## Getting Started
+
 To make a copy up to your local environment, follow the steps below.
 
 **1. Run the backend server**
@@ -9,78 +10,64 @@ To make a copy up to your local environment, follow the steps below.
 
 In `melBee/backend`,
 
-  ```shell
-  python -m venv env
-  ```
+```shell
+python -m venv env
+```
 
-If you're using Mac terminal or Windows Bash, 
+If you're using Mac terminal or Windows Bash,
 
-  ```shell 
-  source ./env/bin/activate
-  ```
+```shell
+source ./env/bin/activate
+```
 
 If you're using Windows PowerShell,
 
-  ```shell
-  .\env\Scripts\Activate.ps1
-  ```
+```shell
+.\env\Scripts\Activate.ps1
+```
 
 In `melBee/backend`,
 
-  ```shell
-  pip3 install -r requirements.txt
-  ```
+```shell
+pip3 install -r requirements.txt
+```
 
-**Set up Gmail API**
-Go to Google Developers Console, create an app and download your client ID from your app in OAuth consent screen tab.
-Rename the file to credentials.json and add it into your "app" folder.
-Change "sender" and "to" email.
-
- ```shell
-    sender = "YOUR_EMAIL@gmail.com"
-    to = "RECEIVER_EMAIL@domain.com"
-  ```
-
-Run the following comands to send test emails.
-
- ```shell
-  python app/mailSender.py
-  ```
+**Set up Gmail**
+Go to your Google Account and create an app password.
 
 **Set up local database**
 Open up the local postgreSQL by running `psql` and create a database called "melBee".
 
-  ```sql
-  CREATE DATABASE melBee;
-  ```
+```sql
+CREATE DATABASE melBee;
+```
 
 In `melBee/backend/app/database`, create a `.env.local` file and add information below.
 
-  ```
-  DATABASE_URL=postgresql://YOUR DB USERNAME:YOUR DB PASSWORD@localhost/melbee
-  ```
-  
+```
+DATABASE_URL=postgresql://YOUR DB USERNAME:YOUR DB PASSWORD@localhost/melbee
+EMAIL_ADDRESS = "YOUR EMAIL"
+EMAIL_PASSWORD = "YOUR PASSWORD"
+```
 
 **Run the server**
 
 In `melBee/backend/app`,
 
-  ```shell
-  uvicorn main:app --reload
-  ```
+```shell
+uvicorn main:app --reload
+```
 
 **3. Run the React server**
 
 In `melBee/frontend`,
 
-
 **Set up react-router-dom tailwindcss axios**
 
-  ```
-  npm install react-router-dom tailwindcss@latest axios @tinymce/tinymce-react
-  ```
-  
-  
-  ```shell
-  npm start
-  ```
+```
+npm install react-router-dom tailwindcss@latest axios @tinymce/tinymce-react
+```
+
+```shell
+npm start
+```
