@@ -19,8 +19,12 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const TEMPLATE = localStorage.melBeeTempStoragedraft += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
+  let TEMPLATE = localStorage.melBeeTempStoragedraft
   const DATE = new Date();
+  
+  useEffect(() => {
+    if (analytics) TEMPLATE += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
+  }, []);
 
   if (!localStorage.getItem("subject")) {
     localStorage.setItem("subject", subject);
