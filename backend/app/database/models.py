@@ -41,10 +41,3 @@ class SentHistory(Base):
     date_sent = Column(String)
     user_id = Column(Integer, ForeignKey("user.id"))
 
-
-# TODO: Migrate other tables
-# class Email_Sent(Base):
-#     __tablename__ = "email_sent"
-
-#     id = Column(Integer, primary_key=True, index=True)
-#     user_id = Column(Integer, ForeignKey("user.id"),  index=True)
