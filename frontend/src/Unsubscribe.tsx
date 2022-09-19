@@ -82,18 +82,18 @@ const Unsubscribe: React.FC = () => {
 
 
     return (
-        <div className="App top">
+        <div className="h-screen">
             <header>
                 <Header />
             </header>
-            <div>
+            <div className="flex-1 justify-center pt-28">
             {(validLink === "unsubscribe") ? (
-                <div style={{width: "80%", margin: "0 auto"}}>
-                    <h1 className="text-3xl font-bold pb-5">配信停止</h1>
-                    <p>ページ最下部の「配信停止」ボタンを押すと、配信停止処理が完了します。</p>
+                <div className="flex-1 justify-center h-screen" style={{width: "80%", margin: "0 auto"}}>
+                    <h1 className="text-center text-3xl font-bold pb-5">配信停止</h1>
+                    <p className="text-center">ページ最下部の「配信停止」ボタンを押すと、配信停止処理が完了します。</p>
                     <br />
-                    <div className="justify-center">
-                    <h5 className="pb-3">よろしければ以下のアンケートにご回答ください。</h5>
+                    <div className="flex-1 justify-center">
+                    <h5 className="text-center pb-3">よろしければ以下のアンケートにご回答ください。</h5>
                     <form action="" className="text-left justify-center">
                         <div className="bg-slate-300 border-solid border-2 border-slate-400 px-10 py-5">
                         <p>メールを配信停止する理由 （あてはまる項目に、いくつでもチェックしてください）</p>
