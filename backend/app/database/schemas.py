@@ -75,6 +75,7 @@ class MessageBody(BaseModel):
 
 # --- SentHistory --- #
 class SentHistory(BaseModel):
+    subject: str
     recipients: str
     template: str
     date_sent: str

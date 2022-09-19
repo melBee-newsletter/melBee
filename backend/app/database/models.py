@@ -35,6 +35,7 @@ class SentHistory(Base):
     __tablename__ = "senthistory"
 
     id = Column(Integer, primary_key=True, index=True)
+    subject = Column(String)
     recipients = Column(String)
     template = Column(String)
     date_sent = Column(String)

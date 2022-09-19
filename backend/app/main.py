@@ -31,12 +31,6 @@ def get_db():
     finally:
         db.close()
 
-# # Initializing Seeder
-# seeder = Seeder(Session)
-# seeder.seed(initial_templates)
-# Session.commit()  # or seeder.session.commit()
-
-
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
@@ -76,19 +70,17 @@ def add_user_template(id: int, template: schemas.TemplateBase, db: Session = Dep
     return crud.add_user_template(user = db_user, db=db, usertemplate=template)
 
 @app.get("/user/{id}/sent_history")
-def get_user(id: int, db: Session = Depends(get_db)):
+def get_sent_history(id: int, db: Session = Depends(get_db)):
     userhistory = crud.get_user_history(db, id)
     if not userhistory:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+        raise HTTPException(status_code=400, detail="Invalid id or no sent history. 無効なidもしくは送信履歴がありません。")
     return userhistory
 
 @app.post("/user/{id}/sent_history", response_model={})
 def add_sent_history(id: int, senthistory: schemas.SentHistory, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, id)
     if not db_user:
-        raise HTTPException(
-            status_code=400, detail="You are foolish"
-        )
+        raise HTTPException( status_code=400, detail="Invalid id. 無効なidです。")
     return crud.add_sent_history(user = db_user, db=db, senthistory = senthistory)
 
 @app.post("/user/check", response_model={})
