@@ -1,102 +1,33 @@
-import React, { useState } from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import "./App.css";
-import { EmailForm } from "./components/templates/Interfaces";
-import axios, { AxiosResponse, AxiosError } from "axios";
-import Header from "./components/organisms/Header";
-import Footer from "./components/organisms/Footer";
-import Login from "./components/templates/Login";
-import Signup from "./components/templates/Signup";
-import EditorBox from "./components/templates/EditorBox";
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './index.css';
+import Landing from './Landing';
+import Central from './Central';
+import TemplateBox from './components/templates/TemplateBox';
+import EditorBox from './components/templates/EditorBox';
+import PreviewBox from './components/templates/PreviewBox';
+import ReceiverSelect from './components/templates/ReceiverSelect';
+import SendComplete from './components/templates/SendComplete';
+import Unsubscribe from './Unsubscribe';
+import Portal from './components/templates/Portal';
 
 function App() {
-  const BASE_URL = "http://localhost:8000";
-  const [isUserSignnedUP, setisUserSignnedUP] = useState(false);
-  const [isEmailSubmitted, setisEmailSubmitted] = useState(false);
-  const [email, setEmail] = useState("");
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handleSubmit = () => {
-    const form: EmailForm | null = document.getElementById("mailForm");
-    const email: string = form!["email_signup"]!.value;
-
-    axios({
-      method: "post",
-      url: `${BASE_URL}/user/check`,
-      data: {
-        email: email,
-      },
-    })
-      .then((res: AxiosResponse) => {
-        // TODO: Show something when successfully singed up
-        console.log(res.data);
-        setisEmailSubmitted(true);
-        if (res.data["isUserSignnedUp"] === true) {
-          setisUserSignnedUP(true);
-        } else {
-          setisUserSignnedUP(false);
-        }
-      })
-      .catch((err: AxiosError<{ error: string }>) => {
-        // TODO: Show something when error caused
-        console.log(err.response!.data);
-      });
-  };
-
+  const [analytics, setAnalytics] = useState("");
+  
   return (
-    <div className="App">
-      <Header />
-      <main className="App-header">
-        <div className="flex">
-          <div className="contentLeft">
-            <h2 className="mainTtl text-left text-8xl font-bold">
-              想い<span className="font-light">を</span>
-              <br />
-              カタチ<span className="font-light">に</span>
-            </h2>
-            <p className="text-left leading-loose">
-              melBeeは、さまざまなデザインテンプレート
-              <br />
-              の中から招待状やメルマガを作り、
-              <br />
-              相手にそのまま送信もできる デザインツールです。
-              <br />
-              あなたの「作りたい！」がきっとある。 <br />
-              デザインをもっと身近に、簡単に。
-            </p>
-          </div>
-          <div className="contentCenter flex text-base">
-            <p>無料でログインまたは新規登録</p>
-            <p>Let's get started with…</p>
-          </div>
-          <div className="contentRight">
-            <div>
-              <form id="mailForm">
-                <input
-                  type="mail"
-                  name=""
-                  value={email}
-                  onChange={(e) => handleChange(e)}
-                  placeholder="youremail@example.com"
-                  id="email_signup"
-                />
-                <input
-                  type="button"
-                  value="送信する"
-                  onClick={handleSubmit}
-                ></input>
-              </form>
-            </div>
-            {isUserSignnedUP && isEmailSubmitted && <Login email={email} />}
-            {isEmailSubmitted && !isUserSignnedUP && <Signup email={email} />}
-          </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/user" element={<Central displayComponent={<Portal analytics={analytics} setAnalytics={setAnalytics} />} />} />
+          <Route path="/user/templates" element={<Central displayComponent={<TemplateBox />} />} />
+          <Route path="/user/edit" element={<Central displayComponent={<EditorBox />} />} />
+          <Route path="/user/preview" element={<Central displayComponent={<PreviewBox />} />} />
+          <Route path="/user/send" element={<Central displayComponent={<ReceiverSelect analytics={analytics}/>} />} />
+          <Route path="/user/sent" element={<Central displayComponent={<SendComplete />} />} />
+          <Route path="/unsubscribe/:user/:contact" element={<Unsubscribe />} />
+        </Routes>
+      </BrowserRouter>
   );
-}
+};
 
 export default App;

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
 //use the onInput on the div where the EditorBox is located to get the content data
@@ -10,13 +10,21 @@ import { Editor } from "@tinymce/tinymce-react";
 //       <Edit />
 //     </div>
 
-const EditorBox: React.FC = () => {
-  const BASE_URL = "http://localhost:8000";
+type Event = {
+  target: {
+    value: string;
+  };
+};
 
+type clickEvent = {
+  preventDefault: Function;
+};
+
+const EditorBox: React.FC = () => {
   const editorRef = useRef<tinyMCEEditor | null>(null);
 
   return (
-    <div>
+    <div className="w-screen px-56">
       <div className="toolbararea"></div>
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
@@ -54,6 +62,7 @@ const EditorBox: React.FC = () => {
           width: "690",
           height: "500",
           menubar: false,
+          quickbars_insert_toolbar: "table | image",
           quickbars_selection_toolbar:
             "bold italic image| fontfamily fontsize| quicklink",
           plugins: [
