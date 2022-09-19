@@ -53,7 +53,7 @@ const SentHistory: React.FC = () => {
             <div className="flex justify-center">
                 <div className="bg-white w-full">
                     {(sentHistory.length > 0) ? (
-                        <div className="bg-green-600 mx-5 my-4 p-1 rounded-lg">
+                        <div className="bg-green-600 mx-5 my-4 p-1 py-4 rounded-lg">
                         {sentHistory.map((history, i) => {
                             return (
                                 <div key={`history${i}`}>

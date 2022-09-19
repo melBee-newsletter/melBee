@@ -39,7 +39,7 @@ const History: React.FC<Props> = ({ history, i, viewHistory, setViewHistory }) =
     return (
         <div key={`history${i}`} >
             {!viewHistory[i] ? 
-            <div className="flex justify-start bg-sky-800 m-5 rounded-xl py-3 pl-5">
+            <div className="flex justify-start bg-sky-800 mx-5 my-1 rounded-xl py-3 pl-5">
                 <div className="flex justify-end items-center mr-5"> 
                     <h3 className="pr-5 text-lg text-white font-bold">送信日時 :</h3> 
                     <div className="bg-white rounded-lg py-1 px-4 text-xl text-left">{convertDate(history.date_sent)}
