@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import Header from "./components/organisms/Header";
@@ -19,9 +19,7 @@ const Central: React.FC<Props> = ({ displayComponent }) => {
   const EDIT_PATH = "/user/edit";
   const PREVIEW_PATH = "/user/preview";
   const SEND_PATH = "/user/send";
-  const SENT_PATH = "/user/sent";
 
-  const [editedFile, setEditedFile] = useState<string>("");
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
 

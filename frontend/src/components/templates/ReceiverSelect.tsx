@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
+import Loading from "../molecules/Loading";
 
 type Props = {
   analytics: string;
@@ -16,6 +17,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
   const [receivers, setReceivers] = useState<string[]>([]);
   const [isChecked, setIsChecked] = useState<boolean[]>(new Array(allEmails.length).fill(false));
   const [selectAll, setSelectAll] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const TEMPLATE = localStorage.melBeeTempStoragedraft += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
   const DATE = new Date();
@@ -83,6 +85,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
   const handleSend = (e: React.ChangeEvent<any>): void => {
     e.preventDefault();
     if (receivers.length > 0) {
+      setLoading(true);
       axios({
         method: "post",
         url: `${BASE_URL}/email/send`,
@@ -123,6 +126,8 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
   };
 
   return (
+    <>
+    {loading && <Loading word={"S E N D I N G"} />}
     <div className="sendArea">
       <div className="flex items-center justify-center">
         <h3 className="text-xl mr-3">件名 :</h3>
@@ -177,6 +182,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
       </button>
       </div>
     </div>
+    </>
   );
 };
 

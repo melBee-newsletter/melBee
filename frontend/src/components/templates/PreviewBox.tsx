@@ -35,26 +35,30 @@ const PreviewBox: React.FC = () => {
 
   const handleSave = (e: React.ChangeEvent<any>): void => {
     e.preventDefault();
-    axios({
-      method: "post",
-      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-      data: {
-        title: title,
-        thumbnail:
-          "https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/2dee0dc9-0afd-4bf9-a258-559073a64208",
-        body: localStorage.melBeeTempStoragedraft,
-      },
-    })
-      .then((res: AxiosResponse) => {
-        // TODO: Show something when successfully singed up
-        setSaved(true);
-        console.log(res.data);
+    if (title) {
+      axios({
+        method: "post",
+        url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
+        data: {
+          title: title,
+          thumbnail:
+            "https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/2dee0dc9-0afd-4bf9-a258-559073a64208",
+          body: localStorage.melBeeTempStoragedraft,
+        },
       })
-      .catch((err: AxiosError<{ error: string }>) => {
-        // TODO: Show something when error caused
-        window.confirm("何かやばい事が起こりました。");
-        console.log(err.response!.data);
-      });
+        .then((res: AxiosResponse) => {
+          // TODO: Show something when successfully singed up
+          setSaved(true);
+          console.log(res.data);
+        })
+        .catch((err: AxiosError<{ error: string }>) => {
+          // TODO: Show something when error caused
+          window.confirm("何かやばい事が起こりました。");
+          console.log(err.response!.data);
+        });
+    } else {
+      alert("テンプレートを保存するにはタイトルが必要です。\n タイトルを入力してください。")
+    }
   };
 
   return (
