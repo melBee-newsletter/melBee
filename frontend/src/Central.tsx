@@ -30,11 +30,11 @@ const Central: React.FC<Props> = ({ displayComponent, reachLimit }) => {
         <Header />
       </header>
 
-      <main className="App-header pt-24">
+      <main className="App-header pt-24 bg-slate-100 ">
         {isLoggedIn && (
           <div>
             <div>{displayComponent}</div>
-            <div className="contentRight">
+            {/* <div className="contentRight"> */}
               {(currentView === EDIT_PATH || currentView === PREVIEW_PATH && !reachLimit) ? (
                 <button
                   onClick={(e) => {
@@ -67,7 +67,7 @@ const Central: React.FC<Props> = ({ displayComponent, reachLimit }) => {
                 </button>) : null}
               <br />
             </div>
-          </div>
+          // </div>
         )}
 
         {!isLoggedIn && <NotLoggedIn />}

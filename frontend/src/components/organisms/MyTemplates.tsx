@@ -18,8 +18,8 @@ type Props = {
 const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
     const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
     const navigate = useNavigate()
-    const DOWN = "rotate-90";
-    const UP = "-rotate-90";
+    const DOWN = "rotate-90 text-yellow-400";
+    const UP = "-rotate-90 text-yellow-400";
     const [direction, setDirection] = useState<string>(DOWN);
     const [myTemplates, setMyTemplates] = useState<template []>([]);
 
@@ -63,9 +63,9 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
     };
 
     return (
-        <div className="bg-neutral-500 hover:bg-neutral-600 my-2">
-            <div className="flex justify-between px-10 py-3 text-xl text-white font-bold" onClick={handleExpand}>
-                <h3>個人テンプレート一覧</h3>
+        <div className="justify-center my-2 py-4 mb-8 border-2 rounded-lg drop-shadow-xl bg-white">
+            <div className="flex justify-between px-10 py-3 text-xl" onClick={handleExpand}>
+                <h3>保存テンプレート一覧</h3>
                 <span className={direction}>▷</span>
             </div>
             {(expand) && (

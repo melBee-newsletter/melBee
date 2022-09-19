@@ -18,8 +18,8 @@ type Props = {
 
 const SentHistory: React.FC<Props> = ({ expand, setExpand, countSent, setCountSent }) => {
     const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
-    const DOWN = "rotate-90";
-    const UP = "-rotate-90";
+    const DOWN = "rotate-90 text-yellow-400";
+    const UP = "-rotate-90 text-yellow-400";
     const [direction, setDirection] = useState<string>(DOWN);
     const [sentHistory, setSentHistory] = useState<history[]>([]);
     const [viewHistory, setViewHistory] = useState<boolean[]>(new Array(sentHistory.length).fill(false));
@@ -65,8 +65,8 @@ const SentHistory: React.FC<Props> = ({ expand, setExpand, countSent, setCountSe
     }, []);
 
     return (
-        <div className="bg-neutral-500 hover:bg-neutral-600 my-2">
-            <div className="flex justify-between px-10 py-3 text-xl text-white font-bold" onClick={handleExpand}>
+        <div className="justify-center my-2 py-4 mb-8 border-2 rounded-lg drop-shadow-xl bg-white">
+            <div className="flex justify-between px-10 py-3 text-xl font-medium" onClick={handleExpand}>
                 <h3>送信履歴</h3>
                 <span className={direction}>▷</span>
             </div>
