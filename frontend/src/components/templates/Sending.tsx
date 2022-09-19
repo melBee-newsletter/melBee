@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import Loading from "../molecules/Loading";
+import SendComplete from "../molecules/SendComplete";
 
 type Props = {
   analytics: string;
+  reachLimit: boolean;
 };
 
-const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
+const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
 
@@ -18,6 +20,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
   const [isChecked, setIsChecked] = useState<boolean[]>(new Array(allEmails.length).fill(false));
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [sendComplete, setSendComplete] = useState<boolean>(false);
 
   let TEMPLATE = localStorage.melBeeTempStoragedraft
   const DATE = new Date();
@@ -97,8 +100,9 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
       })
       .then((res: AxiosResponse) => {
         // TODO: Show something when successfully sent
-        navigate("/user/sent");
-        console.log(res.data);
+        // console.log(res.data);
+        setSendComplete(true);
+        setLoading(false);
       })
       .catch((err: AxiosError<{ error: string }>) => {
         // TODO: Show something when error
@@ -133,6 +137,11 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
   return (
     <>
     {loading && <Loading word={"S E N D I N G"} />}
+    {sendComplete && <SendComplete reachLimit={reachLimit} setSendComplete={setSendComplete} />}
+    {reachLimit && !sendComplete && (<div className="flex justify-center">
+        <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
+    </div>)}
+    {!reachLimit && !sendComplete &&
     <div className="sendArea">
       <div className="flex items-center justify-center">
         <h3 className="text-xl mr-3">件名 :</h3>
@@ -156,7 +165,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
       <div className="flex justify-between items-center">
         <div className="flex ml-10 text-xl">
           <input type="checkbox" onChange={handleCheckAll} />
-          <p className="ml-2">全て選択</p>
+          {!selectAll ? <p className="ml-2">すべて選択</p> : <p className="ml-2">すべて解除</p> }
         </div>
       
       <div>
@@ -186,7 +195,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics }) => {
         送信
       </button>
       </div>
-    </div>
+    </div>}
     </>
   );
 };
