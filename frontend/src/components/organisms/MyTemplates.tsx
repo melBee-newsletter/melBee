@@ -10,18 +10,22 @@ type template = {
     body: string;
 };
 
-const MyTemplates: React.FC = () => {
+type Props = {
+    expand: boolean;
+    setExpand: Function;
+};
+
+const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
     const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
     const navigate = useNavigate()
     const DOWN = "rotate-90";
     const UP = "-rotate-90";
-    const [expand, setExpand] = useState<boolean>(false);
     const [direction, setDirection] = useState<string>(DOWN);
     const [myTemplates, setMyTemplates] = useState<template []>([]);
 
     const handleExpand = (e: any) => {
         e.preventDefault();
-        setExpand(!expand);
+        setExpand({template: !expand});
     };
 
     useEffect(() => {
@@ -59,10 +63,10 @@ const MyTemplates: React.FC = () => {
     };
 
     return (
-        <div className="bg-neutral-500 my-2">
-            <div className="flex justify-between px-10 py-3 text-xl text-white font-bold">
+        <div className="bg-neutral-500 hover:bg-neutral-600 my-2">
+            <div className="flex justify-between px-10 py-3 text-xl text-white font-bold" onClick={handleExpand}>
                 <h3>個人テンプレート一覧</h3>
-                <button className={direction} onClick={handleExpand}>▷</button>
+                <span className={direction}>▷</span>
             </div>
             {(expand) && (
             <div className="flex justify-center">

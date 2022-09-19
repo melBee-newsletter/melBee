@@ -30,8 +30,8 @@ const Popup: React.FC<Props> = ({ title, content, type }) => {
    
 
     return (
-        <>
-            {displayPopup && <div className={`grid grid-cols-1 items-center rounded-tl-3xl rounded-br-3xl z-50 border-4 border-black ${popupColor}`} style={{width: 450, height: 250, margin: "0 auto"}}>
+        <div className="fixed h-screen w-full z-50 pt-20 mx-auto">
+            {displayPopup && <div className={`grid grid-cols-1 items-center rounded-tl-3xl rounded-br-3xl  border-4 border-black ${popupColor}`} style={{width: 450, height: 250, margin: "0 auto"}}>
                 <div className="flex flex-row justify-center items-center">
                     <img src={headerLogo} alt="melBee_logo" className="flex basis-1/3 justify-center pr-5 pl-3 pt-5 animate-pulse" width="90" />
                     <div className="flex justify-center basis-2/3 pt-5 pr-3">
@@ -42,11 +42,11 @@ const Popup: React.FC<Props> = ({ title, content, type }) => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-yellow-400 py-2 px-3 rounded-xl mx-40 my-2 border-2 border-black">
+                <div className="bg-yellow-400 py-2 px-3 rounded-xl mx-40 my-2 border-2 border-black text-base">
                     <button onClick={()=>setDisplayPopup(false)}>閉じる</button>
                 </div>
             </div>}
-        </>
+        </div>
     );
 };
 
