@@ -137,7 +137,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
   return (
     <>
     {loading && <Loading word={"S E N D I N G"} />}
-    {sendComplete && <SendComplete reachLimit={reachLimit} />}
+    {sendComplete && <SendComplete reachLimit={reachLimit} setSendComplete={setSendComplete} />}
     {reachLimit && !sendComplete && (<div className="flex justify-center">
         <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
     </div>)}
