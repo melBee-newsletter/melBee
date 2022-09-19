@@ -16,6 +16,7 @@ const TemplateBox: React.FC = () => {
   const [myTemplates, setMyTemplates] = useState<template []>([]);
   const [seedDone, setSeedDone] = useState<boolean>(false);
   const [fetchTemplate, setFetchTemplate] = useState<boolean>(false);
+  const [display, setDisplay] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
@@ -76,9 +77,15 @@ const TemplateBox: React.FC = () => {
   // TODO: if possible, render a loading component until the fetching is done.
   useEffect(() => {
     setTimeout(() => {
+      setDisplay(true);
+    }, 1000);
+  }, [fetchTemplate]);
+
+  useEffect(() => {
+    setTimeout(() => {
       setLoading(false);
     }, 1500);
-  }, [fetchTemplate]);
+  }, [display]);
 
   const handleMyTemplate = (i: number) => {
     axios({
