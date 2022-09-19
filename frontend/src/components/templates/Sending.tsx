@@ -165,7 +165,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
       <div className="flex justify-between items-center">
         <div className="flex ml-10 text-xl">
           <input type="checkbox" onChange={handleCheckAll} />
-          <p className="ml-2">全て選択</p>
+          {!selectAll ? <p className="ml-2">すべて選択</p> : <p className="ml-2">すべて解除</p> }
         </div>
       
       <div>
