@@ -33,9 +33,9 @@ const Portal: React.FC<Props> = ({
 }) => {
   const navigate = useNavigate();
   const [expand, setExpand] = useState<expand>({
+    template: true,
     profile: false,
     contact: false,
-    template: false,
     history: false,
   });
 
@@ -67,6 +67,8 @@ const Portal: React.FC<Props> = ({
           </button>
         </div>
       </div>
+    
+      <MyTemplates expand={expand.template} setExpand={setExpand} />
 
       <Profile
         analytics={analytics}
@@ -76,8 +78,6 @@ const Portal: React.FC<Props> = ({
       />
 
       <ContactList expand={expand.contact} setExpand={setExpand} />
-
-      <MyTemplates expand={expand.template} setExpand={setExpand} />
 
       <SentHistory
         expand={expand.history}
