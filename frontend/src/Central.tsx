@@ -30,43 +30,46 @@ const Central: React.FC<Props> = ({ displayComponent, reachLimit }) => {
         <Header />
       </header>
 
-      <main className="App-header pt-24 bg-slate-100 ">
+      <main className="App-header">
         {isLoggedIn && (
-          <div>
-            <div>{displayComponent}</div>
+          <div className="primaryContents w-9/12 mx-auto bg-gray-50 py-14">
+            <div className="secondaryContents">{displayComponent}</div>
             {/* <div className="contentRight"> */}
-              {(currentView === EDIT_PATH || currentView === PREVIEW_PATH && !reachLimit) ? (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (currentView === EDIT_PATH) {
-                      navigate(PREVIEW_PATH);
-                    } else if (currentView === PREVIEW_PATH) {
-                      navigate(SEND_PATH);
-                    }
-                  }}
-                  className="text-sm bg-sky-500 text-white pt-2 pb-2 pr-4 pl-4"
-                >
-                  {"次に進む >"}
-                </button>) : null}
-              <br />
+            {currentView === EDIT_PATH ||
+            (currentView === PREVIEW_PATH && !reachLimit) ? (
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentView === EDIT_PATH) {
+                    navigate(PREVIEW_PATH);
+                  } else if (currentView === PREVIEW_PATH) {
+                    navigate(SEND_PATH);
+                  }
+                }}
+                className="text-sm bg-sky-500 text-white pt-2 pb-2 pr-4 pl-4"
+              >
+                {"次に進む >"}
+              </button>
+            ) : null}
+            <br />
 
-              {currentView === EDIT_PATH || currentView === PREVIEW_PATH ? (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (currentView === PREVIEW_PATH) {
-                      navigate(EDIT_PATH);
-                    } else if (currentView === EDIT_PATH) {
-                      navigate(TEMPLATE_PATH);
-                    }
-                  }}
-                  className="text-sm bg-amber-500 text-white pt-2 pb-2 pr-4 pl-4"
-                >
-                  {"< 戻る"}
-                </button>) : null}
-              <br />
-            </div>
+            {currentView === EDIT_PATH || currentView === PREVIEW_PATH ? (
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currentView === PREVIEW_PATH) {
+                    navigate(EDIT_PATH);
+                  } else if (currentView === EDIT_PATH) {
+                    navigate(TEMPLATE_PATH);
+                  }
+                }}
+                className="text-sm bg-amber-500 text-white pt-2 pb-2 pr-4 pl-4"
+              >
+                {"< 戻る"}
+              </button>
+            ) : null}
+            <br />
+          </div>
           // </div>
         )}
 
