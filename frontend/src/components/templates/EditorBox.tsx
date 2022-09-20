@@ -24,8 +24,7 @@ const EditorBox: React.FC = () => {
   const editorRef = useRef<tinyMCEEditor | null>(null);
 
   return (
-    <div className="w-screen px-56">
-      <div className="toolbararea"></div>
+    <div className="">
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}
@@ -56,11 +55,11 @@ const EditorBox: React.FC = () => {
           automatic_uploads: true,
           file_picker_types: "image",
           visual: false,
-          toolbar_location: "top",
-          inline: true,
+          toolbar_location: "auto",
+          inline: false,
           statusbar: false,
-          width: "690",
-          height: "500",
+          width: "1024",
+          height: "1024",
           menubar: false,
           quickbars_insert_toolbar: "table | image",
           quickbars_selection_toolbar:

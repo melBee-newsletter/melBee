@@ -377,7 +377,7 @@ baby = """
 
 default = """
 <html>
-<body style = "background-color:">
+<body style = "background-color: #e7e7e7;">
 <br>
 <p>
 <br>
@@ -386,10 +386,10 @@ default = """
 <br>
 </p>
 <p>
+<img src="https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/7bf1bddb-541a-40bf-a888-fd7dacd28259" title="melbee.png" width="202" height="202" alt="" data-mce-src="https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/7bf1bddb-541a-40bf-a888-fd7dacd28259" style="display: block; margin-left: auto; margin-right: auto;" data-mce-style="display: block; margin-left: auto; margin-right: auto;">
 <br>
 </p>
-<p>
-<p>ここをクリック！</p>
+<p style = "font-size: 24pt; text align: center;"> ここをクリックして始めよう！</p>
 <br>
 </p>
 <p>

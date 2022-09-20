@@ -166,6 +166,7 @@ const TemplateBox: React.FC = () => {
                         onClick={(e) => {
                           e.preventDefault();
                           SetSelectMy(i);
+                          window.scrollTo(0, 0);
                         }}
                       >
                         <Template template={template} />
@@ -186,6 +187,7 @@ const TemplateBox: React.FC = () => {
                       onClick={(e) => {
                         e.preventDefault();
                         SetSelectMb(i);
+                        window.scrollTo(0, 0);
                       }}
                     >
                       <Template template={template} />
