@@ -71,8 +71,8 @@ def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     return db_item
 
 
-def get_contact_list(db: Session, id: int):
-    return db.query(models.ContactList).filter(models.ContactList.id == id).first()
+def get_contact_list_by_user_id(db: Session, id: int):
+    return db.query(models.ContactList).filter(models.ContactList.user_id == id).all()
 
 
 def add_contact_list(db: Session, email: str, user_id: int, subscription: bool):
