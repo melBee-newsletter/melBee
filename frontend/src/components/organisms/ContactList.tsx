@@ -11,6 +11,7 @@ type Props = {
 interface contact {
   email: string;
   id: number;
+  subscription: boolean;
 };
 
 const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
@@ -43,10 +44,16 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
     })
     .then((res: AxiosResponse) => {
       let data = res.data;
-      data.map((contact: contact) => {
+      const notBlackList = data.filter((contact: contact) => contact.subscription);
+      notBlackList.map((contact: contact) => {
         const email = contact.email;
         setContactList((prevEmail) => [...prevEmail, email]);
         setIsChecked((prevStat) => [...prevStat, false]);
+      });
+      const blackList = data.filter((contact: contact) => !contact.subscription);
+      blackList.map((contact: contact) => {
+        const email = contact.email;
+        setBlackList((prevEmail) => [...prevEmail, email]);
       });
     })
     .catch((err: AxiosError<{ error: string }>) => {
