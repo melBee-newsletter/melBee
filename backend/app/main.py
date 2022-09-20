@@ -130,6 +130,13 @@ def add_contact(contact: schemas.ContactList, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail=err.args)
     return {"message": "Data added succesfully. データが追加されました。"}
 
+@app.delete("/user/contact", response_model={})
+def delete_contact_by_email(email: str, db: Session = Depends(get_db)):
+    try:
+        crud.delete_contact_by_email(db, email)
+    except:
+        raise HTTPException(status_code=400, detail="Data cannot be delete. データの削除ができません。")
+    return {"message": "Data deleted succesfully. データは削除されました。"}
 
 
 # ----- /template ------ #
