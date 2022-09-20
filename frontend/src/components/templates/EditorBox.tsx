@@ -24,7 +24,7 @@ const EditorBox: React.FC = () => {
   const editorRef = useRef<tinyMCEEditor | null>(null);
 
   return (
-    <div className="">
+    <div className="h-full">
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}
@@ -59,7 +59,7 @@ const EditorBox: React.FC = () => {
           inline: false,
           statusbar: false,
           width: "1024",
-          height: "1024",
+          height: "600",
           menubar: false,
           quickbars_insert_toolbar: "table | image",
           quickbars_selection_toolbar:
