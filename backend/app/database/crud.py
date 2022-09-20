@@ -70,8 +70,23 @@ def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db.refresh(db_item)
     return db_item
 
+
 def get_contact_list(db: Session, id: int):
     return db.query(models.ContactList).filter(models.ContactList.id == id).first()
+
+
+def add_contact_list(db: Session, email: str, user_id: int, subscription: bool):
+    contact = models.ContactList(email = email, user_id = user_id, subscription = subscription)
+    session = Session()
+    try:
+        db.add(contact)
+        db.commit()
+    except:
+        session.rollback()
+        raise 
+    finally:
+        session.close()
+
 
 def get_template_by_id(db: Session, id: int):
     return db.query(models.Template).filter(models.Template.id == id).first()
