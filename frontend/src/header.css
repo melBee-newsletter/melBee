@@ -1,0 +1,18 @@
+#root .App .fixed .header .flex {
+  width: 60%;
+  margin: 0 auto;
+}
+
+#root .App .fixed .header .flex a.px-5{
+  padding: 0;
+}
+
+#root .App .fixed .header .flex .logo{
+  width: 50px;
+}
+
+.toggleButon {
+  top: -8px;
+  right: 21%;
+  width: 25px;
+}

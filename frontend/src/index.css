@@ -162,3 +162,19 @@ footer {
   justify-content: space-between !important;
   color: #7c7b7b;
 }
+
+.bg-orangeGradation {
+  background-color: #fd9181;
+  background-image: linear-gradient(0deg, #fd9181 0%, #fdaf5b 30%, #ffce2f 66%);
+}
+
+.bg-blueGradation {
+  background-color: #7e9cf7;
+  background-image: linear-gradient(0deg, #7e9cf7 0%, #4dbdff 50%, #1ddafe 100%);
+}
+
+.scroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 150px;
+}
