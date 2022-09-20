@@ -1,5 +1,5 @@
 from ctypes.wintypes import BYTE
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.dialects.postgresql import BYTEA
 from sqlalchemy.orm import relationship
 from database.database import Base
@@ -48,3 +48,4 @@ class ContactList(Base):
     email = Column(String)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     subscription = Column(Boolean, nullable=False)
+    __table_args__ = (UniqueConstraint("email", "user_id"), None)
