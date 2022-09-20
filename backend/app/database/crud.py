@@ -88,6 +88,17 @@ def add_contact_list(db: Session, email: str, user_id: int, subscription: bool):
         session.close()
 
 
+def delete_contact_by_email(db: Session, email: str):
+    session = Session()
+    try:
+        db.query(models.ContactList).filter(models.ContactList.email == email).delete()
+        db.commit()
+    except Exception as err:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
 def get_template_by_id(db: Session, id: int):
     return db.query(models.Template).filter(models.Template.id == id).first()
 
