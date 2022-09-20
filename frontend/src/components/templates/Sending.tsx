@@ -22,6 +22,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
   const [receivers, setReceivers] = useState<string[]>([]);
   const [isChecked, setIsChecked] = useState<boolean[]>(new Array(allEmails.length).fill(false));
   const [selectAll, setSelectAll] = useState<boolean>(false);
+  const [updateReceiver, setUpdateReceiver] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [sendComplete, setSendComplete] = useState<boolean>(false);
 
@@ -59,12 +60,14 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
   const handleCheck = (position: any | void) => {
     const updateIsChecked = isChecked.map((stat, i) => i === position ? !stat : stat);
     setIsChecked(updateIsChecked);
+    setUpdateReceiver(!updateReceiver);
   };
 
   const handleCheckAll = (e: React.ChangeEvent<any>): void => {
     setSelectAll(!selectAll);
     const updateIsChecked = isChecked.fill(!selectAll);
     setIsChecked(updateIsChecked);
+    setUpdateReceiver(!updateReceiver);
   };
 
   const handleAdd = (e: React.ChangeEvent<any>): void => {
@@ -81,8 +84,9 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
         data: data,
       })
       .then((res: AxiosResponse) => {
-        setAllEmails((prevEmail) => [email, ...prevEmail]);
+        setAllEmails((prevEmail) => [...prevEmail, email]);
         setIsChecked((prevStat) => [...prevStat, true]);
+        setUpdateReceiver(!updateReceiver);
       })
       .catch((err: AxiosError<{ error: string }>) => {
         // TODO: Show something when error
@@ -109,7 +113,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
       return (isChecked[i]);
     });
     setReceivers(selectedEmails);
-  }, [isChecked]);
+  }, [updateReceiver]);
 
   const handleSend = (e: React.ChangeEvent<any>): void => {
     e.preventDefault();
@@ -156,7 +160,6 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
         // TODO: Show something when successfully sent
       })
       .catch((err: AxiosError<{ error: string }>) => {
-        // TODO: Show something when error
         console.log(err.response!.data);
       });
     } else {
@@ -188,7 +191,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
       <h3 className="text-xl mt-6 mb-2">送信先メールアドレスをお選びください</h3>
       <div className="bg-teal-600 flex mb-6 flex-wrap px-4 pt-4 rounded-xl" 
         style={{width: 1200, margin: "0 auto", height: 300, overflow: "scroll"}}>
-        {allEmails.sort().map((email, i) => {
+        {allEmails.map((email, i) => {
           return displayEmailWithCheckbox(email, i);
         })}
       </div>
