@@ -128,7 +128,7 @@ const TemplateBox: React.FC = () => {
   }, [selectMb]);
 
   return (
-    <div className="bg-white w-screen px-8">
+    <div className="bg-white h-screen w-full px-8">
       {loading ? (
         <Loading word={"L O A D I N G"} />
       ) : (
