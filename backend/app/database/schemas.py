@@ -84,9 +84,10 @@ class SentHistory(BaseModel):
     date_sent: str
     user_id: int
 
-# --- Unsubscribe --- #
+# --- ContactList --- #
 
 
-class UnsubscribeList(BaseModel):
+class ContactList(BaseModel):
     email: str
     user_id: int
+    is_subscribed: bool

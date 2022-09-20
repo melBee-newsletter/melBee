@@ -122,21 +122,27 @@ def create_user(user: schemas.UserVerify, db: Session = Depends(get_db)):
 
     return db_user
 
-
-@app.get("/user/{id}/unsub")
-def add_unsub_user(id: int, db: Session = Depends(get_db)):
-    unsub_user = crud.get_unsub_user(db, id)
-    if not unsub_user:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
-    return unsub_user
+#  ----- /user/contact_list ----- #
 
 
-@app.post("/user/{id}/unsub", response_model={})
-def add_unsub_user(id: int, unsub_user: schemas.UnsubscribeList, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, id)
-    if not db_user:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
-    return crud.add_unsub_user(user=db_user, db=db, unsub_user=unsub_user)
+@app.get("/user/contact_list/{id}", response_model=list[schemas.User])
+def get_contact(id: int, db: Session = Depends(get_db)):
+    db_contact = crud.get_contact_list_by_user_id(db, id)
+    if not db_contact:
+        raise HTTPException(
+            status_code=400, detail="Invalid id or no contact list matched. 無効なidもしくはコンタクトリストがありません。")
+    return db_contact
+
+
+@app.post("/user/contact_list", response_model={})
+def add_contact(contact: schemas.ContactList, db: Session = Depends(get_db)):
+    try:
+        crud.add_contact_list(
+            db, contact.email, contact.user_id, contact.is_subscribed)
+    except Exception as err:
+        raise HTTPException(status_code=400, detail=err.args)
+    return {"message": "Data added succesfully. データが追加されました。"}
+
 
 # ----- /template ------ #
 
@@ -144,7 +150,6 @@ def add_unsub_user(id: int, unsub_user: schemas.UnsubscribeList, db: Session = D
 @app.post("/template/seed")
 def seed_templates(db: Session = Depends(get_db)):
     db_template = crud.seed_template(db)
-    print(db_template)
 
 
 @app.get("/template/{id}", response_model=schemas.Template)
