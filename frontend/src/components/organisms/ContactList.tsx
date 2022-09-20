@@ -6,8 +6,8 @@ type Props = {
 };
 
 const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
-    const DOWN = "rotate-90";
-    const UP = "-rotate-90";
+    const DOWN = "rotate-90 text-yellow-400";
+    const UP = "-rotate-90 text-yellow-400";
     const [direction, setDirection] = useState<string>(DOWN);
 
     const [contactList, setContactList] = useState<string[]>([]);
@@ -59,8 +59,8 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
       }, [isChecked]);
 
     return (
-        <div className="bg-neutral-500 hover:bg-neutral-600 my-2">
-            <div className="flex justify-between px-10 py-3 text-xl text-white font-bold" onClick={handleExpand}>
+        <div className="justify-center my-2 py-4 mb-8 border-2 rounded-lg drop-shadow-xl bg-white">
+            <div className="flex justify-between px-10 py-3 text-xl font-medium" onClick={handleExpand}>
                 <h3>連絡先一覧</h3>
                 <span className={direction}>▷</span>
             </div>
