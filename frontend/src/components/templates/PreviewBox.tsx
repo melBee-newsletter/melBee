@@ -64,7 +64,7 @@ const PreviewBox: React.FC = () => {
   };
 
   return (
-    <div className="w-screen px-56">
+    <div className="h-screen w-full">
       <h3>プレビュー</h3>
       <h5>内容をご確認ください</h5>
       <br />
