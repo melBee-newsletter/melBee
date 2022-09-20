@@ -24,7 +24,7 @@ const EditorBox: React.FC = () => {
   const editorRef = useRef<tinyMCEEditor | null>(null);
 
   return (
-    <div className="h-full">
+    <div className="h-screen w-fit">
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}
