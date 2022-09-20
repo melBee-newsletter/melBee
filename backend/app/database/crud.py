@@ -48,7 +48,8 @@ def add_user_template(user: schemas.User, db: Session, usertemplate: schemas.Tem
 
 
 def add_sent_history(user: schemas.User, db: Session, senthistory: schemas.SentHistory):
-    senthistory = models.SentHistory(user_id = user.id, subject = senthistory.subject, recipients = senthistory.recipients, template = senthistory.template, date_sent = senthistory.date_sent)
+    senthistory = models.SentHistory(user_id=user.id, subject=senthistory.subject,
+                                     recipients=senthistory.recipients, template=senthistory.template, date_sent=senthistory.date_sent)
     db.add(senthistory)
     db.commit()
     db.refresh(senthistory)
@@ -99,3 +100,19 @@ def seed_template(db: Session):
 
 def send_email(receivers, subject, message_body):
     return mailSender.send_email(receivers, subject, message_body)
+
+
+def get_unsub_user(db: Session, id: int):
+    return db.query(models.UnsubscribeList).filter(models.UnsubscribeList.user_id == id).all()
+
+
+def add_unsub_user(user: schemas.User, db: Session, unsub: schemas.UnsubscribeList):
+    unsub_user = models.UnsubscribeList(user_id=user.id, email=unsub.email)
+    db.add(unsub_user)
+    db.commit()
+    db.refresh(unsub_user)
+    return unsub_user
+
+
+def get_unsub_user_by_id(db: Session, id: int):
+    return db.query(models.UnsubscribeList).filter(models.UnsubscribeList.id == id).first()

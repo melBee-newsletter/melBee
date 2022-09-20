@@ -31,6 +31,7 @@ def get_db():
     finally:
         db.close()
 
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
@@ -53,12 +54,14 @@ def get_user(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
     return db_user
 
+
 @app.get("/user/{id}/template")
 def get_user(id: int, db: Session = Depends(get_db)):
     templateuser = crud.get_user_template(db, id)
     if not templateuser:
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
     return templateuser
+
 
 @app.post("/user/{id}/template", response_model={})
 def add_user_template(id: int, template: schemas.TemplateBase, db: Session = Depends(get_db)):
@@ -67,21 +70,25 @@ def add_user_template(id: int, template: schemas.TemplateBase, db: Session = Dep
         raise HTTPException(
             status_code=400, detail="You are foolish"
         )
-    return crud.add_user_template(user = db_user, db=db, usertemplate=template)
+    return crud.add_user_template(user=db_user, db=db, usertemplate=template)
+
 
 @app.get("/user/{id}/sent_history")
 def get_sent_history(id: int, db: Session = Depends(get_db)):
     userhistory = crud.get_user_history(db, id)
     if not userhistory:
-        raise HTTPException(status_code=400, detail="Invalid id or no sent history. 無効なidもしくは送信履歴がありません。")
+        raise HTTPException(
+            status_code=400, detail="Invalid id or no sent history. 無効なidもしくは送信履歴がありません。")
     return userhistory
+
 
 @app.post("/user/{id}/sent_history", response_model={})
 def add_sent_history(id: int, senthistory: schemas.SentHistory, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, id)
     if not db_user:
-        raise HTTPException( status_code=400, detail="Invalid id. 無効なidです。")
-    return crud.add_sent_history(user = db_user, db=db, senthistory = senthistory)
+        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+    return crud.add_sent_history(user=db_user, db=db, senthistory=senthistory)
+
 
 @app.post("/user/check", response_model={})
 def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
@@ -89,6 +96,7 @@ def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
     if not db_user:
         return {"isUserSignnedUp": False}
     return {"isUserSignnedUp": True}
+
 
 @app.post("/user/signup", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -114,6 +122,22 @@ def create_user(user: schemas.UserVerify, db: Session = Depends(get_db)):
 
     return db_user
 
+
+@app.get("/user/{id}/unsub")
+def add_unsub_user(id: int, db: Session = Depends(get_db)):
+    unsub_user = crud.get_unsub_user(db, id)
+    if not unsub_user:
+        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+    return unsub_user
+
+
+@app.post("/user/{id}/unsub", response_model={})
+def add_unsub_user(id: int, unsub_user: schemas.UnsubscribeList, db: Session = Depends(get_db)):
+    db_user = crud.get_user(db, id)
+    if not db_user:
+        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+    return crud.add_unsub_user(user=db_user, db=db, unsub_user=unsub_user)
+
 # ----- /template ------ #
 
 
@@ -129,6 +153,16 @@ def get_template(id: int, db: Session = Depends(get_db)):
     if not db_template:
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
     return db_template
+
+# ----- /unsubscribe ------ #
+
+
+@app.get("/unsubscribe/{id}", response_model=schemas.UnsubscribeList)
+def get_unsubscribe(id: int, db: Session = Depends(get_db)):
+    db_unsubscribe = crud.get_unsub_user_by_id(db, id)
+    if not db_unsubscribe:
+        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+    return db_unsubscribe
 
 # ----- /email ------ #
 
