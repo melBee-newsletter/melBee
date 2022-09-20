@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios, { AxiosResponse, AxiosError } from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -7,7 +8,13 @@ type Props = {
   setExpand: Function;
 };
 
+interface contact {
+  email: string;
+  id: number;
+};
+
 const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
+  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
@@ -29,6 +36,24 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
     !expand ? setDirection(DOWN) : setDirection(UP);
   }, [expand]);
 
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: `${BASE_URL}/user/contact_list/${sessionStorage.melbeeID}`,
+    })
+    .then((res: AxiosResponse) => {
+      let data = res.data;
+      data.map((contact: contact) => {
+        const email = contact.email;
+        setContactList((prevEmail) => [...prevEmail, email]);
+        setIsChecked((prevStat) => [...prevStat, false]);
+      });
+    })
+    .catch((err: AxiosError<{ error: string }>) => {
+      console.log(err.response!.data);
+    });
+  }, []);
+
   const displayEmail = (email: string, i: number) => {
     return (
       <div key={i} className="flex mr-5 mb-2 p-2">
@@ -46,12 +71,27 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
 
   const handleAdd = (e: React.ChangeEvent<any>): void => {
     e.preventDefault();
-    if (email) {
-      //TODO: send the email to database to check it is NOT duplicated,
-      // >> and if it's NOT duplicated, add to database.
-      // >> if duplicated, popup error message to let user know.
-      setContactList((prevEmail) => [...prevEmail, email]);
-      setIsChecked((prevStat) => [...prevStat, false]);
+    if (email) { 
+      const data = {
+        email: email,
+        user_id: sessionStorage.melbeeID,
+        is_subscribed: true,
+      }
+      axios({
+        method: "post",
+        url: `${BASE_URL}/user/contact_list`,
+        data: data,
+      })
+      .then((res: AxiosResponse) => {
+        setContactList((prevEmail) => [...prevEmail, email]);
+        setIsChecked((prevStat) => [...prevStat, false]);
+      })
+      .catch((err: AxiosError<{ error: string }>) => {
+        alert(
+          "ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。"
+        );
+        console.log(err.response!.data);
+      });
       setEmail("");
     }
   };
@@ -69,6 +109,27 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
     });
     setSelectedEmail(selected);
   }, [isChecked]);
+
+  const handleRemove = (e: React.ChangeEvent<any>): void => {
+    e.preventDefault();
+      axios({
+        method: "delete",
+        url: `${BASE_URL}/user/contact`,
+        params: {
+          email: selectedEmail.toString(),
+        }
+      })
+      .then((res: AxiosResponse) => {
+        const afterRemove = contactList.filter((email, i) => (!isChecked[i]));
+        setContactList(afterRemove);
+      })
+      .catch((err: AxiosError<{ error: string }>) => {
+        alert(
+          "エラーが生じました。再度お試しください。"
+        );
+        console.log(err.response!.data);
+      });
+  };
 
   return (
     <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
@@ -120,7 +181,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     <p className="text-base">
                       選択したメールアドレスを連絡先から削除する
                     </p>
-                    <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-red-500">
+                    <button type="submit" onClick={handleRemove} className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-red-500">
                       {" "}
                       削除{" "}
                     </button>
