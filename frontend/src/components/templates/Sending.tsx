@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
 import Loading from "../molecules/Loading";
 import SendComplete from "../molecules/SendComplete";
 
@@ -16,7 +15,6 @@ interface contact {
 
 const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
-  const navigate = useNavigate();
 
   const [subject, setSubject] = useState<string>("『melBee』からのお便り");
   const [allEmails, setAllEmails] = useState<string[]>([]);
@@ -37,20 +35,14 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
       url: `${BASE_URL}/user/contact_list/${sessionStorage.melbeeID}`,
     })
     .then((res: AxiosResponse) => {
-      // TODO: Show something when successfully sent
-      // console.log(res.data);
       let data = res.data;
       data.map((contact: contact) => {
         const email = contact.email;
         setAllEmails((prevEmail) => [...prevEmail, email]);
         setIsChecked((prevStat) => [...prevStat, false]);
-      })
+      });
     })
     .catch((err: AxiosError<{ error: string }>) => {
-      // TODO: Show something when error
-      // alert(
-      //   "エラーが生じました。お宛先のメールアドレス及び件名を今一度ご確認ください。"
-      // );
       console.log(err.response!.data);
     });
   }, []);
@@ -78,9 +70,6 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
   const handleAdd = (e: React.ChangeEvent<any>): void => {
     e.preventDefault();
     if (email) {
-      //TODO: send the email to database to check it is NOT duplicated, 
-      // >> and if it's NOT duplicated, add to database.
-      // >> if duplicated, popup error message to let user know.
       const data = {
         email: email,
         user_id: sessionStorage.melbeeID,
@@ -92,16 +81,13 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
         data: data,
       })
       .then((res: AxiosResponse) => {
-        // TODO: Show something when successfully sent
-        // console.log(res.data);
-        alert("Email is added!")
         setAllEmails((prevEmail) => [email, ...prevEmail]);
         setIsChecked((prevStat) => [...prevStat, true]);
       })
       .catch((err: AxiosError<{ error: string }>) => {
         // TODO: Show something when error
         alert(
-          "エラーが生じました。お宛先のメールアドレス及び件名を今一度ご確認ください。"
+          "ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。"
         );
         console.log(err.response!.data);
       });      
@@ -125,20 +111,19 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
     setReceivers(selectedEmails);
   }, [isChecked]);
 
-  const data = {
-    receivers: {
-      email: receivers,
-    },
-    subject: {
-      subject: subject,
-    },
-    message_body: {
-      message_body: TEMPLATE,
-    },
-  };
-
   const handleSend = (e: React.ChangeEvent<any>): void => {
     e.preventDefault();
+    const data = {
+      receivers: {
+        email: receivers,
+      },
+      subject: {
+        subject: subject,
+      },
+      message_body: {
+        message_body: TEMPLATE,
+      },
+    };
     if (receivers.length > 0) {
       setLoading(true);
       axios({
@@ -147,13 +132,10 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
         data: data,
       })
       .then((res: AxiosResponse) => {
-        // TODO: Show something when successfully sent
-        // console.log(res.data);
         setSendComplete(true);
         setLoading(false);
       })
       .catch((err: AxiosError<{ error: string }>) => {
-        // TODO: Show something when error
         alert(
           "エラーが生じました。お宛先のメールアドレス及び件名を今一度ご確認ください。"
         );
