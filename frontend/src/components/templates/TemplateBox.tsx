@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Template from "../molecules/Template";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
@@ -18,66 +18,75 @@ const TemplateBox: React.FC = () => {
   const [fetchTemplate, setFetchTemplate] = useState<boolean>(false);
   const [display, setDisplay] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [selectMy, SetSelectMy] = useState<number | null>(null);
+  const [selectMb, SetSelectMb] = useState<number | null>(null);
+
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
 
-  const numOfTemplates = 10;
-  const seedTemplate = () => {
+  const numOfTemplates = 12;
+
+  const seedTemplate = useCallback(() => {
     axios({
       method: "post",
       url: `${BASE_URL}/template/seed`,
       data: "tomatoTest",
-    }).then(() => setSeedDone(true));
-  };
-
-  const getTemplate = (id: number) => {
-    axios({
-      method: "get",
-      url: `${BASE_URL}/template/${id}`,
     })
       .then((res: AxiosResponse) => {
-        let data = res.data;
-        data.id = id;
-        setMelBeeTemplates((current) => [...current, data]);
+        setSeedDone(true);
       })
       .catch((err: AxiosError<{ error: string }>) => {
         console.log(err.response!.data);
       });
-  };
-
-  const getSavedTemplate = () => {
-    axios({
-      method: "get",
-      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-    })
-      .then((res: AxiosResponse) => {
-        let data = res.data;
-        data.map((template: template) => {
-          setMyTemplates((current) => [template, ...current]);
-        });
-      })
-      .catch((err: AxiosError<{ error: string }>) => {
-        console.log(err.response!.data);
-      });
-  };
-
-  useEffect(() => {
-    seedTemplate();
-    for (let i = 1; i <= numOfTemplates; i++) {
-      getTemplate(i);
-    }
   }, []);
 
   useEffect(() => {
+    seedTemplate();
+  }, [seedTemplate]);
+
+  useEffect(() => {
+    const getTemplate = (id: number) => {
+      axios({
+        method: "get",
+        url: `${BASE_URL}/template/${id}`,
+      })
+        .then((res: AxiosResponse) => {
+          let data = res.data;
+          data.id = id;
+          setMelBeeTemplates((current) => [...current, data]);
+        })
+        .catch((err: AxiosError<{ error: string }>) => {
+          console.log(err.response!.data);
+        });
+    };
+
+    for (let i = 1; i <= numOfTemplates; i++) {
+      getTemplate(i);
+    }
+
+    const getSavedTemplate = () => {
+      axios({
+        method: "get",
+        url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
+      })
+        .then((res: AxiosResponse) => {
+          let data = res.data;
+          data.map((template: template) => {
+            setMyTemplates((current) => [template, ...current]);
+            setFetchTemplate(true);
+          });
+        })
+        .catch((err: AxiosError<{ error: string }>) => {
+          console.log(err.response!.data);
+        });
+    };
     getSavedTemplate();
-    setFetchTemplate(true);
   }, [seedDone]);
 
-  // TODO: if possible, render a loading component until the fetching is done.
   useEffect(() => {
     setTimeout(() => {
       setDisplay(true);
-    }, 1500);
+    }, 1000);
   }, [fetchTemplate]);
 
   useEffect(() => {
@@ -86,31 +95,37 @@ const TemplateBox: React.FC = () => {
     }, 1500);
   }, [display]);
 
-  const handleMyTemplate = (i: number) => {
-    axios({
-      method: "get",
-      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-    })
-      .then((res: AxiosResponse) => {
-        let data = res.data;
-        const index = data.length - 1 - i;
-        localStorage.setItem("melBeeTempStoragedraft", data[index].body);
+  useEffect(() => {
+    const handleMyTemplate = (i: number) => {
+      axios({
+        method: "get",
+        url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
       })
-      .then(() => navigate("/user/edit"));
-  };
+        .then((res: AxiosResponse) => {
+          let data = res.data;
+          const index = data.length - 1 - i;
+          localStorage.setItem("melBeeTempStoragedraft", data[index].body);
+        })
+        .then(() => navigate("/user/edit"));
+    };
+    if (selectMy !== null) handleMyTemplate(selectMy);
+  }, [selectMy]);
 
-  const handleMelBeeTemplate = (i: number) => {
-    const templateId = melBeeTemplates[i].id;
-    axios({
-      method: "get",
-      url: `${BASE_URL}/template/${templateId}`,
-    })
-      .then((res) => {
-        const data = res.data;
-        localStorage.setItem("melBeeTempStoragedraft", data.body);
+  useEffect(() => {
+    const handleMelBeeTemplate = (i: number) => {
+      const templateId = melBeeTemplates[i].id;
+      axios({
+        method: "get",
+        url: `${BASE_URL}/template/${templateId}`,
       })
-      .then(() => navigate("/user/edit"));
-  };
+        .then((res) => {
+          const data = res.data;
+          localStorage.setItem("melBeeTempStoragedraft", data.body);
+        })
+        .then(() => navigate("/user/edit"));
+    };
+    if (selectMb !== null) handleMelBeeTemplate(selectMb);
+  }, [selectMb]);
 
   return (
     <div className="bg-white w-screen px-8">
@@ -150,7 +165,7 @@ const TemplateBox: React.FC = () => {
                         key={`myTemp${i}`}
                         onClick={(e) => {
                           e.preventDefault();
-                          handleMyTemplate(i);
+                          SetSelectMy(i);
                         }}
                       >
                         <Template template={template} />
@@ -170,7 +185,7 @@ const TemplateBox: React.FC = () => {
                       key={`mbTemp${i}`}
                       onClick={(e) => {
                         e.preventDefault();
-                        handleMelBeeTemplate(i);
+                        SetSelectMb(i);
                       }}
                     >
                       <Template template={template} />
