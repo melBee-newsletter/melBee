@@ -115,15 +115,15 @@ def create_user(user: schemas.UserVerify, db: Session = Depends(get_db)):
 
 #  ----- /user/contact_list ----- # 
 
-@app.get("/user/contact_list/{id}", response_model=list[schemas.User])
-def get_contact(id: int, db: Session = Depends(get_db)):
-    db_contact = crud.get_contact_list_by_user_id(db, id)
+@app.get("/user/contact_list/{user_id}", response_model=list[schemas.ContactList])
+def get_contact(user_id: int, db: Session = Depends(get_db)):
+    db_contact = crud.get_contact_list_by_user_id(db, user_id)
     if not db_contact:
         raise HTTPException(status_code=400, detail="Invalid id or no contact list matched. 無効なidもしくはコンタクトリストがありません。")
     return db_contact
 
 @app.post("/user/contact_list", response_model={})
-def add_contact(contact: schemas.ContactList, db: Session = Depends(get_db)):
+def add_contact(contact: schemas.Contact, db: Session = Depends(get_db)):
     try:
         crud.add_contact_list(db, contact.email, contact.user_id, contact.is_subscribed)
     except Exception as err:
