@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import Loading from "../molecules/Loading";
 import SendComplete from "../molecules/SendComplete";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   analytics: string;
@@ -11,11 +12,12 @@ type Props = {
 interface contact {
   email: string;
   id: number;
+  is_subscribed: boolean;
 }
 
 const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
-
+  const navigate = useNavigate();
   const [subject, setSubject] = useState<string>("『melBee』からのお便り");
   const [allEmails, setAllEmails] = useState<string[]>([]);
   const [email, setEmail] = useState<string>("");
@@ -37,7 +39,8 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
     })
     .then((res: AxiosResponse) => {
       let data = res.data;
-      data.map((contact: contact) => {
+      const notBlackList = data.filter((contact: contact) => contact.is_subscribed);
+      notBlackList.map((contact: contact) => {
         const email = contact.email;
         setAllEmails((prevEmail) => [...prevEmail, email]);
         setIsChecked((prevStat) => [...prevStat, false]);
@@ -176,7 +179,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
     </div>)}
     {!reachLimit && !sendComplete &&
     <div className="sendArea">
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-start pl-6">
         <h3 className="text-xl mr-3">件名 :</h3>
         <input
           type="text"
@@ -184,47 +187,50 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
           onChange={(e) => handleSubject(e.target.value)}
           id="subjectId"
           value={subject}
-          className="border-2 rounded-lg p-2 w-fit text-lg"
+          className="border rounded-lg p-2 text-base"
           style={{width: 800}}
         />
       </div>
       <h3 className="text-xl mt-6 mb-2">送信先メールアドレスをお選びください</h3>
-      <div className="bg-teal-600 flex mb-6 flex-wrap px-4 pt-4 rounded-xl" 
-        style={{width: 1200, margin: "0 auto", height: 300, overflow: "scroll"}}>
+      <div className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-3 py-2" 
+        style={{height: 300, overflow: "scroll"}}>
         {allEmails.map((email, i) => {
           return displayEmailWithCheckbox(email, i);
         })}
       </div>
       <div className="flex justify-between items-center">
         <div className="flex ml-10 text-xl">
-          <input type="checkbox" onChange={handleCheckAll} />
+          <input type="checkbox" onChange={handleCheckAll} disabled={!allEmails.length} />
           {!selectAll ? <p className="ml-2">すべて選択</p> : <p className="ml-2">すべて解除</p> }
         </div>
       
-      <div>
+      <div className="pr-10">
         <form onSubmit={handleAdd}>
           <input
-            className="border-2 rounded-lg p-2 text-base"
+            className="border rounded-lg p-2 text-base"
             type="email"
             value={email}
             placeholder="メールアドレス"
             onChange={(e) => setEmail(e.target.value)}
             style={{width: 350}}
             />
-          <button className="bg-amber-400 rounded-lg p-2 ml-3 text-lg w-28"> 追加 </button>
+          <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-amber-400 ml-3 w-28"> 追加 </button>
         </form>
       </div>    
     </div>
-    <div className="flex justify-end mt-6 text-lg">
-      <p className="bg-neutral-400 rounded-lg mr-5">
-        <a href={"/user/edit"} className="p-3 block w-20">
-          戻る
-        </a>
-      </p>
+    <div className="flex justify-end mt-6 text-lg pr-10">
+      <button 
+        onClick={(e) => {
+          e.preventDefault();
+          navigate("/user/preview")
+        }}
+        className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-slate-400 ml-3 w-28">
+        戻る
+      </button>
       <button
         type="submit"
         onClick={handleSend}
-        className="bg-cyan-400 rounded-lg p-3 w-36">
+        className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-3 w-36">
         送信
       </button>
       </div>
