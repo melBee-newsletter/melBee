@@ -13,6 +13,7 @@ class User(Base):
     hashed_password = Column(String)
     usertemplate = Column(String)
 
+
 class UserTemplate(Base):
     __tablename__ = "usertemplate"
 
@@ -31,6 +32,7 @@ class Template(Base):
     thumbnail = Column(String, nullable=False)
     body = Column(String, nullable=False)
 
+
 class SentHistory(Base):
     __tablename__ = "senthistory"
 
@@ -39,6 +41,14 @@ class SentHistory(Base):
     recipients = Column(String)
     template = Column(String)
     date_sent = Column(String)
+    user_id = Column(Integer, ForeignKey("user.id"))
+
+
+class UnsubscribeList(Base):
+    __tablename__ = "unsubscribedlist"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"))
 
 
