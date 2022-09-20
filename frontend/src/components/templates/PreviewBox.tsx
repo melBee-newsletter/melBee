@@ -4,8 +4,8 @@ import axios, { AxiosResponse, AxiosError } from "axios";
 const PreviewBox: React.FC = () => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const [title, setTitle] = useState<string>("");
-  const [saved, setSaved] =useState<boolean>(false);
-  
+  const [saved, setSaved] = useState<boolean>(false);
+
   // const addEditedTemplate = () => {
   //   console.log(sessionStorage.melbeeID);
   //   axios({
@@ -57,7 +57,9 @@ const PreviewBox: React.FC = () => {
           console.log(err.response!.data);
         });
     } else {
-      alert("テンプレートを保存するにはタイトルが必要です。\n タイトルを入力してください。")
+      alert(
+        "テンプレートを保存するにはタイトルが必要です。\n タイトルを入力してください。"
+      );
     }
   };
 
@@ -73,16 +75,24 @@ const PreviewBox: React.FC = () => {
       />
       {!saved ? (
         <form onSubmit={handleSave}>
-        <p className="text-sm">個人テンプレートに保存し、編集されたテンプレートを引き続きご利用いただけます。</p>
-        <input type="text" placeholder="タイトル（２０文字まで）" maxLength={20} value={title} onChange={(e)=>setTitle(e.target.value)} className="border-2 rounded-lg p-2 text-lg mr-5" />
-        <button className="bg-yellow-400 rounded-lg p-3 w-24 text-base">保存</button>
-      </form>
+          <p className="text-sm">
+            個人テンプレートに保存し、編集されたテンプレートを引き続きご利用いただけます。
+          </p>
+          <input
+            type="text"
+            placeholder="タイトル（２０文字まで）"
+            maxLength={20}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="border-2 rounded-lg p-2 text-lg mr-5"
+          />
+          <button className="bg-yellow-400 rounded-lg p-3 w-24 text-base">
+            保存
+          </button>
+        </form>
       ) : (
-        <div className="text-xl">
-          テンプレートが保存されました。
-        </div>
+        <div className="text-xl">テンプレートが保存されました。</div>
       )}
-      
     </div>
   );
 };
