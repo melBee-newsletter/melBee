@@ -1,7 +1,7 @@
 import email
 from typing import List, Optional
 from pydantic import BaseModel
-
+from typing import List
 
 
 class ItemBase(BaseModel):
@@ -86,5 +86,13 @@ class SentHistory(BaseModel):
 
 class ContactList(BaseModel):
     email: str
+    id: int
     user_id: int
     is_subscribed: bool
+    class Config:
+        orm_mode = True
+
+class Contact(BaseModel):
+    email: str
+    user_id: int
+    is_subscribed: bool 
