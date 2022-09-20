@@ -9,6 +9,11 @@ type Props = {
   reachLimit: boolean;
 };
 
+interface contact {
+  email: string;
+  id: number;
+}
+
 const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
@@ -27,6 +32,27 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
   
   useEffect(() => {
     if (analytics) TEMPLATE += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
+    axios({
+      method: "get",
+      url: `${BASE_URL}/user/contact_list/${sessionStorage.melbeeID}`,
+    })
+    .then((res: AxiosResponse) => {
+      // TODO: Show something when successfully sent
+      // console.log(res.data);
+      let data = res.data;
+      data.map((contact: contact) => {
+        const email = contact.email;
+        setAllEmails((prevEmail) => [...prevEmail, email]);
+        setIsChecked((prevStat) => [...prevStat, false]);
+      })
+    })
+    .catch((err: AxiosError<{ error: string }>) => {
+      // TODO: Show something when error
+      // alert(
+      //   "エラーが生じました。お宛先のメールアドレス及び件名を今一度ご確認ください。"
+      // );
+      console.log(err.response!.data);
+    });
   }, []);
 
   if (!localStorage.getItem("subject")) {
@@ -55,8 +81,30 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
       //TODO: send the email to database to check it is NOT duplicated, 
       // >> and if it's NOT duplicated, add to database.
       // >> if duplicated, popup error message to let user know.
-      setAllEmails((prevEmail) => [...prevEmail, email]);
-      setIsChecked((prevStat) => [...prevStat, true]);
+      const data = {
+        email: email,
+        user_id: sessionStorage.melbeeID,
+        is_subscribed: true,
+      }
+      axios({
+        method: "post",
+        url: `${BASE_URL}/user/contact_list`,
+        data: data,
+      })
+      .then((res: AxiosResponse) => {
+        // TODO: Show something when successfully sent
+        // console.log(res.data);
+        alert("Email is added!")
+        setAllEmails((prevEmail) => [email, ...prevEmail]);
+        setIsChecked((prevStat) => [...prevStat, true]);
+      })
+      .catch((err: AxiosError<{ error: string }>) => {
+        // TODO: Show something when error
+        alert(
+          "エラーが生じました。お宛先のメールアドレス及び件名を今一度ご確認ください。"
+        );
+        console.log(err.response!.data);
+      });      
       setEmail("");
     };
   };
@@ -158,7 +206,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
       <h3 className="text-xl mt-6 mb-2">送信先メールアドレスをお選びください</h3>
       <div className="bg-teal-600 flex mb-6 flex-wrap px-4 pt-4 rounded-xl" 
         style={{width: 1200, margin: "0 auto", height: 300, overflow: "scroll"}}>
-        {allEmails.map((email, i) => {
+        {allEmails.sort().map((email, i) => {
           return displayEmailWithCheckbox(email, i);
         })}
       </div>
