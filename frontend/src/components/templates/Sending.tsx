@@ -192,7 +192,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
         />
       </div>
       <h3 className="text-xl mt-6 mb-2">送信先メールアドレスをお選びください</h3>
-      <div className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-1" 
+      <div className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-3 py-2" 
         style={{height: 300, overflow: "scroll"}}>
         {allEmails.map((email, i) => {
           return displayEmailWithCheckbox(email, i);
