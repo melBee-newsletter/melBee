@@ -151,8 +151,7 @@ const TemplateBox: React.FC = () => {
                       <Template
                         template={{
                           id: NaN,
-                          thumbnail:
-                            "",
+                          thumbnail: "",
                           title: "下書き",
                           body: localStorage.melBeeTempStoragedraft,
                         }}

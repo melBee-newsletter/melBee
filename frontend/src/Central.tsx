@@ -32,7 +32,7 @@ const Central: React.FC<Props> = ({ displayComponent, reachLimit }) => {
 
       <main className="App-header">
         {isLoggedIn && (
-          <div className="primaryContents w-9/12 mx-auto bg-gray-50 py-14">
+          <div className="primaryContents w-9/12 mx-auto bg-gray-50 pt-24">
             <div className="secondaryContents">{displayComponent}</div>
             {/* <div className="contentRight"> */}
             {currentView === EDIT_PATH ||

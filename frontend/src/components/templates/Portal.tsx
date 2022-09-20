@@ -41,10 +41,14 @@ const Portal: React.FC<Props> = ({
 
   return (
     // <div className="px-10 w-screen h-screen pt-5">
-    <div className="w-4/5 mx-auto">
+    <div className="w-4/5 mx-auto portalContent">
       <div className="flex justify-between mb-6">
         <div className="text-left">
-          <h2 className="font-bold text-3xl">melBeeへようこそ!</h2>
+          <h2 className="font-bold text-3xl">
+            melBeeへようこそ!
+            <br />
+            <span className="text-xl">今日はどんな手紙を書きますか？</span>
+          </h2>
           {!reachLimit ? (
             <p className="mt-4">
               本日 <strong>{countSent} 通</strong> 送信されました。残り{" "}
@@ -56,18 +60,8 @@ const Portal: React.FC<Props> = ({
             </p>
           )}
         </div>
-        <div className="flex justify-end">
-          <button
-            onClick={(e) => {
-              navigate("/user/templates");
-            }}
-            className="rounded-xl px-6 py-4 my-3 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
-          >
-            新規作成
-          </button>
-        </div>
       </div>
-    
+
       <MyTemplates expand={expand.template} setExpand={setExpand} />
 
       <Profile
