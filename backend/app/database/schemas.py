@@ -87,4 +87,4 @@ class SentHistory(BaseModel):
 class ContactList(BaseModel):
     email: str
     user_id: int
-    subscription: bool
+    is_subscribed: bool

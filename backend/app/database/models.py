@@ -47,5 +47,5 @@ class ContactList(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
-    subscription = Column(Boolean, nullable=False)
+    is_subscribed = Column(Boolean, nullable=False)
     __table_args__ = (UniqueConstraint("email", "user_id"), None)

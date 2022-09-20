@@ -125,18 +125,11 @@ def get_contact(id: int, db: Session = Depends(get_db)):
 @app.post("/user/contact_list", response_model={})
 def add_contact(contact: schemas.ContactList, db: Session = Depends(get_db)):
     try:
-        crud.add_contact_list(db, contact.email, contact.user_id, contact.subscription)
+        crud.add_contact_list(db, contact.email, contact.user_id, contact.is_subscribed)
     except Exception as err:
         raise HTTPException(status_code=400, detail=err.args)
     return {"message": "Data added succesfully. データが追加されました。"}
 
-@app.delete("/user/contact", response_model={})
-def delete_contact_by_email(email: str, db: Session = Depends(get_db)):
-    try:
-        crud.delete_contact_by_email(db, email)
-    except:
-        raise HTTPException(status_code=400, detail="Data cannot be delete. データの削除ができません。")
-    return {"message": "Data deleted succesfully. データは削除されました。"}
 
 
 # ----- /template ------ #

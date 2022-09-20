@@ -75,8 +75,8 @@ def get_contact_list_by_user_id(db: Session, id: int):
     return db.query(models.ContactList).filter(models.ContactList.user_id == id).all()
 
 
-def add_contact_list(db: Session, email: str, user_id: int, subscription: bool):
-    contact = models.ContactList(email = email, user_id = user_id, subscription = subscription)
+def add_contact_list(db: Session, email: str, user_id: int, is_subscribed: bool):
+    contact = models.ContactList(email = email, user_id = user_id, is_subscribed = is_subscribed)
     session = Session()
     try:
         db.add(contact)
