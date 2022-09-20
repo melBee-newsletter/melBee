@@ -8,11 +8,27 @@
 }
 
 #root .App .fixed .header .flex .logo{
-  width: 50px;
+  width: 55px;
 }
 
 .toggleButon {
   top: -8px;
   right: 21%;
   width: 25px;
+}
+
+.nav .iconUser{
+  width: 30px;
+  height: 100%;
+}
+
+.nav .iconLogout {
+  width: 38px;
+  height: 100%;
+}
+
+.portalContent {
+  background-image: url("./img/bgImage.png");
+  background-position: right top;
+  background-repeat: no-repeat;
 }

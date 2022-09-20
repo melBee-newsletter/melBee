@@ -24,13 +24,17 @@ const Navigation: FC<Props> = ({ open, id }) => {
           </a>
         </li>
         <li>
-          <a className="block" href="/" onClick={(e)=>{
-            e.preventDefault();
-            sessionStorage.removeItem("isLoggedIn");
-            sessionStorage.removeItem("melbeeID");
-            alert("ログアウトされました");
-            navigate("/");
-          }}>
+          <a
+            className="block"
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              sessionStorage.removeItem("isLoggedIn");
+              sessionStorage.removeItem("melbeeID");
+              alert("ログアウトされました");
+              navigate("/");
+            }}
+          >
             &gt; ログアウト
           </a>
         </li>

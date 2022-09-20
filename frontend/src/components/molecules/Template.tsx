@@ -11,12 +11,12 @@ type Props = {
 
 const Template: React.FC<Props> = ({ template }) => {
   return (
-    <div className="flex-1 justify-center px-2 py-4 h-96 bg-yellow-400 rounded-lg">
+    <div className="">
       <div>
-        <p className="text-2xl font-bold">{template.title.slice(0, 20)}</p>
+        <p className="font-bold pb-3">{template.title.slice(0, 20)}</p>
       </div>
-      <div className="w-full h-full px-2 py-3 pb-8">
-        <div className="h-full overflow-y-scroll bg-white">
+      <div className="">
+        <div className="overflow-y-scroll templateList">
           {/* <img src={template.thumbnail} alt="template" width={200} className="object-cover h-full w-full"/> */}
           <div
             dangerouslySetInnerHTML={{
