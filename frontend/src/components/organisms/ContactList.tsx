@@ -56,15 +56,23 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
 
   const displayEmail = (email: string, i: number) => {
     return (
-      <div key={i} className="flex mr-5 mb-2 p-2">
+      <div key={i} className="flex mr-5 mb-1 p-1">
         <input
           type="checkbox"
           id={String(i)}
-          className="mr-1"
+          className="mr-2"
           checked={isChecked[i]}
           onChange={() => handleCheck(i)}
         />
         <p>{email}</p>
+      </div>
+    );
+  };
+
+  const displayBlackList = (email: string, i: number) => {
+    return (
+      <div key={i} className="flex mr-5 mb-1 p-1">
+        <p className="text-red-600">{email}</p>
       </div>
     );
   };
@@ -149,14 +157,14 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
         <div className="">
           <div className="">
             <div className="w-full">
-              <div className="w-10/12 scroll flex flex-wrap items-baseline border rounded-r-md mb-5">
+              <div className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-1">
                 {contactList.map((email, i) => {
                   return displayEmail(email, i);
                 })}
               </div>
             </div>
-            <div className="flex px-2">
-              <div className="text-left  w-7/12">
+            <div className="flex justify-between px-2">
+              <div className="text-left w-7/12">
                 <form onSubmit={handleAdd}>
                   <label className="text-left">
                     メールアドレスを連絡先に新規登録する
@@ -188,7 +196,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                   </div>
                 ) : (
                   <div className="text-right">
-                    <p className="">メールアドレス選択後、削除を行えます</p>
+                    <p className="text-base">メールアドレス選択後、削除を行えます</p>
                     <button className="bg-slate-400 rounded-xl px-6 py-2 drop-shadow-xl text-lg font-medium text-gray-500">
                       {" "}
                       削除{" "}
@@ -198,14 +206,13 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
               </div>
             </div>
             {blackList.length > 0 && (
-              <div className="my-5">
-                <h3 className="text-base">配信停止済み</h3>
-                <div
-                  className="bg-gray-500 flex mb-2 flex-wrap px-4 pt-4 rounded-xl w-full"
+              <div className="mt-10 mb-3">
+                <h3 className="text-base text-red-700">配信停止済み</h3>
+                <div className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-1"
                   style={{ height: 150, overflow: "scroll" }}
                 >
                   {blackList.map((email, i) => {
-                    return displayEmail(email, i);
+                    return displayBlackList(email, i);
                   })}
                 </div>
                 <p className="text-sm text-red-800">
