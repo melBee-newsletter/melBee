@@ -41,3 +41,11 @@ class SentHistory(Base):
     date_sent = Column(String)
     user_id = Column(Integer, ForeignKey("user.id"))
 
+class ContactList(Base):
+    __tablename__ = "contactlist"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String)
+    user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
+    contact_id = Column(Integer, ForeignKey("contact.id"), nullable=False)
+    subscription = Column(Boolean, nullable=False)
