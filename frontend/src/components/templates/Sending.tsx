@@ -12,7 +12,7 @@ type Props = {
 interface contact {
   email: string;
   id: number;
-  subscription: boolean;
+  is_subscribed: boolean;
 }
 
 const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
@@ -39,7 +39,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
     })
     .then((res: AxiosResponse) => {
       let data = res.data;
-      const notBlackList = data.filter((contact: contact) => contact.subscription);
+      const notBlackList = data.filter((contact: contact) => contact.is_subscribed);
       notBlackList.map((contact: contact) => {
         const email = contact.email;
         setAllEmails((prevEmail) => [...prevEmail, email]);
