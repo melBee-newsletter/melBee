@@ -98,7 +98,6 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
             status_code=400, detail="Email already registered. このメールアドレスは登録されています。")
     return crud.create_user(db=db, user=user)
 
-
 @app.post("/user/login", response_model=schemas.User)
 def create_user(user: schemas.UserVerify, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
@@ -114,13 +113,20 @@ def create_user(user: schemas.UserVerify, db: Session = Depends(get_db)):
 
     return db_user
 
+@app.get("/user/contact_list/{id}", response_model=list[schemas.User])
+def get_contact(id:int, db: Session = Depends(get_db)):
+    db_contact = crud.get_contact_list(db, id)
+    if not db_contact:
+        raise HTTPException(status_code=400, detail="Invalid id or no contact list matched. 無効なidもしくはコンタクトリストがありません。")
+    return db_contact
+
+
 # ----- /template ------ #
 
 
 @app.post("/template/seed")
 def seed_templates(db: Session = Depends(get_db)):
     db_template = crud.seed_template(db)
-    print(db_template)
 
 
 @app.get("/template/{id}", response_model=schemas.Template)

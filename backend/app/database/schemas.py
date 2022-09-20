@@ -74,9 +74,13 @@ class MessageBody(BaseModel):
     message_body: str
 
 # --- SentHistory --- #
+
 class SentHistory(BaseModel):
     subject: str
     recipients: str
     template: str
     date_sent: str
     user_id: int
+
+# --- Contact/ContactList --- #
+

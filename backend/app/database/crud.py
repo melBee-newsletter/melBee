@@ -70,6 +70,8 @@ def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db.refresh(db_item)
     return db_item
 
+def get_contact_list(db: Session, id: int):
+    return db.query(models.ContactList).filter(models.ContactList.id == id).first()
 
 def get_template_by_id(db: Session, id: int):
     return db.query(models.Template).filter(models.Template.id == id).first()
