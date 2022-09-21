@@ -91,8 +91,6 @@ def add_sent_history(id: int, senthistory: schemas.SentHistory, db: Session = De
             status_code=400, detail="You are foolish"
         )
     return crud.add_sent_history(user=db_user, db=db, senthistory=senthistory)
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
-    return crud.add_sent_history(user=db_user, db=db, senthistory=senthistory)
 
 
 @app.post("/user/{id}/add_analytics", response_model={})
