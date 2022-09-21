@@ -60,6 +60,31 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
+def add_analytics(user: schemas.User, db: Session, analyticsID: str):
+    setattr(user, "analyticsID", analyticsID)
+    return user
+
+
+def add_instagram(user: schemas.User, db: Session, instagramID: str):
+    setattr(user, "instagramID", instagramID)
+    return user
+
+
+def add_twitter(user: schemas.User, db: Session, twitterID: str):
+    setattr(user, "twitterID", twitterID)
+    return user
+
+
+def add_facebook(user: schemas.User, db: Session, facebookID: str):
+    setattr(user, "facebookID", facebookID)
+    return user
+
+
+def add_homepage(user: schemas.User, db: Session, homepage: str):
+    setattr(user, "homepage", homepage)
+    return user
+
+
 def get_items(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Item).offset(skip).limit(limit).all()
 
@@ -90,13 +115,13 @@ def add_contact_list(db: Session, email: str, user_id: int, is_subscribed: bool)
         session.close()
 
 
-def delete_contact_by_email(db: Session, email: str):
+def delete_contact_by_email_and_user_id(db: Session, email: str, user_id: int):
     session = Session()
     try:
-        db.query(models.ContactList).filter(
-            models.ContactList.email == email).delete()
+        db.query(models.ContactList).filter(models.ContactList.email ==
+                                            email, models.ContactList.user_id == user_id).delete()
         db.commit()
-    except Exception as err:
+    except:
         session.rollback()
         raise
     finally:
@@ -108,6 +133,19 @@ def unsubscribe_contact_by_email_and_user_id(db: Session, email: str, user_id: i
     try:
         db.query(models.ContactList).filter(
             models.ContactList.email == email, models.ContactList.user_id == user_id).update({"is_subscribed": False})
+        db.commit()
+    except Exception as err:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
+
+def subscribe_contact_by_email_and_user_id(db: Session, email: str, user_id: int):
+    session = Session()
+    try:
+        db.query(models.ContactList).filter(
+            models.ContactList.email == email, models.ContactList.user_id == user_id).update({"is_subscribed": True})
         db.commit()
     except Exception as err:
         session.rollback()
