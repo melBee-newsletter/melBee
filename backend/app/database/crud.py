@@ -186,38 +186,45 @@ def seed_template(db: Session):
     limit = 13
     if len >= limit:
         return None
-    db_template_default = models.Template(
-        title="最初から作成", thumbnail="", body=templates.default)
-    db.add(db_template_default)
-    db_template_defaultlight = models.Template(
-        title="デフォルトのメール", thumbnail="", body=templates.defaultlight)
-    db.add(db_template_defaultlight)
-    db_template_defaultdark = models.Template(
-        title="クールなメール", thumbnail="", body=templates.defaultdark)
-    db.add(db_template_defaultdark)
-    db_template_baby = models.Template(
-        title="新しい家族", thumbnail="", body=templates.baby)
-    db.add(db_template_baby)
-    db_template_birthday = models.Template(
-        title="誕生パーティー！", thumbnail="", body=templates.birthday)
-    db.add(db_template_birthday)
-    db_template_christmas = models.Template(
-        title="クリスマスパーティー", thumbnail="", body=templates.christmas)
-    db.add(db_template_christmas)
-    db_template_newyear = models.Template(
-        title="年賀状", thumbnail="", body=templates.newyear)
-    db.add(db_template_newyear)
-    db_template_flower = models.Template(
-        title="お花屋さん", thumbnail="", body=templates.flower_shop)
-    db.add(db_template_flower)
-    db_template_school = models.Template(
-        title="クラスのお便り", thumbnail="", body=templates.school)
-    db.add(db_template_school)
-    db_template_wedding = models.Template(
-        title="結婚式の招待状", thumbnail="", body=templates.wedding)
-    db.add(db_template_wedding)
-    db.commit()
-
+    
+    session = Session()
+    try:
+        db_template_default = models.Template(
+            title="最初から作成", thumbnail="", body=templates.default)
+        db.add(db_template_default)
+        db_template_defaultlight = models.Template(
+            title="デフォルトのメール", thumbnail="", body=templates.defaultlight)
+        db.add(db_template_defaultlight)
+        db_template_defaultdark = models.Template(
+            title="クールなメール", thumbnail="", body=templates.defaultdark)
+        db.add(db_template_defaultdark)
+        db_template_baby = models.Template(
+            title="新しい家族", thumbnail="", body=templates.baby)
+        db.add(db_template_baby)
+        db_template_birthday = models.Template(
+            title="誕生パーティー！", thumbnail="", body=templates.birthday)
+        db.add(db_template_birthday)
+        db_template_christmas = models.Template(
+            title="クリスマスパーティー", thumbnail="", body=templates.christmas)
+        db.add(db_template_christmas)
+        db_template_newyear = models.Template(
+            title="年賀状", thumbnail="", body=templates.newyear)
+        db.add(db_template_newyear)
+        db_template_flower = models.Template(
+            title="お花屋さん", thumbnail="", body=templates.flower_shop)
+        db.add(db_template_flower)
+        db_template_school = models.Template(
+            title="クラスのお便り", thumbnail="", body=templates.school)
+        db.add(db_template_school)
+        db_template_wedding = models.Template(
+            title="結婚式の招待状", thumbnail="", body=templates.wedding)
+        db.add(db_template_wedding)
+        db.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
     return db_template_wedding
 
 
