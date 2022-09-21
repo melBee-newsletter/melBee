@@ -59,7 +59,7 @@ footer {
 
 .bg-orangeGradation {
   background-color: #fd9181;
-  background-image: linear-gradient(0deg, #fd9181 0%, #fdaf5b 30%, #ffce2f 66%);
+  background-image: linear-gradient(0deg, #fd9181 0%, #fdaf5b 50%, #ffce2f 100%);
 }
 
 .bg-blueGradation {
