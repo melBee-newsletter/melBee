@@ -14,9 +14,7 @@ EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD") if os.environ.get(
     "EMAIL_PASSWORD") else os.getenv("EMAIL_PASSWORD")
 
 
-
 def send_email(receivers, subject, message_body):
-
     print(EMAIL_ADDRESS, EMAIL_PASSWORD)
     msg = EmailMessage()
     my_address = 'melBee team'
@@ -30,5 +28,3 @@ def send_email(receivers, subject, message_body):
     with smtplib.SMTP_SSL('smtp.gmail.com', '465') as server:
         server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         server.send_message(msg, my_address, rcpt)
-
-send_email("a@a.com", "hello", "hello")

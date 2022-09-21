@@ -110,7 +110,6 @@ function Landing() {
                             onChange={(e) => handleChange(e)}
                             placeholder="youremail@example.com"
                             id="email_signup"
-                            onKeyDown={(e) => checkEnterKey(e)}
                           />
                           <button
                             type="button"
