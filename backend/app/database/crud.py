@@ -77,14 +77,15 @@ def get_contact_list_by_user_id(db: Session, id: int):
 
 
 def add_contact_list(db: Session, email: str, user_id: int, is_subscribed: bool):
-    contact = models.ContactList(email = email, user_id = user_id, is_subscribed = is_subscribed)
+    contact = models.ContactList(
+        email=email, user_id=user_id, is_subscribed=is_subscribed)
     session = Session()
     try:
         db.add(contact)
         db.commit()
     except:
         session.rollback()
-        raise 
+        raise
     finally:
         session.close()
 
@@ -92,13 +93,28 @@ def add_contact_list(db: Session, email: str, user_id: int, is_subscribed: bool)
 def delete_contact_by_email(db: Session, email: str):
     session = Session()
     try:
-        db.query(models.ContactList).filter(models.ContactList.email == email).delete()
+        db.query(models.ContactList).filter(
+            models.ContactList.email == email).delete()
         db.commit()
     except Exception as err:
         session.rollback()
         raise
     finally:
         session.close()
+
+
+def unsubscribe_contact_by_email(db: Session, email: str):
+    session = Session()
+    try:
+        db.query(models.ContactList).filter(
+            models.ContactList.email == email).update({"is_subscribed": False})
+        db.commit()
+    except Exception as err:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
 
 def get_template_by_id(db: Session, id: int):
     return db.query(models.Template).filter(models.Template.id == id).first()
@@ -110,25 +126,35 @@ def seed_template(db: Session):
     limit = 13
     if len >= limit:
         return None
-    db_template_default = models.Template(title="最初から作成", thumbnail="", body=templates.default)
+    db_template_default = models.Template(
+        title="最初から作成", thumbnail="", body=templates.default)
     db.add(db_template_default)
-    db_template_defaultlight = models.Template(title = "デフォルトのメール", thumbnail= "", body=templates.defaultlight)
+    db_template_defaultlight = models.Template(
+        title="デフォルトのメール", thumbnail="", body=templates.defaultlight)
     db.add(db_template_defaultlight)
-    db_template_defaultdark = models.Template(title = "クールなメール", thumbnail = "", body=templates.defaultdark)
+    db_template_defaultdark = models.Template(
+        title="クールなメール", thumbnail="", body=templates.defaultdark)
     db.add(db_template_defaultdark)
-    db_template_baby = models.Template(title = "新しい家族", thumbnail = "", body=templates.baby)
+    db_template_baby = models.Template(
+        title="新しい家族", thumbnail="", body=templates.baby)
     db.add(db_template_baby)
-    db_template_birthday = models.Template(title = "誕生パーティー！", thumbnail = "", body=templates.birthday)
+    db_template_birthday = models.Template(
+        title="誕生パーティー！", thumbnail="", body=templates.birthday)
     db.add(db_template_birthday)
-    db_template_christmas = models.Template(title = "クリスマスパーティー", thumbnail = "", body=templates.christmas)
+    db_template_christmas = models.Template(
+        title="クリスマスパーティー", thumbnail="", body=templates.christmas)
     db.add(db_template_christmas)
-    db_template_newyear = models.Template(title = "年賀状", thumbnail = "", body=templates.newyear)
+    db_template_newyear = models.Template(
+        title="年賀状", thumbnail="", body=templates.newyear)
     db.add(db_template_newyear)
-    db_template_flower = models.Template(title="お花屋さん", thumbnail="", body=templates.flower_shop)
+    db_template_flower = models.Template(
+        title="お花屋さん", thumbnail="", body=templates.flower_shop)
     db.add(db_template_flower)
-    db_template_school = models.Template(title="クラスのお便り", thumbnail="", body=templates.school)
+    db_template_school = models.Template(
+        title="クラスのお便り", thumbnail="", body=templates.school)
     db.add(db_template_school)
-    db_template_wedding = models.Template(title="結婚式の招待状", thumbnail="", body=templates.wedding)
+    db_template_wedding = models.Template(
+        title="結婚式の招待状", thumbnail="", body=templates.wedding)
     db.add(db_template_wedding)
     db.commit()
 
@@ -137,19 +163,3 @@ def seed_template(db: Session):
 
 def send_email(receivers, subject, message_body):
     return mailSender.send_email(receivers, subject, message_body)
-
-
-def get_unsub_user(db: Session, id: int):
-    return db.query(models.UnsubscribeList).filter(models.UnsubscribeList.user_id == id).all()
-
-
-def add_unsub_user(user: schemas.User, db: Session, unsub: schemas.UnsubscribeList):
-    unsub_user = models.UnsubscribeList(user_id=user.id, email=unsub.email)
-    db.add(unsub_user)
-    db.commit()
-    db.refresh(unsub_user)
-    return unsub_user
-
-
-def get_unsub_user_by_id(db: Session, id: int):
-    return db.query(models.UnsubscribeList).filter(models.UnsubscribeList.id == id).first()

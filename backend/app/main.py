@@ -143,13 +143,27 @@ def add_contact(contact: schemas.ContactList, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail=err.args)
     return {"message": "Data added succesfully. データが追加されました。"}
 
+
 @app.delete("/user/contact", response_model={})
 def delete_contact_by_email(email: str, db: Session = Depends(get_db)):
     try:
         crud.delete_contact_by_email(db, email)
     except:
-        raise HTTPException(status_code=400, detail="Data cannot be delete. データの削除ができません。")
+        raise HTTPException(
+            status_code=400, detail="Data cannot be delete. データの削除ができません。")
     return {"message": "Data deleted succesfully. データは削除されました。"}
+
+#  ----- /unsubscribe ----- #
+
+
+@app.patch("/user/contact/", response_model={})
+def unsubscribe_contact_by_email(email: str, db: Session = Depends(get_db)):
+    db_contact = crud.unsubscribe_contact_by_email(db, email)
+    if not unsubscribe_contact_by_email:
+        raise HTTPException(
+            status_code=400, detail="Invalid email address or no contact list matched. 無効なメールアドレスもしくはコンタクトリストがありません。")
+    return {"message": "Data changed succesfully. データは変更されました。"}
+
 
 # ----- /template ------ #
 
@@ -165,16 +179,6 @@ def get_template(id: int, db: Session = Depends(get_db)):
     if not db_template:
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
     return db_template
-
-# ----- /unsubscribe ------ #
-
-
-@app.get("/unsubscribe/{id}", response_model=schemas.UnsubscribeList)
-def get_unsubscribe(id: int, db: Session = Depends(get_db)):
-    db_unsubscribe = crud.get_unsub_user_by_id(db, id)
-    if not db_unsubscribe:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
-    return db_unsubscribe
 
 # ----- /email ------ #
 
