@@ -82,7 +82,7 @@ const History: React.FC<Props> = ({
                   {JSON.parse(history.recipients).map(
                     (email: string, i: number) => {
                       return (
-                        <li key={`email${i}`} className=" mb-2">
+                        <li key={`email${i}`} className=" mb-2 ml-2">
                           <p>{email}</p>
                         </li>
                       );
@@ -91,7 +91,7 @@ const History: React.FC<Props> = ({
                 </ul>
               </li>
             </ul>
-            <div className="w-4/6">
+            <div className="">
               <div className="overflow-y-scroll templateHistory">
                 <div
                   dangerouslySetInnerHTML={{

@@ -84,7 +84,7 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
           >
             {"編集"}
           </button>
-          {!reachLimit &&
+          {!reachLimit ?
           <button
           onClick={(e) => {
             e.preventDefault();
@@ -93,7 +93,9 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
           className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
           >
             {"送信"}
-          </button> }
+          </button> :
+          <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
+          }
       </div>
       <div className="flex justify-center">
         {!saved ? (

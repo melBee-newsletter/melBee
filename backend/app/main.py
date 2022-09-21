@@ -184,10 +184,10 @@ def add_contact(contact: schemas.Contact, db: Session = Depends(get_db)):
     return {"message": "Data added succesfully. データが追加されました。"}
 
 
-@app.delete("/user/contact", response_model={})
-def delete_contact_by_email_and_user_id(email: str, user_id: int, db: Session = Depends(get_db)):
+@app.delete("/user/contact_list", response_model={})
+def delete_contact_by_email_and_user_id(emails: list[str], user_id: int, db: Session = Depends(get_db)):
     try:
-        crud.delete_contact_by_email_and_user_id(db, email, user_id)
+        crud.delete_contact_by_email_and_user_id(db, emails, user_id)
     except:
         raise HTTPException(
             status_code=400, detail="Data cannot be delete. データの削除ができません。")

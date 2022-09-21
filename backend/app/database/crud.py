@@ -115,11 +115,11 @@ def add_contact_list(db: Session, email: str, user_id: int, is_subscribed: bool)
         session.close()
 
 
-def delete_contact_by_email_and_user_id(db: Session, email: str, user_id: int):
+def delete_contact_by_email_and_user_id(db: Session, emails: list[str], user_id: int):
     session = Session()
     try:
-        db.query(models.ContactList).filter(models.ContactList.email ==
-                                            email, models.ContactList.user_id == user_id).delete()
+        for email in emails:
+            db.query(models.ContactList).filter(models.ContactList.email == email, models.ContactList.user_id == user_id).delete()
         db.commit()
     except:
         session.rollback()

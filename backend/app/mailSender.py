@@ -3,8 +3,8 @@ from os.path import join, dirname
 import smtplib
 from email.message import EmailMessage
 from dotenv import load_dotenv
-load_dotenv(verbose=True)
 
+load_dotenv(verbose=True)
 dotenv_path = join(dirname(__file__), 'database\.env.local')
 load_dotenv(dotenv_path)
 
