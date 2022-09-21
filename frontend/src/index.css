@@ -88,3 +88,11 @@ footer {
 .historyList li:nth-child(2) {
   width: 300px;
 }
+
+.templateHistory {
+  height: 412.2px;
+}
+
+.titleHistory {
+  width: 70px;
+}

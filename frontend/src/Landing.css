@@ -3,6 +3,9 @@
   background: none;
   z-index: 9999;
 }
+.top .header .flex {
+  margin: 0 15px;
+}
 .mainTtl {
   font-size: 6.5rem;
   line-height: 1.15;
