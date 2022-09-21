@@ -141,7 +141,8 @@ def delete_contact_by_email_and_user_id(db: Session, emails: list[str], user_id:
     session = Session()
     try:
         for email in emails:
-            db.query(models.ContactList).filter(models.ContactList.email == email, models.ContactList.user_id == user_id).delete()
+            db.query(models.ContactList).filter(models.ContactList.email ==
+                                                email, models.ContactList.user_id == user_id).delete()
         db.commit()
     except:
         session.rollback()
@@ -228,5 +229,9 @@ def seed_template(db: Session):
     return db_template_wedding
 
 
-def send_email(receivers, subject, message_body):
-    return mailSender.send_email(receivers, subject, message_body)
+def send_email(db: Session, receiver, subject, message_body, user_id):
+    receiver_id = db.query(models.ContactList.id).filter(
+        models.ContactList.user_id == user_id, models.ContactList.email == receiver).scalar()
+    user_email = db.query(models.User.email).filter(
+        models.User.id == user_id).scalar()
+    return mailSender.send_email(receiver, subject, message_body, user_id, user_email, receiver_id)
