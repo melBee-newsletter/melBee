@@ -15,7 +15,6 @@ EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD") if os.environ.get(
 
 
 def send_email(receivers, subject, message_body):
-    print(EMAIL_ADDRESS, EMAIL_PASSWORD)
     msg = EmailMessage()
     my_address = 'melBee team'
     bcc = receivers
