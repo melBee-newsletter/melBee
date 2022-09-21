@@ -26,7 +26,7 @@ function App() {
           <Route path="/user" element={<Central displayComponent={<Portal analytics={analytics} setAnalytics={setAnalytics} countSent={countSent} setCountSent={setCountSent} sendLimit={SEND_LIMIT} reachLimit={reachLimit} />} reachLimit={reachLimit} />} />
           <Route path="/user/edit" element={<Central displayComponent={<EditorBox />} reachLimit={reachLimit} />} />
           <Route path="/user/preview" element={<Central displayComponent={<PreviewBox reachLimit={reachLimit} />} reachLimit={reachLimit} />} />
-          <Route path="/user/send" element={<Central displayComponent={<Sending analytics={analytics} reachLimit={reachLimit} countSent={countSent} setCountSent={setCountSent} /> } reachLimit={reachLimit} />} />
+          <Route path="/user/send" element={<Central displayComponent={<Sending analytics={analytics} reachLimit={reachLimit} /> } reachLimit={reachLimit} />} />
           <Route path="/unsubscribe/:user/:contact" element={<Unsubscribe />} />
         </Routes>
       </BrowserRouter>
