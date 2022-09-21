@@ -67,6 +67,11 @@ footer {
   background-image: linear-gradient(0deg, #7e9cf7 0%, #4dbdff 50%, #1ddafe 100%);
 }
 
+.bg-redGradation {
+  background-color: #EF4444;
+  background-image: linear-gradient(0deg, #F86C6C 0%, #F75959 50%, #EF4444 100%);
+}
+
 .scroll {
   overflow-y: scroll;
   overflow-x: hidden;
