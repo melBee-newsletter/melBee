@@ -182,7 +182,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
           onChange={(e) => handleSubject(e.target.value)}
           id="subjectId"
           value={subject}
-          className="border rounded-lg p-2 text-base"
+          className="border rounded-lg p-2 text-lg"
           style={{width: 800}}
         />
       </div>
@@ -196,7 +196,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
       <div className="flex justify-between items-center">
         <div className="flex ml-10 text-xl">
           <input type="checkbox" onChange={handleCheckAll} disabled={!allEmails.length} />
-          {!selectAll ? <p className="ml-2">すべて選択</p> : <p className="ml-2">すべて解除</p> }
+          {!selectAll ? <p className="text-base ml-2">すべて選択</p> : <p className="text-base ml-2">すべて解除</p> }
         </div>
       
       <div className="pr-10">
