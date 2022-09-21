@@ -60,9 +60,15 @@ def add_user_template(user: schemas.User, db: Session, usertemplate: schemas.Tem
 def add_sent_history(user: schemas.User, db: Session, senthistory: schemas.SentHistory):
     senthistory = models.SentHistory(user_id=user.id, subject=senthistory.subject,
                                      recipients=senthistory.recipients, template=senthistory.template, date_sent=senthistory.date_sent)
-    db.add(senthistory)
-    db.commit()
-    db.refresh(senthistory)
+    session = Session()
+    try:
+        db.add(senthistory)
+        db.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
     return senthistory
 
 
