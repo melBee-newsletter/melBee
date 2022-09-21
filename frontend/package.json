@@ -22,15 +22,18 @@
     "react-fontawesome": "^1.7.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
+    "serve": "^14.0.1",
     "tinymce": "^6.2.0",
     "typescript": "^4.8.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +56,7 @@
   "devDependencies": {
     "@types/react": "^18.0.19",
     "autoprefixer": "^10.4.8",
+    "flow-babel-webpack-plugin": "^1.1.1",
     "parcel": "^2.7.0",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8"

@@ -3,6 +3,9 @@
   background: none;
   z-index: 9999;
 }
+.top .header .flex {
+  margin: 0 15px;
+}
 .mainTtl {
   font-size: 6.5rem;
   line-height: 1.15;
@@ -126,14 +129,15 @@
 .main_top::after {
   content: "Simple";
   position: absolute;
+  text-transform: capitalize;
   background: linear-gradient(90deg, #f4f3f0 0%, #f1e4bc);
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 10rem;
+  font-size: 10.5rem;
   font-family: 'Poppins';
   font-weight: bold;
   left: 9%;
-  bottom: 0%;
+  bottom: -1%;
 }
 
 .ttl_top {

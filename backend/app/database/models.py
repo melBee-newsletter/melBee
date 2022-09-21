@@ -1,5 +1,6 @@
 from ctypes.wintypes import BYTE
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date
+from email.policy import default
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.dialects.postgresql import BYTEA
 from sqlalchemy.orm import relationship
 from database.database import Base
@@ -11,7 +12,13 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
-    usertemplate = Column(String)
+    analyticsID = Column(String)
+    instagramID = Column(String)
+    twitterID = Column(String)
+    facebookID = Column(String)
+    homepage = Column(String)
+
+
 
 class UserTemplate(Base):
     __tablename__ = "usertemplate"
@@ -31,19 +38,23 @@ class Template(Base):
     thumbnail = Column(String, nullable=False)
     body = Column(String, nullable=False)
 
+
 class SentHistory(Base):
     __tablename__ = "senthistory"
 
     id = Column(Integer, primary_key=True, index=True)
+    subject = Column(String)
     recipients = Column(String)
     template = Column(String)
     date_sent = Column(String)
     user_id = Column(Integer, ForeignKey("user.id"))
 
 
-# TODO: Migrate other tables
-# class Email_Sent(Base):
-#     __tablename__ = "email_sent"
+class ContactList(Base):
+    __tablename__ = "contactlist"
 
-#     id = Column(Integer, primary_key=True, index=True)
-#     user_id = Column(Integer, ForeignKey("user.id"),  index=True)
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String)
+    user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
+    is_subscribed = Column(Boolean, default=True)
+    __table_args__ = (UniqueConstraint("email", "user_id"), None)

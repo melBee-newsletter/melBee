@@ -16,6 +16,7 @@ const Unsubscribe: React.FC = () => {
     const reasonOptions = ["メールが長い（htmlメールなどで重い）から", "配信回数が多いから", "登録したメールアドレスを使わなくなるから", "登録した覚えがないから", "メールの内容に興味が持てなかったから", "メールの情報がもの足りなかったから"]
     const [checked, setChecked] = useState<boolean[]>(new Array(reasonOptions.length).fill(false));
     const [allGivenReasons, setAllGivenReasons] = useState<string[]>([]);
+    const [email, setEmail] = useState<string>("");
 
     useEffect(() => {
         //TODO : connect with backend via axios to checks if USER & CONTACT exists & also if their subscription is "true"
@@ -34,6 +35,10 @@ const Unsubscribe: React.FC = () => {
         setOtherReason(e.target.value);
     };
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+    };
+
     useEffect(()=> {
         const isChecked = reasonOptions.filter((res, i) => {
             return (checked[i]);
@@ -47,13 +52,13 @@ const Unsubscribe: React.FC = () => {
 
     const data = {
         receivers: {
-          email: ["melbee.noreply@gmail.com"],
+          email: ["melbee.noreply@gmail.com", "hiro_k@live.com"],
         },
         subject: {
-          subject: "Notification of unsubscribed contact from melBee",
+          subject: `Notification of unsubscribed contact <${email}> from melBee`,
         },
         message_body: {
-          message_body: `${CONTACT} has unsubscribed from your mailing list with the following reason: ${allGivenReasons}.`
+          message_body: `${email} has unsubscribed from your mailing list with the following reason: ${allGivenReasons})}.`
         },
     };
 
@@ -62,7 +67,6 @@ const Unsubscribe: React.FC = () => {
         if (otherReason) {
             allGivenReasons.push(otherReason);
         }
-        // console.log("Unsubscribe Reason:", allGivenReasons);
         //TODO : Able to add sender's email as part of the email to send the unsubscribed reason of a contact
         axios({
             method: "post",
@@ -82,18 +86,18 @@ const Unsubscribe: React.FC = () => {
 
 
     return (
-        <div className="App top">
+        <div>
             <header>
                 <Header />
             </header>
-            <div>
+            <div className="h-screen w-full pt-36 px-52">
             {(validLink === "unsubscribe") ? (
-                <div style={{width: "80%", margin: "0 auto"}}>
-                    <h1 className="text-3xl font-bold pb-5">配信停止</h1>
-                    <p>ページ最下部の「配信停止」ボタンを押すと、配信停止処理が完了します。</p>
+                <div className="w-full">
+                    <h1 className="text-3xl font-bold pb-5 text-center">配信停止</h1>
+                    <p className="text-base font-bold text-center">ページ最下部にメールアドレスを入力して「配信停止」ボタンを押すと、配信停止処理が完了します。</p>
                     <br />
                     <div className="justify-center">
-                    <h5 className="pb-3">よろしければ以下のアンケートにご回答ください。</h5>
+                    <h5 className="pb-3 text-center">よろしければ以下のアンケートにご回答ください。</h5>
                     <form action="" className="text-left justify-center">
                         <div className="bg-slate-300 border-solid border-2 border-slate-400 px-10 py-5">
                         <p>メールを配信停止する理由 （あてはまる項目に、いくつでもチェックしてください）</p>
@@ -117,15 +121,27 @@ const Unsubscribe: React.FC = () => {
                             <input type="form" placeholder="解約理由" onChange={handleReason} style={{width: "100%", height: 100}} value={otherReason} className="my-3 px-10" />
                         </div>
                         <div className="flex justify-center pt-4">
-                            <button onClick={handleConfirm} className="bg-violet-300 rounded-lg px-4 py-1">配信停止</button>
+                            <div>
+                                <input
+                                    type="email"
+                                    name=""
+                                    value={email}
+                                    className="inputArea bg-gray-100 border-gray rounded-lg w-72 mr-8"
+                                    onChange={(e) => handleChange(e)}
+                                    placeholder="メールアドレス"
+                                    id="email_signup"
+                                />
+                                {(email) ? <button onClick={handleConfirm} className="rounded-xl px-6 py-4 drop-shadow-xl text-xl text-white font-bold bg-blueGradation mt-5 w-36">配信停止</button> :
+                                <button className="grayscale rounded-xl px-6 py-4 drop-shadow-xl text-xl text-white font-bold bg-blueGradation mt-5 w-36" disabled={true}>配信停止</button>}
+                            </div>
                         </div>
                     </form>
                     </div>
                 </div>
             )
             : (validLink === "completed") ? (
-                <div>
-                    <h1>メールマガジンの配信停止を承りました。<br />
+                <div className="flex justify-center text-2xl py-24">
+                    <h1 className="text-center leading-loose">メールマガジンの配信停止を承りました。<br />
                     システムの都合上、データの反映に数日かかることがあり、<br />
                     お手続き後もメールが数件配信される場合がございます。<br />
                     誠に恐れ入りますが、何卒ご了承くださいませ。<br />

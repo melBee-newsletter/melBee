@@ -1,11 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
-const PreviewBox: React.FC = () => {
+type Props = {
+  reachLimit: boolean;
+};
+
+const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
+  const navigate = useNavigate();
+  const EDIT_PATH = "/user/edit";
+  const SEND_PATH = "/user/send";
+
   const [title, setTitle] = useState<string>("");
-  const [saved, setSaved] =useState<boolean>(false);
-  
+  const [saved, setSaved] = useState<boolean>(false);
+
   // const addEditedTemplate = () => {
   //   console.log(sessionStorage.melbeeID);
   //   axios({
@@ -57,32 +66,65 @@ const PreviewBox: React.FC = () => {
           console.log(err.response!.data);
         });
     } else {
-      alert("テンプレートを保存するにはタイトルが必要です。\n タイトルを入力してください。")
+      alert(
+        "テンプレートを保存するにはタイトルが必要です。\n タイトルを入力してください。"
+      );
     }
   };
 
   return (
-    <div className="w-screen px-56">
-      <h3>プレビュー</h3>
-      <h5>内容をご確認ください</h5>
+    <div className="h-screen w-full px-10">
+      <div className="flex justify-between px-28">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+              navigate(EDIT_PATH);
+          }}
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
+          >
+            {"編集"}
+          </button>
+          {!reachLimit &&
+          <button
+          onClick={(e) => {
+            e.preventDefault();
+              navigate(SEND_PATH);
+          }}
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+          >
+            {"送信"}
+          </button> }
+      </div>
+      <div className="flex justify-center">
+        {!saved ? (
+          <form onSubmit={handleSave}>
+            <p className="text-sm mt-5 mb-2 text-right">
+              個人テンプレートに保存し、編集されたテンプレートを引き続きご利用いただけます。
+            </p>
+            <input
+              type="text"
+              placeholder="タイトル（２０文字まで）"
+              maxLength={20}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="border-2 rounded-lg p-2 text-lg mr-5"
+            />
+            <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation">
+              保存
+            </button>
+          </form>
+        ) : (
+          <div className="text-xl">テンプレートが保存されました。</div>
+        )}
+      </div>
+      <h3 className="mt-8 text-2xl">プレビュー</h3>
+      <h5>送信前に内容をご確認ください</h5>
       <br />
       <div
         dangerouslySetInnerHTML={{
           __html: localStorage.melBeeTempStoragedraft,
         }}
       />
-      {!saved ? (
-        <form onSubmit={handleSave}>
-        <p className="text-sm">個人テンプレートに保存し、編集されたテンプレートを引き続きご利用いただけます。</p>
-        <input type="text" placeholder="タイトル（２０文字まで）" maxLength={20} value={title} onChange={(e)=>setTitle(e.target.value)} className="border-2 rounded-lg p-2 text-lg mr-5" />
-        <button className="bg-yellow-400 rounded-lg p-3 w-24 text-base">保存</button>
-      </form>
-      ) : (
-        <div className="text-xl">
-          テンプレートが保存されました。
-        </div>
-      )}
-      
     </div>
   );
 };

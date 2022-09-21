@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import { useNavigate } from "react-router-dom";
 
 //use the onInput on the div where the EditorBox is located to get the content data
 //     <div
@@ -21,11 +22,35 @@ type clickEvent = {
 };
 
 const EditorBox: React.FC = () => {
+  const navigate = useNavigate();
+  const TEMPLATE_PATH = "/user/templates";
+  const PREVIEW_PATH = "/user/preview";
+
   const editorRef = useRef<tinyMCEEditor | null>(null);
 
   return (
-    <div className="w-screen px-56">
-      <div className="toolbararea"></div>
+    <div className="h-screen w-fit">
+      <div className="flex justify-between px-28">
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+            navigate(TEMPLATE_PATH);
+        }}
+        className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
+        >
+          {"選び直す"}
+        </button>
+        <button
+        onClick={(e) => {
+          e.preventDefault();
+            navigate(PREVIEW_PATH);
+        }}
+        className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+        >
+          {"プレビュー"}
+        </button>
+        </div>
+
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}
@@ -56,11 +81,11 @@ const EditorBox: React.FC = () => {
           automatic_uploads: true,
           file_picker_types: "image",
           visual: false,
-          toolbar_location: "top",
-          inline: true,
+          toolbar_location: "auto",
+          inline: false,
           statusbar: false,
-          width: "690",
-          height: "500",
+          width: "1024",
+          height: "600",
           menubar: false,
           quickbars_insert_toolbar: "table | image",
           quickbars_selection_toolbar:
