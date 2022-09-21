@@ -9,6 +9,7 @@ import Header from "./components/organisms/Header";
 import Footer from "./components/organisms/Footer";
 import Login from "./components/templates/Login";
 import Signup from "./components/templates/Signup";
+import { isPrivateIdentifier } from "typescript";
 
 function Landing() {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
@@ -19,11 +20,8 @@ function Landing() {
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.ChangeEvent<any>): void => {
+    e.preventDefault();
     const form: EmailForm | null = document.getElementById("mailForm");
     const email: string = form!["email_signup"]!.value;
 
@@ -88,33 +86,39 @@ function Landing() {
             {!isLoggedIn && (
               <div className="contentR_top lg:flex lg:justify-center lg:items-center">
                 <div>
-                  <form id="mailForm">
                     {!isEmailSubmitted && (
                       <>
                         <div className="relative">
-                          <input
-                            type="mail"
-                            name=""
-                            value={email}
-                            className="inputArea bg-gray-100 border-gray rounded lg:w-96"
-                            onChange={(e) => handleChange(e)}
-                            placeholder="youremail@example.com"
-                            id="email_signup"
-                          />
-                          <button
-                            type="button"
-                            className="lg:absolute lg:top-1.5 submitBtn"
-                            onClick={handleSubmit}
-                          >
-                            <FontAwesomeIcon
-                              icon={faArrowRight}
-                              className="bg-yellow-300 p-3 rounded-3xl text-white"
+                          <form id="mailForm" onSubmit={handleSubmit}>
+                            <input
+                              type="email"
+                              // name=""
+                              value={email}
+                              className="inputArea bg-gray-100 border-gray rounded lg:w-96"
+                              onChange={(e) => setEmail(e.target.value)}
+                              placeholder="youremail@example.com"
+                              id="email_signup"
                             />
-                          </button>
+                            {email ? <button 
+                            className="lg:absolute lg:top-1.5 submitBtn">
+                              <FontAwesomeIcon
+                                icon={faArrowRight}
+                                className="bg-yellow-300 p-3 rounded-3xl text-white"
+                              />
+                            </button> :
+                            <button 
+                              disabled={true}
+                              className="lg:absolute lg:top-1.5 submitBtn">
+                              <FontAwesomeIcon
+                                icon={faArrowRight}
+                                className="grayscale bg-yellow-300 p-3 rounded-3xl text-white"
+                              />
+                            </button>}
+                            
+                          </form>
                         </div>
                       </>
                     )}
-                  </form>
                 </div>
                 {isUserSignnedUP && isEmailSubmitted && <Login email={email} />}
                 {isEmailSubmitted && !isUserSignnedUP && (
