@@ -5,8 +5,6 @@ import Template from "../molecules/Template";
 import Loading from "../molecules/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-// import { faArrowUpRight } from "@fortawesome/free-regular-svg-icons";
-// <FontAwesomeIcon icon="fa-regular fa-arrow-up-right" />;
 
 type template = {
   id: number;

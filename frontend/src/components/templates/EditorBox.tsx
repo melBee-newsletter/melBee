@@ -1,14 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-
-//use the onInput on the div where the EditorBox is located to get the content data
-//     <div
-//       onInput={(e) => {
-//         console.log("HTML IS", e.currentTarget.innerHTML);
-//       }}
-//     >
-//       <Edit />
-//     </div>
+import { useNavigate } from "react-router-dom";
+import Loading from "../molecules/Loading"
 
 type Event = {
   target: {
@@ -21,10 +14,43 @@ type clickEvent = {
 };
 
 const EditorBox: React.FC = () => {
+  const navigate = useNavigate();
+  const TEMPLATE_PATH = "/user/templates";
+  const PREVIEW_PATH = "/user/preview";
+  const [loading, setLoading] = useState<boolean>(true);
+
   const editorRef = useRef<tinyMCEEditor | null>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500)
+  }, []);
 
   return (
     <div className="h-screen w-fit">
+      {loading && <Loading word={"L O A D I N G"} />}
+      <div className="flex justify-between px-28">
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+            navigate(TEMPLATE_PATH);
+        }}
+        className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
+        >
+          {"選び直す"}
+        </button>
+        <button
+        onClick={(e) => {
+          e.preventDefault();
+            navigate(PREVIEW_PATH);
+        }}
+        className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+        >
+          {"プレビュー"}
+        </button>
+        </div>
+
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}

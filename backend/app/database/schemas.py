@@ -61,6 +61,8 @@ class Template(TemplateBase):
     class Config:
         orm_mode = True
 
+# ---- Email ---- #
+
 
 class Receivers(BaseModel):
     email: List[str]
@@ -75,6 +77,7 @@ class MessageBody(BaseModel):
 
 # --- SentHistory --- #
 
+
 class SentHistory(BaseModel):
     subject: str
     recipients: str
@@ -84,15 +87,18 @@ class SentHistory(BaseModel):
 
 # --- ContactList --- #
 
+
 class ContactList(BaseModel):
     email: str
     id: int
     user_id: int
     is_subscribed: bool
+
     class Config:
         orm_mode = True
+
 
 class Contact(BaseModel):
     email: str
     user_id: int
-    is_subscribed: bool 
+    is_subscribed: bool
