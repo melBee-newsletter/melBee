@@ -5,7 +5,7 @@ import Landing from './Landing';
 import Central from './Central';
 import EditorBox from './components/templates/EditorBox';
 import PreviewBox from './components/templates/PreviewBox';
-import ReceiverSelect from './components/templates/Sending';
+import Sending from './components/templates/Sending';
 import Unsubscribe from './Unsubscribe';
 import Portal from './components/templates/Portal';
 
@@ -26,7 +26,7 @@ function App() {
           <Route path="/user" element={<Central displayComponent={<Portal analytics={analytics} setAnalytics={setAnalytics} countSent={countSent} setCountSent={setCountSent} sendLimit={SEND_LIMIT} reachLimit={reachLimit} />} reachLimit={reachLimit} />} />
           <Route path="/user/edit" element={<Central displayComponent={<EditorBox />} reachLimit={reachLimit} />} />
           <Route path="/user/preview" element={<Central displayComponent={<PreviewBox reachLimit={reachLimit} />} reachLimit={reachLimit} />} />
-          <Route path="/user/send" element={<Central displayComponent={<ReceiverSelect analytics={analytics} reachLimit={reachLimit} /> } reachLimit={reachLimit} />} />
+          <Route path="/user/send" element={<Central displayComponent={<Sending analytics={analytics} reachLimit={reachLimit} /> } reachLimit={reachLimit} />} />
           <Route path="/unsubscribe/:user/:contact" element={<Unsubscribe />} />
         </Routes>
       </BrowserRouter>
