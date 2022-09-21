@@ -75,7 +75,24 @@ footer {
 
 .templateList {
   height: 151.3px;
+  -webkit-scrollbar-width: auto;
+  scrollbar-color: #0abb45 #121010;
 }
+
+.templateList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.templateList::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 5px;
+}
+
+.templateList::-webkit-scrollbar-thumb {
+  background-color: #FFFDF7;
+  border-radius: 5px;
+}
+
 
 #u_content_text_9.u-row-container::after {
   content:"" !important;
