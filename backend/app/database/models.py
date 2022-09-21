@@ -19,6 +19,7 @@ class User(Base):
     homepage = Column(String)
 
 
+
 class UserTemplate(Base):
     __tablename__ = "usertemplate"
 
@@ -37,6 +38,7 @@ class Template(Base):
     thumbnail = Column(String, nullable=False)
     body = Column(String, nullable=False)
 
+
 class SentHistory(Base):
     __tablename__ = "senthistory"
 
@@ -46,6 +48,7 @@ class SentHistory(Base):
     template = Column(String)
     date_sent = Column(String)
     user_id = Column(Integer, ForeignKey("user.id"))
+
 
 class ContactList(Base):
     __tablename__ = "contactlist"
