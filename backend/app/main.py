@@ -236,10 +236,10 @@ def get_template(id: int, db: Session = Depends(get_db)):
 
 
 @app.post("/email/send", response_model={})
-def send_email(receivers: schemas.Receivers, subject: schemas.Subject, message_body: schemas.MessageBody):
-    for mail in receivers.email:
-        crud.send_email(mail, subject.subject,
-                        message_body.message_body)
+def send_email(sendEmail: schemas.SendEmail):
+    for mail in sendEmail.email:
+        crud.send_email(mail, sendEmail.subject,
+                        sendEmail.message_body)
     return {"message": "Email sent! メールを送りました。"}
 
 
