@@ -92,10 +92,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
         setUpdateReceiver(!updateReceiver);
       })
       .catch((err: AxiosError<{ error: string }>) => {
-        // TODO: Show something when error
-        alert(
-          "ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。"
-        );
+        alert("ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。");
         console.log(err.response!.data);
       });      
       setEmail("");
