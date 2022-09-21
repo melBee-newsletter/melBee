@@ -104,7 +104,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
 
   const displayEmailWithCheckbox = (email: string, i: number) => {
     return (
-      <div key={i} className="bg-gray-200 rounded-lg  mr-3 p-3 flex h-fit text-base my-1">
+      <div key={i} className="flex rounded-lg mr-3 px-3 py-1 h-fit text-base my-1">
         <input type="checkbox" id={String(i)} checked={isChecked[i]} onChange={()=>handleCheck(i)} className="mr-2" />
         <p>{email}</p>
       </div>
@@ -169,67 +169,68 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
     <>
     {loading && <Loading word={"S E N D I N G"} />}
     {sendComplete && <SendComplete reachLimit={reachLimit} setSendComplete={setSendComplete} />}
-    {reachLimit && !sendComplete && (<div className="flex justify-center">
+    {reachLimit && !sendComplete && 
+      (<div className="flex justify-center">
         <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
-    </div>)}
+      </div>)}
     {!reachLimit && !sendComplete &&
-    <div className="sendArea">
-      <div className="flex items-center justify-start pl-6">
-        <h3 className="text-xl mr-3">件名 :</h3>
-        <input
-          type="text"
-          placeholder="件名"
-          onChange={(e) => handleSubject(e.target.value)}
-          id="subjectId"
-          value={subject}
-          className="border rounded-lg p-2 text-base"
-          style={{width: 800}}
-        />
-      </div>
-      <h3 className="text-xl mt-6 mb-2">送信先メールアドレスをお選びください</h3>
-      <div className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-3 py-2" 
-        style={{height: 300, overflow: "scroll"}}>
-        {allEmails.map((email, i) => {
-          return displayEmailWithCheckbox(email, i);
-        })}
-      </div>
-      <div className="flex justify-between items-center">
-        <div className="flex ml-10 text-xl">
-          <input type="checkbox" onChange={handleCheckAll} disabled={!allEmails.length} />
-          {!selectAll ? <p className="ml-2">すべて選択</p> : <p className="ml-2">すべて解除</p> }
-        </div>
-      
-      <div className="pr-10">
-        <form onSubmit={handleAdd}>
+      <div className="sendArea">
+        <div className="flex items-center justify-start pl-6">
+          <h3 className="text-xl mr-3">件名 :</h3>
           <input
-            className="border rounded-lg p-2 text-base"
-            type="email"
-            value={email}
-            placeholder="メールアドレス"
-            onChange={(e) => setEmail(e.target.value)}
-            style={{width: 350}}
-            />
-          <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-3 w-28"> 追加 </button>
-        </form>
-      </div>    
-    </div>
-    <div className="flex justify-end mt-6 text-lg pr-10">
-      <button 
-        onClick={(e) => {
-          e.preventDefault();
-          navigate("/user/preview")
-        }}
-        className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-slate-400 ml-3 w-28">
-        戻る
-      </button>
-      <button
-        type="submit"
-        onClick={handleSend}
-        className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-3 w-36">
-        送信
-      </button>
-      </div>
-    </div>}
+            type="text"
+            placeholder="件名"
+            onChange={(e) => handleSubject(e.target.value)}
+            id="subjectId"
+            value={subject}
+            className="border rounded-lg p-2 text-lg"
+            style={{width: 800}}
+          />
+        </div>
+        <h3 className="text-xl mt-6 mb-2">送信先メールアドレスをお選びください</h3>
+        <div className="w-full scroll flex flex-wrap content-start border items-start rounded-xl my-3 px-3 py-1" 
+          style={{height: 300}}>
+          {allEmails.map((email, i) => {
+            return displayEmailWithCheckbox(email, i);
+          })}
+        </div>
+        <div className="flex justify-between items-center">
+          <div className="flex ml-10 text-xl">
+            <input type="checkbox" onChange={handleCheckAll} disabled={!allEmails.length} />
+              {!selectAll ? <p className="text-base ml-2">すべて選択</p> : <p className="text-base ml-2">すべて解除</p> }
+          </div>
+      
+          <div className="pr-10">
+            <form onSubmit={handleAdd}>
+              <input
+              className="border rounded-lg p-2 text-base"
+              type="email"
+              value={email}
+              placeholder="メールアドレス"
+              onChange={(e) => setEmail(e.target.value)}
+              style={{width: 350}}
+              />
+              <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-3 w-28"> 追加 </button>
+            </form>
+          </div>    
+        </div>
+        <div className="flex justify-end mt-6 text-lg pr-10">
+          <button 
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/user/preview")
+            }}
+            className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-grayGradation ml-3 w-28">
+            戻る
+          </button>
+          <button
+            type="submit"
+            onClick={handleSend}
+            className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-3 w-36">
+            送信
+          </button>
+        </div>
+      </div>}
     </>
   );
 };
