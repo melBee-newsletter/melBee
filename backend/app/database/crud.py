@@ -60,27 +60,27 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def add_analytics(user: schemas.User, db: Session, analyticsID: str):
+def add_analytics(user: schemas.User, analyticsID: str):
     setattr(user, "analyticsID", analyticsID)
     return user
 
 
-def add_instagram(user: schemas.User, db: Session, instagramID: str):
+def add_instagram(user: schemas.User, instagramID: str):
     setattr(user, "instagramID", instagramID)
     return user
 
 
-def add_twitter(user: schemas.User, db: Session, twitterID: str):
+def add_twitter(user: schemas.User, twitterID: str):
     setattr(user, "twitterID", twitterID)
     return user
 
 
-def add_facebook(user: schemas.User, db: Session, facebookID: str):
+def add_facebook(user: schemas.User, facebookID: str):
     setattr(user, "facebookID", facebookID)
     return user
 
 
-def add_homepage(user: schemas.User, db: Session, homepage: str):
+def add_homepage(user: schemas.User, homepage: str):
     setattr(user, "homepage", homepage)
     return user
 
