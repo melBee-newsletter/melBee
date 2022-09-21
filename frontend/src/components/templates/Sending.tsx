@@ -121,15 +121,10 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
   const handleSend = (e: React.ChangeEvent<any>): void => {
     e.preventDefault();
     const data = {
-      receivers: {
-        email: receivers,
-      },
-      subject: {
-        subject: subject,
-      },
-      message_body: {
-        message_body: TEMPLATE,
-      },
+      email: receivers,
+      subject: subject,
+      message_body: TEMPLATE,
+      user_id: sessionStorage.melbeeID,
     };
     if (receivers.length > 0) {
       setLoading(true);

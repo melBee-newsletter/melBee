@@ -31,28 +31,44 @@ def get_user_history(db: Session, id: int):
 def create_user(db: Session, user: schemas.UserCreate):
     hashed_password = pwd_context.hash(user.password)
     db_user = models.User(email=user.email, hashed_password=hashed_password)
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
+    session = Session()
+    try:
+        db.add(db_user)
+        db.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
     return db_user
 
 
 def add_user_template(user: schemas.User, db: Session, usertemplate: schemas.TemplateBase):
-    usertemplate = models.UserTemplate(
-        user_id=user.id, title=usertemplate.title, thumbnail=usertemplate.thumbnail, body=usertemplate.body)
-    db.add(usertemplate)
-    # setattr(user, 'usertemplate', usertemplate.json())
-    db.commit()
-    db.refresh(usertemplate)
+    usertemplate = models.UserTemplate(user_id=user.id, title=usertemplate.title, thumbnail=usertemplate.thumbnail, body=usertemplate.body)
+    session = Session()
+    try: 
+        db.add(usertemplate)
+        db.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
     return usertemplate
 
 
 def add_sent_history(user: schemas.User, db: Session, senthistory: schemas.SentHistory):
     senthistory = models.SentHistory(user_id=user.id, subject=senthistory.subject,
                                      recipients=senthistory.recipients, template=senthistory.template, date_sent=senthistory.date_sent)
-    db.add(senthistory)
-    db.commit()
-    db.refresh(senthistory)
+    session = Session()
+    try:
+        db.add(senthistory)
+        db.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
     return senthistory
 
 
@@ -91,9 +107,15 @@ def get_items(db: Session, skip: int = 0, limit: int = 100):
 
 def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db_item = models.Item(**item.dict(), owner_id=user_id)
-    db.add(db_item)
-    db.commit()
-    db.refresh(db_item)
+    session = Session()
+    try:
+        db.add(db_item)
+        db.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
     return db_item
 
 
@@ -165,38 +187,45 @@ def seed_template(db: Session):
     limit = 13
     if len >= limit:
         return None
-    db_template_default = models.Template(
-        title="最初から作成", thumbnail="", body=templates.default)
-    db.add(db_template_default)
-    db_template_defaultlight = models.Template(
-        title="デフォルトのメール", thumbnail="", body=templates.defaultlight)
-    db.add(db_template_defaultlight)
-    db_template_defaultdark = models.Template(
-        title="クールなメール", thumbnail="", body=templates.defaultdark)
-    db.add(db_template_defaultdark)
-    db_template_baby = models.Template(
-        title="新しい家族", thumbnail="", body=templates.baby)
-    db.add(db_template_baby)
-    db_template_birthday = models.Template(
-        title="誕生パーティー！", thumbnail="", body=templates.birthday)
-    db.add(db_template_birthday)
-    db_template_christmas = models.Template(
-        title="クリスマスパーティー", thumbnail="", body=templates.christmas)
-    db.add(db_template_christmas)
-    db_template_newyear = models.Template(
-        title="年賀状", thumbnail="", body=templates.newyear)
-    db.add(db_template_newyear)
-    db_template_flower = models.Template(
-        title="お花屋さん", thumbnail="", body=templates.flower_shop)
-    db.add(db_template_flower)
-    db_template_school = models.Template(
-        title="クラスのお便り", thumbnail="", body=templates.school)
-    db.add(db_template_school)
-    db_template_wedding = models.Template(
-        title="結婚式の招待状", thumbnail="", body=templates.wedding)
-    db.add(db_template_wedding)
-    db.commit()
-
+    
+    session = Session()
+    try:
+        db_template_default = models.Template(
+            title="最初から作成", thumbnail="", body=templates.default)
+        db.add(db_template_default)
+        db_template_defaultlight = models.Template(
+            title="デフォルトのメール", thumbnail="", body=templates.defaultlight)
+        db.add(db_template_defaultlight)
+        db_template_defaultdark = models.Template(
+            title="クールなメール", thumbnail="", body=templates.defaultdark)
+        db.add(db_template_defaultdark)
+        db_template_baby = models.Template(
+            title="新しい家族", thumbnail="", body=templates.baby)
+        db.add(db_template_baby)
+        db_template_birthday = models.Template(
+            title="誕生パーティー！", thumbnail="", body=templates.birthday)
+        db.add(db_template_birthday)
+        db_template_christmas = models.Template(
+            title="クリスマスパーティー", thumbnail="", body=templates.christmas)
+        db.add(db_template_christmas)
+        db_template_newyear = models.Template(
+            title="年賀状", thumbnail="", body=templates.newyear)
+        db.add(db_template_newyear)
+        db_template_flower = models.Template(
+            title="お花屋さん", thumbnail="", body=templates.flower_shop)
+        db.add(db_template_flower)
+        db_template_school = models.Template(
+            title="クラスのお便り", thumbnail="", body=templates.school)
+        db.add(db_template_school)
+        db_template_wedding = models.Template(
+            title="結婚式の招待状", thumbnail="", body=templates.wedding)
+        db.add(db_template_wedding)
+        db.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
     return db_template_wedding
 
 
