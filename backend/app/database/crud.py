@@ -58,10 +58,28 @@ def add_sent_history(user: schemas.User, db: Session, senthistory: schemas.SentH
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
+def add_analytics(user: schemas.User, db: Session, analyticsID: str):
+    setattr(user, "analyticsID", analyticsID)
+    return user
+
+def add_instagram(user: schemas.User, db: Session, instagramID: str):
+    setattr(user, "instagramID", instagramID)
+    return user
+
+def add_twitter(user: schemas.User, db: Session, twitterID: str):
+    setattr(user, "twitterID", twitterID)
+    return user
+
+def add_facebook(user: schemas.User, db: Session, facebookID: str):
+    setattr(user, "facebookID", facebookID)
+    return user
+
+def add_homepage(user: schemas.User, db: Session, homepage: str):
+    setattr(user, "homepage", homepage)
+    return user
 
 def get_items(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Item).offset(skip).limit(limit).all()
-
 
 def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db_item = models.Item(**item.dict(), owner_id=user_id)
