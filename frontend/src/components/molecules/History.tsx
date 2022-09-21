@@ -69,14 +69,30 @@ const History: React.FC<Props> = ({
           <div className="flex justify-between">
             <ul>
               <li className="text-left mb-2">
-                送信日時:{convertDate(history.date_sent)}
+                <span className="titleHistory">送信日時:</span>
+                {convertDate(history.date_sent)}
               </li>
               <li className="text-left mb-2">
-                件名: <span className="font-bold">{history.subject}</span>
+                <span className="titleHistory">件名:</span>{" "}
+                <span className="font-bold">{history.subject}</span>
+              </li>
+              <li className="text-left">
+                送信先:
+                <ul className="flex flex-wrap">
+                  {JSON.parse(history.recipients).map(
+                    (email: string, i: number) => {
+                      return (
+                        <li key={`email${i}`} className=" mb-2">
+                          <p>{email}</p>
+                        </li>
+                      );
+                    }
+                  )}
+                </ul>
               </li>
             </ul>
-            <div className="w-4/6 px-2 py-3">
-              <div className="h-full overflow-y-scroll bg-white border-solid border-8 border-yellow-400">
+            <div className="w-4/6">
+              <div className="overflow-y-scroll templateHistory">
                 <div
                   dangerouslySetInnerHTML={{
                     __html: history.template,
@@ -88,7 +104,7 @@ const History: React.FC<Props> = ({
           </div>{" "}
           <button
             onClick={() => handleClose(i)}
-            className="rounded-xl px-5 py-2 text-white text-sm text-white bg-red-500 my-2"
+            className="rounded-xl px-5 py-2 text-white text-sm text-white bg-red-500 mt-5 mb-3"
           >
             閉じる
           </button>
