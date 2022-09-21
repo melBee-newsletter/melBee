@@ -47,6 +47,39 @@ def test():
 
 # ----- /user ------ #
 
+@app.post("/user/check", response_model={})
+def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if not db_user:
+        return {"isUserSignnedUp": False}
+    return {"isUserSignnedUp": True}
+
+
+@app.post("/user/signup", response_model=schemas.User)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if db_user:
+        raise HTTPException(
+            status_code=400, detail="Email already registered. このメールアドレスは登録されています。")
+    return crud.create_user(db=db, user=user)
+
+
+@app.post("/user/login", response_model=schemas.User)
+def log_in_with_id_and_pw(user: schemas.UserVerify, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if not db_user:
+        raise HTTPException(
+            status_code=400, detail="Email has not been registered. このメールアドレスは登録されていません。")
+
+    isLoginSuccess = crud.verify_password(
+        user.password, db_user.hashed_password)
+    if not isLoginSuccess:
+        raise HTTPException(
+            status_code=400, detail="Email not matches password. メールアドレスとパスワードがマッチしません。")
+
+    return db_user
+
+
 @app.get("/user/{id}")
 def get_user(id: int, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, id)
@@ -98,7 +131,9 @@ def add_analytics(id: int, analyticsID: str, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, id)
     if not db_user:
         raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
-    return crud.add_analytics(user=db_user, db=db, analyticsID=analyticsID)
+    result = crud.add_analytics(user=db_user, db=db, analyticsID=analyticsID)
+    print(result)
+    return result
 
 
 @app.post("/user/{id}/add_instagram", response_model={})
@@ -132,37 +167,6 @@ def add_analytics(id: int, homepage: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
     return crud.add_homepage(user=db_user, db=db, homepage=homepage)
 
-@app.post("/user/check", response_model={})
-def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_email(db, email=user.email)
-    if not db_user:
-        return {"isUserSignnedUp": False}
-    return {"isUserSignnedUp": True}
-
-
-@app.post("/user/signup", response_model=schemas.User)
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_email(db, email=user.email)
-    if db_user:
-        raise HTTPException(
-            status_code=400, detail="Email already registered. このメールアドレスは登録されています。")
-    return crud.create_user(db=db, user=user)
-
-
-@app.post("/user/login", response_model=schemas.User)
-def log_in_with_id_and_pw(user: schemas.UserVerify, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_email(db, email=user.email)
-    if not db_user:
-        raise HTTPException(
-            status_code=400, detail="Email has not been registered. このメールアドレスは登録されていません。")
-
-    isLoginSuccess = crud.verify_password(
-        user.password, db_user.hashed_password)
-    if not isLoginSuccess:
-        raise HTTPException(
-            status_code=400, detail="Email not matches password. メールアドレスとパスワードがマッチしません。")
-
-    return db_user
 
 #  ----- /user/contact_list ----- #
 
