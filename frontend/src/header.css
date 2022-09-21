@@ -1,5 +1,5 @@
 #root .App .fixed .header .flex {
-  width: 60%;
+  width: 71%;
   margin: 0 auto;
 }
 
@@ -8,7 +8,7 @@
 }
 
 #root .App .fixed .header .flex .logo{
-  width: 55px;
+  width: 65px;
 }
 
 .toggleButon {
@@ -18,12 +18,12 @@
 }
 
 .nav .iconUser{
-  width: 30px;
+  width: 28px;
   height: 100%;
 }
 
 .nav .iconLogout {
-  width: 38px;
+  width: 32px;
   height: 100%;
 }
 

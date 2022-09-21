@@ -12,7 +12,7 @@ interface contact {
   email: string;
   id: number;
   is_subscribed: boolean;
-};
+}
 
 const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
@@ -42,36 +42,42 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
       method: "get",
       url: `${BASE_URL}/user/contact_list/${sessionStorage.melbeeID}`,
     })
-    .then((res: AxiosResponse) => {
-      let data = res.data;
-      const notBlackList = data.filter((contact: contact) => contact.is_subscribed);
-      notBlackList.map((contact: contact) => {
-        const email = contact.email;
-        setContactList((prevEmail) => [...prevEmail, email]);
-        setIsChecked((prevStat) => [...prevStat, false]);
+      .then((res: AxiosResponse) => {
+        let data = res.data;
+        const notBlackList = data.filter(
+          (contact: contact) => contact.is_subscribed
+        );
+        notBlackList.map((contact: contact) => {
+          const email = contact.email;
+          setContactList((prevEmail) => [...prevEmail, email]);
+          setIsChecked((prevStat) => [...prevStat, false]);
+        });
+        const blackList = data.filter(
+          (contact: contact) => !contact.is_subscribed
+        );
+        blackList.map((contact: contact) => {
+          const email = contact.email;
+          setBlackList((prevEmail) => [...prevEmail, email]);
+        });
+      })
+      .catch((err: AxiosError<{ error: string }>) => {
+        console.log(err.response!.data);
       });
-      const blackList = data.filter((contact: contact) => !contact.is_subscribed);
-      blackList.map((contact: contact) => {
-        const email = contact.email;
-        setBlackList((prevEmail) => [...prevEmail, email]);
-      });
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-      console.log(err.response!.data);
-    });
   }, []);
 
   const displayEmail = (email: string, i: number) => {
     return (
       <div key={i} className="flex mr-5 mb-1 p-1">
-        <input
-          type="checkbox"
-          id={String(i)}
-          className="mr-2"
-          checked={isChecked[i]}
-          onChange={() => handleCheck(i)}
-        />
-        <p>{email}</p>
+        <label>
+          <input
+            type="checkbox"
+            id={String(i)}
+            className="mr-2"
+            checked={isChecked[i]}
+            onChange={() => handleCheck(i)}
+          />
+          {email}
+        </label>
       </div>
     );
   };
@@ -86,27 +92,27 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
 
   const handleAdd = (e: React.ChangeEvent<any>): void => {
     e.preventDefault();
-    if (email) { 
+    if (email) {
       const data = {
         email: email,
         user_id: sessionStorage.melbeeID,
         is_subscribed: true,
-      }
+      };
       axios({
         method: "post",
         url: `${BASE_URL}/user/contact_list`,
         data: data,
       })
-      .then((res: AxiosResponse) => {
-        setContactList((prevEmail) => [...prevEmail, email]);
-        setIsChecked((prevStat) => [...prevStat, false]);
-      })
-      .catch((err: AxiosError<{ error: string }>) => {
-        alert(
-          "ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。"
-        );
-        console.log(err.response!.data);
-      });
+        .then((res: AxiosResponse) => {
+          setContactList((prevEmail) => [...prevEmail, email]);
+          setIsChecked((prevStat) => [...prevStat, false]);
+        })
+        .catch((err: AxiosError<{ error: string }>) => {
+          alert(
+            "ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。"
+          );
+          console.log(err.response!.data);
+        });
       setEmail("");
     }
   };
@@ -127,21 +133,19 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
 
   const handleRemove = (e: React.ChangeEvent<any>): void => {
     e.preventDefault();
-      axios({
-        method: "delete",
-        url: `${BASE_URL}/user/contact`,
-        params: {
-          email: selectedEmail.toString(),
-        }
-      })
+    axios({
+      method: "delete",
+      url: `${BASE_URL}/user/contact`,
+      params: {
+        email: selectedEmail.toString(),
+      },
+    })
       .then((res: AxiosResponse) => {
-        const afterRemove = contactList.filter((email, i) => (!isChecked[i]));
+        const afterRemove = contactList.filter((email, i) => !isChecked[i]);
         setContactList(afterRemove);
       })
       .catch((err: AxiosError<{ error: string }>) => {
-        alert(
-          "エラーが生じました。再度お試しください。"
-        );
+        alert("エラーが生じました。再度お試しください。");
         console.log(err.response!.data);
       });
   };
@@ -171,20 +175,20 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
               </div>
             </div>
             <div className="flex justify-between px-2">
-              <div className="text-left w-7/12">
+              <div className="text-left">
                 <form onSubmit={handleAdd}>
-                  <label className="text-left">
+                  <label className="text-left mb-2 block">
                     メールアドレスを連絡先に新規登録する
                   </label>
                   <input
-                    className="border rounded-lg p-2 text-base"
+                    className="border rounded-lg p-2 text-base mb-2"
                     type="email"
                     value={email}
                     placeholder="メールアドレス"
                     onChange={(e) => setEmail(e.target.value)}
                     style={{ width: 350 }}
                   />
-                  <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-3">
+                  <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2">
                     {" "}
                     登録{" "}
                   </button>
@@ -193,17 +197,23 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
               <div className="">
                 {selectedEmail.length > 0 ? (
                   <div className="text-right">
-                    <p className="text-base">
-                      選択したメールアドレスを連絡先から削除する
+                    <p className="text-base mb-2">
+                      選択したメールアドレスを削除する
                     </p>
-                    <button type="submit" onClick={handleRemove} className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-red-500">
+                    <button
+                      type="submit"
+                      onClick={handleRemove}
+                      className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-red-500"
+                    >
                       {" "}
                       削除{" "}
                     </button>
                   </div>
                 ) : (
                   <div className="text-right">
-                    <p className="text-base">メールアドレス選択後、削除を行えます</p>
+                    <p className="text-base mb-2">
+                      メールアドレス選択後削除を行えます
+                    </p>
                     <button className="bg-slate-400 rounded-xl px-6 py-2 drop-shadow-xl text-lg font-medium text-gray-500">
                       {" "}
                       削除{" "}
@@ -215,7 +225,8 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
             {blackList.length > 0 && (
               <div className="mt-10 mb-3">
                 <h3 className="text-base text-red-700">配信停止済み</h3>
-                <div className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-1"
+                <div
+                  className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-1"
                   style={{ height: 150, overflow: "scroll" }}
                 >
                   {blackList.map((email, i) => {
