@@ -17,7 +17,9 @@ const Signup: React.FC<Props> = ({ email }) => {
     const form: SignUpForm | null = document.getElementById("signup-form");
     const email: string = form!["email_signup"]!.value;
     const password: string = form!["password_signup"]!.value;
-
+    if (!email) alert("eメールを設定してください");
+    if (!password) alert("パスワードを設定してください");
+    if (email && password) {
     axios({
       method: "post",
       url: `${BASE_URL}/user/signup`,
@@ -26,17 +28,18 @@ const Signup: React.FC<Props> = ({ email }) => {
         password: password,
       },
     })
-      .then((res: AxiosResponse) => {
-        // TODO: Show something when successfully singed up
-        sessionStorage.setItem("melbeeID", res.data.id);
-        sessionStorage.setItem("isLoggedIn", "true");
-        navigate(USER_PORTAL);
-      })
-      .catch((err: AxiosError<{ error: string }>) => {
-        // TODO: Show something when error caused
-        window.confirm("パスワードが入力されていません。");
-        console.log(err.response!.data);
-      });
+    .then((res: AxiosResponse) => {
+      // TODO: Show something when successfully singed up
+      sessionStorage.setItem("melbeeID", res.data.id);
+      sessionStorage.setItem("isLoggedIn", "true");
+      navigate(USER_PORTAL);
+    })
+    .catch((err: AxiosError<{ error: string }>) => {
+      // TODO: Show something when error caused
+      window.confirm("パスワードが入力されていません。");
+      console.log(err.response!.data);
+    });
+    }
   };
 
   return (
