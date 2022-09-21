@@ -44,12 +44,16 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 
 def add_user_template(user: schemas.User, db: Session, usertemplate: schemas.TemplateBase):
-    usertemplate = models.UserTemplate(
-        user_id=user.id, title=usertemplate.title, thumbnail=usertemplate.thumbnail, body=usertemplate.body)
-    db.add(usertemplate)
-    # setattr(user, 'usertemplate', usertemplate.json())
-    db.commit()
-    db.refresh(usertemplate)
+    usertemplate = models.UserTemplate(user_id=user.id, title=usertemplate.title, thumbnail=usertemplate.thumbnail, body=usertemplate.body)
+    session = Session()
+    try: 
+        db.add(usertemplate)
+        db.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
     return usertemplate
 
 
