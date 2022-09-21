@@ -57,7 +57,7 @@ const SentHistory: React.FC<Props> = ({
         sentDate.getMonth() + 1 === TODAY.month &&
         sentDate.getDay() === TODAY.day
       ) {
-        setCountSent(newCountSent += 1);
+        setCountSent((newCountSent += 1));
       }
     };
 
@@ -100,7 +100,7 @@ const SentHistory: React.FC<Props> = ({
                 return (
                   <div
                     key={`history${i}`}
-                    className="mb-4 pb-2 last:pb-0 last:mb-0 border-b border-gray-100 last:border-b-0"
+                    className="mb-4 pb-2 last:pb-0 last:mb-0 border-b-2 border-gray-100 last:border-b-0"
                   >
                     {
                       <History
