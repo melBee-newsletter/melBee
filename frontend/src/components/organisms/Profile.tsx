@@ -74,7 +74,7 @@ const Profile: React.FC<Props> = ({
         </span>
       </div>
       {expand && (
-        <div className="flex">
+        <div className="flex mt-3">
           <div>
             {analyticsEdit ? (
               <div>
