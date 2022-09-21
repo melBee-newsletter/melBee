@@ -135,14 +135,16 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
     e.preventDefault();
     axios({
       method: "delete",
-      url: `${BASE_URL}/user/contact`,
+      url: `${BASE_URL}/user/contact_list`,
       params: {
-        email: selectedEmail.toString(),
+        user_id: sessionStorage.melbeeID,
       },
+      data: selectedEmail,
     })
       .then((res: AxiosResponse) => {
         const afterRemove = contactList.filter((email, i) => !isChecked[i]);
         setContactList(afterRemove);
+        setIsChecked(new Array(afterRemove.length).fill(false));
       })
       .catch((err: AxiosError<{ error: string }>) => {
         alert("エラーが生じました。再度お試しください。");
@@ -188,7 +190,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     onChange={(e) => setEmail(e.target.value)}
                     style={{ width: 350 }}
                   />
-                  <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2">
+                  <button disabled={!email} className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2">
                     {" "}
                     登録{" "}
                   </button>
