@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { EmailForm } from "./Interfaces";
 import axios, { AxiosResponse, AxiosError } from "axios";
+import headerLogo from "../atoms/logo.png";
 import Login from "./Login";
 import Signup from "./Signup";
 
@@ -16,7 +17,8 @@ const NotLoggedIn: React.FC = () => {
       setEmail(e.target.value);
     };
   
-    const handleSubmit = () => {
+    const handleSubmit = (e: React.ChangeEvent<any>): void => {
+      e.preventDefault();
       const form: EmailForm | null = document.getElementById("mailForm");
       const email: string = form!["email_signup"]!.value;
   
@@ -45,36 +47,43 @@ const NotLoggedIn: React.FC = () => {
 
     return (
       <div className="justify-center">
-        <h1>melBeeはログインされた方のみご利用になれます。</h1>
-          <p className="mb-3 text-gray-500">
+        <div className="flex justify-center mb-6">
+          <img src={headerLogo} alt="melBee_logo" className="animate-pulse" width="200" />
+        </div>
+        <h1 className="text-2xl mb-8">melBeeはログインされた方のみご利用になれます。</h1>
+          <p className="text-xl mb-3 text-gray-500">
             ログインまたは無料で新規登録
           </p>
           <div className="felx justify-center items-center">
-            <form id="mailForm">
               {!isEmailSubmitted && (
-                  <div className="items-center">
+                <div className="items-center">
+                  <form id="mailForm" onSubmit={handleSubmit}>
                     <input
                       type="mail"
-                      name=""
                       value={email}
                       className="inputArea bg-gray-100 border-gray rounded lg:w-96"
-                      onChange={(e) => handleChange(e)}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder="youremail@example.com"
                       id="email_signup"
                     />
-                    <button
-                      type="button"
-                      className="lg:absolute lg:top-1.5 submitBtn"
-                      onClick={handleSubmit}
-                    >
-                      <FontAwesomeIcon
-                        icon={faArrowRight}
-                        className="bg-yellow-300 p-3 rounded-3xl text-white"
-                      />
-                    </button>
+                    {email ? <button 
+                      className="lg:absolute lg:top-1.5 submitBtn">
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="bg-yellow-300 p-3 rounded-3xl text-white"
+                        />
+                      </button> :
+                      <button 
+                        disabled={true}
+                        className="lg:absolute lg:top-1.5 submitBtn">
+                        <FontAwesomeIcon
+                          icon={faArrowRight}
+                          className="grayscale bg-yellow-300 p-3 rounded-3xl text-white"
+                        />
+                      </button>}
+                  </form>
                   </div>
               )}
-              </form>
             </div>
             {isUserSignnedUP && isEmailSubmitted && <Login email={email} />}
             {isEmailSubmitted && !isUserSignnedUP && <Signup email={email} />}
