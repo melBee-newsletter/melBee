@@ -193,6 +193,29 @@ def delete_contact_by_email_and_user_id(email: str, user_id: int, db: Session = 
             status_code=400, detail="Data cannot be delete. データの削除ができません。")
     return {"message": "Data deleted succesfully. データは削除されました。"}
 
+#  ----- /user/contact/unsubscribe ----- #
+
+
+@app.patch("/user/contact/unsubscribe", response_model={})
+def unsubscribe_contact_by_email_and_user_id(email: str, user_id: int, db: Session = Depends(get_db)):
+    db_contact = crud.unsubscribe_contact_by_email_and_user_id(
+        db, email, user_id)
+    if not unsubscribe_contact_by_email_and_user_id:
+        raise HTTPException(
+            status_code=400, detail="Invalid email address or no contact list matched. 無効なメールアドレスもしくはコンタクトリストがありません。")
+    return {"message": "Data changed succesfully. データは変更されました。"}
+
+#  ----- /user/contact/subscribe ----- #
+
+
+@app.patch("/user/contact/subscribe", response_model={})
+def subscribe_contact_by_email_and_user_id(email: str, user_id: int, db: Session = Depends(get_db)):
+    db_contact = crud.subscribe_contact_by_email_and_user_id(
+        db, email, user_id)
+    if not subscribe_contact_by_email_and_user_id:
+        raise HTTPException(
+            status_code=400, detail="Invalid email address or no contact list matched. 無効なメールアドレスもしくはコンタクトリストがありません。")
+    return {"message": "Data changed succesfully. データは変更されました。"}
 
 # ----- /template ------ #
 
