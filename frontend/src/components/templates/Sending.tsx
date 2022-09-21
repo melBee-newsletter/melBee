@@ -214,7 +214,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
             onChange={(e) => setEmail(e.target.value)}
             style={{width: 350}}
             />
-          <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-amber-400 ml-3 w-28"> 追加 </button>
+          <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-3 w-28"> 追加 </button>
         </form>
       </div>    
     </div>

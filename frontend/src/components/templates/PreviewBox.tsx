@@ -64,7 +64,7 @@ const PreviewBox: React.FC = () => {
   };
 
   return (
-    <div className="w-screen px-56">
+    <div className="h-screen w-full px-10">
       <h3>プレビュー</h3>
       <h5>内容をご確認ください</h5>
       <br />
@@ -75,7 +75,7 @@ const PreviewBox: React.FC = () => {
       />
       {!saved ? (
         <form onSubmit={handleSave}>
-          <p className="text-sm">
+          <p className="text-sm mt-8 mb-3">
             個人テンプレートに保存し、編集されたテンプレートを引き続きご利用いただけます。
           </p>
           <input
@@ -86,7 +86,7 @@ const PreviewBox: React.FC = () => {
             onChange={(e) => setTitle(e.target.value)}
             className="border-2 rounded-lg p-2 text-lg mr-5"
           />
-          <button className="bg-yellow-400 rounded-lg p-3 w-24 text-base">
+          <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation">
             保存
           </button>
         </form>

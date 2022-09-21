@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import Template from "../molecules/Template";
+import Loading from "../molecules/Loading"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -145,6 +146,8 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   }, [selectMb]);
 
   return (
+    <>
+    {loading && <Loading word={"L O A D I N G"} />}
     <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
       <div
         className="flex justify-between text-lg font-medium"
@@ -227,6 +230,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
         </div>
       )}
     </div>
+    </>
   );
 };
 
