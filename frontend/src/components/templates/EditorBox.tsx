@@ -1,15 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { useNavigate } from "react-router-dom";
-
-//use the onInput on the div where the EditorBox is located to get the content data
-//     <div
-//       onInput={(e) => {
-//         console.log("HTML IS", e.currentTarget.innerHTML);
-//       }}
-//     >
-//       <Edit />
-//     </div>
+import Loading from "../molecules/Loading"
 
 type Event = {
   target: {
@@ -25,11 +17,19 @@ const EditorBox: React.FC = () => {
   const navigate = useNavigate();
   const TEMPLATE_PATH = "/user/templates";
   const PREVIEW_PATH = "/user/preview";
+  const [loading, setLoading] = useState<boolean>(true);
 
   const editorRef = useRef<tinyMCEEditor | null>(null);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500)
+  }, []);
+
   return (
     <div className="h-screen w-fit">
+      {loading && <Loading word={"L O A D I N G"} />}
       <div className="flex justify-between px-28">
       <button
         onClick={(e) => {
