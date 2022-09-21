@@ -59,12 +59,14 @@ def get_user(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
     return db_user
 
+
 @app.get("/user/{id}/template")
 def get_user(id: int, db: Session = Depends(get_db)):
     templateuser = crud.get_user_template(db, id)
     if not templateuser:
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
     return templateuser
+
 
 @app.post("/user/{id}/template", response_model={})
 def add_user_template(id: int, template: schemas.TemplateBase, db: Session = Depends(get_db)):
@@ -73,7 +75,8 @@ def add_user_template(id: int, template: schemas.TemplateBase, db: Session = Dep
         raise HTTPException(
             status_code=400, detail="You are foolish"
         )
-    return crud.add_user_template(user = db_user, db=db, usertemplate=template)
+    return crud.add_user_template(user=db_user, db=db, usertemplate=template)
+
 
 @app.get("/user/{id}/sent_history")
 def get_user(id: int, db: Session = Depends(get_db)):
@@ -82,6 +85,7 @@ def get_user(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
     return userhistory
 
+
 @app.post("/user/{id}/sent_history", response_model={})
 def add_sent_history(id: int, senthistory: schemas.SentHistory, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, id)
@@ -89,7 +93,8 @@ def add_sent_history(id: int, senthistory: schemas.SentHistory, db: Session = De
         raise HTTPException(
             status_code=400, detail="You are foolish"
         )
-    return crud.add_sent_history(user = db_user, db=db, senthistory = senthistory)
+    return crud.add_sent_history(user=db_user, db=db, senthistory=senthistory)
+
 
 @app.post("/user/check", response_model={})
 def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
@@ -97,6 +102,7 @@ def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
     if not db_user:
         return {"isUserSignnedUp": False}
     return {"isUserSignnedUp": True}
+
 
 @app.post("/user/signup", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -143,8 +149,9 @@ def get_template(id: int, db: Session = Depends(get_db)):
 
 @app.post("/email/send", response_model={})
 def send_email(receivers: schemas.Receivers, subject: schemas.Subject, message_body: schemas.MessageBody):
-    crud.send_email(receivers.email, subject.subject,
-                    message_body.message_body)
+    for mail in receivers.email:
+        crud.send_email(mail, subject.subject,
+                        message_body.message_body)
     return {"message": "Email sent! メールを送りました。"}
 
 
