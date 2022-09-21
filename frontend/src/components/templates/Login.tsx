@@ -67,7 +67,7 @@ const Login: React.FC<Props> = ({ email }) => {
         <input
           type="button"
           value="ログイン"
-          className="mt-6 p-2 color-blue text-sm text-white"
+          className="rounded-xl px-4 py-2 drop-shadow-xl text-white font-medium bg-blueGradation mt-6 text-sm"
           onClick={handleSubmit}
         />
       </form>

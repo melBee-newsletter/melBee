@@ -119,10 +119,7 @@ def get_sent_history_by_user_id(id: int, db: Session = Depends(get_db)):
 def add_sent_history(id: int, senthistory: schemas.SentHistory, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, id)
     if not db_user:
-
-        raise HTTPException(
-            status_code=400, detail="You are foolish"
-        )
+        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
     return crud.add_sent_history(user=db_user, db=db, senthistory=senthistory)
 
 
@@ -167,6 +164,41 @@ def add_analytics(id: int, homepage: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
     return crud.add_homepage(user=db_user, db=db, homepage=homepage)
 
+<<<<<<< HEAD
+=======
+
+@app.post("/user/check", response_model={})
+def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if not db_user:
+        return {"isUserSignnedUp": False}
+    return {"isUserSignnedUp": True}
+
+
+@app.post("/user/signup", response_model=schemas.User)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if db_user:
+        raise HTTPException(
+            status_code=400, detail="Email already registered. このメールアドレスは登録されています。")
+    return crud.create_user(db=db, user=user)
+
+
+@app.post("/user/login", response_model=schemas.User)
+def log_in_with_id_and_pw(user: schemas.UserVerify, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if not db_user:
+        raise HTTPException(
+            status_code=400, detail="Email has not been registered. このメールアドレスは登録されていません。")
+
+    isLoginSuccess = crud.verify_password(
+        user.password, db_user.hashed_password)
+    if not isLoginSuccess:
+        raise HTTPException(
+            status_code=400, detail="Email not matches password. メールアドレスとパスワードがマッチしません。")
+
+    return db_user
+>>>>>>> bcbc0924b0e97f2d8e61f2370fbab730d5f41b45
 
 #  ----- /user/contact_list ----- #
 
@@ -189,6 +221,7 @@ def add_contact(contact: schemas.Contact, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail=err.args)
     return {"message": "Data added succesfully. データが追加されました。"}
 
+
 @app.delete("/user/contact_list", response_model={})
 def delete_contact_by_email_and_user_id(emails: list[str], user_id: int, db: Session = Depends(get_db)):
     try:
@@ -203,7 +236,7 @@ def delete_contact_by_email_and_user_id(emails: list[str], user_id: int, db: Ses
 
 @app.patch("/user/contact/unsubscribe", response_model={})
 def unsubscribe_contact_by_email_and_user_id(email: str, user_id: int, db: Session = Depends(get_db)):
-    db_contact = crud.unsubscribe_contact_by_email_and_user_id(
+    crud.unsubscribe_contact_by_email_and_user_id(
         db, email, user_id)
     if not unsubscribe_contact_by_email_and_user_id:
         raise HTTPException(
@@ -241,10 +274,10 @@ def get_template(id: int, db: Session = Depends(get_db)):
 
 
 @app.post("/email/send", response_model={})
-def send_email(receivers: schemas.Receivers, subject: schemas.Subject, message_body: schemas.MessageBody):
-    for mail in receivers.email:
-        crud.send_email(mail, subject.subject,
-                        message_body.message_body)
+def send_email(sendEmail: schemas.SendEmail, db: Session = Depends(get_db)):
+    for mail in sendEmail.email:
+        crud.send_email(db, mail, sendEmail.subject,
+                        sendEmail.message_body, sendEmail.user_id)
     return {"message": "Email sent! メールを送りました。"}
 
 
