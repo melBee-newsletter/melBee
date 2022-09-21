@@ -198,7 +198,7 @@ def delete_contact_by_email_and_user_id(emails: list[str], user_id: int, db: Ses
 
 @app.patch("/user/contact/unsubscribe", response_model={})
 def unsubscribe_contact_by_email_and_user_id(email: str, user_id: int, db: Session = Depends(get_db)):
-    db_contact = crud.unsubscribe_contact_by_email_and_user_id(
+    crud.unsubscribe_contact_by_email_and_user_id(
         db, email, user_id)
     if not unsubscribe_contact_by_email_and_user_id:
         raise HTTPException(
@@ -236,10 +236,10 @@ def get_template(id: int, db: Session = Depends(get_db)):
 
 
 @app.post("/email/send", response_model={})
-def send_email(sendEmail: schemas.SendEmail):
+def send_email(sendEmail: schemas.SendEmail, db: Session = Depends(get_db)):
     for mail in sendEmail.email:
-        crud.send_email(mail, sendEmail.subject,
-                        sendEmail.message_body)
+        crud.send_email(db, mail, sendEmail.subject,
+                        sendEmail.message_body, sendEmail.user_id)
     return {"message": "Email sent! メールを送りました。"}
 
 
