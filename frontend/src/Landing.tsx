@@ -9,6 +9,7 @@ import Header from "./components/organisms/Header";
 import Footer from "./components/organisms/Footer";
 import Login from "./components/templates/Login";
 import Signup from "./components/templates/Signup";
+import { isPrivateIdentifier } from "typescript";
 
 function Landing() {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
@@ -48,6 +49,15 @@ function Landing() {
         // TODO: Show something when error caused
         console.log(err.response!.data);
       });
+  };
+
+  const checkEnterKey = (event: React.KeyboardEvent) => {
+    event.preventDefault();
+    if (event?.code === "enter") {
+      console.log("PRESSED ENTER");
+    } else {
+      console.log("hi");
+    }
   };
 
   return (
@@ -93,13 +103,14 @@ function Landing() {
                       <>
                         <div className="relative">
                           <input
-                            type="mail"
+                            type="email"
                             name=""
                             value={email}
                             className="inputArea bg-gray-100 border-gray rounded lg:w-96"
                             onChange={(e) => handleChange(e)}
                             placeholder="youremail@example.com"
                             id="email_signup"
+                            onKeyDown={(e) => checkEnterKey(e)}
                           />
                           <button
                             type="button"

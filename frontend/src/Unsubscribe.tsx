@@ -82,18 +82,18 @@ const Unsubscribe: React.FC = () => {
 
 
     return (
-        <div className="App top">
+        <div>
             <header>
                 <Header />
             </header>
-            <div>
+            <div className="h-screen w-full pt-36 px-52">
             {(validLink === "unsubscribe") ? (
-                <div style={{width: "80%", margin: "0 auto"}}>
-                    <h1 className="text-3xl font-bold pb-5">配信停止</h1>
-                    <p>ページ最下部の「配信停止」ボタンを押すと、配信停止処理が完了します。</p>
+                <div className="w-full">
+                    <h1 className="text-3xl font-bold pb-5 text-center">配信停止</h1>
+                    <p className="text-base font-bold text-center">ページ最下部の「配信停止」ボタンを押すと、配信停止処理が完了します。</p>
                     <br />
                     <div className="justify-center">
-                    <h5 className="pb-3">よろしければ以下のアンケートにご回答ください。</h5>
+                    <h5 className="pb-3 text-center">よろしければ以下のアンケートにご回答ください。</h5>
                     <form action="" className="text-left justify-center">
                         <div className="bg-slate-300 border-solid border-2 border-slate-400 px-10 py-5">
                         <p>メールを配信停止する理由 （あてはまる項目に、いくつでもチェックしてください）</p>
@@ -117,7 +117,7 @@ const Unsubscribe: React.FC = () => {
                             <input type="form" placeholder="解約理由" onChange={handleReason} style={{width: "100%", height: 100}} value={otherReason} className="my-3 px-10" />
                         </div>
                         <div className="flex justify-center pt-4">
-                            <button onClick={handleConfirm} className="bg-violet-300 rounded-lg px-4 py-1">配信停止</button>
+                            <button onClick={handleConfirm} className="rounded-xl px-6 py-4 drop-shadow-xl text-xl text-white font-bold bg-blueGradation mt-5 w-36">配信停止</button>
                         </div>
                     </form>
                     </div>
