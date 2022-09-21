@@ -97,7 +97,10 @@ const SentHistory: React.FC<Props> = ({
             <>
               {sentHistory.map((history, i) => {
                 return (
-                  <div key={`history${i}`} className="mb-5 last:mb-0">
+                  <div
+                    key={`history${i}`}
+                    className="mb-4 pb-2 last:pb-0 last:mb-0 border-b border-gray-100 last:border-b-0"
+                  >
                     {
                       <History
                         history={history}

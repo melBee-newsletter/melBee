@@ -58,51 +58,24 @@ const History: React.FC<Props> = ({
             {" "}
             <button
               onClick={() => handleView(i)}
-              className="rounded-xl px-6 py-2 text-white font-medium bg-orangeGradation"
+              className="rounded-xl px-5 py-2 text-white text-sm bg-orangeGradation"
             >
-              詳細を見る
+              詳細
             </button>
           </li>
         </ul>
       ) : (
-        <div className="flex1 justify-center bg-sky-800 m-5 rounded-xl">
-          <div className="grid grid-cols-2 p-6 h-full w-full">
-            <div className="pl-3">
-              <div className="flex justify-end items-center mb-3 mr-5">
-                <h3 className="pr-5 text-lg text-white font-bold">
-                  送信日時 :
-                </h3>
-                <div className="bg-white rounded-lg py-1 px-4 text-left w-5/6">
-                  {convertDate(history.date_sent)}
-                </div>
-              </div>
-              <div className="flex justify-end items-center mb-3 mr-5">
-                <h3 className="pr-5 text-lg text-white font-bold">件名 :</h3>
-                <div className="bg-white rounded-lg py-1 px-4 text-left w-5/6">
-                  {history.subject}
-                </div>
-              </div>
-              <div className="flex-1">
-                <h3 className="pr-5 text-left text-lg ml-9 text-white font-bold">
-                  送信先 :
-                </h3>
-                <div className="bg-gray-500 flex my-3 mr-5 flex-wrap p-4 rounded-xl h-max-36 overflow-y-auto">
-                  {JSON.parse(history.recipients).map(
-                    (email: string, i: number) => {
-                      return (
-                        <div
-                          key={`email${i}`}
-                          className="bg-gray-200 rounded-lg  mr-3 p-3 flex h-fit text-base my-1"
-                        >
-                          <p>{email}</p>
-                        </div>
-                      );
-                    }
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="w-full px-2 py-3 " style={{ height: 600 }}>
+        <div className="">
+          <div className="flex justify-between">
+            <ul>
+              <li className="text-left mb-2">
+                送信日時:{convertDate(history.date_sent)}
+              </li>
+              <li className="text-left mb-2">
+                件名: <span className="font-bold">{history.subject}</span>
+              </li>
+            </ul>
+            <div className="w-4/6 px-2 py-3">
               <div className="h-full overflow-y-scroll bg-white border-solid border-8 border-yellow-400">
                 <div
                   dangerouslySetInnerHTML={{
@@ -112,15 +85,13 @@ const History: React.FC<Props> = ({
                 />
               </div>
             </div>
-            <div className="flex justify-center w-full">
-              <button
-                onClick={() => handleClose(i)}
-                className="bg-red-400 rounded-xl px-3 mx-auto"
-              >
-                閉じる
-              </button>
-            </div>
-          </div>
+          </div>{" "}
+          <button
+            onClick={() => handleClose(i)}
+            className="rounded-xl px-5 py-2 text-white text-sm text-white bg-red-500 my-2"
+          >
+            閉じる
+          </button>
         </div>
       )}
     </div>
