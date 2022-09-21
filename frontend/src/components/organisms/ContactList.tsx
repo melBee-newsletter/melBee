@@ -203,7 +203,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     <button
                       type="submit"
                       onClick={handleRemove}
-                      className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-red-500"
+                      className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-redGradation"
                     >
                       {" "}
                       削除{" "}

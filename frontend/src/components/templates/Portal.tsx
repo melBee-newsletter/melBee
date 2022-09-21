@@ -55,7 +55,7 @@ const Portal: React.FC<Props> = ({
               <strong>{sendLimit - countSent} 通</strong> 送信できます。
             </p>
           ) : (
-            <p className="text-lg mt-4 pl-4">
+            <p className="mt-4">
               本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。
             </p>
           )}
