@@ -134,7 +134,7 @@ def unsubscribe_contact_by_email_and_user_id(db: Session, email: str, user_id: i
         db.query(models.ContactList).filter(
             models.ContactList.email == email, models.ContactList.user_id == user_id).update({"is_subscribed": False})
         db.commit()
-    except Exception as err:
+    except:
         session.rollback()
         raise
     finally:
@@ -147,7 +147,7 @@ def subscribe_contact_by_email_and_user_id(db: Session, email: str, user_id: int
         db.query(models.ContactList).filter(
             models.ContactList.email == email, models.ContactList.user_id == user_id).update({"is_subscribed": True})
         db.commit()
-    except Exception as err:
+    except:
         session.rollback()
         raise
     finally:
