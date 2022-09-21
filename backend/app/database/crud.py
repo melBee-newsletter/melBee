@@ -103,11 +103,11 @@ def delete_contact_by_email(db: Session, email: str):
         session.close()
 
 
-def unsubscribe_contact_by_email(db: Session, email: str):
+def unsubscribe_contact_by_email_and_user_id(db: Session, email: str, user_id: int):
     session = Session()
     try:
         db.query(models.ContactList).filter(
-            models.ContactList.email == email).update({"is_subscribed": False})
+            models.ContactList.email == email, models.ContactList.user_id == user_id).update({"is_subscribed": False})
         db.commit()
     except Exception as err:
         session.rollback()
