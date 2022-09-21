@@ -41,7 +41,7 @@ const Portal: React.FC<Props> = ({
 
   return (
     // <div className="px-10 w-screen h-screen pt-5">
-    <div className="w-4/5 mx-auto portalContent">
+    <div className="w-11/12 mx-auto portalContent">
       <div className="flex justify-between mb-6">
         <div className="text-left">
           <h2 className="font-bold text-3xl">

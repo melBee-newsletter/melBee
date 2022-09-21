@@ -2,9 +2,11 @@ import React, { useCallback, useState, useEffect } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import Template from "../molecules/Template";
-import Loading from "../molecules/Loading"
+import Loading from "../molecules/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+// import { faArrowUpRight } from "@fortawesome/free-regular-svg-icons";
+// <FontAwesomeIcon icon="fa-regular fa-arrow-up-right" />;
 
 type template = {
   id: number;
@@ -147,89 +149,92 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
 
   return (
     <>
-    {loading && <Loading word={"L O A D I N G"} />}
-    <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
-      <div
-        className="flex justify-between text-lg font-medium"
-        onClick={handleExpand}
-      >
-        {/* {expand ? <h3>手紙を送ろう</h3> : <h3>テンプレート一覧</h3>} */}
-        <h3>テンプレート一覧</h3>
-        <span className={direction}>
-          {" "}
-          <FontAwesomeIcon
-            className="bg-yellow-200 rounded-lg p-1.5"
-            icon={faArrowRight}
-          />
-        </span>
-      </div>
-      {expand && (
-        <div className="flex justify-center">
-          <div className="bg-white w-full">
-            {myTemplates.length > 0 && (
-              <div>
-                <h4 className="my-6 font-bold">保存されたテンプレート</h4>
-                <div className="grid gap-4 grid-cols-4">
-                  {localStorage.melBeeTempStoragedraft && (
-                    <a
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigate("/user/edit");
-                      }}
-                    >
-                      <Template
-                        template={{
-                          id: NaN,
-                          thumbnail: "",
-                          title: "下書き",
-                          body: localStorage.melBeeTempStoragedraft,
-                        }}
-                      />
-                    </a>
-                  )}
-                  {myTemplates.map((template, i) => {
-                    return (
+      {loading && <Loading word={"L O A D I N G"} />}
+      <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
+        <div
+          className="flex justify-between text-lg font-medium"
+          onClick={handleExpand}
+        >
+          {/* {expand ? <h3>手紙を送ろう</h3> : <h3>テンプレート一覧</h3>} */}
+          <h3>テンプレート一覧</h3>
+          <span className={direction}>
+            {" "}
+            <FontAwesomeIcon
+              className="bg-yellow-200 rounded-lg p-1.5"
+              icon={faArrowRight}
+            />
+          </span>
+        </div>
+        {expand && (
+          <div className="flex justify-center">
+            <div className="bg-white w-full">
+              {myTemplates.length > 0 && (
+                <div>
+                  <h4 className="mt-3 mb-6 font-bold">
+                    保存されたテンプレート
+                  </h4>
+                  <div className="grid gap-4 grid-cols-4">
+                    {localStorage.melBeeTempStoragedraft && (
                       <a
-                        key={`myTemp${i}`}
-                        className="block mb-10"
+                        className="mb-5 cursor-pointer"
                         onClick={(e) => {
                           e.preventDefault();
-                          SetSelectMy(i);
+                          navigate("/user/edit");
+                        }}
+                      >
+                        <Template
+                          template={{
+                            id: NaN,
+                            thumbnail: "",
+                            title: "下書き",
+                            body: localStorage.melBeeTempStoragedraft,
+                          }}
+                        />
+                      </a>
+                    )}
+                    {myTemplates.map((template, i) => {
+                      return (
+                        <a
+                          key={`myTemp${i}`}
+                          className="mb-5 cursor-pointer"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            SetSelectMy(i);
+                          }}
+                        >
+                          <Template template={template} />
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              <div>
+                <h3 className="my-6 font-bold">
+                  melBeeオリジナル テンプレート
+                </h3>
+                <div className="grid gap-4 grid-cols-4">
+                  {melBeeTemplates.map((template, i) => {
+                    return (
+                      <a
+                        className="mb-5 cursor-pointer"
+                        key={`mbTemp${i}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          SetSelectMb(i);
                         }}
                       >
                         <Template template={template} />
-                        <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation mt-3">
-                          編集
-                        </button>
                       </a>
                     );
                   })}
                 </div>
               </div>
-            )}
-
-            <div>
-              <h3 className="my-6 font-bold">melBeeオリジナル テンプレート</h3>
-              <div className="grid gap-4 grid-cols-4">
-                {melBeeTemplates.map((template, i) => {
-                  return (
-                    <a
-                      key={`mbTemp${i}`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        SetSelectMb(i);
-                      }}
-                    >
-                      <Template template={template} />
-                    </a>
-                  );
-                })}
-              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
     </>
   );
 };

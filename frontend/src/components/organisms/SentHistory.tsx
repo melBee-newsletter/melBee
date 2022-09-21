@@ -92,31 +92,29 @@ const SentHistory: React.FC<Props> = ({
         </span>
       </div>
       {expand && (
-        <div className="flex justify-center">
-          <div className="bg-white w-full">
-            {sentHistory.length > 0 ? (
-              <div className="bg-green-600 mx-5 my-4 p-1 py-4 rounded-lg">
-                {sentHistory.map((history, i) => {
-                  return (
-                    <div key={`history${i}`}>
-                      {
-                        <History
-                          history={history}
-                          i={i}
-                          viewHistory={viewHistory}
-                          setViewHistory={setViewHistory}
-                        />
-                      }
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div>
-                <p className="text-xl my-4">送信履歴はまだございません</p>
-              </div>
-            )}
-          </div>
+        <div className="w-full mt-3">
+          {sentHistory.length > 0 ? (
+            <>
+              {sentHistory.map((history, i) => {
+                return (
+                  <div key={`history${i}`} className="mb-5 last:mb-0">
+                    {
+                      <History
+                        history={history}
+                        i={i}
+                        viewHistory={viewHistory}
+                        setViewHistory={setViewHistory}
+                      />
+                    }
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            <div>
+              <p className="text-xl my-4">送信履歴はまだございません</p>
+            </div>
+          )}
         </div>
       )}
     </div>
