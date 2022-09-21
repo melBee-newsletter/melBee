@@ -16,7 +16,7 @@ type clickEvent = {
 
 const EditorBox: React.FC = () => {
   const navigate = useNavigate();
-  const TEMPLATE_PATH = "/user/templates";
+  const TEMPLATE_PATH = "/user";
   const PREVIEW_PATH = "/user/preview";
   const [loading, setLoading] = useState<boolean>(true);
 
