@@ -54,10 +54,11 @@ const NotLoggedIn: React.FC = () => {
           <p className="text-xl mb-3 text-gray-500">
             ログインまたは無料で新規登録
           </p>
-          <div className="felx justify-center items-center">
+          {/* <div className="felx justify-center items-center"> */}
+          <div className="flex justify-center items-center">
               {!isEmailSubmitted && (
-                <div className="items-center">
-                  <form id="mailForm" onSubmit={handleSubmit}>
+                <div className="">
+                  <form id="mailForm" onSubmit={handleSubmit} className="flex items-center items-center">
                     <input
                       type="mail"
                       value={email}
@@ -67,7 +68,7 @@ const NotLoggedIn: React.FC = () => {
                       id="email_signup"
                     />
                     {email ? <button 
-                      className="lg:absolute lg:top-1.5 submitBtn">
+                      className="">
                         <FontAwesomeIcon
                           icon={faArrowRight}
                           className="bg-yellow-300 p-3 rounded-3xl text-white"
@@ -75,19 +76,20 @@ const NotLoggedIn: React.FC = () => {
                       </button> :
                       <button 
                         disabled={true}
-                        className="lg:absolute lg:top-1.5 submitBtn">
+                        className="">
                         <FontAwesomeIcon
                           icon={faArrowRight}
                           className="grayscale bg-yellow-300 p-3 rounded-3xl text-white"
                         />
                       </button>}
                   </form>
-                  </div>
+                </div>
               )}
             </div>
             {isUserSignnedUP && isEmailSubmitted && <Login email={email} />}
             {isEmailSubmitted && !isUserSignnedUP && <Signup email={email} />}
       </div>
+      // </div>
     );
 };
 
