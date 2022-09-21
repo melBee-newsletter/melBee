@@ -13,7 +13,9 @@ EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS") if os.environ.get(
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD") if os.environ.get(
     "EMAIL_PASSWORD") else os.getenv("EMAIL_PASSWORD")
 
+
 def send_email(receiver, subject, message_body):
+
     msg = EmailMessage()
     msg["From"] = 'melBee team'
     msg["To"] = receiver
