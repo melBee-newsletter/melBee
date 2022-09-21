@@ -170,7 +170,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
         <div className="">
           <div className="">
             <div className="w-full">
-              <div className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-1">
+              <div className="w-full scroll flex flex-wrap items-baseline content-start border rounded-xl my-3 px-1">
                 {contactList.map((email, i) => {
                   return displayEmail(email, i);
                 })}
