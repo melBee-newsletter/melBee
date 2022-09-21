@@ -64,16 +64,11 @@ class Template(TemplateBase):
 # ---- Email ---- #
 
 
-class Receivers(BaseModel):
+class SendEmail(BaseModel):
     email: List[str]
-
-
-class Subject(BaseModel):
     subject: str
-
-
-class MessageBody(BaseModel):
     message_body: str
+    user_id: int
 
 # --- SentHistory --- #
 
