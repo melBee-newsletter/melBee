@@ -47,7 +47,7 @@ const SentHistory: React.FC<Props> = ({
       sentDate.getMonth() + 1 === TODAY.month &&
       sentDate.getDay() === TODAY.day
     ) {
-      setCountSent(countSent++);
+      setCountSent(countSent += 1);
     }
   };
   const handleExpand = (e: any) => {
