@@ -219,7 +219,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
           e.preventDefault();
           navigate("/user/preview")
         }}
-        className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-slate-400 ml-3 w-28">
+        className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-grayGradation ml-3 w-28">
         戻る
       </button>
       <button
