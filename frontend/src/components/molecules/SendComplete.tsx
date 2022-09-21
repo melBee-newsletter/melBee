@@ -22,7 +22,7 @@ const SendComplete: React.FC<Props> = ({ reachLimit, setSendComplete }) => {
           <button className="bg-sky-400 text-white rounded px-4 mr-5" onClick={()=>setSendComplete(false)}>宛先を追加</button>
         </div>
         <div>
-          <Link to={"/user/templates"} className="bg-amber-300 text-white rounded px-4 ml-5">新規作成</Link>
+          <Link to={"/user"} className="bg-amber-300 text-white rounded px-4 ml-5">新規作成</Link>
         </div>
       </div> : 
       (<div className="block justify-center">
@@ -30,7 +30,7 @@ const SendComplete: React.FC<Props> = ({ reachLimit, setSendComplete }) => {
           <h3>本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。</h3>
         </div>
         <div>
-          <Link to={"/user/templates"} className="bg-amber-300 text-white rounded px-4 ml-5">新規作成</Link>
+          <Link to={"/user"} className="bg-amber-300 text-white rounded px-4 ml-5">新規作成</Link>
         </div>
       </div>)}
       <br />

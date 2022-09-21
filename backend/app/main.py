@@ -80,8 +80,44 @@ def get_sent_history(id: int, db: Session = Depends(get_db)):
 def add_sent_history(id: int, senthistory: schemas.SentHistory, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, id)
     if not db_user:
-        raise HTTPException( status_code=400, detail="Invalid id. 無効なidです。")
+        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
     return crud.add_sent_history(user = db_user, db=db, senthistory = senthistory)
+
+@app.post("/user/{id}/add_analytics", response_model={})
+def add_analytics(id: int, analyticsID: str, db: Session = Depends(get_db)):
+    db_user = crud.get_user(db, id)
+    if not db_user:
+        raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
+    return crud.add_analytics(user = db_user, db = db, analyticsID = analyticsID)
+
+@app.post("/user/{id}/add_instagram", response_model={})
+def add_analytics(id: int, instagramID: str, db: Session = Depends(get_db)):
+    db_user = crud.get_user(db, id)
+    if not db_user:
+        raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
+    return crud.add_instagram(user = db_user, db = db, instagramID = instagramID)
+
+@app.post("/user/{id}/add_twitter", response_model={})
+def add_analytics(id: int, twitterID: str, db: Session = Depends(get_db)):
+    db_user = crud.get_user(db, id)
+    if not db_user:
+        raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
+    return crud.add_twitter(user = db_user, db = db, twitterID = twitterID)
+
+@app.post("/user/{id}/add_facebook", response_model={})
+def add_analytics(id: int, facebookID: str, db: Session = Depends(get_db)):
+    db_user = crud.get_user(db, id)
+    if not db_user:
+        raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
+    return crud.add_facebook(user = db_user, db = db, facebookID = facebookID)
+
+@app.post("/user/{id}/add_homepage", response_model={})
+def add_analytics(id: int, homepage: str, db: Session = Depends(get_db)):
+    db_user = crud.get_user(db, id)
+    if not db_user:
+        raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
+    return crud.add_homepage(user = db_user, db = db, homepage = homepage)
+
 
 @app.post("/user/check", response_model={})
 def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
