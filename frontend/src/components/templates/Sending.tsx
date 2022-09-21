@@ -7,15 +7,23 @@ import { useNavigate } from "react-router-dom";
 type Props = {
   analytics: string;
   reachLimit: boolean;
+  setCountSent: Function;
 };
 
 interface contact {
   email: string;
   id: number;
   is_subscribed: boolean;
-}
+};
 
-const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
+type history = {
+  date_sent: string;
+  recipients: string;
+  template: string;
+  subject: string;
+};
+
+const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
   const [subject, setSubject] = useState<string>("『melBee』からのお便り");
@@ -133,28 +141,58 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit }) => {
       .then((res: AxiosResponse) => {
         setSendComplete(true);
         setLoading(false);
+        axios({
+          method: "post",
+          url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
+          data: {
+            recipients: JSON.stringify(receivers),
+            template: TEMPLATE,
+            date_sent: DATE.toString(),
+            user_id: sessionStorage.melbeeID,
+            subject: subject
+          }
+        })
+        .catch((err: AxiosError<{ error: string }>) => {
+          console.log(err.response!.data);
+        });
+      }).then(() => {
+        const TODAY = {
+          year: DATE.getFullYear(),
+          month: DATE.getMonth() + 1,
+          day: DATE.getDay(),
+        };
+    
+        let newCountSent = 0;
+    
+        const checkSentDate = (stringDate: string) => {
+          const sentDate = new Date(stringDate);
+          if (
+            sentDate.getFullYear() === TODAY.year &&
+            sentDate.getMonth() + 1 === TODAY.month &&
+            sentDate.getDay() === TODAY.day
+          ) {
+            setCountSent(newCountSent += 1);
+          }
+        };
+    
+        axios({
+          method: "get",
+          url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
+        })
+          .then((res: AxiosResponse) => {
+            let data = res.data;
+            data.map((history: history) => {
+              checkSentDate(history.date_sent);
+            });
+          })
+          .catch((err: AxiosError<{ error: string }>) => {
+            console.log(err.response!.data);
+          });
       })
       .catch((err: AxiosError<{ error: string }>) => {
         alert(
           "エラーが生じました。お宛先のメールアドレス及び件名を今一度ご確認ください。"
         );
-        console.log(err.response!.data);
-      });
-      axios({
-        method: "post",
-        url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
-        data: {
-          recipients: JSON.stringify(receivers),
-          template: TEMPLATE,
-          date_sent: DATE.toString(),
-          user_id: sessionStorage.melbeeID,
-          subject: subject
-        }
-      })
-      .then((res: AxiosResponse) => {
-        // TODO: Show something when successfully sent
-      })
-      .catch((err: AxiosError<{ error: string }>) => {
         console.log(err.response!.data);
       });
     } else {
