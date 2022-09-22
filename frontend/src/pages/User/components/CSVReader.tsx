@@ -115,9 +115,13 @@ const CSVReader: React.FC<Props> = ({ setContactList }) => {
   };
 
   useEffect(() => {
-    for (let i = 0; i < csvData.length; i++) {
-      addCsvToContacts(csvData[i][0]);
+    function checkIfEmail(data: string) {
+      const regexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
+      return regexExp.test(data);
     }
+    for (let i = 0; i < csvData.length; i++) {
+      if (checkIfEmail(csvData[i][0])) addCsvToContacts(csvData[i][0]);
+    };
   }, [csvData]);
 
   return (
