@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import CSVReader from "./CSVReader";
 
 type Props = {
   expand: boolean;
@@ -19,7 +20,6 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
-
   const [contactList, setContactList] = useState<string[]>([]);
   const [blackList, setBlackList] = useState<string[]>([]);
   const [email, setEmail] = useState<string>("");
@@ -190,7 +190,10 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     onChange={(e) => setEmail(e.target.value)}
                     style={{ width: 350 }}
                   />
-                  <button disabled={!email} className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2">
+                  <button
+                    disabled={!email}
+                    className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2"
+                  >
                     {" "}
                     登録{" "}
                   </button>
@@ -222,6 +225,10 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     </button>
                   </div>
                 )}
+              </div>
+              <div>
+                CSVを読み込む
+                <CSVReader setContactList={setContactList} />
               </div>
             </div>
             {blackList.length > 0 && (

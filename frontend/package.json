@@ -20,6 +20,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-fontawesome": "^1.7.1",
+    "react-papaparse": "^4.1.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "serve": "^14.0.1",
@@ -54,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "@types/jquery": "^3.5.14",
     "@types/react": "^18.0.19",
     "autoprefixer": "^10.4.8",
     "flow-babel-webpack-plugin": "^1.1.1",
