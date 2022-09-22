@@ -19,7 +19,6 @@ class User(Base):
     homepage = Column(String)
 
 
-
 class UserTemplate(Base):
     __tablename__ = "usertemplate"
 

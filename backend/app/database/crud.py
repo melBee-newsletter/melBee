@@ -44,9 +44,10 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 
 def add_user_template(user: schemas.User, db: Session, usertemplate: schemas.TemplateBase):
-    usertemplate = models.UserTemplate(user_id=user.id, title=usertemplate.title, thumbnail=usertemplate.thumbnail, body=usertemplate.body)
+    usertemplate = models.UserTemplate(
+        user_id=user.id, title=usertemplate.title, thumbnail=usertemplate.thumbnail, body=usertemplate.body)
     session = Session()
-    try: 
+    try:
         db.add(usertemplate)
         db.commit()
     except:
@@ -151,11 +152,11 @@ def delete_contact_by_email_and_user_id(db: Session, emails: list[str], user_id:
         session.close()
 
 
-def unsubscribe_contact_by_email_and_user_id(db: Session, email: str, user_id: int):
+def unsubscribe_contact_by_email_and_user_id(db: Session, receiver_email: str, receiver_id: int, user_id: int):
     session = Session()
     try:
         db.query(models.ContactList).filter(
-            models.ContactList.email == email, models.ContactList.user_id == user_id).update({"is_subscribed": False})
+            models.ContactList.email == receiver_email, models.ContactList.id == receiver_id, models.ContactList.user_id == user_id).update({"is_subscribed": True})
         db.commit()
     except:
         session.rollback()
@@ -164,11 +165,11 @@ def unsubscribe_contact_by_email_and_user_id(db: Session, email: str, user_id: i
         session.close()
 
 
-def subscribe_contact_by_email_and_user_id(db: Session, email: str, user_id: int):
+def subscribe_contact_by_email_and_user_id(db: Session, receiver_email: str, receiver_id: int, user_id: int):
     session = Session()
     try:
         db.query(models.ContactList).filter(
-            models.ContactList.email == email, models.ContactList.user_id == user_id).update({"is_subscribed": True})
+            models.ContactList.email == receiver_email, models.ContactList.id == receiver_id, models.ContactList.user_id == user_id).update({"is_subscribed": True})
         db.commit()
     except:
         session.rollback()
@@ -187,7 +188,7 @@ def seed_template(db: Session):
     limit = 13
     if len >= limit:
         return None
-    
+
     session = Session()
     try:
         db_template_default = models.Template(
