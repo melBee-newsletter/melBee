@@ -4,7 +4,6 @@ import database.schemas as schemas
 from passlib.context import CryptContext
 import database.seed.templates as templates
 import mailSender
-import json
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -76,6 +75,36 @@ def add_sent_history(user: schemas.User, db: Session, senthistory: schemas.SentH
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
+def update_external_info(db: Session, id: int, info: str, media: str) -> tuple():
+    media_types = ["analytics", "instagram", "twitter", "facebook", "homepage"]
+    if media not in media_types:
+        return (False, "Unsupported media type. サポートされていないメディアです。")
+
+    media_col = media + "ID"
+    db_external_info = db.query(models.ExternalInfo).filter(models.ExternalInfo.user_id == id).first()
+    session = Session()
+
+    if db_external_info:
+        try:
+            setattr(db_external_info, media_col, info) 
+            db.commit()
+        except Exception as err:
+            session.rollback()
+            return (False, err.args)
+        finally:
+            session.close()
+    else:
+        try:
+            external_info = models.ExternalInfo(user_id=id)
+            setattr(external_info, media_col, info)
+            db.add(external_info)
+            db.commit()
+        except Exception as err:
+            session.rollback()
+            return (False, err.args)
+        finally:
+            session.close()
+    return (True, None)
 
 def add_analytics(user: schemas.User, db: Session, analyticsID: str):
     setattr(user, "analyticsID", analyticsID)
@@ -100,24 +129,6 @@ def add_facebook(user: schemas.User, db: Session, facebookID: str):
 def add_homepage(user: schemas.User, db: Session, homepage: str):
     setattr(user, "homepage", homepage)
     return user
-
-
-def get_items(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Item).offset(skip).limit(limit).all()
-
-
-def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
-    db_item = models.Item(**item.dict(), owner_id=user_id)
-    session = Session()
-    try:
-        db.add(db_item)
-        db.commit()
-    except:
-        session.rollback()
-        raise
-    finally:
-        session.close()
-    return db_item
 
 
 def get_contact_list_by_user_id(db: Session, user_id: int):

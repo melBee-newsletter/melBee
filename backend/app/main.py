@@ -1,4 +1,3 @@
-from urllib import response
 from fastapi import FastAPI
 from typing import List
 from fastapi import Depends, FastAPI, HTTPException
@@ -7,8 +6,8 @@ from sqlalchemy.orm import Session
 from database import crud, models, schemas
 from database.database import SessionLocal, engine
 import uvicorn
-import json
 
+    
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -46,6 +45,39 @@ def test():
 
 
 # ----- /user ------ #
+
+@app.post("/user/check", response_model={})
+def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if not db_user:
+        return {"isUserSignnedUp": False}
+    return {"isUserSignnedUp": True}
+
+
+@app.post("/user/signup", response_model=schemas.User)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if db_user:
+        raise HTTPException(
+            status_code=400, detail="Email already registered. このメールアドレスは登録されています。")
+    return crud.create_user(db=db, user=user)
+
+
+@app.post("/user/login", response_model=schemas.User)
+def log_in_with_id_and_pw(user: schemas.UserVerify, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if not db_user:
+        raise HTTPException(
+            status_code=400, detail="Email has not been registered. このメールアドレスは登録されていません。")
+
+    isLoginSuccess = crud.verify_password(
+        user.password, db_user.hashed_password)
+    if not isLoginSuccess:
+        raise HTTPException(
+            status_code=400, detail="Email not matches password. メールアドレスとパスワードがマッチしません。")
+
+    return db_user
+
 
 @app.get("/user/{id}")
 def get_user(id: int, db: Session = Depends(get_db)):
@@ -90,77 +122,14 @@ def add_sent_history(id: int, senthistory: schemas.SentHistory, db: Session = De
     return crud.add_sent_history(user=db_user, db=db, senthistory=senthistory)
 
 
-@app.post("/user/{id}/add_analytics", response_model={})
-def add_analytics(id: int, analyticsID: str, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, id)
-    if not db_user:
-        raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
-    return crud.add_analytics(user=db_user, db=db, analyticsID=analyticsID)
+@app.patch("/user/{id}/external_info", response_model={})
+def update_external_info(id: int,  info: str, media: str, db: Session = Depends(get_db)):
+    isOK, msg = crud.update_external_info(db, id, info, media)
+    if isOK:
+        return {"message": "External info updated. 外部情報が更新されました。"}
+    else:
+        raise HTTPException(status_code=400, detail=msg)
 
-
-@app.post("/user/{id}/add_instagram", response_model={})
-def add_analytics(id: int, instagramID: str, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, id)
-    if not db_user:
-        raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
-    return crud.add_instagram(user=db_user, db=db, instagramID=instagramID)
-
-
-@app.post("/user/{id}/add_twitter", response_model={})
-def add_analytics(id: int, twitterID: str, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, id)
-    if not db_user:
-        raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
-    return crud.add_twitter(user=db_user, db=db, twitterID=twitterID)
-
-
-@app.post("/user/{id}/add_facebook", response_model={})
-def add_analytics(id: int, facebookID: str, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, id)
-    if not db_user:
-        raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
-    return crud.add_facebook(user=db_user, db=db, facebookID=facebookID)
-
-
-@app.post("/user/{id}/add_homepage", response_model={})
-def add_analytics(id: int, homepage: str, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, id)
-    if not db_user:
-        raise HTTPException(status_code=400, detail="Invalid userid. 無効なidです。")
-    return crud.add_homepage(user=db_user, db=db, homepage=homepage)
-
-
-@app.post("/user/check", response_model={})
-def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_email(db, email=user.email)
-    if not db_user:
-        return {"isUserSignnedUp": False}
-    return {"isUserSignnedUp": True}
-
-
-@app.post("/user/signup", response_model=schemas.User)
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_email(db, email=user.email)
-    if db_user:
-        raise HTTPException(
-            status_code=400, detail="Email already registered. このメールアドレスは登録されています。")
-    return crud.create_user(db=db, user=user)
-
-
-@app.post("/user/login", response_model=schemas.User)
-def log_in_with_id_and_pw(user: schemas.UserVerify, db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_email(db, email=user.email)
-    if not db_user:
-        raise HTTPException(
-            status_code=400, detail="Email has not been registered. このメールアドレスは登録されていません。")
-
-    isLoginSuccess = crud.verify_password(
-        user.password, db_user.hashed_password)
-    if not isLoginSuccess:
-        raise HTTPException(
-            status_code=400, detail="Email not matches password. メールアドレスとパスワードがマッチしません。")
-
-    return db_user
 
 #  ----- /user/contact_list ----- #
 
