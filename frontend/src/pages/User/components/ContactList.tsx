@@ -40,7 +40,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
   useEffect(() => {
     axios({
       method: "get",
-      url: `${BASE_URL}/user/contact_list/${sessionStorage.melbeeID}`,
+      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/contact_list/`,
     })
       .then((res: AxiosResponse) => {
         let data = res.data;
@@ -135,10 +135,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
     e.preventDefault();
     axios({
       method: "delete",
-      url: `${BASE_URL}/user/contact_list`,
-      params: {
-        user_id: sessionStorage.melbeeID,
-      },
+      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/contact_list`,
       data: selectedEmail,
     })
       .then((res: AxiosResponse) => {
@@ -201,12 +198,14 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                 <div className="mt-3">
                   <p className="mb-2">
                     メールアドレス一括登録 (CSVファイル対応)
-                    <br />
-                    <span className="text-sm attention">
-                      ※ファイルをアップロードすると、メールアドレスが自動登録されます。
-                    </span>
                   </p>
                   <CSVReader setContactList={setContactList} />
+                    {/* <br /> */}
+                    <span className="text-sm attention">
+                      ※ファイルをアップロードすると、メールアドレスが自動登録されます
+                      <br />
+                      ※メールアドレスは一列目にまとめてください
+                    </span>
                 </div>
               </div>
 
