@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useEffect } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import Template from "../molecules/Template";
-import Loading from "../molecules/Loading";
+import Template from "./Template";
+import Loading from "../../../components/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
-import Header from "./components/organisms/Header";
-import Footer from "./components/organisms/Footer";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const Unsubscribe: React.FC = () => {
     const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
