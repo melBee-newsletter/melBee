@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import headerLogo from "../atoms/logo.png";
+import headerLogo from "../assets/logo.png";
 
 /** HOW TO USE POPUP::
  * in the component you want the popup, please add;
