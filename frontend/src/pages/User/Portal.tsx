@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Profile from "./components/Profile";
-import ContactList from "./components/ContactList";
 import MyTemplates from "./components/MyTemplates";
+import ContactList from "./components/ContactList";
 import SentHistory from "./components/SentHistory";
+import Profile from "./components/Profile";
 import "../../components/header.css";
 
 type Props = {
@@ -38,9 +38,15 @@ const Portal: React.FC<Props> = ({
     contact: false,
     history: false,
   });
+  const [showLimit, setShowLimit] = useState<boolean>(false);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setShowLimit(true);
+    }, 800)
+  }, []);
+  
   return (
-    // <div className="px-10 w-screen h-screen pt-5">
     <main className="App-header">
     <div className="w-11/12 mx-auto portalContent">
       <div className="flex justify-between mb-6">
@@ -50,27 +56,22 @@ const Portal: React.FC<Props> = ({
             <br />
             <span className="text-xl">今日はどんな手紙を書きますか？</span>
           </h2>
-          {!reachLimit ? (
-            <p className="mt-4">
-              本日 <strong>{countSent} 通</strong> 送信されました。残り{" "}
-              <strong>{sendLimit - countSent} 通</strong> 送信できます。
-            </p>
-          ) : (
-            <p className="mt-4">
-              本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。
-            </p>
-          )}
+          <div className="my-auto">
+            {!showLimit ? <p className="my-4">{" "}</p> : (!reachLimit ? (
+              <span className="mt-4">
+                本日 <strong>{countSent} 通</strong> 送信されました。残り{" "}
+                <strong>{sendLimit - countSent} 通</strong> 送信できます。
+              </span>
+            ) : (
+              <span className="mt-4">
+                本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
       <MyTemplates expand={expand.template} setExpand={setExpand} />
-
-      <Profile
-        analytics={analytics}
-        setAnalytics={setAnalytics}
-        expand={expand.profile}
-        setExpand={setExpand}
-      />
 
       <ContactList expand={expand.contact} setExpand={setExpand} />
 
@@ -79,6 +80,13 @@ const Portal: React.FC<Props> = ({
         setExpand={setExpand}
         countSent={countSent}
         setCountSent={setCountSent}
+      />
+
+      <Profile
+        expand={expand.profile}
+        setExpand={setExpand}
+        analytics={analytics}
+        setAnalytics={setAnalytics}
       />
     </div>
     </main>

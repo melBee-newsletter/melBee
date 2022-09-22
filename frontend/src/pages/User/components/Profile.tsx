@@ -65,7 +65,7 @@ const Profile: React.FC<Props> = ({
         className="flex justify-between text-lg font-medium"
         onClick={handleExpand}
       >
-        <h3>登録情報</h3>
+        <h3>マーケティングツール</h3>
         <span className={direction}>
           <FontAwesomeIcon
             className="bg-yellow-200 rounded-lg p-1.5"
