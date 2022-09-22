@@ -20,7 +20,7 @@ const Header: FC = () => {
 
   return (
     <div className="header drop-shadow-md">
-      <div className="flex items-center justify-between">
+      <div className="flex items-end justify-between">
         <a href={logoLink} className="px-5">
           <img
             src={headerLogo}
@@ -33,11 +33,11 @@ const Header: FC = () => {
         {isLoggedIn && (
           <>
             <nav className="nav">
-              <ul className="flex items-center">
+              <ul className="flex items-center pb-2">
                 <li className="mr-5 relative group">
                   <span
                     className={[
-                      "whitespace-nowrap rounded-lg bg-slate-800 px-2 py-1 text-white absolute opacity-0 group-hover:opacity-100 absolute top-10 left-1/2 -translate-x-1/2 before:content-[''] before:absolute before:-translate-x-1/2 before:left-1/2 before:bottom-full before:border-4 before:border-transparent before:border-b-slate-800 text-sm",
+                      "whitespace-nowrap rounded-lg bg-slate-800 px-2 py-1 text-white absolute opacity-0 group-hover:opacity-100 absolute top-14 left-1/2 -translate-x-1/2 before:content-[''] before:absolute before:-translate-x-1/2 before:left-1/2 before:bottom-full before:border-4 before:border-transparent before:border-b-slate-800 text-sm",
                     ].join()}
                   >
                     登録情報
@@ -52,7 +52,7 @@ const Header: FC = () => {
                 <li className="relative group">
                   <span
                     className={[
-                      "whitespace-nowrap rounded-lg bg-slate-800 px-2 py-1 text-white absolute opacity-0 group-hover:opacity-100 absolute top-10 left-1/2 -translate-x-1/2 before:content-[''] before:absolute before:-translate-x-1/2 before:left-1/2 before:bottom-full before:border-4 before:border-transparent before:border-b-slate-800 text-sm",
+                      "whitespace-nowrap rounded-lg bg-slate-800 px-2 py-1 text-white absolute opacity-0 group-hover:opacity-100 absolute top-14 left-1/2 -translate-x-1/2 before:content-[''] before:absolute before:-translate-x-1/2 before:left-1/2 before:bottom-full before:border-4 before:border-transparent before:border-b-slate-800 text-sm",
                     ].join()}
                   >
                     ログアウト

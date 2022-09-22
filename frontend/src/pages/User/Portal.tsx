@@ -43,52 +43,54 @@ const Portal: React.FC<Props> = ({
   useEffect(() => {
     setTimeout(() => {
       setShowLimit(true);
-    }, 800)
+    }, 800);
   }, []);
-  
+
   return (
     <main className="App-header">
-    <div className="w-11/12 mx-auto portalContent">
-      <div className="flex justify-between mb-6">
-        <div className="text-left">
-          <h2 className="font-bold text-3xl">
-            melBeeへようこそ!
-            <br />
-            <span className="text-xl">今日はどんな手紙を書きますか？</span>
-          </h2>
-          <div className="my-auto">
-            {!showLimit ? <p className="my-4">{" "}</p> : (!reachLimit ? (
-              <span className="mt-4">
-                本日 <strong>{countSent} 通</strong> 送信されました。残り{" "}
-                <strong>{sendLimit - countSent} 通</strong> 送信できます。
-              </span>
-            ) : (
-              <span className="mt-4">
-                本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。
-              </span>
-            ))}
+      <div className="w-11/12 mx-auto portalContent">
+        <div className="flex justify-between mb-6">
+          <div className="text-left">
+            <h2 className="font-bold text-4xl">
+              melBeeへようこそ!
+              <br />
+              <span className="text-2xl">今日はどんな手紙を書きますか？</span>
+            </h2>
+            <div className="my-auto">
+              {!showLimit ? (
+                <p className="my-4"> </p>
+              ) : !reachLimit ? (
+                <span className="mt-4">
+                  本日 <strong>{countSent} 通</strong> 送信されました。残り{" "}
+                  <strong>{sendLimit - countSent} 通</strong> 送信できます。
+                </span>
+              ) : (
+                <span className="mt-4">
+                  本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。
+                </span>
+              )}
+            </div>
           </div>
         </div>
+
+        <MyTemplates expand={expand.template} setExpand={setExpand} />
+
+        <ContactList expand={expand.contact} setExpand={setExpand} />
+
+        <SentHistory
+          expand={expand.history}
+          setExpand={setExpand}
+          countSent={countSent}
+          setCountSent={setCountSent}
+        />
+
+        <Profile
+          expand={expand.profile}
+          setExpand={setExpand}
+          analytics={analytics}
+          setAnalytics={setAnalytics}
+        />
       </div>
-
-      <MyTemplates expand={expand.template} setExpand={setExpand} />
-
-      <ContactList expand={expand.contact} setExpand={setExpand} />
-
-      <SentHistory
-        expand={expand.history}
-        setExpand={setExpand}
-        countSent={countSent}
-        setCountSent={setCountSent}
-      />
-
-      <Profile
-        expand={expand.profile}
-        setExpand={setExpand}
-        analytics={analytics}
-        setAnalytics={setAnalytics}
-      />
-    </div>
     </main>
   );
 };
