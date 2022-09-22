@@ -51,6 +51,7 @@ class TemplateBase(BaseModel):
 
 
 class Template(TemplateBase):
+    id: int
     title: str
     thumbnail: str
     body: str
