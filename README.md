@@ -1,72 +1,114 @@
 # melBee
+![melbee_logo](https://user-images.githubusercontent.com/90857923/191744973-d03244db-8c93-4206-9266-5fde117a5f62.png)
 
-## Getting Started
+[melBee](https://melbee.herokuapp.com/) is the awesome email customizer in Japan. It is the only html email customizer that is available in Japanese as of September 22nd 2022. melBee helps individuals and small businesses create html rich emails easily, and provides the capacity of analyzing data of the sent emails.
 
-To make a copy up to your local environment, follow the steps below.
+# Features
 
-**1. Run the backend server**
+melBee provides the following features:
+- foo
+- bar
+- foobar
 
-**Set up virtual environment**
+# Built With
 
-In `melBee/backend`,
+Frontend
+- TypeScript
+- React
+- Tailwind CSS
+- tinyMCE
+
+Backend
+- Python
+- FastAPI
+- SQLAlchemy
+- bcrypt
+- postgresSQL
+
+# Developers
+
+<table>
+  <tr>
+    <td align="center"><a href="https://amplication.com/"><img src="To be added" width="100px;" alt=""/><br /><sub><b>Name</b></sub></a><br /><p>Frontend Engineer</p></td>
+    <td align="center"><a href="https://amplication.com/"><img src="To be added" width="100px;" alt=""/><br /><sub><b>Name</b></sub></a><br /><p>Frontend Engineer</p></td>
+    <td align="center"><a href="https://amplication.com/"><img src="To be added" width="100px;" alt=""/><br /><sub><b>Name</b></sub></a><br /><p>Frontend Engineer</p></td>
+    <td align="center"><a href="https://amplication.com/"><img src="To be added" width="100px;" alt=""/><br /><sub><b>Name</b></sub></a><br /><p>Frontend Engineer</p></td>
+    <td align="center"><a href="https://amplication.com/"><img src="To be added" width="100px;" alt=""/><br /><sub><b>Name</b></sub></a><br /><p>Frontend Engineer</p></td>
+   </tr>
+</table>
+
+# Getting Started
+If you want to try the deployed app, go to [https://melbee.herokuapp.com/](https://melbee.herokuapp.com/)!
+
+If you want to make a copy up to your local environment to run the app locally, follow the steps below.
+
+Firstly, please clone the repo.
+
 
 ```shell
-python -m venv env
+git clone git@github.com:melBee-newsletter/melBee.git
 ```
 
-If you're using Mac terminal or Windows Bash,
+Once you cloned it, let's get the backend and frontend servers start running.
+
+### Set up the backend server
+
+Go to `melBee/backend`, and set up the virtual environmt.
+
+```shell
+python3 -m venv env
+```
+
+If you're using Mac terminal or Windows Bash, run:
 
 ```shell
 source ./env/bin/activate
 ```
 
-If you're using Windows PowerShell,
+If you're using Windows PowerShell, run:
 
 ```shell
 .\env\Scripts\Activate.ps1
 ```
 
-In `melBee/backend`,
+Go to `melBee/backend`, and install the libraries we use.
 
 ```shell
 pip3 install -r requirements.txt
 ```
 
-**Set up Gmail**
-Go to your Google Account and create an app password.
+Go to your [Google Account setting page](https://myaccount.google.com/) and create an app password.
 
-**Set up local database**
-Open up the local postgreSQL by running `psql` and create a database called "melBee".
+Open up the local postgreSQL by running `psql` and create a database called "melbee".
 
 ```sql
-CREATE DATABASE melBee;
+CREATE DATABASE melbee;
 ```
 
-In `melBee/backend/app/database`, create a `.env.local` file and add information below.
+Go to `melBee/backend/app/database`, and create a `.env.local` file and add information below.
 
 ```
 DATABASE_URL=postgresql://YOUR DB USERNAME:YOUR DB PASSWORD@localhost/melbee
-EMAIL_ADDRESS = "YOUR EMAIL"
-EMAIL_PASSWORD = "YOUR PASSWORD"
+EMAIL_ADDRESS="YOUR EMAIL"
+EMAIL_PASSWORD="YOUR APP PASSWORD"
 ```
 
-**Run the server**
 
-In `melBee/backend/app`,
+In `melBee/backend/app`, run:
 
 ```shell
 uvicorn main:app --reload
 ```
 
-**3. Run the React server**
+### Set up the React server
 
-In `melBee/frontend`,
+Go to`melBee/frontend`, and install the dependencies listed in `package.json` by running:
 
-**Set up react-router-dom tailwindcss axios**
-
+```shell
+npm install 
 ```
-npm install react-router-dom tailwindcss@latest axios @tinymce/tinymce-react serve
-```
+
+Start the React server by running:
 
 ```shell
 npm run dev
