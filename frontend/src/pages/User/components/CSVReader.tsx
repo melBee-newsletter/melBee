@@ -18,14 +18,15 @@ const GREY_DIM = "#686868";
 
 const styles = {
   zone: {
-    alignItems: "center",
-    border: `2px dashed ${GREY}`,
-    borderRadius: 20,
+    alignItems: "start",
+    border: `1px dashed ${GREY}`,
+    borderRadius: 10,
     display: "flex",
     flexDirection: "column",
     height: "35%",
     justifyContent: "center",
-    padding: 35,
+    padding: 10,
+    cursor: "pointer",
   } as CSSProperties,
   file: {
     background: "linear-gradient(to bottom, #EEE, #DDD)",
@@ -179,7 +180,7 @@ const CSVReader: React.FC<Props> = ({ setContactList }) => {
                 </div>
               </>
             ) : (
-              "クリック"
+              "ファイルを選択してください。"
             )}
           </div>
         </>

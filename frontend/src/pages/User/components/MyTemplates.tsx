@@ -61,7 +61,6 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   }, [seedTemplate]);
 
   useEffect(() => {
-
     const getAllTemplates = (id: number) => {
       axios({
         method: "get",
@@ -76,7 +75,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
         .catch((err: AxiosError<{ error: string }>) => {
           console.log(err.response!.data);
         });
-    }
+    };
 
     const idToFetchAll = 0;
     getAllTemplates(idToFetchAll);
@@ -153,7 +152,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
           onClick={handleExpand}
         >
           {/* {expand ? <h3>手紙を送ろう</h3> : <h3>テンプレート一覧</h3>} */}
-          <h3>テンプレート一覧</h3>
+          <h3>メールを作成</h3>
           <span className={direction}>
             {" "}
             <FontAwesomeIcon

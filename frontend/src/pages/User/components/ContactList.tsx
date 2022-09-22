@@ -198,7 +198,18 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     登録{" "}
                   </button>
                 </form>
+                <div className="mt-3">
+                  <p className="mb-2">
+                    メールアドレス一括登録 (CSVファイル対応)
+                    <br />
+                    <span className="text-sm attention">
+                      ※ファイルをアップロードすると、メールアドレスが自動登録されます。
+                    </span>
+                  </p>
+                  <CSVReader setContactList={setContactList} />
+                </div>
               </div>
+
               <div className="">
                 {selectedEmail.length > 0 ? (
                   <div className="text-right">
@@ -225,10 +236,6 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     </button>
                   </div>
                 )}
-              </div>
-              <div>
-                CSVを読み込む
-                <CSVReader setContactList={setContactList} />
               </div>
             </div>
             {blackList.length > 0 && (
