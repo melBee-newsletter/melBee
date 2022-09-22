@@ -6,7 +6,7 @@ from database import crud, models, schemas
 from database.database import SessionLocal, engine
 import uvicorn
 
-    
+
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -109,6 +109,16 @@ def add_template_by_user_id(id: int, template: schemas.TemplateBase, db: Session
             status_code=400, detail="You are foolish"
         )
     return crud.add_user_template(user=db_user, db=db, usertemplate=template)
+
+
+@app.delete("/user/{user_id}/template/{template_id}")
+def delete_user_template_by_id(user_id: int, template_id: int, db: Session = Depends(get_db)):
+    try:
+        crud.delete_user_template_by_id(db, user_id, template_id)
+    except:
+        raise HTTPException(
+            status_code=400, detail="Data cannot be delete. データの削除ができません。")
+    return {"message": "Data deleted succesfully. データは削除されました。"}
 
 
 @app.get("/user/{id}/sent_history")
