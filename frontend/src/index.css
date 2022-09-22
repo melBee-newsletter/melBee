@@ -119,10 +119,14 @@ footer {
 }
 
 .templateHistory {
-  width: 583px;
+  /* width: 583px; */
   height: 412.2px;
 }
 
 .titleHistory {
   width: 70px;
+}
+
+.attention {
+  color: #DD1C1C;
 }

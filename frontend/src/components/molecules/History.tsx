@@ -66,19 +66,22 @@ const History: React.FC<Props> = ({
         </ul>
       ) : (
         <div className="">
-          <div className="flex justify-between">
-            <ul>
-              <li className="text-left mb-2">
+          <div className="">
+            <ul className="flex">
+              <li className="text-left mb-3 mr-32">
                 <span className="titleHistory">送信日時:</span>
                 {convertDate(history.date_sent)}
               </li>
-              <li className="text-left mb-2">
-                <span className="titleHistory">件名:</span>{" "}
+              <li className="text-left mb-3">
+                <span className="titleHistory">件名:</span>
                 <span className="font-bold">{history.subject}</span>
               </li>
+            </ul>
+            <ul className="mb-4">
               <li className="text-left">
                 送信先:
-                <ul className="flex flex-wrap">
+                <br />
+                <ul className="flex flex-wrap leading-tight">
                   {JSON.parse(history.recipients).map(
                     (email: string, i: number) => {
                       return (
@@ -104,7 +107,7 @@ const History: React.FC<Props> = ({
           </div>{" "}
           <button
             onClick={() => handleClose(i)}
-            className="rounded-xl px-5 py-2 text-white text-sm text-white bg-red-500 mt-5 mb-3"
+            className="rounded-xl px-5 py-2 text-white text-sm text-white bg-redGradation mt-5 mb-3"
           >
             閉じる
           </button>
