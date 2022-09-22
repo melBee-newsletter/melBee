@@ -18,6 +18,16 @@ class User(Base):
     facebookID = Column(String)
     homepage = Column(String)
 
+class ExternalInfo(Base):
+    __tablename__ = "externalinfo"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("user.id"))
+    analyticsID = Column(String)
+    instagramID = Column(String)
+    twitterID = Column(String)
+    facebookID = Column(String)
+    homepage = Column(String)
 
 class UserTemplate(Base):
     __tablename__ = "usertemplate"
