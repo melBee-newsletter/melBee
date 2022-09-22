@@ -33,8 +33,6 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   const [display, setDisplay] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const numOfTemplates = 12;
-
   const handleExpand = (e: any) => {
     e.preventDefault();
     setExpand({ template: !expand });
@@ -63,24 +61,24 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   }, [seedTemplate]);
 
   useEffect(() => {
-    // const getTemplate = (id: number) => {
-    //   axios({
-    //     method: "get",
-    //     url: `${BASE_URL}/template/${id}`,
-    //   })
-    //     .then((res: AxiosResponse) => {
-    //       let data = res.data;
-    //       data.id = id;
-    //       setMelBeeTemplates((current) => [...current, data]);
-    //     })
-    //     .catch((err: AxiosError<{ error: string }>) => {
-    //       console.log(err.response!.data);
-    //     });
-    // };
+    const getAllTemplates = (id: number) => {
+      axios({
+        method: "get",
+        url: `${BASE_URL}/template/${id}`,
+      })
+        .then((res: AxiosResponse) => {
+          const data = res.data;
+          for (let i = 0; i < data.length; i++) {
+            setMelBeeTemplates((current) => [...current, data[i]]);
+          }
+        })
+        .catch((err: AxiosError<{ error: string }>) => {
+          console.log(err.response!.data);
+        });
+    };
 
-    // for (let i = 1; i <= numOfTemplates; i++) {
-    //   getTemplate(i);
-    // }
+    const idToFetchAll = 0;
+    getAllTemplates(idToFetchAll);
 
     const getSavedTemplate = () => {
       axios({
@@ -137,7 +135,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
         url: `${BASE_URL}/template/${templateId}`,
       })
         .then((res) => {
-          const data = res.data;
+          const data = res.data[0];
           localStorage.setItem("melBeeTempStoragedraft", data.body);
         })
         .then(() => navigate("/user/edit"));

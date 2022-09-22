@@ -57,6 +57,19 @@ def add_user_template(user: schemas.User, db: Session, usertemplate: schemas.Tem
     return usertemplate
 
 
+def delete_user_template_by_id(db: Session, user_id: int, template_id: int) -> list():
+    session = Session()
+    try:
+        db.query(models.UserTemplate).filter(models.UserTemplate.user_id ==
+                                             user_id, models.UserTemplate.id == template_id).delete()
+        db.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
+
 def add_sent_history(user: schemas.User, db: Session, senthistory: schemas.SentHistory):
     senthistory = models.SentHistory(user_id=user.id, subject=senthistory.subject,
                                      recipients=senthistory.recipients, template=senthistory.template, date_sent=senthistory.date_sent)
@@ -75,18 +88,20 @@ def add_sent_history(user: schemas.User, db: Session, senthistory: schemas.SentH
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
+
 def update_external_info(db: Session, id: int, info: str, media: str) -> tuple():
     media_types = ["analytics", "instagram", "twitter", "facebook", "homepage"]
     if media not in media_types:
         return (False, "Unsupported media type. サポートされていないメディアです。")
 
     media_col = media + "ID"
-    db_external_info = db.query(models.ExternalInfo).filter(models.ExternalInfo.user_id == id).first()
+    db_external_info = db.query(models.ExternalInfo).filter(
+        models.ExternalInfo.user_id == id).first()
     session = Session()
 
     if db_external_info:
         try:
-            setattr(db_external_info, media_col, info) 
+            setattr(db_external_info, media_col, info)
             db.commit()
         except Exception as err:
             session.rollback()
@@ -105,6 +120,7 @@ def update_external_info(db: Session, id: int, info: str, media: str) -> tuple()
         finally:
             session.close()
     return (True, None)
+
 
 def add_analytics(user: schemas.User, analyticsID: str):
     setattr(user, "analyticsID", analyticsID)
@@ -191,7 +207,8 @@ def subscribe_contact_by_email_and_user_id(db: Session, receiver_email: str, rec
 
 def get_template_by_id(db: Session, id: int | None) -> list():
     if id != 0:
-        single_template = db.query(models.Template).filter(models.Template.id == id).first()
+        single_template = db.query(models.Template).filter(
+            models.Template.id == id).first()
         return [single_template]
     else:
         return db.query(models.Template).all()
