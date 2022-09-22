@@ -212,14 +212,14 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
                   melBeeオリジナル テンプレート
                 </h3>
                 <div className="grid gap-4 grid-cols-4">
-                  {melBeeTemplates.map((template) => {
+                  {melBeeTemplates.map((template, i) => {
                     return (
                       <a
                         className="mb-5 cursor-pointer"
-                        key={`mbTemp${template.id}`}
+                        key={`mbTemp${i}`}
                         onClick={(e) => {
                           e.preventDefault();
-                          SetSelectMb(template.id);
+                          SetSelectMb(i);
                         }}
                       >
                         <Template template={template} />
