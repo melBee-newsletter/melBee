@@ -170,7 +170,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
         <div className="">
           <div className="">
             <div className="w-full">
-              <div className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-1">
+              <div className="w-full scroll flex flex-wrap items-baseline content-start border rounded-xl my-3 px-1">
                 {contactList.map((email, i) => {
                   return displayEmail(email, i);
                 })}
@@ -216,7 +216,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     <p className="text-base mb-2">
                       メールアドレス選択後削除を行えます
                     </p>
-                    <button className="bg-slate-400 rounded-xl px-6 py-2 drop-shadow-xl text-lg font-medium text-gray-500">
+                    <button className="bg-grayGradation rounded-xl px-6 py-2 drop-shadow-xl text-lg font-medium text-white">
                       {" "}
                       削除{" "}
                     </button>

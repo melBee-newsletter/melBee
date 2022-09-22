@@ -200,9 +200,9 @@ def delete_contact_by_email_and_user_id(emails: list[str], user_id: int, db: Ses
 
 
 @app.patch("/user/contact/unsubscribe", response_model={})
-def unsubscribe_contact_by_email_and_user_id(email: str, user_id: int, db: Session = Depends(get_db)):
+def unsubscribe_contact_by_email_and_user_id(receiver_email: str, receiver_id: int, user_id: int, db: Session = Depends(get_db)):
     crud.unsubscribe_contact_by_email_and_user_id(
-        db, email, user_id)
+        db, receiver_email, receiver_id, user_id)
     if not unsubscribe_contact_by_email_and_user_id:
         raise HTTPException(
             status_code=400, detail="Invalid email address or no contact list matched. 無効なメールアドレスもしくはコンタクトリストがありません。")
@@ -212,9 +212,9 @@ def unsubscribe_contact_by_email_and_user_id(email: str, user_id: int, db: Sessi
 
 
 @app.patch("/user/contact/subscribe", response_model={})
-def subscribe_contact_by_email_and_user_id(email: str, user_id: int, db: Session = Depends(get_db)):
-    db_contact = crud.subscribe_contact_by_email_and_user_id(
-        db, email, user_id)
+def subscribe_contact_by_email_and_user_id(receiver_email: str, receiver_id: int, user_id: int, db: Session = Depends(get_db)):
+    crud.subscribe_contact_by_email_and_user_id(
+        db, receiver_email, receiver_id, user_id)
     if not subscribe_contact_by_email_and_user_id:
         raise HTTPException(
             status_code=400, detail="Invalid email address or no contact list matched. 無効なメールアドレスもしくはコンタクトリストがありません。")

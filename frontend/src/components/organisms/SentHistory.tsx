@@ -33,23 +33,6 @@ const SentHistory: React.FC<Props> = ({
     new Array(sentHistory.length).fill(false)
   );
 
-  const date = new Date();
-  const TODAY = {
-    year: date.getFullYear(),
-    month: date.getMonth() + 1,
-    day: date.getDay(),
-  };
-
-  const checkSentDate = (stringDate: string) => {
-    const sentDate = new Date(stringDate);
-    if (
-      sentDate.getFullYear() === TODAY.year &&
-      sentDate.getMonth() + 1 === TODAY.month &&
-      sentDate.getDay() === TODAY.day
-    ) {
-      setCountSent(countSent += 1);
-    }
-  };
   const handleExpand = (e: any) => {
     e.preventDefault();
     setExpand({ history: !expand });
@@ -60,6 +43,24 @@ const SentHistory: React.FC<Props> = ({
   }, [expand]);
 
   useEffect(() => {
+    const DATE = new Date();
+    const TODAY = {
+      year: DATE.getFullYear(),
+      month: DATE.getMonth() + 1,
+      day: DATE.getDay(),
+    };
+    let newCountSent = 0;
+    const checkSentDate = (stringDate: string) => {
+      const sentDate = new Date(stringDate);
+      if (
+        sentDate.getFullYear() === TODAY.year &&
+        sentDate.getMonth() + 1 === TODAY.month &&
+        sentDate.getDay() === TODAY.day
+      ) {
+        setCountSent((newCountSent += 1));
+      }
+    };
+
     axios({
       method: "get",
       url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
@@ -99,7 +100,7 @@ const SentHistory: React.FC<Props> = ({
                 return (
                   <div
                     key={`history${i}`}
-                    className="mb-4 pb-2 last:pb-0 last:mb-0 border-b border-gray-100 last:border-b-0"
+                    className="mb-4 pb-2 last:pb-0 last:mb-0 border-b-2 border-gray-100 last:border-b-0"
                   >
                     {
                       <History
