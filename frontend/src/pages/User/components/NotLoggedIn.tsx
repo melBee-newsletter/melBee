@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { EmailForm } from "./Interfaces";
+import { EmailForm } from "../../../components/Interfaces";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import headerLogo from "../assets/logo.png";
 import Login from "../../../components/Login";
