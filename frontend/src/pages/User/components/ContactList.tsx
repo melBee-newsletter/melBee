@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import CSVReader from "../molecules/CSVReader";
+import CSVReader from "./CSVReader";
 
 type Props = {
   expand: boolean;
@@ -190,7 +190,10 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     onChange={(e) => setEmail(e.target.value)}
                     style={{ width: 350 }}
                   />
-                  <button disabled={!email} className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2">
+                  <button
+                    disabled={!email}
+                    className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2"
+                  >
                     {" "}
                     登録{" "}
                   </button>
