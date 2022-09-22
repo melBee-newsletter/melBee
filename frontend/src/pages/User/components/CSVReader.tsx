@@ -180,7 +180,7 @@ const CSVReader: React.FC<Props> = ({ setContactList }) => {
                 </div>
               </>
             ) : (
-              "ファイルを選択してください。"
+              "クリックまたはファイルをドロップしてください"
             )}
           </div>
         </>
