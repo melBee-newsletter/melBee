@@ -12,9 +12,7 @@ const CSVReader: React.FC<Props> = ({ setContactList }) => {
 
   const { CSVReader } = useCSVReader();
   const [zoneHover, setZoneHover] = useState(false);
-  const [removeHoverColor, setRemoveHoverColor] = useState(
-    DEFAULT_REMOVE_HOVER_COLOR
-  );
+  const [removeHoverColor, setRemoveHoverColor] = useState(DEFAULT_REMOVE_HOVER_COLOR);
   const [csvData, setCsvData] = useState([]);
 
   const addCsvToContacts = (email: string[]): void => {
