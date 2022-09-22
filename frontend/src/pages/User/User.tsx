@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react";
 import "../../App.css";
-import Header from "../../components/organisms/Header";
-import Footer from "../../components/organisms/Footer";
-import NotLoggedIn from "./components/templates/NotLoggedIn";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import NotLoggedIn from "./components/NotLoggedIn";
 
 type Props = {
   displayComponent: ReactNode;

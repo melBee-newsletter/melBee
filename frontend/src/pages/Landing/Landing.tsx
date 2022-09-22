@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import "../../App.css";
 import "./Landing.css";
-import { EmailForm } from "../User/components/templates/Interfaces";
+import { EmailForm } from "../User/components/Interfaces";
 import axios, { AxiosResponse, AxiosError } from "axios";
-import Header from "../../components/organisms/Header";
-import Footer from "../../components/organisms/Footer";
-import Login from "../../components/templates/Login";
-import Signup from "../../components/templates/Signup";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import Login from "../../components/Login";
+import Signup from "../../components/Signup";
 import { isPrivateIdentifier } from "typescript";
 
 function Landing() {

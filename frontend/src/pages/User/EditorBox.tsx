@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../../../components/molecules/Loading";
+import Loading from "../../components/Loading";
 import "./EditorBox.css";
 
 type Event = {

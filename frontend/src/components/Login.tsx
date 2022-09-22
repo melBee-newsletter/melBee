@@ -1,5 +1,5 @@
 import React from "react";
-import { LogInForm } from "../../pages/User/components/templates/Interfaces";
+import { LogInForm } from "../pages/User/components/Interfaces";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import headerLogo from "../../assets/logo.png";
+import headerLogo from "../assets/logo.png";
 
 type Props = {
     word: string;

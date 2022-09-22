@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Profile from "../organisms/Profile";
-import ContactList from "../organisms/ContactList";
-import MyTemplates from "../organisms/MyTemplates";
-import SentHistory from "../organisms/SentHistory";
-import "../../../../components/organisms/header.css";
+import Profile from "./components/Profile";
+import ContactList from "./components/ContactList";
+import MyTemplates from "./components/MyTemplates";
+import SentHistory from "./components/SentHistory";
+import "../../components/style/header.css";
 
 type Props = {
   analytics: string;
