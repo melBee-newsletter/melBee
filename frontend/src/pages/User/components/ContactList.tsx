@@ -204,7 +204,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     <span className="text-sm attention">
                       ※ファイルをアップロードすると、メールアドレスが自動登録されます
                       <br />
-                      ※メールアドレスは一列目にまとめてください
+                      ※メールアドレスは一行目にまとめてください
                     </span>
                 </div>
               </div>
