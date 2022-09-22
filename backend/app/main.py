@@ -11,9 +11,16 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000",
+    "http://localhost:8000",
+    "https://melbee.herokuapp.com",
+    "https://melbee-backend.herokuapp.com",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
@@ -133,9 +140,9 @@ def update_external_info(id: int,  info: str, media: str, db: Session = Depends(
 #  ----- /user/contact_list ----- #
 
 
-@app.get("/user/contact_list/{user_id}", response_model=list[schemas.ContactList])
-def get_contact(user_id: int, db: Session = Depends(get_db)):
-    db_contact = crud.get_contact_list_by_user_id(db, user_id)
+@app.get("/user/{id}/contact_list", response_model=list[schemas.ContactList])
+def get_contact(id: int, db: Session = Depends(get_db)):
+    db_contact = crud.get_contact_list_by_user_id(db, id)
     if not db_contact:
         raise HTTPException(
             status_code=400, detail="Invalid id or no contact list matched. 無効なidもしくはコンタクトリストがありません。")
@@ -152,10 +159,10 @@ def add_contact(contact: schemas.Contact, db: Session = Depends(get_db)):
     return {"message": "Data added succesfully. データが追加されました。"}
 
 
-@app.delete("/user/contact_list", response_model={})
-def delete_contact_by_email_and_user_id(emails: list[str], user_id: int, db: Session = Depends(get_db)):
+@app.delete("/user/{id}/contact_list", response_model={})
+def delete_contact_by_email_and_user_id(emails: list[str], id: int, db: Session = Depends(get_db)):
     try:
-        crud.delete_contact_by_email_and_user_id(db, emails, user_id)
+        crud.delete_contact_by_email_and_user_id(db, emails, id)
     except:
         raise HTTPException(
             status_code=400, detail="Data cannot be delete. データの削除ができません。")
