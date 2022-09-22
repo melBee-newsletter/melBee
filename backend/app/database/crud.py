@@ -4,12 +4,6 @@ import database.schemas as schemas
 from passlib.context import CryptContext
 import database.seed.templates as templates
 import mailSender
-from fastapi import HTTPException
-import json
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 

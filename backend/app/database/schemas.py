@@ -1,5 +1,4 @@
-import email
-from typing import List, Optional
+from typing import List
 from pydantic import BaseModel
 from typing import List
 
@@ -35,7 +34,7 @@ class ExternalInfo(BaseModel):
     twitterID: str
     facebookID: str
     homepage: str
-    
+
     class Config:
         orm_mode = True
 

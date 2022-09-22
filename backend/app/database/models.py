@@ -1,8 +1,4 @@
-from ctypes.wintypes import BYTE
-from email.policy import default
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UniqueConstraint
-from sqlalchemy.dialects.postgresql import BYTEA
-from sqlalchemy.orm import relationship
 from database.database import Base
 
 

@@ -1,4 +1,3 @@
-from urllib import response
 from fastapi import FastAPI
 from typing import List
 from fastapi import Depends, FastAPI, HTTPException
@@ -7,11 +6,7 @@ from sqlalchemy.orm import Session
 from database import crud, models, schemas
 from database.database import SessionLocal, engine
 import uvicorn
-import json
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal
+
     
 models.Base.metadata.create_all(bind=engine)
 
