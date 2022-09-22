@@ -2,6 +2,7 @@ import os
 from os.path import join, dirname
 import smtplib
 from email.message import EmailMessage
+from email.utils import formataddr
 from dotenv import load_dotenv
 
 load_dotenv(verbose=True)
@@ -13,15 +14,17 @@ EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS") if os.environ.get(
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD") if os.environ.get(
     "EMAIL_PASSWORD") else os.getenv("EMAIL_PASSWORD")
 
+BASE_URL = os.environ.get("APP_PUBLIC_URL") or "http://localhost:3000"
+
 
 def send_email(receiver, subject, message_body, user_id, user_email, receiver_id):
 
     unsubscribe_template = f"""<div style="color: #000000; line-height: 140%; text-align: left; word-wrap: break-word;">
-                            <p style="font-size: 14px; line-height: 140%;"><a href= "http://localhost:3000/unsubscribe/{user_id}/{receiver_id}"> 配信を停止 </a> センダーは{user_email}</p>
+                            <p style="font-size: 14px; line-height: 140%;"><a href= "{BASE_URL}/unsubscribe/{user_id}/{receiver_id}"> 配信を停止 </a> センダーは{user_email}</p>
                           </div>"""
 
     msg = EmailMessage()
-    msg["From"] = 'melBee team'
+    msg["From"] = formataddr((f'{user_email}', EMAIL_ADDRESS))
     msg["To"] = receiver
     msg["Subject"] = subject
     msg.set_content("")
