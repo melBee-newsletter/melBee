@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import Template from "../molecules/Template";
-import Loading from "../molecules/Loading";
+import Loading from "../../../../components/molecules/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 

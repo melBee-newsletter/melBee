@@ -4,7 +4,7 @@ import Profile from "../organisms/Profile";
 import ContactList from "../organisms/ContactList";
 import MyTemplates from "../organisms/MyTemplates";
 import SentHistory from "../organisms/SentHistory";
-import "../../header.css";
+import "../../../../components/organisms/header.css";
 
 type Props = {
   analytics: string;
@@ -41,6 +41,7 @@ const Portal: React.FC<Props> = ({
 
   return (
     // <div className="px-10 w-screen h-screen pt-5">
+    <main className="App-header">
     <div className="w-11/12 mx-auto portalContent">
       <div className="flex justify-between mb-6">
         <div className="text-left">
@@ -80,6 +81,7 @@ const Portal: React.FC<Props> = ({
         setCountSent={setCountSent}
       />
     </div>
+    </main>
   );
 };
 

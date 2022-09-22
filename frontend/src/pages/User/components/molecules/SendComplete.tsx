@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import headerLogo from "../atoms/logo.png";
+import headerLogo from "../../../../assets/logo.png";
 
 type Props = {
   reachLimit: boolean;

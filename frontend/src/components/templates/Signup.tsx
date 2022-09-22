@@ -1,5 +1,5 @@
 import React from "react";
-import { SignUpForm } from "./Interfaces";
+import { SignUpForm } from "../../pages/User/components/templates/Interfaces";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
 

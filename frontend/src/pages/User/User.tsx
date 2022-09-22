@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import "./App.css";
-import Header from "./components/organisms/Header";
-import Footer from "./components/organisms/Footer";
+import "../../App.css";
+import Header from "../../components/organisms/Header";
+import Footer from "../../components/organisms/Footer";
 import NotLoggedIn from "./components/templates/NotLoggedIn";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   reachLimit: boolean;
 };
 
-const Central: React.FC<Props> = ({ displayComponent, reachLimit }) => {
+const User: React.FC<Props> = ({ displayComponent, reachLimit }) => {
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
 
@@ -35,4 +35,4 @@ const Central: React.FC<Props> = ({ displayComponent, reachLimit }) => {
   );
 };
 
-export default Central;
+export default User;

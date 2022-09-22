@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
-import Loading from "../molecules/Loading";
+import Loading from "../../../../components/molecules/Loading";
 import SendComplete from "../molecules/SendComplete";
 import { useNavigate } from "react-router-dom";
 
