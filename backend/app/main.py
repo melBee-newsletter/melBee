@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from typing import List
 from fastapi import Depends, FastAPI, HTTPException
 from starlette.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -11,6 +10,7 @@ import uvicorn
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -134,9 +134,9 @@ def update_external_info(id: int,  info: str, media: str, db: Session = Depends(
 #  ----- /user/contact_list ----- #
 
 
-@app.get("/user/contact_list/{user_id}", response_model=list[schemas.ContactList])
-def get_contact(user_id: int, db: Session = Depends(get_db)):
-    db_contact = crud.get_contact_list_by_user_id(db, user_id)
+@app.get("/user/{id}/contact_list", response_model=list[schemas.ContactList])
+def get_contact(id: int, db: Session = Depends(get_db)):
+    db_contact = crud.get_contact_list_by_user_id(db, id)
     if not db_contact:
         raise HTTPException(
             status_code=400, detail="Invalid id or no contact list matched. 無効なidもしくはコンタクトリストがありません。")
@@ -153,10 +153,10 @@ def add_contact(contact: schemas.Contact, db: Session = Depends(get_db)):
     return {"message": "Data added succesfully. データが追加されました。"}
 
 
-@app.delete("/user/contact_list", response_model={})
-def delete_contact_by_email_and_user_id(emails: list[str], user_id: int, db: Session = Depends(get_db)):
+@app.delete("/user/{id}/contact_list", response_model={})
+def delete_contact_by_email_and_user_id(emails: list[str], id: int, db: Session = Depends(get_db)):
     try:
-        crud.delete_contact_by_email_and_user_id(db, emails, user_id)
+        crud.delete_contact_by_email_and_user_id(db, emails, id)
     except:
         raise HTTPException(
             status_code=400, detail="Data cannot be delete. データの削除ができません。")
@@ -194,8 +194,8 @@ def seed_templates(db: Session = Depends(get_db)):
     db_template = crud.seed_template(db)
 
 
-@app.get("/template/{id}", response_model=schemas.Template)
-def get_template(id: int, db: Session = Depends(get_db)):
+@app.get("/template/{id}", response_model=list[schemas.Template])
+def get_a_single_template_by_id_or_get_all_with_0(id: int, db: Session = Depends(get_db)):
     db_template = crud.get_template_by_id(db, id)
     if not db_template:
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
