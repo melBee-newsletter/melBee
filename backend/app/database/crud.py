@@ -189,8 +189,12 @@ def subscribe_contact_by_email_and_user_id(db: Session, receiver_email: str, rec
         session.close()
 
 
-def get_template_by_id(db: Session, id: int):
-    return db.query(models.Template).filter(models.Template.id == id).first()
+def get_template_by_id(db: Session, id: int | None) -> list():
+    if id != 0:
+        single_template = db.query(models.Template).filter(models.Template.id == id).first()
+        return [single_template]
+    else:
+        return db.query(models.Template).all()
 
 
 def seed_template(db: Session):

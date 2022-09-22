@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from typing import List
 from fastapi import Depends, FastAPI, HTTPException
 from starlette.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -194,8 +193,8 @@ def seed_templates(db: Session = Depends(get_db)):
     db_template = crud.seed_template(db)
 
 
-@app.get("/template/{id}", response_model=schemas.Template)
-def get_template(id: int, db: Session = Depends(get_db)):
+@app.get("/template/{id}", response_model=list[schemas.Template])
+def get_a_single_template_by_id_or_get_all_with_0(id: int, db: Session = Depends(get_db)):
     db_template = crud.get_template_by_id(db, id)
     if not db_template:
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
