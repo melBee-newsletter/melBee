@@ -1,72 +1,78 @@
 # melBee
 
 ## Getting Started
+If you want to try the deployed app, go to [https://melbee.herokuapp.com/](https://melbee.herokuapp.com/)!
 
-To make a copy up to your local environment, follow the steps below.
 
-**1. Run the backend server**
+If you want to make a copy up to your local environment to run the app locally, follow the steps below.
 
-**Set up virtual environment**
+Firstly, please clone the repo.
 
-In `melBee/backend`,
 
 ```shell
-python -m venv env
+git clone git@github.com:melBee-newsletter/melBee.git
 ```
 
-If you're using Mac terminal or Windows Bash,
+Once you cloned it, let's get the backend and frontend servers start running.
+
+### Set up the backend server
+
+Go to `melBee/backend`, and set up the virtual environmt.
+
+```shell
+python3 -m venv env
+```
+
+If you're using Mac terminal or Windows Bash, run:
 
 ```shell
 source ./env/bin/activate
 ```
 
-If you're using Windows PowerShell,
+If you're using Windows PowerShell, run:
 
 ```shell
 .\env\Scripts\Activate.ps1
 ```
 
-In `melBee/backend`,
+Go to `melBee/backend`, and install the libraries we use.
 
 ```shell
 pip3 install -r requirements.txt
 ```
 
-**Set up Gmail**
-Go to your Google Account and create an app password.
+Go to your [Google Account setting page](https://myaccount.google.com/) and create an app password.
 
-**Set up local database**
-Open up the local postgreSQL by running `psql` and create a database called "melBee".
+Open up the local postgreSQL by running `psql` and create a database called "melbee".
 
 ```sql
-CREATE DATABASE melBee;
+CREATE DATABASE melbee;
 ```
 
-In `melBee/backend/app/database`, create a `.env.local` file and add information below.
+Go to `melBee/backend/app/database`, and create a `.env.local` file and add information below.
 
 ```
 DATABASE_URL=postgresql://YOUR DB USERNAME:YOUR DB PASSWORD@localhost/melbee
-EMAIL_ADDRESS = "YOUR EMAIL"
-EMAIL_PASSWORD = "YOUR PASSWORD"
+EMAIL_ADDRESS="YOUR EMAIL"
+EMAIL_PASSWORD="YOUR APP PASSWORD"
 ```
 
-**Run the server**
 
-In `melBee/backend/app`,
+In `melBee/backend/app`, run:
 
 ```shell
 uvicorn main:app --reload
 ```
 
-**3. Run the React server**
+### Set up the React server
 
-In `melBee/frontend`,
+Go to`melBee/frontend`, and install the dependencies listed in `package.json` by running:
 
-**Set up react-router-dom tailwindcss axios**
-
+```shell
+npm install 
 ```
-npm install react-router-dom tailwindcss@latest axios @tinymce/tinymce-react serve
-```
+
+Start the React server by running:
 
 ```shell
 npm run dev
