@@ -33,7 +33,7 @@ const Header: FC = () => {
         {isLoggedIn && (
           <>
             <nav className="nav">
-              <ul className="flex items-center pb-2">
+              <ul className="flex items-center">
                 <li className="mr-5 relative group">
                   <span
                     className={[
