@@ -14,7 +14,7 @@ EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS") if os.environ.get(
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD") if os.environ.get(
     "EMAIL_PASSWORD") else os.getenv("EMAIL_PASSWORD")
 
-BASE_URL = os.environ.get("APP_PUBLIC_URL") or "http://localhost:8000"
+BASE_URL = os.environ.get("APP_PUBLIC_URL") or "http://localhost:3000"
 
 
 def send_email(receiver, subject, message_body, user_id, user_email, receiver_id):
