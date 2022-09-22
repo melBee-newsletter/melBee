@@ -4,7 +4,7 @@ import Profile from "./components/Profile";
 import ContactList from "./components/ContactList";
 import MyTemplates from "./components/MyTemplates";
 import SentHistory from "./components/SentHistory";
-import "../../components/style/header.css";
+import "../../components/header.css";
 
 type Props = {
   analytics: string;
