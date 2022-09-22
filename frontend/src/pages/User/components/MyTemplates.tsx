@@ -63,24 +63,24 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   }, [seedTemplate]);
 
   useEffect(() => {
-    const getTemplate = (id: number) => {
-      axios({
-        method: "get",
-        url: `${BASE_URL}/template/${id}`,
-      })
-        .then((res: AxiosResponse) => {
-          let data = res.data;
-          data.id = id;
-          setMelBeeTemplates((current) => [...current, data]);
-        })
-        .catch((err: AxiosError<{ error: string }>) => {
-          console.log(err.response!.data);
-        });
-    };
+    // const getTemplate = (id: number) => {
+    //   axios({
+    //     method: "get",
+    //     url: `${BASE_URL}/template/${id}`,
+    //   })
+    //     .then((res: AxiosResponse) => {
+    //       let data = res.data;
+    //       data.id = id;
+    //       setMelBeeTemplates((current) => [...current, data]);
+    //     })
+    //     .catch((err: AxiosError<{ error: string }>) => {
+    //       console.log(err.response!.data);
+    //     });
+    // };
 
-    for (let i = 1; i <= numOfTemplates; i++) {
-      getTemplate(i);
-    }
+    // for (let i = 1; i <= numOfTemplates; i++) {
+    //   getTemplate(i);
+    // }
 
     const getSavedTemplate = () => {
       axios({
