@@ -5,6 +5,10 @@ from passlib.context import CryptContext
 import database.seed.templates as templates
 import mailSender
 import json
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -100,24 +104,6 @@ def add_facebook(user: schemas.User, db: Session, facebookID: str):
 def add_homepage(user: schemas.User, db: Session, homepage: str):
     setattr(user, "homepage", homepage)
     return user
-
-
-def get_items(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Item).offset(skip).limit(limit).all()
-
-
-def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
-    db_item = models.Item(**item.dict(), owner_id=user_id)
-    session = Session()
-    try:
-        db.add(db_item)
-        db.commit()
-    except:
-        session.rollback()
-        raise
-    finally:
-        session.close()
-    return db_item
 
 
 def get_contact_list_by_user_id(db: Session, user_id: int):
