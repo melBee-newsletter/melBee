@@ -148,7 +148,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
       {loading && <Loading word={"L O A D I N G"} />}
       <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
         <div
-          className="flex justify-between text-lg font-medium"
+          className="flex justify-between text-2xl font-medium"
           onClick={handleExpand}
         >
           {/* {expand ? <h3>手紙を送ろう</h3> : <h3>テンプレート一覧</h3>} */}
