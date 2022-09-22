@@ -4,6 +4,7 @@ import database.schemas as schemas
 from passlib.context import CryptContext
 import database.seed.templates as templates
 import mailSender
+from fastapi import HTTPException
 import json
 try:
     from typing import Literal
@@ -80,6 +81,36 @@ def add_sent_history(user: schemas.User, db: Session, senthistory: schemas.SentH
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
+def update_external_info(db: Session, id: int, info: str, media: str) -> tuple():
+    media_types = ["analytics", "instagram", "twitter", "facebook", "homepage"]
+    if media not in media_types:
+        return (False, "Unsupported media type. サポートされていないメディアです。")
+
+    media_col = media + "ID"
+    db_external_info = db.query(models.ExternalInfo).filter(models.ExternalInfo.user_id == id).first()
+    session = Session()
+
+    if db_external_info:
+        try:
+            setattr(db_external_info, media_col, info) 
+            db.commit()
+        except Exception as err:
+            session.rollback()
+            return (False, err.args)
+        finally:
+            session.close()
+    else:
+        try:
+            external_info = models.ExternalInfo(user_id=id)
+            setattr(external_info, media_col, info)
+            db.add(external_info)
+            db.commit()
+        except Exception as err:
+            session.rollback()
+            return (False, err.args)
+        finally:
+            session.close()
+    return (True, None)
 
 def add_analytics(user: schemas.User, db: Session, analyticsID: str):
     setattr(user, "analyticsID", analyticsID)

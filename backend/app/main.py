@@ -8,7 +8,11 @@ from database import crud, models, schemas
 from database.database import SessionLocal, engine
 import uvicorn
 import json
-
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
+    
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -122,6 +126,13 @@ def add_sent_history(id: int, senthistory: schemas.SentHistory, db: Session = De
         raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
     return crud.add_sent_history(user=db_user, db=db, senthistory=senthistory)
 
+@app.patch("/user/{id}/external_info", response_model={})
+def update_external_info(id: int,  info: str, media: str, db: Session = Depends(get_db)):
+    isOK, msg = crud.update_external_info(db, id, info, media)
+    if isOK:
+        return {"message": "External info updated. 外部情報が更新されました。"}
+    else:
+        raise HTTPException(status_code=400, detail=msg)
 
 @app.post("/user/{id}/add_analytics", response_model={})
 def add_analytics(id: int, analyticsID: str, db: Session = Depends(get_db)):
