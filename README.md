@@ -1,8 +1,44 @@
 # melBee
+![melbee_logo](https://user-images.githubusercontent.com/90857923/191744973-d03244db-8c93-4206-9266-5fde117a5f62.png)
 
-## Getting Started
+[melBee](https://melbee.herokuapp.com/) is the awesome email customizer in Japan. It is the only html email customizer that is available in Japanese as of September 22nd 2022. melBee helps individuals and small businesses create html rich emails easily, and provides the capacity of analyzing data of the sent emails.
+
+# Features
+
+melBee provides the following features:
+- foo
+- bar
+- foobar
+
+# Built With
+
+Frontend
+- TypeScript
+- React
+- Tailwind CSS
+- tinyMCE
+
+Backend
+- Python
+- FastAPI
+- SQLAlchemy
+- bcrypt
+- postgresSQL
+
+# Developers
+
+<table>
+  <tr>
+    <td align="center"><a href="https://amplication.com/"><img src="To be added" width="100px;" alt=""/><br /><sub><b>Name</b></sub></a><br /><p>Frontend Engineer</p></td>
+    <td align="center"><a href="https://amplication.com/"><img src="To be added" width="100px;" alt=""/><br /><sub><b>Name</b></sub></a><br /><p>Frontend Engineer</p></td>
+    <td align="center"><a href="https://amplication.com/"><img src="To be added" width="100px;" alt=""/><br /><sub><b>Name</b></sub></a><br /><p>Frontend Engineer</p></td>
+    <td align="center"><a href="https://amplication.com/"><img src="To be added" width="100px;" alt=""/><br /><sub><b>Name</b></sub></a><br /><p>Frontend Engineer</p></td>
+    <td align="center"><a href="https://amplication.com/"><img src="To be added" width="100px;" alt=""/><br /><sub><b>Name</b></sub></a><br /><p>Frontend Engineer</p></td>
+   </tr>
+</table>
+
+# Getting Started
 If you want to try the deployed app, go to [https://melbee.herokuapp.com/](https://melbee.herokuapp.com/)!
-
 
 If you want to make a copy up to your local environment to run the app locally, follow the steps below.
 
