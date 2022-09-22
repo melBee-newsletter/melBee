@@ -48,7 +48,7 @@ const Signup: React.FC<Props> = ({ email }) => {
       <form id="signup-form">
         <div className="lg:flex mb-4">
           <label htmlFor="email_signup" className="lg:w-52 text-base">
-            新規登録
+            メールアドレス
           </label>
           <input
             type="email"
@@ -72,8 +72,8 @@ const Signup: React.FC<Props> = ({ email }) => {
         </div>
         <input
           type="button"
-          className="mt-6 p-2 color-yellow text-sm"
-          value="新規登録する"
+          className="rounded-xl px-4 py-2 drop-shadow-xl text-white font-medium bg-orangeGradation mt-6 text-sm"
+          value="新規登録"
           onClick={handleSubmit}
         ></input>
       </form>

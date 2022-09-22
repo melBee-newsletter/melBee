@@ -28,7 +28,7 @@
 }
 
 .portalContent {
-  background-image: url("./img/bgImage.png");
+  background-image: url("../assets/bgImage.png");
   background-position: right top;
   background-repeat: no-repeat;
 }

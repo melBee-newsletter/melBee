@@ -16,7 +16,7 @@ const Template: React.FC<Props> = ({ template }) => {
         <p className="font-bold pb-3">{template.title.slice(0, 20)}</p>
       </div>
       <div className="">
-        <div className="overflow-y-scroll templateList">
+        <div className="overflow-y-scroll overflow-x-hidden templateList">
           {/* <img src={template.thumbnail} alt="template" width={200} className="object-cover h-full w-full"/> */}
           <div
             dangerouslySetInnerHTML={{

@@ -15,7 +15,7 @@ type clickEvent = {
 
 const EditorBox: React.FC = () => {
   const navigate = useNavigate();
-  const TEMPLATE_PATH = "/user/templates";
+  const TEMPLATE_PATH = "/user";
   const PREVIEW_PATH = "/user/preview";
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -28,7 +28,7 @@ const EditorBox: React.FC = () => {
   }, []);
 
   return (
-    <div className="h-screen w-fit">
+    <div className="">
       {loading && <Loading word={"L O A D I N G"} />}
       <div className="flex justify-between px-28">
         <button
@@ -84,7 +84,7 @@ const EditorBox: React.FC = () => {
           toolbar_location: "auto",
           inline: false,
           statusbar: false,
-          width: "1024",
+          width: "91.666667%",
           height: "600",
           menubar: false,
           quickbars_insert_toolbar: "table | image",

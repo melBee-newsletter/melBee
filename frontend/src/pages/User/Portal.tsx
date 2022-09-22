@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Profile from "../organisms/Profile";
-import ContactList from "../organisms/ContactList";
-import MyTemplates from "../organisms/MyTemplates";
-import SentHistory from "../organisms/SentHistory";
-import "../../header.css";
+import Profile from "./components/Profile";
+import ContactList from "./components/ContactList";
+import MyTemplates from "./components/MyTemplates";
+import SentHistory from "./components/SentHistory";
+import "../../components/header.css";
 
 type Props = {
   analytics: string;
@@ -41,6 +41,7 @@ const Portal: React.FC<Props> = ({
 
   return (
     // <div className="px-10 w-screen h-screen pt-5">
+    <main className="App-header">
     <div className="w-11/12 mx-auto portalContent">
       <div className="flex justify-between mb-6">
         <div className="text-left">
@@ -55,7 +56,7 @@ const Portal: React.FC<Props> = ({
               <strong>{sendLimit - countSent} 通</strong> 送信できます。
             </p>
           ) : (
-            <p className="text-lg mt-4 pl-4">
+            <p className="mt-4">
               本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。
             </p>
           )}
@@ -80,6 +81,7 @@ const Portal: React.FC<Props> = ({
         setCountSent={setCountSent}
       />
     </div>
+    </main>
   );
 };
 

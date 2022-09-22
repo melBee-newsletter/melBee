@@ -73,42 +73,50 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
   };
 
   return (
-    <div className="h-screen w-full px-10">
-      <div className="flex justify-between px-28">
+    <div className="w-full px-10">
+      <div className="flex justify-end w-11/12 mx-auto mb-4">
         <button
           onClick={(e) => {
             e.preventDefault();
-              navigate(EDIT_PATH);
+            navigate(EDIT_PATH);
           }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
-          >
-            {"編集"}
-          </button>
-          {!reachLimit &&
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation mr-4"
+        >
+          {"編集"}
+        </button>
+        {!reachLimit ? (
           <button
-          onClick={(e) => {
-            e.preventDefault();
+            onClick={(e) => {
+              e.preventDefault();
               navigate(SEND_PATH);
-          }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+            }}
+            className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
           >
             {"送信"}
-          </button> }
+          </button>
+        ) : (
+          <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
+        )}
       </div>
-      <div className="flex justify-center">
+      <div className="text-left">
         {!saved ? (
           <form onSubmit={handleSave}>
-            <p className="text-sm mt-5 mb-2 text-right">
-              個人テンプレートに保存し、編集されたテンプレートを引き続きご利用いただけます。
+            <label>
+              作成テンプレートタイトル
+              <input
+                type="text"
+                placeholder="タイトル（２０文字まで）"
+                maxLength={20}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="border rounded-lg p-2"
+              />
+            </label>
+            <p className="text-sm attention mt-1 mb-3">
+              {/* 個人テンプレートに保存し、編集されたテンプレートを引き続きご利用いただけます。 */}
+              ※
+              作成したテンプレートは自動保存されるため、引き続きご利用いただけます。
             </p>
-            <input
-              type="text"
-              placeholder="タイトル（２０文字まで）"
-              maxLength={20}
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="border-2 rounded-lg p-2 text-lg mr-5"
-            />
             <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation">
               保存
             </button>

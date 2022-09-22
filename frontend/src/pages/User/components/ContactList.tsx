@@ -135,14 +135,16 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
     e.preventDefault();
     axios({
       method: "delete",
-      url: `${BASE_URL}/user/contact`,
+      url: `${BASE_URL}/user/contact_list`,
       params: {
-        email: selectedEmail.toString(),
+        user_id: sessionStorage.melbeeID,
       },
+      data: selectedEmail,
     })
       .then((res: AxiosResponse) => {
         const afterRemove = contactList.filter((email, i) => !isChecked[i]);
         setContactList(afterRemove);
+        setIsChecked(new Array(afterRemove.length).fill(false));
       })
       .catch((err: AxiosError<{ error: string }>) => {
         alert("エラーが生じました。再度お試しください。");
@@ -168,7 +170,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
         <div className="">
           <div className="">
             <div className="w-full">
-              <div className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-1">
+              <div className="w-full scroll flex flex-wrap items-baseline content-start border rounded-xl my-3 px-1">
                 {contactList.map((email, i) => {
                   return displayEmail(email, i);
                 })}
@@ -188,7 +190,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     onChange={(e) => setEmail(e.target.value)}
                     style={{ width: 350 }}
                   />
-                  <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2">
+                  <button disabled={!email} className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2">
                     {" "}
                     登録{" "}
                   </button>
@@ -203,7 +205,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     <button
                       type="submit"
                       onClick={handleRemove}
-                      className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-red-500"
+                      className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-redGradation"
                     >
                       {" "}
                       削除{" "}
@@ -214,7 +216,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     <p className="text-base mb-2">
                       メールアドレス選択後削除を行えます
                     </p>
-                    <button className="bg-slate-400 rounded-xl px-6 py-2 drop-shadow-xl text-lg font-medium text-gray-500">
+                    <button className="bg-grayGradation rounded-xl px-6 py-2 drop-shadow-xl text-lg font-medium text-white">
                       {" "}
                       削除{" "}
                     </button>

@@ -2957,7 +2957,7 @@ flower_shop = """
                             <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
 
                               <div style="color: #ffffff; line-height: 140%; text-align: left; word-wrap: break-word;">
-                                <p style="font-size: 14px; line-height: 140%;">このメールはmelB∞ Flowersにご登録のメンバーの皆さんに送られています。 このタイプのメールの <a href = "http://localhost:3000/unsubscribe/1/1"> 配信を停止 </a>。 メール通知に関する 全設定を管理 melB∞ Flowers</p>
+                                <p style="font-size: 14px; line-height: 140%;">このメールはmelB∞ Flowersにご登録のメンバーの皆さんに送られています。 このタイプのメールの <a> 配信を停止 </a>。 メール通知に関する 全設定を管理 melB∞ Flowers</p>
                                 <p style="font-size: 14px; line-height: 140%;">プライバシーポリシーを見る.</p>
                               </div>
 

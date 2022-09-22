@@ -1,6 +1,6 @@
 import React, { useState, FC } from "react";
 import { useNavigate } from "react-router-dom";
-import headerLogo from "../atoms/logo.png";
+import headerLogo from "../assets/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faDoorOpen } from "@fortawesome/free-solid-svg-icons";
@@ -34,17 +34,31 @@ const Header: FC = () => {
           <>
             <nav className="nav">
               <ul className="flex items-center">
-                <li className="mr-5">
-                  <a className="block" href="/user">
+                <li className="mr-5 relative group">
+                  <span
+                    className={[
+                      "whitespace-nowrap rounded-lg bg-slate-800 px-2 py-1 text-white absolute opacity-0 group-hover:opacity-100 absolute top-10 left-1/2 -translate-x-1/2 before:content-[''] before:absolute before:-translate-x-1/2 before:left-1/2 before:bottom-full before:border-4 before:border-transparent before:border-b-slate-800 text-sm",
+                    ].join()}
+                  >
+                    登録情報
+                  </span>
+                  <a className="block transition hover" href="/user">
                     <FontAwesomeIcon
                       className="iconUser text-gray-800"
                       icon={faUser}
                     />
                   </a>
                 </li>
-                <li>
+                <li className="relative group">
+                  <span
+                    className={[
+                      "whitespace-nowrap rounded-lg bg-slate-800 px-2 py-1 text-white absolute opacity-0 group-hover:opacity-100 absolute top-10 left-1/2 -translate-x-1/2 before:content-[''] before:absolute before:-translate-x-1/2 before:left-1/2 before:bottom-full before:border-4 before:border-transparent before:border-b-slate-800 text-sm",
+                    ].join()}
+                  >
+                    ログアウト
+                  </span>
                   <a
-                    className="block"
+                    className="block transition hover"
                     href="/"
                     onClick={(e) => {
                       e.preventDefault();
