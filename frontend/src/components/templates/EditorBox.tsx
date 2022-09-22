@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { useNavigate } from "react-router-dom";
-import Loading from "../molecules/Loading"
+import Loading from "../molecules/Loading";
 
 type Event = {
   target: {
@@ -24,32 +24,32 @@ const EditorBox: React.FC = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 1500)
+    }, 1500);
   }, []);
 
   return (
     <div className="h-screen w-fit">
       {loading && <Loading word={"L O A D I N G"} />}
       <div className="flex justify-between px-28">
-      <button
-        onClick={(e) => {
-          e.preventDefault();
+        <button
+          onClick={(e) => {
+            e.preventDefault();
             navigate(TEMPLATE_PATH);
-        }}
-        className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
+          }}
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
         >
           {"選び直す"}
         </button>
         <button
-        onClick={(e) => {
-          e.preventDefault();
+          onClick={(e) => {
+            e.preventDefault();
             navigate(PREVIEW_PATH);
-        }}
-        className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+          }}
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
         >
           {"プレビュー"}
         </button>
-        </div>
+      </div>
 
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
@@ -110,7 +110,6 @@ const EditorBox: React.FC = () => {
             "code",
             "help",
             "wordcount",
-            "export",
             "emoticons",
             "quickbars",
             "autosave",

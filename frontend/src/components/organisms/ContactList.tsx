@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import CSVReader from "../molecules/CSVReader";
 
 type Props = {
   expand: boolean;
@@ -19,7 +20,6 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
-
   const [contactList, setContactList] = useState<string[]>([]);
   const [blackList, setBlackList] = useState<string[]>([]);
   const [email, setEmail] = useState<string>("");
@@ -220,6 +220,10 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     </button>
                   </div>
                 )}
+              </div>
+              <div>
+                CSVを読み込む
+                <CSVReader setContactList={setContactList} />
               </div>
             </div>
             {blackList.length > 0 && (
