@@ -25,7 +25,7 @@ const styles = {
     flexDirection: "column",
     height: "35%",
     justifyContent: "center",
-    padding: 5,
+    padding: 35,
   } as CSSProperties,
   file: {
     background: "linear-gradient(to bottom, #EEE, #DDD)",
