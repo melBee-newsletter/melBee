@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import CSVReader from "./CSVReader";
 import { getContacts, addContact, deleteContacts } from "../api";
+import { Event, clickEvent } from "../../../type";
 
 type Props = {
   expand: boolean;
@@ -21,7 +22,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
   );
   const [selectedEmail, setSelectedEmail] = useState<string[]>([]);
 
-  const handleExpand = (e: any) => {
+  const handleExpand = (e: clickEvent) => {
     e.preventDefault();
     setExpand({ contact: !expand });
   };
@@ -49,7 +50,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
             id={String(i)}
             className="mr-2"
             checked={isChecked[i]}
-            onChange={() => handleCheck(i)}
+            onChange={(e: Event) => handleCheck(i)}
           />
           {email}
         </label>
@@ -65,7 +66,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
     );
   };
 
-  const handleAdd = async (e: React.ChangeEvent<any>) => {
+  const handleAdd = async (e: clickEvent) => {
     e.preventDefault();
     if (email) {
       await addContact(email).then((addSuccess) => {
@@ -94,7 +95,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
     setSelectedEmail(selected);
   }, [isChecked]);
 
-  const handleRemove = async (e: React.ChangeEvent<any>) => {
+  const handleRemove = async (e: clickEvent) => {
     e.preventDefault();
     await deleteContacts(selectedEmail).then((deleteSuccess) => {
       if (deleteSuccess) {

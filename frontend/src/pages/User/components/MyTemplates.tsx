@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { template } from "../../../type";
 import { getMelbeeTemplates, getMyTemplates, seedTemplate } from "../api";
+import { clickEvent } from "../../../type";
 
 type Props = {
   expand: boolean;
@@ -26,7 +27,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   const [display, setDisplay] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const handleExpand = (e: any) => {
+  const handleExpand = (e: clickEvent) => {
     e.preventDefault();
     setExpand({ template: !expand });
   };

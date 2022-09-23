@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-
-type Event = {
-  target: {
-    value: string;
-  };
-};
-
-type clickEvent = {
-  preventDefault: Function;
-};
-
+import { Event, clickEvent } from "../../../type";
+ 
 type Props = {
   analytics: string;
   setAnalytics: Function;
@@ -29,7 +20,7 @@ const Profile: React.FC<Props> = ({
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
 
-  const handleExpand = (e: any) => {
+  const handleExpand = (e: clickEvent) => {
     e.preventDefault();
     setExpand({ profile: !expand });
   };
@@ -40,12 +31,12 @@ const Profile: React.FC<Props> = ({
 
   const [analyticsEdit, setAnalyticsEdit] = useState(true);
 
-  const handleChange = (event: Event) => {
-    setAnalytics(event.target.value);
+  const handleChange = (e: Event) => {
+    setAnalytics(e.target.value);
   };
 
-  const handleClick = (event: clickEvent) => {
-    event.preventDefault();
+  const handleClick = (e: clickEvent) => {
+    e.preventDefault();
     if (analytics) {
       setAnalytics(analytics);
       setAnalyticsEdit(false);
@@ -54,8 +45,8 @@ const Profile: React.FC<Props> = ({
     }
   };
 
-  const handleEdit = (event: clickEvent) => {
-    event.preventDefault();
+  const handleEdit = (e: clickEvent) => {
+    e.preventDefault();
     setAnalyticsEdit(true);
   };
 
