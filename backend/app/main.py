@@ -157,31 +157,6 @@ def log_in_with_id_and_pw(user: schemas.UserVerify, db: Session = Depends(get_db
     return db_user
 
 
-@app.get("/user/{id}")
-def get_user(id: int, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, id)
-    if not db_user:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
-    return db_user
-
-
-@app.get("/user/{id}/template")
-def get_template_by_user_id(id: int, db: Session = Depends(get_db)):
-    templateuser = crud.get_user_template(db, id)
-    if not templateuser:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
-    return templateuser
-
-
-@app.post("/user/{id}/template", response_model={})
-def add_template_by_user_id(id: int, template: schemas.TemplateBase, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, id)
-    if not db_user:
-        raise HTTPException(status_code=400, detail="You are foolish"
-        )
-    return crud.add_user_template(user=db_user, db=db, usertemplate=template)
-
-
 @app.delete("/user/{user_id}/template/{template_id}")
 def delete_user_template_by_id(user_id: int, template_id: int, db: Session = Depends(get_db)):
     try:
@@ -189,22 +164,6 @@ def delete_user_template_by_id(user_id: int, template_id: int, db: Session = Dep
     except:
         raise HTTPException(status_code=400, detail="Data cannot be delete. データの削除ができません。")
     return {"message": "Data deleted succesfully. データは削除されました。"}
-
-
-@app.get("/user/{id}/sent_history")
-def get_sent_history_by_user_id(id: int, db: Session = Depends(get_db)):
-    userhistory = crud.get_user_history(db, id)
-    if not userhistory:
-        raise HTTPException(status_code=400, detail="Invalid id or no sent history. 無効なidもしくは送信履歴がありません。")
-    return userhistory
-
-
-@app.post("/user/{id}/sent_history", response_model={})
-def add_sent_history(id: int, senthistory: schemas.SentHistory, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, id)
-    if not db_user:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
-    return crud.add_sent_history(user=db_user, db=db, senthistory=senthistory)
 
 
 @app.patch("/user/{id}/external_info", response_model={})
@@ -295,8 +254,13 @@ def get_a_single_template_by_id_or_get_all_with_0(id: int, db: Session = Depends
 @app.post("/email/send", response_model={})
 def send_email(sendEmail: schemas.SendEmail, db: Session = Depends(get_db)):
     for mail in sendEmail.email:
-        crud.send_email(db, mail, sendEmail.subject,
-                        sendEmail.message_body, sendEmail.user_id)
+        crud.send_email(db, mail, sendEmail.subject, sendEmail.message_body, sendEmail.user_id)
+    return {"message": "Email sent! メールを送りました。"}
+
+
+@app.post("/unsub_note/send", response_model={})
+def send_unsub_note(sendUnsubNote: schemas.SendUnsubNote, db: Session = Depends(get_db)):
+    crud.send_unsub_note(db, sendUnsubNote.email, sendUnsubNote.subject, sendUnsubNote.message_body)
     return {"message": "Email sent! メールを送りました。"}
 
 
