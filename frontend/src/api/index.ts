@@ -5,7 +5,29 @@ interface contact {
   email: string;
   id: number;
   is_subscribed: boolean;
+};
+
+interface emailBody {
+    email: string[],
+    subject: string,
+    message_body: string,
+    user_id: number,
+};
+
+interface sentHistory {
+  subject: string,
+  recipients: string,
+  template: string,
+  date_sent: string,
+  user_id: number,
 }
+
+type history = {
+  date_sent: string;
+  recipients: string;
+  template: string;
+  subject: string;
+};
 
 /**
  * USER LOGIN & SIGNUP
@@ -141,3 +163,71 @@ export const deleteContacts = async (emails: string[]) => {
   });
   return deleteSuccess;
 }
+
+/**
+ * SENDING EMAIL & SENT HISTORY
+ */
+
+/**
+ * Send email to selected receivers
+ * @param emailBody
+ * @returns 
+ */
+export const sendEmail = async (emailBody: emailBody) => {
+  let sendComplete = false;
+  await axios({
+    method: "post",
+    url: `${BASE_URL}/email/newsletter`,
+    data: emailBody,
+  })
+    .then((res: AxiosResponse) => {
+      sendComplete = true;
+    })
+  .catch((err: AxiosError<{ error: string }>) => {
+    console.log(err.response!.data);
+  });
+  return sendComplete;
+};
+
+/**
+ * Save sent history after email is successfully sent
+ * @param sentHistory 
+ * @returns 
+ */
+export const saveSentHistory = async (sentHistory: sentHistory) => {
+  let sentHistorySaved = false;
+  await axios({
+    method: "post",
+    url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
+    data: sentHistory
+  })
+  .then((res: AxiosResponse) => {
+    sentHistorySaved = true;
+  })
+  .catch((err: AxiosError<{ error: string }>) => {
+    console.log(err.response!.data);
+  });
+  return sentHistorySaved;
+};
+
+/**
+ * Get user's all sent history
+ * @returns 
+ */
+export const getSentHistory = async () => {
+  const sentHistory: history[] = [];
+  await axios({
+    method: "get",
+    url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
+  })
+  .then((res: AxiosResponse) => {
+    let data = res.data;
+    for (let i = 0; i < data.length; i++) {
+      sentHistory.push(data[i]);
+    };
+  })
+  .catch((err: AxiosError<{ error: string }>) => {
+    console.log(err.response!.data);
+  });
+  return sentHistory;
+};
