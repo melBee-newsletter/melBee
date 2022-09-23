@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios, { AxiosResponse, AxiosError } from "axios";
 import Loading from "../../components/Loading";
 import SendComplete from "./components/SendComplete";
 import { useNavigate } from "react-router-dom";
 import "../../sendbox.css";
+import { getContacts, addContact, sendEmail, saveSentHistory, getSentHistory } from "./api"
 
 type Props = {
   analytics: string;
@@ -11,29 +11,13 @@ type Props = {
   setCountSent: Function;
 };
 
-interface contact {
-  email: string;
-  id: number;
-  is_subscribed: boolean;
-}
-
-type history = {
-  date_sent: string;
-  recipients: string;
-  template: string;
-  subject: string;
-};
-
 const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
-  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
   const [subject, setSubject] = useState<string>("『melBee』からのお便り");
   const [allEmails, setAllEmails] = useState<string[]>([]);
   const [email, setEmail] = useState<string>("");
   const [receivers, setReceivers] = useState<string[]>([]);
-  const [isChecked, setIsChecked] = useState<boolean[]>(
-    new Array(allEmails.length).fill(false)
-  );
+  const [isChecked, setIsChecked] = useState<boolean[]>(new Array(allEmails.length).fill(false));
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [updateReceiver, setUpdateReceiver] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -45,29 +29,17 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
   useEffect(() => {
     if (analytics)
       TEMPLATE += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
-    axios({
-      method: "get",
-      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/contact_list`,
-    })
-      .then((res: AxiosResponse) => {
-        let data = res.data;
-        const notBlackList = data.filter(
-          (contact: contact) => contact.is_subscribed
-        );
-        notBlackList.map((contact: contact) => {
-          const email = contact.email;
-          setAllEmails((prevEmail) => [...prevEmail, email]);
-          setIsChecked((prevStat) => [...prevStat, false]);
-        });
-      })
-      .catch((err: AxiosError<{ error: string }>) => {
-        console.log(err.response!.data);
-      });
+      (async function getAllContacts() {
+        await getContacts()
+        .then((res) => {
+          setAllEmails(res.subscribedContacts);
+          setIsChecked(new Array(res.subscribedContacts.length).fill(false));
+        })
+    })();
+    if (!localStorage.getItem("subject")) {
+      localStorage.setItem("subject", subject);
+    }
   }, []);
-
-  if (!localStorage.getItem("subject")) {
-    localStorage.setItem("subject", subject);
-  }
 
   const handleSubject = (subject: string) => {
     setSubject(subject);
@@ -75,9 +47,7 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
   };
 
   const handleCheck = (position: any | void) => {
-    const updateIsChecked = isChecked.map((stat, i) =>
-      i === position ? !stat : stat
-    );
+    const updateIsChecked = isChecked.map((stat, i) => i === position ? !stat : stat);
     setIsChecked(updateIsChecked);
     setUpdateReceiver(!updateReceiver);
   };
@@ -89,47 +59,27 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
     setUpdateReceiver(!updateReceiver);
   };
 
-  const handleAdd = (e: React.ChangeEvent<any>): void => {
+  const handleAdd = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     if (email) {
-      const data = {
-        email: email,
-        user_id: sessionStorage.melbeeID,
-        is_subscribed: true,
-      };
-      axios({
-        method: "post",
-        url: `${BASE_URL}/user/contact_list`,
-        data: data,
-      })
-        .then((res: AxiosResponse) => {
+      await addContact(email)
+      .then((addSuccess) => {
+        if (addSuccess) {
           setAllEmails((prevEmail) => [...prevEmail, email]);
-          setIsChecked((prevStat) => [...prevStat, true]);
+          setIsChecked((prevStat) => [...prevStat, false]);
           setUpdateReceiver(!updateReceiver);
-        })
-        .catch((err: AxiosError<{ error: string }>) => {
-          alert(
-            "ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。"
-          );
-          console.log(err.response!.data);
-        });
+        } else {
+          alert("ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。");
+        };
+      })
       setEmail("");
     }
   };
 
   const displayEmailWithCheckbox = (email: string, i: number) => {
     return (
-      <div
-        key={i}
-        className="flex rounded-lg mr-3 px-3 py-1 h-fit text-base my-1"
-      >
-        <input
-          type="checkbox"
-          id={String(i)}
-          checked={isChecked[i]}
-          onChange={() => handleCheck(i)}
-          className="mr-2"
-        />
+      <div key={i} className="flex rounded-lg mr-3 px-3 py-1 h-fit text-base my-1">
+        <input type="checkbox" id={String(i)} checked={isChecked[i]} onChange={() => handleCheck(i)} className="mr-2" />
         <p>{email}</p>
       </div>
     );
@@ -142,9 +92,9 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
     setReceivers(selectedEmails);
   }, [updateReceiver]);
 
-  const handleSend = (e: React.ChangeEvent<any>): void => {
+  const handleSend = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
-    const data = {
+    const emailBody = {
       email: receivers,
       subject: subject,
       message_body: TEMPLATE,
@@ -152,68 +102,45 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
     };
     if (receivers.length > 0) {
       setLoading(true);
-      axios({
-        method: "post",
-        url: `${BASE_URL}/email/newsletter`,
-        data: data,
+      await sendEmail(emailBody)
+      .then((sendComplete) => {
+        setSendComplete(sendComplete);
+        setLoading(!sendComplete);
       })
-        .then((res: AxiosResponse) => {
-          setSendComplete(true);
-          setLoading(false);
-          axios({
-            method: "post",
-            url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
-            data: {
-              recipients: JSON.stringify(receivers),
-              template: TEMPLATE,
-              date_sent: DATE.toString(),
-              user_id: sessionStorage.melbeeID,
-              subject: subject,
-            },
-          }).catch((err: AxiosError<{ error: string }>) => {
-            console.log(err.response!.data);
-          });
-        })
-        .then(() => {
-          const TODAY = {
-            year: DATE.getFullYear(),
-            month: DATE.getMonth() + 1,
-            day: DATE.getDay(),
+      .then(async () => {
+        const sentHistory = {
+          subject: subject,
+          recipients: receivers.toString(),
+          template: TEMPLATE,
+          date_sent: DATE.toString(),
+          user_id: sessionStorage.melbeeID,
+        };
+        await saveSentHistory(sentHistory)
+      })
+      .then(async () => {
+        const sentHistory = await getSentHistory();
+        const TODAY = {
+          year: DATE.getFullYear(),
+          month: DATE.getMonth() + 1,
+          day: DATE.getDay(),
+        };
+
+        let newCountSent = 0;
+
+        const checkSentDate = (stringDate: string) => {
+          const sentDate = new Date(stringDate);
+          if (
+            sentDate.getFullYear() === TODAY.year &&
+            sentDate.getMonth() + 1 === TODAY.month &&
+            sentDate.getDay() === TODAY.day
+          ) {
+            setCountSent((newCountSent += 1));
           };
-
-          let newCountSent = 0;
-
-          const checkSentDate = (stringDate: string) => {
-            const sentDate = new Date(stringDate);
-            if (
-              sentDate.getFullYear() === TODAY.year &&
-              sentDate.getMonth() + 1 === TODAY.month &&
-              sentDate.getDay() === TODAY.day
-            ) {
-              setCountSent((newCountSent += 1));
-            }
-          };
-
-          axios({
-            method: "get",
-            url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
-          })
-            .then((res: AxiosResponse) => {
-              let data = res.data;
-              data.map((history: history) => {
-                checkSentDate(history.date_sent);
-              });
-            })
-            .catch((err: AxiosError<{ error: string }>) => {
-              console.log(err.response!.data);
-            });
-        })
-        .catch((err: AxiosError<{ error: string }>) => {
-          alert(
-            "エラーが生じました。お宛先のメールアドレス及び件名を今一度ご確認ください。"
-          );
-          console.log(err.response!.data);
-        });
+        };
+        for (let i = 0; i < sentHistory.length; i++) {
+          checkSentDate(sentHistory[i].date_sent);
+        };
+      })
     } else {
       alert("送信先を選択してください");
     }
