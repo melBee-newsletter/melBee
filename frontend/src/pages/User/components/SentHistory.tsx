@@ -3,25 +3,17 @@ import History from "./History";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { getSentHistory } from "../api";
-
-type history = {
-  date_sent: string;
-  recipients: string;
-  template: string;
-  subject: string;
-};
+import { history } from "../../../type";
 
 type Props = {
   expand: boolean;
   setExpand: Function;
-  countSent: number;
   setCountSent: Function;
 };
 
 const SentHistory: React.FC<Props> = ({
   expand,
   setExpand,
-  countSent,
   setCountSent,
 }) => {
   const DOWN = "rotate-90";
