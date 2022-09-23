@@ -1,46 +1,7 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
+import { contact, emailBody, sentHistory, history, templateToSave, template } from "../type";
+
 const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
-
-interface contact {
-  email: string;
-  id: number;
-  is_subscribed: boolean;
-};
-
-interface emailBody {
-    email: string[],
-    subject: string,
-    message_body: string,
-    user_id: number,
-};
-
-interface sentHistory {
-  subject: string,
-  recipients: string,
-  template: string,
-  date_sent: string,
-  user_id: number,
-}
-
-type history = {
-  date_sent: string;
-  recipients: string;
-  template: string;
-  subject: string;
-};
-
-interface templateToSave {
-  title: string,
-  thumbnail: string,
-  body: string,
-};
-
-interface template {
-  title: string,
-  thumbnail: string,
-  body: string,
-  id: number,
-};
 
 /**
  * USER'S CONTACT LIST
