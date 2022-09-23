@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
-import { contact, emailBody, sentHistory, history, templateToSave, template } from "../type";
+import { contact, emailBody, sentHistory, history, templateToSave, template } from "../../../type";
 
 const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 
@@ -181,6 +181,19 @@ export const getSentHistory = async () => {
 /**
  * TEMPLATES
  */
+
+export const seedTemplate = async () => {
+  axios({
+    method: "post",
+    url: `${BASE_URL}/template/seed`,
+    data: "tomatoTest",
+  })
+  .catch((err: AxiosError<{ error: string }>) => {
+    console.log(err.response!.data);
+  });
+  return true;
+};
+
 /**
  * Get melBee's Original Templates
  * @param id 
@@ -210,7 +223,7 @@ export const getMelbeeTemplates = async (id: number) => {
  * @returns 
  */
 export const getMyTemplates = async () => {
-  const myTemplates: string[] = [];
+  const myTemplates: template[] = [];
   await axios({
     method: "get",
     url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,

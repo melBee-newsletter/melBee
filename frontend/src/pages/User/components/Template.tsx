@@ -1,12 +1,8 @@
 import React from "react";
+import { template } from "../../../type";
 
 type Props = {
-  template: {
-    id: number;
-    thumbnail: string;
-    title: string;
-    body: string;
-  };
+  template: template;
 };
 
 const Template: React.FC<Props> = ({ template }) => {
@@ -17,7 +13,6 @@ const Template: React.FC<Props> = ({ template }) => {
       </div>
       <div className="">
         <div className="overflow-y-scroll overflow-x-hidden templateList">
-          {/* <img src={template.thumbnail} alt="template" width={200} className="object-cover h-full w-full"/> */}
           <div
             dangerouslySetInnerHTML={{
               __html: template.body,

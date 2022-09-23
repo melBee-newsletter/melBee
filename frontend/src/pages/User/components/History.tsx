@@ -1,12 +1,8 @@
 import React from "react";
+import { history } from "../../../type";
 
 type Props = {
-  history: {
-    date_sent: string;
-    recipients: string;
-    template: string;
-    subject: string;
-  };
+  history: history;
   i: number;
   viewHistory: boolean[];
   setViewHistory: Function;

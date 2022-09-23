@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import headerLogo from "../assets/logo-no-text.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,15 +7,6 @@ import { faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 
 const Header: FC = () => {
   const navigate = useNavigate();
-
-  // ---- variables for a humberger menu ----
-  // const [open, SetOpen] = useState(false);
-  // const toggleFunction = () => {
-  //   SetOpen((prevState) => {
-  //     return !prevState;
-  //   });
-  // };
-
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
   const logoLink = isLoggedIn ? "/user" : "/";
