@@ -251,14 +251,14 @@ def get_a_single_template_by_id_or_get_all_with_0(id: int, db: Session = Depends
 # ----- /email ------ #
 
 
-@app.post("/email/send", response_model={})
+@app.post("/email/newsletter", response_model={})
 def send_email(sendEmail: schemas.SendEmail, db: Session = Depends(get_db)):
     for mail in sendEmail.email:
         crud.send_email(db, mail, sendEmail.subject, sendEmail.message_body, sendEmail.user_id)
     return {"message": "Email sent! メールを送りました。"}
 
 
-@app.post("/unsub_note/send", response_model={})
+@app.post("/email/unsubscription", response_model={})
 def send_unsub_note(sendUnsubNote: schemas.SendUnsubNote, db: Session = Depends(get_db)):
     crud.send_unsub_note(db, sendUnsubNote.email, sendUnsubNote.subject, sendUnsubNote.message_body)
     return {"message": "Email sent! メールを送りました。"}
