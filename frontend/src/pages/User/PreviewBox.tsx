@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
+import { saveMyTemplate } from "../../api";
 
 type Props = {
   reachLimit: boolean;
 };
 
+interface templateToSave {
+  title: string,
+  thumbnail: string,
+  body: string,
+};
+
 const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
-  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
   const EDIT_PATH = "/user/edit";
   const SEND_PATH = "/user/send";
@@ -15,56 +20,16 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
   const [title, setTitle] = useState<string>("");
   const [saved, setSaved] = useState<boolean>(false);
 
-  // const addEditedTemplate = () => {
-  //   console.log(sessionStorage.melbeeID);
-  //   axios({
-  //     method: "post",
-  //     url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-  //     data: {
-  //       title: `Saved Template ${Date().toLocaleString()}`,
-  //       thumbnail:
-  //         "https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/2dee0dc9-0afd-4bf9-a258-559073a64208",
-  //       body: localStorage.melBeeTempStoragedraft,
-  //     },
-  //   })
-  //     .then((res: AxiosResponse) => {
-  //       // TODO: Show something when successfully singed up
-  //       console.log(res.data);
-  //     })
-  //     .catch((err: AxiosError<{ error: string }>) => {
-  //       // TODO: Show something when error caused
-  //       window.confirm("何かやばい事が起こりました。");
-  //       console.log(err.response!.data);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   addEditedTemplate();
-  // }, []);
-
-  const handleSave = (e: React.ChangeEvent<any>): void => {
+  const handleSave = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     if (title) {
-      axios({
-        method: "post",
-        url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-        data: {
-          title: title,
-          thumbnail:
-            "https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/2dee0dc9-0afd-4bf9-a258-559073a64208",
-          body: localStorage.melBeeTempStoragedraft,
-        },
-      })
-        .then((res: AxiosResponse) => {
-          // TODO: Show something when successfully singed up
-          setSaved(true);
-          console.log(res.data);
-        })
-        .catch((err: AxiosError<{ error: string }>) => {
-          // TODO: Show something when error caused
-          window.confirm("何かやばい事が起こりました。");
-          console.log(err.response!.data);
-        });
+      const templateToSave: templateToSave = {
+        title: title,
+        thumbnail: "",
+        body: localStorage.melBeeTempStoragedraft,
+      }
+      const isSaved = await saveMyTemplate(templateToSave);
+      setSaved(isSaved);
     } else {
       alert(
         "テンプレートを保存するにはタイトルが必要です。\n タイトルを入力してください。"
