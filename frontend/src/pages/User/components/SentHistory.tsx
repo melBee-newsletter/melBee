@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios, { AxiosResponse, AxiosError } from "axios";
 import History from "./History";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { getSentHistory } from "../api";
 
 type history = {
   date_sent: string;
@@ -24,7 +24,6 @@ const SentHistory: React.FC<Props> = ({
   countSent,
   setCountSent,
 }) => {
-  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
@@ -60,22 +59,16 @@ const SentHistory: React.FC<Props> = ({
         setCountSent((newCountSent += 1));
       }
     };
-
-    axios({
-      method: "get",
-      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
-    })
-      .then((res: AxiosResponse) => {
-        let data = res.data;
-        data.map((history: history) => {
+    (async function allSentHistory(){
+      await getSentHistory()
+      .then((sentHistory) => {
+        sentHistory.map((history: history) => {
           setSentHistory((current) => [history, ...current]);
           setViewHistory((prevStat) => [...prevStat, false]);
           checkSentDate(history.date_sent);
         });
       })
-      .catch((err: AxiosError<{ error: string }>) => {
-        console.log(err.response!.data);
-      });
+    })();
   }, []);
 
   return (

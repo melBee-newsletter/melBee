@@ -3,7 +3,7 @@ import Loading from "../../components/Loading";
 import SendComplete from "./components/SendComplete";
 import { useNavigate } from "react-router-dom";
 import "../../sendbox.css";
-import { getContacts, addContact, sendEmail, saveSentHistory, getSentHistory } from "../../api"
+import { getContacts, addContact, sendEmail, saveSentHistory, getSentHistory } from "./api"
 
 type Props = {
   analytics: string;
