@@ -29,6 +29,12 @@ type history = {
   subject: string;
 };
 
+interface templateToSave {
+  title: string,
+  thumbnail: string,
+  body: string,
+};
+
 /**
  * USER LOGIN & SIGNUP
  */
@@ -230,4 +236,29 @@ export const getSentHistory = async () => {
     console.log(err.response!.data);
   });
   return sentHistory;
+};
+
+/**
+ * TEMPLATES
+ */
+
+/**
+ * Save edited page from preview page
+ * @param templateToSave 
+ * @returns 
+ */
+export const saveMyTemplate = async (templateToSave: templateToSave) => {
+  let templateSaved = false;
+  await axios({
+    method: "post",
+    url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
+    data: templateToSave
+  })
+  .then((res: AxiosResponse) => {
+    templateSaved = true;
+  })
+  .catch((err: AxiosError<{ error: string }>) => {
+    console.log(err.response!.data);
+  });
+  return templateSaved;
 };
