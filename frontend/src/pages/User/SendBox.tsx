@@ -154,7 +154,7 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
       setLoading(true);
       axios({
         method: "post",
-        url: `${BASE_URL}/email/send`,
+        url: `${BASE_URL}/email/newsletter`,
         data: data,
       })
         .then((res: AxiosResponse) => {
