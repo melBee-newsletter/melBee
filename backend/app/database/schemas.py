@@ -95,3 +95,8 @@ class Contact(BaseModel):
     email: str
     user_id: int
     is_subscribed: bool
+
+
+class ContactCheck(BaseModel):
+    id: int
+    user_id: int
