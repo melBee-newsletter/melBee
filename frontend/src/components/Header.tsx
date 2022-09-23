@@ -21,9 +21,9 @@ const Header: FC = () => {
   const logoLink = isLoggedIn ? "/user" : "/";
 
   return (
-    <div className="header drop-shadow-md h-[42px]">
-      <div className="flex items-center justify-between">
-        <a href={logoLink} className="">
+    <div className="header drop-shadow-md py-1">
+      <div className="flex items-end justify-between">
+        <a href={logoLink} className="py-1">
           <img
             src={headerLogo}
             alt="melBee_logo"
@@ -33,9 +33,9 @@ const Header: FC = () => {
 
         {isLoggedIn && (
           <>
-            <nav className="">
-              <ul className="flex">
-                <li className="mr-5 py-1 relative group">
+            <nav className="mr-5">
+              <ul className="flex items-end py-1">
+                <li className="mr-5 relative group">
                   <span
                     className={[
                       "whitespace-nowrap rounded-lg bg-slate-800 px-2 py-1 text-white absolute opacity-0 group-hover:opacity-100 absolute top-14 left-1/2 -translate-x-1/2 before:content-[''] before:absolute before:-translate-x-1/2 before:left-1/2 before:bottom-full before:border-4 before:border-transparent before:border-b-slate-800 text-sm",
@@ -50,7 +50,7 @@ const Header: FC = () => {
                     />
                   </a>
                 </li>
-                <li className="py-1 relative group">
+                <li className="relative group">
                   <span
                     className={[
                       "whitespace-nowrap rounded-lg bg-slate-800 px-2 py-1 text-white absolute opacity-0 group-hover:opacity-100 absolute top-14 left-1/2 -translate-x-1/2 before:content-[''] before:absolute before:-translate-x-1/2 before:left-1/2 before:bottom-full before:border-4 before:border-transparent before:border-b-slate-800 text-sm",
