@@ -148,11 +148,10 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
       {loading && <Loading word={"L O A D I N G"} />}
       <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
         <div
-          className="flex justify-between text-2xl font-medium"
+          className="flex justify-between font-medium"
           onClick={handleExpand}
         >
-          {/* {expand ? <h3>手紙を送ろう</h3> : <h3>テンプレート一覧</h3>} */}
-          <h3>メールを作成</h3>
+          <h3 className="text-xl">メールを作成</h3>
           <span className={direction}>
             {" "}
             <FontAwesomeIcon
@@ -166,10 +165,8 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
             <div className="bg-white w-full">
               {myTemplates.length > 0 && (
                 <div>
-                  <h4 className="mt-3 mb-6 font-bold text-lg">
-                    保存されたテンプレート
-                  </h4>
-                  <div className="grid gap-3 grid-cols-3">
+                  <h4 className="mt-3 mb-6 text-lg">保存されたテンプレート</h4>
+                  <div className="grid grid-cols-4 gap-4">
                     {localStorage.melBeeTempStoragedraft && (
                       <a
                         className="mb-5 cursor-pointer"
@@ -210,7 +207,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
                 <h3 className="my-6 font-bold text-lg">
                   melBeeオリジナル テンプレート
                 </h3>
-                <div className="grid gap-3 grid-cols-3">
+                <div className="grid gap-4 grid-cols-4">
                   {melBeeTemplates.map((template, i) => {
                     return (
                       <a
