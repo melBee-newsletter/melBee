@@ -31,13 +31,13 @@ const EditorBox: React.FC = () => {
   return (
     <div className="">
       {loading && <Loading word={"L O A D I N G"} />}
-      <div className="flex justify-between px-28">
+      <div className="flex justify-end mb-4 px-20 pt-10">
         <button
           onClick={(e) => {
             e.preventDefault();
             navigate(TEMPLATE_PATH);
           }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
+          className="rounded-xl px-6 py-2 drop-shadow-xl mr-4 text-lg text-white font-medium bg-orangeGradation"
         >
           {"選び直す"}
         </button>
@@ -86,7 +86,7 @@ const EditorBox: React.FC = () => {
           inline: false,
           statusbar: false,
           width: "91.666667%",
-          height: "600",
+          height: "800",
           menubar: false,
           quickbars_insert_toolbar: "table | image",
           quickbars_selection_toolbar:
