@@ -1,6 +1,11 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 
+/**
+ * Check if email is registered as user or not to redirect login OR signup
+ * @param email 
+ * @returns 
+ */
 export const checkEmail = async (email: string) => {
     let emailFound = false;
     await axios({
