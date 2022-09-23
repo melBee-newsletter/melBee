@@ -5,6 +5,7 @@ import ContactList from "./components/ContactList";
 import SentHistory from "./components/SentHistory";
 import Profile from "./components/Profile";
 import "../../components/header.css";
+import { portalMessage } from "./components/portalMessage";
 
 type Props = {
   analytics: string;
@@ -39,7 +40,10 @@ const Portal: React.FC<Props> = ({
     history: false,
   });
   const [showLimit, setShowLimit] = useState<boolean>(false);
-
+  const messageIndex = Math.floor(Math.random() * portalMessage.length);
+  let TODAY_MESSAGE = portalMessage[messageIndex];
+  console.log(TODAY_MESSAGE, messageIndex);
+  
   useEffect(() => {
     setTimeout(() => {
       setShowLimit(true);
@@ -54,7 +58,7 @@ const Portal: React.FC<Props> = ({
             <h2 className="font-bold text-4xl">
               melBeeへようこそ!
               <br />
-              <span className="text-2xl">今日はどんな手紙を書きますか？</span>
+              {showLimit && <span className="text-2xl">{TODAY_MESSAGE}</span>}
             </h2>
             <div className="my-auto">
               {!showLimit ? (
