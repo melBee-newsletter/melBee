@@ -21,7 +21,7 @@ const Header: FC = () => {
   const logoLink = isLoggedIn ? "/user" : "/";
 
   return (
-    <div className="header drop-shadow-md py-1">
+    <div className="header drop-shadow-md py-1 w-screen md:w-full fixed">
       <div className="flex items-end justify-between">
         <a href={logoLink} className="py-1">
           <img
