@@ -31,10 +31,11 @@ const Portal: React.FC<Props> = ({
     history: false,
   });
   const [showLimit, setShowLimit] = useState<boolean>(false);
-  const messageIndex = Math.floor(Math.random() * portalMessage.length);
-  let TODAY_MESSAGE = portalMessage[messageIndex];
+  const [todayMessage, setTodayMessage] = useState<string>("");
 
   useEffect(() => {
+    const messageIndex = Math.floor(Math.random() * portalMessage.length);
+    setTodayMessage(portalMessage[messageIndex]);
     setTimeout(() => {
       setShowLimit(true);
     }, 800);
@@ -48,7 +49,7 @@ const Portal: React.FC<Props> = ({
             <h2 className="font-bold text-4xl">
               melBeeへようこそ!
               <br />
-              {showLimit && <span className="text-2xl">{TODAY_MESSAGE}</span>}
+              {showLimit && <span className="text-2xl">{todayMessage}</span>}
             </h2>
             <div className="mt-2">
               {!showLimit ? (

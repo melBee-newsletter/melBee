@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { getSentHistory } from "../api";
 import { history } from "../../../type";
+import { clickEvent } from "../../../type";
 
 type Props = {
   expand: boolean;
@@ -24,7 +25,7 @@ const SentHistory: React.FC<Props> = ({
     new Array(sentHistory.length).fill(false)
   );
 
-  const handleExpand = (e: any) => {
+  const handleExpand = (e: clickEvent) => {
     e.preventDefault();
     setExpand({ history: !expand });
   };

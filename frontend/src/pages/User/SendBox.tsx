@@ -4,6 +4,7 @@ import SendComplete from "./components/SendComplete";
 import { useNavigate } from "react-router-dom";
 import "../../sendbox.css";
 import { getContacts, addContact, sendEmail, saveSentHistory, getSentHistory } from "./api"
+import { clickEvent } from "../../type";
 
 type Props = {
   analytics: string;
@@ -52,14 +53,14 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
     setUpdateReceiver(!updateReceiver);
   };
 
-  const handleCheckAll = (e: React.ChangeEvent<any>): void => {
+  const handleCheckAll = (e: clickEvent) => {
     setSelectAll(!selectAll);
     const updateIsChecked = isChecked.fill(!selectAll);
     setIsChecked(updateIsChecked);
     setUpdateReceiver(!updateReceiver);
   };
 
-  const handleAdd = async (e: React.ChangeEvent<any>) => {
+  const handleAdd = async (e: clickEvent) => {
     e.preventDefault();
     if (email) {
       await addContact(email)
@@ -92,7 +93,7 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
     setReceivers(selectedEmails);
   }, [updateReceiver]);
 
-  const handleSend = async (e: React.ChangeEvent<any>) => {
+  const handleSend = async (e: clickEvent) => {
     e.preventDefault();
     const emailBody = {
       email: receivers,
