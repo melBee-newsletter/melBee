@@ -6,10 +6,9 @@ import NotLoggedIn from "./components/NotLoggedIn";
 
 type Props = {
   displayComponent: ReactNode;
-  reachLimit: boolean;
 };
 
-const User: React.FC<Props> = ({ displayComponent, reachLimit }) => {
+const User: React.FC<Props> = ({ displayComponent }) => {
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
 

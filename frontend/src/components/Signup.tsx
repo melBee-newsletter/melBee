@@ -29,13 +29,11 @@ const Signup: React.FC<Props> = ({ email }) => {
       },
     })
     .then((res: AxiosResponse) => {
-      // TODO: Show something when successfully singed up
       sessionStorage.setItem("melbeeID", res.data.id);
       sessionStorage.setItem("isLoggedIn", "true");
       navigate(USER_PORTAL);
     })
     .catch((err: AxiosError<{ error: string }>) => {
-      // TODO: Show something when error caused
       window.confirm("パスワードが入力されていません。");
       console.log(err.response!.data);
     });
