@@ -7,12 +7,14 @@ import { faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 
 const Header: FC = () => {
   const navigate = useNavigate();
-  const [open, SetOpen] = useState(false);
-  const toggleFunction = () => {
-    SetOpen((prevState) => {
-      return !prevState;
-    });
-  };
+  
+  // ---- variables for a humberger menu ----
+  // const [open, SetOpen] = useState(false);
+  // const toggleFunction = () => {
+  //   SetOpen((prevState) => {
+  //     return !prevState;
+  //   });
+  // };
 
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
