@@ -67,33 +67,35 @@ const History: React.FC<Props> = ({
       ) : (
         <div className="">
           <div className="">
-            <ul className="flex">
-              <li className="text-left mb-3 mr-32">
-                <span className="titleHistory">送信日時:</span>
-                {convertDate(history.date_sent)}
-              </li>
-              <li className="text-left mb-3">
-                <span className="titleHistory">件名:</span>
-                <span className="font-bold">{history.subject}</span>
-              </li>
-            </ul>
-            <ul className="mb-4">
-              <li className="text-left">
-                送信先:
-                <br />
-                <ul className="flex flex-wrap leading-tight">
-                  {JSON.parse(history.recipients).map(
-                    (email: string, i: number) => {
-                      return (
-                        <li key={`email${i}`} className=" mb-2 ml-2">
-                          <p>{email}</p>
-                        </li>
-                      );
-                    }
-                  )}
-                </ul>
-              </li>
-            </ul>
+            <div className="historyInfo">
+              <ul className="flex items-center historyInfoFrame">
+                <li className="text-left mb-3 mr-4">
+                  <span className="titleHistory">送信日時:</span>
+                  {convertDate(history.date_sent)}
+                </li>
+                <li className="text-left mb-3">
+                  <span className="titleHistory">件名:</span>
+                  <span className="font-bold">{history.subject}</span>
+                </li>
+              </ul>
+              <ul className="mb-4">
+                <li className="text-left lg:flex">
+                  送信先:{" "}
+                  <ul className="flex flex-wrap leading-tight">
+                    {JSON.parse(history.recipients).map(
+                      (email: string, i: number) => {
+                        return (
+                          <li key={`email${i}`} className=" mb-2 ml-2">
+                            <p>{email}</p>
+                          </li>
+                        );
+                      }
+                    )}
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
             <div className="">
               <div className="overflow-y-scroll templateHistory">
                 <div
