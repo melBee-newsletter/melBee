@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import CSVReader from "./CSVReader";
-import { getContacts, addContact, deleteContacts } from "../../../api";
+import { getContacts, addContact, deleteContacts } from "../api";
 
 type Props = {
   expand: boolean;

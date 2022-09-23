@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { saveMyTemplate } from "../../api";
+import { saveMyTemplate } from "./api";
 
 type Props = {
   reachLimit: boolean;
