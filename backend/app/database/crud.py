@@ -152,7 +152,7 @@ def get_contact_list_by_user_id(db: Session, user_id: int):
 
 
 def get_single_contact_by_user_id(db: Session, contact_id, user_id):
-    return db.query(models.ContactList).filter(models.ContactList.id == contact_id, models.ContactList.user_id == user_id).first()
+    return db.query(models.ContactList).filter(models.ContactList.id == contact_id, models.ContactList.user_id == user_id, models.ContactList.is_subscribed == True).first()
 
 
 def add_contact_list(db: Session, email: str, user_id: int, is_subscribed: bool):
