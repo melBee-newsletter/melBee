@@ -96,7 +96,11 @@
 
 .main_top {
   padding: 55px 0;
+  
+  /* margin-top: auto; */
   margin-top: auto;
+  margin-bottom: auto;
+
   position: relative;
 }
 
