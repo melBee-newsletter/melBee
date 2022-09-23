@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import MyTemplates from "./components/MyTemplates";
 import ContactList from "./components/ContactList";
 import SentHistory from "./components/SentHistory";
 import Profile from "./components/Profile";
 import "../../components/header.css";
 import { portalMessage } from "./components/portalMessage";
+import { expand } from "../../type";
 
 type Props = {
   analytics: string;
@@ -16,14 +16,6 @@ type Props = {
   sendLimit: number;
 };
 
-interface expand {
-  profile: boolean;
-  contact: boolean;
-  template: boolean;
-  history: boolean;
-  [key: string]: boolean;
-}
-
 const Portal: React.FC<Props> = ({
   analytics,
   setAnalytics,
@@ -32,7 +24,6 @@ const Portal: React.FC<Props> = ({
   sendLimit,
   reachLimit,
 }) => {
-  const navigate = useNavigate();
   const [expand, setExpand] = useState<expand>({
     template: true,
     profile: false,
@@ -42,7 +33,6 @@ const Portal: React.FC<Props> = ({
   const [showLimit, setShowLimit] = useState<boolean>(false);
   const messageIndex = Math.floor(Math.random() * portalMessage.length);
   let TODAY_MESSAGE = portalMessage[messageIndex];
-  console.log(TODAY_MESSAGE, messageIndex);
 
   useEffect(() => {
     setTimeout(() => {
@@ -84,7 +74,6 @@ const Portal: React.FC<Props> = ({
         <SentHistory
           expand={expand.history}
           setExpand={setExpand}
-          countSent={countSent}
           setCountSent={setCountSent}
         />
 
