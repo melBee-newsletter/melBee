@@ -20,7 +20,7 @@ const Header: FC = () => {
 
   return (
     <div className="header drop-shadow-md">
-      <div className="flex items-end justify-between">
+      <div className="flex items-center justify-between">
         <a href={logoLink} className="px-5">
           <img
             src={headerLogo}
@@ -33,7 +33,7 @@ const Header: FC = () => {
         {isLoggedIn && (
           <>
             <nav className="nav">
-              <ul className="flex items-center pb-2">
+              <ul className="flex items-center">
                 <li className="mr-5 relative group">
                   <span
                     className={[

@@ -13,7 +13,7 @@ const Template: React.FC<Props> = ({ template }) => {
   return (
     <div className="">
       <div>
-        <p className="font-bold pb-3">{template.title.slice(0, 20)}</p>
+        <p className="font-bold pb-3 text-lg">{template.title.slice(0, 20)}</p>
       </div>
       <div className="">
         <div className="overflow-y-scroll overflow-x-hidden templateList">

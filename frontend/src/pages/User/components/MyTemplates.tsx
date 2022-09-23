@@ -166,7 +166,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
             <div className="bg-white w-full">
               {myTemplates.length > 0 && (
                 <div>
-                  <h4 className="mt-3 mb-6 font-bold">
+                  <h4 className="mt-3 mb-6 font-bold text-lg">
                     保存されたテンプレート
                   </h4>
                   <div className="grid gap-3 grid-cols-3">
@@ -207,7 +207,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
               )}
 
               <div>
-                <h3 className="my-6 font-bold">
+                <h3 className="my-6 font-bold text-lg">
                   melBeeオリジナル テンプレート
                 </h3>
                 <div className="grid gap-3 grid-cols-3">
