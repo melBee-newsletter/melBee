@@ -27,7 +27,7 @@ const Header: FC = () => {
           <img
             src={headerLogo}
             alt="melBee_logo"
-            className="w-[45px]"
+            className="w-[38px] md:w-[45px]"
           />
         </a>
 
@@ -45,7 +45,7 @@ const Header: FC = () => {
                   </span>
                   <a className="block transition hover" href="/user">
                     <FontAwesomeIcon
-                      className="text-gray-800 h-[32px] w-[28px]"
+                      className="text-gray-800 h-[28px] md:h-[32px] md:w-[28px] "
                       icon={faUser}
                     />
                   </a>
@@ -70,7 +70,7 @@ const Header: FC = () => {
                     }}
                   >
                     <FontAwesomeIcon
-                      className="text-gray-800 h-[32px] w-[36px]"
+                      className="text-gray-800 h-[28px] md:h-[32px] md:w-[36px]"
                       icon={faDoorOpen}
                     />
                   </a>
