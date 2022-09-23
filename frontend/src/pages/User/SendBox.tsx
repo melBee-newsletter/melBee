@@ -43,7 +43,7 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
     if (analytics) TEMPLATE += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
     axios({
       method: "get",
-      url: `${BASE_URL}/user/contact_list/${sessionStorage.melbeeID}`,
+      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/contact_list`,
     })
     .then((res: AxiosResponse) => {
       let data = res.data;
