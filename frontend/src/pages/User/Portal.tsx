@@ -43,7 +43,7 @@ const Portal: React.FC<Props> = ({
   const messageIndex = Math.floor(Math.random() * portalMessage.length);
   let TODAY_MESSAGE = portalMessage[messageIndex];
   console.log(TODAY_MESSAGE, messageIndex);
-  
+
   useEffect(() => {
     setTimeout(() => {
       setShowLimit(true);
@@ -60,16 +60,16 @@ const Portal: React.FC<Props> = ({
               <br />
               {showLimit && <span className="text-2xl">{TODAY_MESSAGE}</span>}
             </h2>
-            <div className="my-auto">
+            <div className="mt-2">
               {!showLimit ? (
                 <p className="my-4"> </p>
               ) : !reachLimit ? (
-                <span className="mt-4">
+                <span>
                   本日 <strong>{countSent} 通</strong> 送信されました。残り{" "}
                   <strong>{sendLimit - countSent} 通</strong> 送信できます。
                 </span>
               ) : (
-                <span className="mt-4">
+                <span>
                   本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。
                 </span>
               )}
