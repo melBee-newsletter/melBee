@@ -10,6 +10,25 @@ import Footer from "../../components/Footer";
 import Login from "../../components/Login";
 import Signup from "../../components/Signup";
 import { isPrivateIdentifier } from "typescript";
+import { useTranslation, initReactI18next } from "react-i18next";
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import HttpApi from "i18next-http-backend";
+
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .use(HttpApi)
+  .init({
+    backend: {
+      loadPath: "assets/locales/{{lng}}/translation.json",
+    },
+    fallbackLng: "jpn",
+    detection: {
+      order: ["localStorage", "sessionStorage", "htmlTag", "subdomain"],
+      caches: ["cookie", "localStorage"],
+    },
+  });
 
 function Landing() {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
@@ -48,6 +67,8 @@ function Landing() {
       });
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className="App top">
       <Header />
@@ -57,19 +78,21 @@ function Landing() {
             <div className="lg:flex contentL_top lg:justify-between lg:items-center">
               <div>
                 <h2 className="mainTtl text-left font-bold">
-                  想い<span className="font-light text-7xl">を</span>
+                  {t("想い")}
+                  <span className="font-light text-7xl">{t("を")}</span>
                   <br />
-                  カタチ<span className="font-light text-7xl">に</span>
+                  {t("カタチ")}
+                  <span className="font-light text-7xl">{t("に")}</span>
                 </h2>
                 <p className="text-left leading-loose text-base z-20">
-                  melBeeは、さまざまなデザインテンプレート
+                  {t("melBeeは、さまざまなデザインテンプレート")}
                   <br />
-                  の中から招待状やメルマガを作り、
+                  {t("の中から招待状やメルマガを作り、")}
                   <br />
-                  相手にそのまま送信もできる デザインツールです。
+                  {t("相手にそのまま送信もできる デザインツールです。")}
                   <br />
-                  あなたの「作りたい！」がきっとある。 <br />
-                  デザインをもっと身近に、簡単に。
+                  {t("あなたの「作りたい！」がきっとある。")} <br />
+                  {t("デザインをもっと身近に、簡単に。")}
                 </p>
               </div>
               {!isLoggedIn && (
@@ -86,38 +109,40 @@ function Landing() {
             {!isLoggedIn && (
               <div className="contentR_top lg:flex lg:justify-center lg:items-center">
                 <div>
-                    {!isEmailSubmitted && (
-                      <>
-                        <div className="relative">
-                          <form id="mailForm" onSubmit={handleSubmit}>
-                            <input
-                              type="email"
-                              value={email}
-                              className="inputArea bg-gray-100 border-gray rounded lg:w-96"
-                              onChange={(e) => setEmail(e.target.value)}
-                              placeholder="youremail@example.com"
-                              id="email_signup"
-                            />
-                            {email ? <button 
-                            className="lg:absolute lg:top-1.5 submitBtn">
+                  {!isEmailSubmitted && (
+                    <>
+                      <div className="relative">
+                        <form id="mailForm" onSubmit={handleSubmit}>
+                          <input
+                            type="email"
+                            value={email}
+                            className="inputArea bg-gray-100 border-gray rounded lg:w-96"
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="youremail@example.com"
+                            id="email_signup"
+                          />
+                          {email ? (
+                            <button className="lg:absolute lg:top-1.5 submitBtn">
                               <FontAwesomeIcon
                                 icon={faArrowRight}
                                 className="bg-yellow-300 p-3 rounded-3xl text-white"
                               />
-                            </button> :
-                            <button 
+                            </button>
+                          ) : (
+                            <button
                               disabled={true}
-                              className="lg:absolute lg:top-1.5 submitBtn">
+                              className="lg:absolute lg:top-1.5 submitBtn"
+                            >
                               <FontAwesomeIcon
                                 icon={faArrowRight}
                                 className="grayscale bg-yellow-300 p-3 rounded-3xl text-white"
                               />
-                            </button>}
-                            
-                          </form>
-                        </div>
-                      </>
-                    )}
+                            </button>
+                          )}
+                        </form>
+                      </div>
+                    </>
+                  )}
                 </div>
                 {isUserSignnedUP && isEmailSubmitted && <Login email={email} />}
                 {isEmailSubmitted && !isUserSignnedUP && (
