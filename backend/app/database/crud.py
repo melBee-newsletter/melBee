@@ -156,7 +156,7 @@ def unsubscribe_contact_by_email_and_user_id(db: Session, receiver_email: str, r
     session = Session()
     try:
         db.query(models.ContactList).filter(
-            models.ContactList.email == receiver_email, models.ContactList.id == receiver_id, models.ContactList.user_id == user_id).update({"is_subscribed": True})
+            models.ContactList.email == receiver_email, models.ContactList.id == receiver_id, models.ContactList.user_id == user_id).update({"is_subscribed": False})
         db.commit()
     except:
         session.rollback()
