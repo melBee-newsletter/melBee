@@ -68,6 +68,11 @@ class SendEmail(BaseModel):
     message_body: str
     user_id: int
 
+class SendUnsubNote(BaseModel):
+    email: str
+    subject: str
+    message_body: str
+
 # --- SentHistory --- #
 
 

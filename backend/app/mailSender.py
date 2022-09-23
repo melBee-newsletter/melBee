@@ -239,3 +239,15 @@ def send_email(receiver, subject, message_body, user_id, user_email, receiver_id
     with smtplib.SMTP_SSL('smtp.gmail.com', '465') as server:
         server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         server.send_message(msg)
+
+def send_unsub_note(email, subject, message_body):
+
+    msg = EmailMessage()
+    msg["From"] = formataddr((f'{email}', EMAIL_ADDRESS))
+    msg["To"] = EMAIL_ADDRESS
+    msg["Subject"] = subject
+    msg.set_content("")
+    msg.add_alternative(message_body, subtype='html')
+    with smtplib.SMTP_SSL('smtp.gmail.com', '465') as server:
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        server.send_message(msg)
