@@ -206,7 +206,7 @@ def check_single_contact_by_user_id(contact: schemas.ContactCheck, db: Session =
 @app.delete("/user/contact_list", response_model={})
 def delete_contact_by_email_and_user_id(emails: list[str], user_id: int, db: Session = Depends(get_db)):
     try:
-        crud.delete_contact_by_email_and_user_id(db, emails, id)
+        crud.delete_contact_by_email_and_user_id(db, emails, user_id)
     except:
         raise HTTPException(status_code=400, detail="Data cannot be delete. データの削除ができません。")
     return {"message": "Data deleted succesfully. データは削除されました。"}
@@ -251,14 +251,14 @@ def get_a_single_template_by_id_or_get_all_with_0(id: int, db: Session = Depends
 # ----- /email ------ #
 
 
-@app.post("/email/send", response_model={})
+@app.post("/email/newsletter", response_model={})
 def send_email(sendEmail: schemas.SendEmail, db: Session = Depends(get_db)):
     for mail in sendEmail.email:
         crud.send_email(db, mail, sendEmail.subject, sendEmail.message_body, sendEmail.user_id)
     return {"message": "Email sent! メールを送りました。"}
 
 
-@app.post("/unsub_note/send", response_model={})
+@app.post("/email/unsubscription", response_model={})
 def send_unsub_note(sendUnsubNote: schemas.SendUnsubNote, db: Session = Depends(get_db)):
     crud.send_unsub_note(db, sendUnsubNote.email, sendUnsubNote.subject, sendUnsubNote.message_body)
     return {"message": "Email sent! メールを送りました。"}
