@@ -12,7 +12,7 @@ export const validateUserContact = async (user_id: number, id: number) => {
             id,
         }
     }).then((res: AxiosResponse) => {
-         isValid = true;
+        isValid = res.data.isContactAdded;
     }).catch((err: AxiosError<{ error: string }>) => {
         console.log(err.response!.data);
     });
@@ -53,15 +53,14 @@ export const unsubscribeContact = async (user_id: number, receiver_id: number, r
  */
 export const sendUnsubscribeNotification = (email: string, allGivenReasons: string[]) => {
     const data = {
-        email: ["melbee.noreply@gmail.com"],
+        email: "melbee.noreply@gmail.com",
         subject: `Notification of unsubscribed contact <${email}> from melBee`,
         message_body: `${email} has unsubscribed from your mailing list with the following reason: ${allGivenReasons})}.`,
-        user_id: sessionStorage.melbeeID,
     };
 
     axios({
         method: "post",
-        url: `${BASE_URL}/email/send`,
+        url: `${BASE_URL}/email/unsubscription`,
         data: data,
     })
     .catch((err: AxiosError<{ error: string }>) => {
