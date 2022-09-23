@@ -77,8 +77,7 @@ def add_template_by_user_id(id: int, template: schemas.TemplateBase, db: Session
 def get_sent_history_by_user_id(id: int, db: Session = Depends(get_db)):
     userhistory = crud.get_user_history(db, id)
     if not userhistory:
-        raise HTTPException(
-            status_code=400, detail="Invalid id or no sent history. 無効なidもしくは送信履歴がありません。")
+        raise HTTPException(status_code=400, detail="Invalid id or no sent history. 無効なidもしくは送信履歴がありません。")
     return userhistory
 
 
@@ -142,8 +141,7 @@ def check_user(user: schemas.UserBase, db: Session = Depends(get_db)):
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user:
-        raise HTTPException(
-            status_code=400, detail="Email already registered. このメールアドレスは登録されています。")
+        raise HTTPException(status_code=400, detail="Email already registered. このメールアドレスは登録されています。")
     return crud.create_user(db=db, user=user)
 
 
@@ -151,14 +149,12 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 def log_in_with_id_and_pw(user: schemas.UserVerify, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
     if not db_user:
-        raise HTTPException(
-            status_code=400, detail="Email has not been registered. このメールアドレスは登録されていません。")
+        raise HTTPException(status_code=400, detail="Email has not been registered. このメールアドレスは登録されていません。")
 
     isLoginSuccess = crud.verify_password(
         user.password, db_user.hashed_password)
     if not isLoginSuccess:
-        raise HTTPException(
-            status_code=400, detail="Email not matches password. メールアドレスとパスワードがマッチしません。")
+        raise HTTPException(status_code=400, detail="Email not matches password. メールアドレスとパスワードがマッチしません。")
 
     return db_user
 
@@ -169,16 +165,14 @@ def log_in_with_id_and_pw(user: schemas.UserVerify, db: Session = Depends(get_db
 def get_contact(user_id: int, db: Session = Depends(get_db)):
     db_contact = crud.get_contact_list_by_user_id(db, user_id)
     if not db_contact:
-        raise HTTPException(
-            status_code=400, detail="Invalid id or no contact list matched. 無効なidもしくはコンタクトリストがありません。")
+        raise HTTPException(status_code=400, detail="Invalid id or no contact list matched. 無効なidもしくはコンタクトリストがありません。")
     return db_contact
 
 
 @app.post("/user/contact_list", response_model={})
 def add_contact(contact: schemas.Contact, db: Session = Depends(get_db)):
     try:
-        crud.add_contact_list(
-            db, contact.email, contact.user_id, contact.is_subscribed)
+        crud.add_contact_list(db, contact.email, contact.user_id, contact.is_subscribed)
     except Exception as err:
         raise HTTPException(status_code=400, detail=err.args)
     return {"message": "Data added succesfully. データが追加されました。"}
@@ -197,8 +191,7 @@ def delete_contact_by_email_and_user_id(emails: list[str], user_id: int, db: Ses
     try:
         crud.delete_contact_by_email_and_user_id(db, emails, user_id)
     except:
-        raise HTTPException(
-            status_code=400, detail="Data cannot be delete. データの削除ができません。")
+        raise HTTPException(status_code=400, detail="Data cannot be delete. データの削除ができません。")
     return {"message": "Data deleted succesfully. データは削除されました。"}
 
 #  ----- /user/contact/unsubscribe ----- #
@@ -209,8 +202,7 @@ def unsubscribe_contact_by_email_and_user_id(receiver_email: str, receiver_id: i
     crud.unsubscribe_contact_by_email_and_user_id(
         db, receiver_email, receiver_id, user_id)
     if not unsubscribe_contact_by_email_and_user_id:
-        raise HTTPException(
-            status_code=400, detail="Invalid email address or no contact list matched. 無効なメールアドレスもしくはコンタクトリストがありません。")
+        raise HTTPException(status_code=400, detail="Invalid email address or no contact list matched. 無効なメールアドレスもしくはコンタクトリストがありません。")
     return {"message": "Data changed succesfully. データは変更されました。"}
 
 #  ----- /user/contact/subscribe ----- #
@@ -221,8 +213,7 @@ def subscribe_contact_by_email_and_user_id(receiver_email: str, receiver_id: int
     crud.subscribe_contact_by_email_and_user_id(
         db, receiver_email, receiver_id, user_id)
     if not subscribe_contact_by_email_and_user_id:
-        raise HTTPException(
-            status_code=400, detail="Invalid email address or no contact list matched. 無効なメールアドレスもしくはコンタクトリストがありません。")
+        raise HTTPException(status_code=400, detail="Invalid email address or no contact list matched. 無効なメールアドレスもしくはコンタクトリストがありません。")
     return {"message": "Data changed succesfully. データは変更されました。"}
 
 # ----- /template ------ #
