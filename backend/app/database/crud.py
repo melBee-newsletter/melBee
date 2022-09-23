@@ -272,3 +272,6 @@ def send_email(db: Session, receiver, subject, message_body, user_id):
     user_email = db.query(models.User.email).filter(
         models.User.id == user_id).scalar()
     return mailSender.send_email(receiver, subject, message_body, user_id, user_email, receiver_id)
+
+def send_unsub_note(db: Session, email, subject, message_body):
+    return mailSender.send_unsub_note(email, subject, message_body)
