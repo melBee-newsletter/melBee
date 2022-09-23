@@ -23,7 +23,7 @@ const NotLoggedIn: React.FC = () => {
   };
 
   return (
-    <div className="justify-center">
+    <div className="h-screen justify-center pt-48">
       <div className="flex justify-center mb-6">
         <img src={headerLogo} alt="melBee_logo" className="animate-pulse" width="200" />
       </div>
