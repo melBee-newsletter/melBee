@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from "react";
-import axios, { AxiosResponse, AxiosError } from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import CSVReader from "./CSVReader";
+import { getContacts, addContact, deleteContacts } from "../../../api";
 
 type Props = {
   expand: boolean;
   setExpand: Function;
 };
 
-interface contact {
-  email: string;
-  id: number;
-  is_subscribed: boolean;
-}
-
 const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
-  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
@@ -38,31 +31,14 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
   }, [expand]);
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/contact_list/`,
-    })
-      .then((res: AxiosResponse) => {
-        let data = res.data;
-        const notBlackList = data.filter(
-          (contact: contact) => contact.is_subscribed
-        );
-        notBlackList.map((contact: contact) => {
-          const email = contact.email;
-          setContactList((prevEmail) => [...prevEmail, email]);
-          setIsChecked((prevStat) => [...prevStat, false]);
-        });
-        const blackList = data.filter(
-          (contact: contact) => !contact.is_subscribed
-        );
-        blackList.map((contact: contact) => {
-          const email = contact.email;
-          setBlackList((prevEmail) => [...prevEmail, email]);
-        });
+    (async function getAllContacts() {
+      await getContacts()
+      .then((res) => {
+        setContactList(res.subscribedContacts);
+        setIsChecked(new Array(res.subscribedContacts.length).fill(false));
+        setBlackList(res.unsubscribedContacts)
       })
-      .catch((err: AxiosError<{ error: string }>) => {
-        console.log(err.response!.data);
-      });
+    })();
   }, []);
 
   const displayEmail = (email: string, i: number) => {
@@ -90,63 +66,44 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
     );
   };
 
-  const handleAdd = (e: React.ChangeEvent<any>): void => {
+  const handleAdd = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     if (email) {
-      const data = {
-        email: email,
-        user_id: sessionStorage.melbeeID,
-        is_subscribed: true,
-      };
-      axios({
-        method: "post",
-        url: `${BASE_URL}/user/contact_list`,
-        data: data,
-      })
-        .then((res: AxiosResponse) => {
+      await addContact(email)
+      .then((addSuccess) => {
+        if (addSuccess) {
           setContactList((prevEmail) => [...prevEmail, email]);
           setIsChecked((prevStat) => [...prevStat, false]);
-        })
-        .catch((err: AxiosError<{ error: string }>) => {
-          alert(
-            "ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。"
-          );
-          console.log(err.response!.data);
-        });
+        } else {
+          alert("ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。");
+        };
+      })
       setEmail("");
-    }
+    };
   };
 
   const handleCheck = (position: any | void) => {
-    const updateIsChecked = isChecked.map((stat, i) =>
-      i === position ? !stat : stat
-    );
+    const updateIsChecked = isChecked.map((stat, i) => i === position ? !stat : stat);
     setIsChecked(updateIsChecked);
   };
 
   useEffect(() => {
-    const selected = contactList.filter((email, i) => {
-      return isChecked[i];
-    });
+    const selected = contactList.filter((_, i) => isChecked[i]);
     setSelectedEmail(selected);
   }, [isChecked]);
 
-  const handleRemove = (e: React.ChangeEvent<any>): void => {
+  const handleRemove = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
-    axios({
-      method: "delete",
-      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/contact_list`,
-      data: selectedEmail,
-    })
-      .then((res: AxiosResponse) => {
-        const afterRemove = contactList.filter((email, i) => !isChecked[i]);
-        setContactList(afterRemove);
-        setIsChecked(new Array(afterRemove.length).fill(false));
-      })
-      .catch((err: AxiosError<{ error: string }>) => {
+    await deleteContacts(selectedEmail)
+    .then((deleteSuccess) => {
+      if (deleteSuccess) {
+        const afterRemove = contactList.filter((_, i) => !isChecked[i]);
+          setContactList(afterRemove);
+          setIsChecked(new Array(afterRemove.length).fill(false));
+      } else {
         alert("エラーが生じました。再度お試しください。");
-        console.log(err.response!.data);
-      });
+      };
+    });
   };
 
   return (
