@@ -206,7 +206,7 @@ def check_single_contact_by_user_id(contact: schemas.ContactCheck, db: Session =
 @app.delete("/user/contact_list", response_model={})
 def delete_contact_by_email_and_user_id(emails: list[str], user_id: int, db: Session = Depends(get_db)):
     try:
-        crud.delete_contact_by_email_and_user_id(db, emails, id)
+        crud.delete_contact_by_email_and_user_id(db, emails, user_id)
     except:
         raise HTTPException(status_code=400, detail="Data cannot be delete. データの削除ができません。")
     return {"message": "Data deleted succesfully. データは削除されました。"}
