@@ -32,12 +32,11 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
 
   useEffect(() => {
     (async function getAllContacts() {
-      await getContacts()
-      .then((res) => {
+      await getContacts().then((res) => {
         setContactList(res.subscribedContacts);
         setIsChecked(new Array(res.subscribedContacts.length).fill(false));
-        setBlackList(res.unsubscribedContacts)
-      })
+        setBlackList(res.unsubscribedContacts);
+      });
     })();
   }, []);
 
@@ -69,21 +68,24 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
   const handleAdd = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     if (email) {
-      await addContact(email)
-      .then((addSuccess) => {
+      await addContact(email).then((addSuccess) => {
         if (addSuccess) {
           setContactList((prevEmail) => [...prevEmail, email]);
           setIsChecked((prevStat) => [...prevStat, false]);
         } else {
-          alert("ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。");
-        };
-      })
+          alert(
+            "ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。"
+          );
+        }
+      });
       setEmail("");
-    };
+    }
   };
 
   const handleCheck = (position: any | void) => {
-    const updateIsChecked = isChecked.map((stat, i) => i === position ? !stat : stat);
+    const updateIsChecked = isChecked.map((stat, i) =>
+      i === position ? !stat : stat
+    );
     setIsChecked(updateIsChecked);
   };
 
@@ -94,25 +96,21 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
 
   const handleRemove = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
-    await deleteContacts(selectedEmail)
-    .then((deleteSuccess) => {
+    await deleteContacts(selectedEmail).then((deleteSuccess) => {
       if (deleteSuccess) {
         const afterRemove = contactList.filter((_, i) => !isChecked[i]);
-          setContactList(afterRemove);
-          setIsChecked(new Array(afterRemove.length).fill(false));
+        setContactList(afterRemove);
+        setIsChecked(new Array(afterRemove.length).fill(false));
       } else {
         alert("エラーが生じました。再度お試しください。");
-      };
+      }
     });
   };
 
   return (
     <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
-      <div
-        className="flex justify-between text-2xl font-medium"
-        onClick={handleExpand}
-      >
-        <h3>連絡先一覧</h3>
+      <div className="flex justify-between font-medium" onClick={handleExpand}>
+        <h3 className="text-xl">連絡先一覧</h3>
         <span className={direction}>
           <FontAwesomeIcon
             className="bg-yellow-200 rounded-lg p-1.5"
@@ -157,12 +155,12 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     メールアドレス一括登録 (CSVファイル対応)
                   </p>
                   <CSVReader setContactList={setContactList} />
-                    {/* <br /> */}
-                    <span className="text-sm attention">
-                      ※ファイルをアップロードすると、メールアドレスが自動登録されます
-                      <br />
-                      ※メールアドレスは一行目にまとめてください
-                    </span>
+                  {/* <br /> */}
+                  <span className="text-sm attention">
+                    ※ファイルをアップロードすると、メールアドレスが自動登録されます
+                    <br />
+                    ※メールアドレスは一行目にまとめてください
+                  </span>
                 </div>
               </div>
 
