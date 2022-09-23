@@ -1,51 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import "../../App.css";
 import "./Landing.css";
 import { EmailForm } from "../../components/Interfaces";
-import axios, { AxiosResponse, AxiosError } from "axios";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Login from "../../components/Login";
 import Signup from "../../components/Signup";
-import { isPrivateIdentifier } from "typescript";
+import { checkEmail } from "../../api"
 
 function Landing() {
-  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
+  const session: null | string = sessionStorage.getItem("isLoggedIn");
+  const isLoggedIn = true ? session != null : false;
+  
   const [isUserSignnedUP, setisUserSignnedUP] = useState(false);
   const [isEmailSubmitted, setisEmailSubmitted] = useState(false);
   const [email, setEmail] = useState("");
 
-  const session: null | string = sessionStorage.getItem("isLoggedIn");
-  const isLoggedIn = true ? session != null : false;
-
-  const handleSubmit = (e: React.ChangeEvent<any>): void => {
+  const handleSubmit = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     const form: EmailForm | null = document.getElementById("mailForm");
     const email: string = form!["email_signup"]!.value;
 
-    axios({
-      method: "post",
-      url: `${BASE_URL}/user/check`,
-      data: {
-        email: email,
-      },
-    })
-      .then((res: AxiosResponse) => {
-        // TODO: Show something when successfully singed up
-        console.log(res.data);
-        setisEmailSubmitted(true);
-        if (res.data["isUserSignnedUp"] === true) {
-          setisUserSignnedUP(true);
-        } else {
-          setisUserSignnedUP(false);
-        }
-      })
-      .catch((err: AxiosError<{ error: string }>) => {
-        // TODO: Show something when error caused
-        console.log(err.response!.data);
-      });
+    const foundEmail = await checkEmail(email);
+    setisEmailSubmitted(true);
+    setisUserSignnedUP(foundEmail);
   };
 
   return (
