@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PrivacyPolicy from "../molecules/PrivacyPolicy";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 function Footer() {
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState<boolean>(false);

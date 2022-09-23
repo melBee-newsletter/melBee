@@ -1,8 +1,4 @@
-from ctypes.wintypes import BYTE
-from email.policy import default
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UniqueConstraint
-from sqlalchemy.dialects.postgresql import BYTEA
-from sqlalchemy.orm import relationship
 from database.database import Base
 
 
@@ -18,6 +14,16 @@ class User(Base):
     facebookID = Column(String)
     homepage = Column(String)
 
+class ExternalInfo(Base):
+    __tablename__ = "externalinfo"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("user.id"))
+    analyticsID = Column(String)
+    instagramID = Column(String)
+    twitterID = Column(String)
+    facebookID = Column(String)
+    homepage = Column(String)
 
 class UserTemplate(Base):
     __tablename__ = "usertemplate"

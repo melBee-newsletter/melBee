@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import CSVReader from "./CSVReader";
 
 type Props = {
   expand: boolean;
@@ -19,7 +20,6 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
-
   const [contactList, setContactList] = useState<string[]>([]);
   const [blackList, setBlackList] = useState<string[]>([]);
   const [email, setEmail] = useState<string>("");
@@ -40,7 +40,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
   useEffect(() => {
     axios({
       method: "get",
-      url: `${BASE_URL}/user/contact_list/${sessionStorage.melbeeID}`,
+      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/contact_list/`,
     })
       .then((res: AxiosResponse) => {
         let data = res.data;
@@ -135,10 +135,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
     e.preventDefault();
     axios({
       method: "delete",
-      url: `${BASE_URL}/user/contact_list`,
-      params: {
-        user_id: sessionStorage.melbeeID,
-      },
+      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/contact_list`,
       data: selectedEmail,
     })
       .then((res: AxiosResponse) => {
@@ -190,12 +187,28 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                     onChange={(e) => setEmail(e.target.value)}
                     style={{ width: 350 }}
                   />
-                  <button disabled={!email} className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2">
+                  <button
+                    disabled={!email}
+                    className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2"
+                  >
                     {" "}
                     登録{" "}
                   </button>
                 </form>
+                <div className="mt-3">
+                  <p className="mb-2">
+                    メールアドレス一括登録 (CSVファイル対応)
+                  </p>
+                  <CSVReader setContactList={setContactList} />
+                    {/* <br /> */}
+                    <span className="text-sm attention">
+                      ※ファイルをアップロードすると、メールアドレスが自動登録されます
+                      <br />
+                      ※メールアドレスは一行目にまとめてください
+                    </span>
+                </div>
               </div>
+
               <div className="">
                 {selectedEmail.length > 0 ? (
                   <div className="text-right">

@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { useNavigate } from "react-router-dom";
-import Loading from "../molecules/Loading";
-import "../../EditorBox.css";
+import Loading from "../../components/Loading";
+import "./EditorBox.css";
 
 type Event = {
   target: {
@@ -31,13 +31,13 @@ const EditorBox: React.FC = () => {
   return (
     <div className="">
       {loading && <Loading word={"L O A D I N G"} />}
-      <div className="flex justify-end w-11/12 mx-auto mb-4">
+      <div className="flex justify-between px-28">
         <button
           onClick={(e) => {
             e.preventDefault();
             navigate(TEMPLATE_PATH);
           }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation mr-4"
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
         >
           {"選び直す"}
         </button>
@@ -111,7 +111,6 @@ const EditorBox: React.FC = () => {
             "code",
             "help",
             "wordcount",
-            "export",
             "emoticons",
             "quickbars",
             "autosave",

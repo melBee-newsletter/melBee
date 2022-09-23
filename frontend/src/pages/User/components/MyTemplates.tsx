@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useEffect } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import Template from "../molecules/Template";
-import Loading from "../molecules/Loading";
+import Template from "./Template";
+import Loading from "../../../components/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -33,8 +33,6 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   const [display, setDisplay] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const numOfTemplates = 12;
-
   const handleExpand = (e: any) => {
     e.preventDefault();
     setExpand({ template: !expand });
@@ -63,24 +61,24 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   }, [seedTemplate]);
 
   useEffect(() => {
-    const getTemplate = (id: number) => {
+    const getAllTemplates = (id: number) => {
       axios({
         method: "get",
         url: `${BASE_URL}/template/${id}`,
       })
         .then((res: AxiosResponse) => {
-          let data = res.data;
-          data.id = id;
-          setMelBeeTemplates((current) => [...current, data]);
+          const data = res.data;
+          for (let i = 0; i < data.length; i++) {
+            setMelBeeTemplates((current) => [...current, data[i]]);
+          }
         })
         .catch((err: AxiosError<{ error: string }>) => {
           console.log(err.response!.data);
         });
     };
 
-    for (let i = 1; i <= numOfTemplates; i++) {
-      getTemplate(i);
-    }
+    const idToFetchAll = 0;
+    getAllTemplates(idToFetchAll);
 
     const getSavedTemplate = () => {
       axios({
@@ -137,7 +135,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
         url: `${BASE_URL}/template/${templateId}`,
       })
         .then((res) => {
-          const data = res.data;
+          const data = res.data[0];
           localStorage.setItem("melBeeTempStoragedraft", data.body);
         })
         .then(() => navigate("/user/edit"));
@@ -150,11 +148,11 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
       {loading && <Loading word={"L O A D I N G"} />}
       <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
         <div
-          className="flex justify-between text-lg font-medium"
+          className="flex justify-between text-2xl font-medium"
           onClick={handleExpand}
         >
           {/* {expand ? <h3>手紙を送ろう</h3> : <h3>テンプレート一覧</h3>} */}
-          <h3>テンプレート一覧</h3>
+          <h3>メールを作成</h3>
           <span className={direction}>
             {" "}
             <FontAwesomeIcon
@@ -171,7 +169,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
                   <h4 className="mt-3 mb-6 font-bold">
                     保存されたテンプレート
                   </h4>
-                  <div className="grid gap-4 grid-cols-4">
+                  <div className="grid gap-3 grid-cols-3">
                     {localStorage.melBeeTempStoragedraft && (
                       <a
                         className="mb-5 cursor-pointer"
@@ -212,7 +210,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
                 <h3 className="my-6 font-bold">
                   melBeeオリジナル テンプレート
                 </h3>
-                <div className="grid gap-4 grid-cols-4">
+                <div className="grid gap-3 grid-cols-3">
                   {melBeeTemplates.map((template, i) => {
                     return (
                       <a
