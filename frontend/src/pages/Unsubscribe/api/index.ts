@@ -2,14 +2,14 @@ import axios, { AxiosResponse, AxiosError } from "axios";
 const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 
 
-export const validateUserContact = async (user_id: number, receiver_id: number) => {
+export const validateUserContact = async (user_id: number, id: number) => {
     let isValid = false;
     await axios ({
         method: "post",
         url:  `${BASE_URL}/user/contact_list/check`,
-        params: {
+        data: {
             user_id,
-            receiver_id,
+            id,
         }
     }).then((res: AxiosResponse) => {
          isValid = true;
