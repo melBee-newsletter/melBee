@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
-import Header from "./components/organisms/Header";
-import Footer from "./components/organisms/Footer";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import { reasonOptions } from "./unsubscribeReasons";
 
 const Unsubscribe: React.FC = () => {
     const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
@@ -13,7 +14,6 @@ const Unsubscribe: React.FC = () => {
 
     const [validLink, setValidLink] = useState<string>("");
     const [otherReason, setOtherReason] = useState<string>("");
-    const reasonOptions = ["メールが長い（htmlメールなどで重い）から", "配信回数が多いから", "登録したメールアドレスを使わなくなるから", "登録した覚えがないから", "メールの内容に興味が持てなかったから", "メールの情報がもの足りなかったから"]
     const [checked, setChecked] = useState<boolean[]>(new Array(reasonOptions.length).fill(false));
     const [allGivenReasons, setAllGivenReasons] = useState<string[]>([]);
     const [email, setEmail] = useState<string>("");
@@ -52,7 +52,7 @@ const Unsubscribe: React.FC = () => {
 
     const data = {
         receivers: {
-          email: ["melbee.noreply@gmail.com", "hiro_k@live.com"],
+          email: ["melbee.noreply@gmail.com"],
         },
         subject: {
           subject: `Notification of unsubscribed contact <${email}> from melBee`,

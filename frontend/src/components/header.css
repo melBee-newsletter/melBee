@@ -1,5 +1,5 @@
 #root .App .fixed .header .flex {
-  width: 71%;
+  width: 84.5%;
   margin: 0 auto;
 }
 
@@ -8,7 +8,7 @@
 }
 
 #root .App .fixed .header .flex .logo{
-  width: 65px;
+  width: 100px;
 }
 
 .toggleButon {
@@ -18,17 +18,17 @@
 }
 
 .nav .iconUser{
-  width: 28px;
+  width: 40px;
   height: 100%;
 }
 
 .nav .iconLogout {
-  width: 32px;
+  width: 45px;
   height: 100%;
 }
 
 .portalContent {
-  background-image: url("./img/bgImage.png");
+  background-image: url("../assets/bgImage.png");
   background-position: right top;
   background-repeat: no-repeat;
 }

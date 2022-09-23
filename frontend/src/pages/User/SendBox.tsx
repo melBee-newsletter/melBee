@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
-import Loading from "../molecules/Loading";
-import SendComplete from "../molecules/SendComplete";
+import Loading from "../../components/Loading";
+import SendComplete from "./components/SendComplete";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -23,7 +23,7 @@ type history = {
   subject: string;
 };
 
-const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
+const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
   const [subject, setSubject] = useState<string>("『melBee』からのお便り");
@@ -43,7 +43,7 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit, setCountSent }
     if (analytics) TEMPLATE += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
     axios({
       method: "get",
-      url: `${BASE_URL}/user/contact_list/${sessionStorage.melbeeID}`,
+      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/contact_list`,
     })
     .then((res: AxiosResponse) => {
       let data = res.data;
@@ -270,4 +270,4 @@ const ReceiverSelect: React.FC<Props> = ({ analytics, reachLimit, setCountSent }
   );
 };
 
-export default ReceiverSelect;
+export default SendBox;

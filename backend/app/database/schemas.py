@@ -1,24 +1,7 @@
-import email
-from typing import List, Optional
+from typing import List
 from pydantic import BaseModel
 from typing import List
 
-
-class ItemBase(BaseModel):
-    title: str
-    description: Optional[str] = None
-
-
-class ItemCreate(ItemBase):
-    pass
-
-
-class Item(ItemBase):
-    id: int
-    owner_id: int
-
-    class Config:
-        orm_mode = True
 
 # ---- User ----- #
 
@@ -41,6 +24,20 @@ class User(UserBase):
     class Config:
         orm_mode = True
 
+# ---- ExternalInfo ---- #
+
+class ExternalInfo(BaseModel):
+    id: int
+    user_id: int
+    analyticsID: str
+    instagramID: str
+    twitterID: str
+    facebookID: str
+    homepage: str
+
+    class Config:
+        orm_mode = True
+
 # ---- Template ---- #
 
 
@@ -54,6 +51,7 @@ class TemplateBase(BaseModel):
 
 
 class Template(TemplateBase):
+    id: int
     title: str
     thumbnail: str
     body: str

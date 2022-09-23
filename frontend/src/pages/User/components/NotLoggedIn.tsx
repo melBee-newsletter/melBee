@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { EmailForm } from "./Interfaces";
+import { EmailForm } from "../../../components/Interfaces";
 import axios, { AxiosResponse, AxiosError } from "axios";
-import headerLogo from "../atoms/logo.png";
-import Login from "./Login";
-import Signup from "./Signup";
+import headerLogo from "../assets/logo.png";
+import Login from "../../../components/Login";
+import Signup from "../../../components/Signup";
 
 const NotLoggedIn: React.FC = () => {
     const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";

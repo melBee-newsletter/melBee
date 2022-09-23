@@ -4,7 +4,6 @@ import database.schemas as schemas
 from passlib.context import CryptContext
 import database.seed.templates as templates
 import mailSender
-import json
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -58,6 +57,19 @@ def add_user_template(user: schemas.User, db: Session, usertemplate: schemas.Tem
     return usertemplate
 
 
+def delete_user_template_by_id(db: Session, user_id: int, template_id: int) -> list():
+    session = Session()
+    try:
+        db.query(models.UserTemplate).filter(models.UserTemplate.user_id ==
+                                             user_id, models.UserTemplate.id == template_id).delete()
+        db.commit()
+    except:
+        session.rollback()
+        raise
+    finally:
+        session.close()
+
+
 def add_sent_history(user: schemas.User, db: Session, senthistory: schemas.SentHistory):
     senthistory = models.SentHistory(user_id=user.id, subject=senthistory.subject,
                                      recipients=senthistory.recipients, template=senthistory.template, date_sent=senthistory.date_sent)
@@ -77,47 +89,62 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def add_analytics(user: schemas.User, db: Session, analyticsID: str):
+def update_external_info(db: Session, id: int, info: str, media: str) -> tuple():
+    media_types = ["analytics", "instagram", "twitter", "facebook", "homepage"]
+    if media not in media_types:
+        return (False, "Unsupported media type. サポートされていないメディアです。")
+
+    media_col = media + "ID"
+    db_external_info = db.query(models.ExternalInfo).filter(
+        models.ExternalInfo.user_id == id).first()
+    session = Session()
+
+    if db_external_info:
+        try:
+            setattr(db_external_info, media_col, info)
+            db.commit()
+        except Exception as err:
+            session.rollback()
+            return (False, err.args)
+        finally:
+            session.close()
+    else:
+        try:
+            external_info = models.ExternalInfo(user_id=id)
+            setattr(external_info, media_col, info)
+            db.add(external_info)
+            db.commit()
+        except Exception as err:
+            session.rollback()
+            return (False, err.args)
+        finally:
+            session.close()
+    return (True, None)
+
+
+def add_analytics(user: schemas.User, analyticsID: str):
     setattr(user, "analyticsID", analyticsID)
     return user
 
 
-def add_instagram(user: schemas.User, db: Session, instagramID: str):
+def add_instagram(user: schemas.User, instagramID: str):
     setattr(user, "instagramID", instagramID)
     return user
 
 
-def add_twitter(user: schemas.User, db: Session, twitterID: str):
+def add_twitter(user: schemas.User, twitterID: str):
     setattr(user, "twitterID", twitterID)
     return user
 
 
-def add_facebook(user: schemas.User, db: Session, facebookID: str):
+def add_facebook(user: schemas.User, facebookID: str):
     setattr(user, "facebookID", facebookID)
     return user
 
 
-def add_homepage(user: schemas.User, db: Session, homepage: str):
+def add_homepage(user: schemas.User, homepage: str):
     setattr(user, "homepage", homepage)
     return user
-
-
-def get_items(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Item).offset(skip).limit(limit).all()
-
-
-def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
-    db_item = models.Item(**item.dict(), owner_id=user_id)
-    session = Session()
-    try:
-        db.add(db_item)
-        db.commit()
-    except:
-        session.rollback()
-        raise
-    finally:
-        session.close()
-    return db_item
 
 
 def get_contact_list_by_user_id(db: Session, user_id: int):
@@ -182,8 +209,13 @@ def subscribe_contact_by_email_and_user_id(db: Session, receiver_email: str, rec
         session.close()
 
 
-def get_template_by_id(db: Session, id: int):
-    return db.query(models.Template).filter(models.Template.id == id).first()
+def get_template_by_id(db: Session, id: int | None) -> list():
+    if id != 0:
+        single_template = db.query(models.Template).filter(
+            models.Template.id == id).first()
+        return [single_template]
+    else:
+        return db.query(models.Template).all()
 
 
 def seed_template(db: Session):
