@@ -184,6 +184,15 @@ def add_contact(contact: schemas.Contact, db: Session = Depends(get_db)):
     return {"message": "Data added succesfully. データが追加されました。"}
 
 
+@app.post("/user/contact_list/check", response_model={})
+def check_single_contact_by_user_id(contact: schemas.ContactCheck, db: Session = Depends(get_db)):
+    db_contact = crud.get_single_contact_by_user_id(
+        db, contact.id, contact.user_id)
+    if not db_contact:
+        return {"isContactAdded": False}
+    return {"isContactAdded": True}
+
+
 @app.delete("/user/contact_list", response_model={})
 def delete_contact_by_email_and_user_id(emails: list[str], user_id: int, db: Session = Depends(get_db)):
     try:

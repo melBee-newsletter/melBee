@@ -124,6 +124,10 @@ def get_contact_list_by_user_id(db: Session, user_id: int):
     return db.query(models.ContactList).filter(models.ContactList.user_id == user_id).all()
 
 
+def get_single_contact_by_user_id(db: Session, contact_id, user_id):
+    return db.query(models.ContactList).filter(models.ContactList.id == contact_id, models.ContactList.user_id == user_id).first()
+
+
 def add_contact_list(db: Session, email: str, user_id: int, is_subscribed: bool):
     contact = models.ContactList(
         email=email, user_id=user_id, is_subscribed=is_subscribed)
