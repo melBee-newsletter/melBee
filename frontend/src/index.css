@@ -40,7 +40,7 @@ code {
 
 /* footer */
 footer {
-  height: 80px;
+  /* height: 80px; */
   margin-top: auto;
   width: 100%;
   /*追加*/
@@ -64,7 +64,8 @@ footer {
 }
 
 .footer_nav {
-  justify-content: space-between !important;
+  width: 70%;
+  margin: 0 auto;
   color: #7c7b7b;
 }
 

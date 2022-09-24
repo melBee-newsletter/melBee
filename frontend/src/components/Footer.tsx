@@ -6,19 +6,25 @@ function Footer() {
 
   return (
     <>
-    {showPrivacyPolicy && <PrivacyPolicy displayPP={setShowPrivacyPolicy} />}
-    <footer>
-      <div className="footer py-4">
-        <div className="flex px-4 py-4 text-xs footer_nav">
-          <p className="">©2022 melBee, Inc - ALL RIGHTS RESERVED </p>
-          <button onClick={(e) => {
-            e.preventDefault();
-            setShowPrivacyPolicy(!showPrivacyPolicy);}}>
+      {showPrivacyPolicy && <PrivacyPolicy displayPP={setShowPrivacyPolicy} />}
+      <footer>
+        <div className="footer">
+          <div className="flex px-4 py-8 footer_nav justify-between">
+            <p className="text-xs text-center">
+              ©2022 melBee, Inc - ALL RIGHTS RESERVED{" "}
+            </p>
+            <button
+              className="text-xs"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowPrivacyPolicy(!showPrivacyPolicy);
+              }}
+            >
               プライバシーポリシー
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
     </>
   );
 }

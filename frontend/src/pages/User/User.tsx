@@ -28,10 +28,7 @@ const User: React.FC<Props> = ({ displayComponent }) => {
         )}
         {!isLoggedIn && <NotLoggedIn />}
       </main>
-
-      <footer className="w-full">
-        <Footer />
-      </footer>
+      <Footer />
     </div>
   );
 };
