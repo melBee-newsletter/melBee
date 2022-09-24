@@ -4,16 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import "./EditorBox.css";
 
-type Event = {
-  target: {
-    value: string;
-  };
-};
-
-type clickEvent = {
-  preventDefault: Function;
-};
-
 const EditorBox: React.FC = () => {
   const navigate = useNavigate();
   const TEMPLATE_PATH = "/user";

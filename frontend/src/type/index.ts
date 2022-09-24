@@ -1,4 +1,28 @@
 /**
+ * EVENTS
+ */
+export type Event = {
+  target: {
+    value: string;
+  };
+};
+
+export type clickEvent = {
+  preventDefault: Function;
+};
+
+/**
+ * USER PORTAL TYPES/INTERFACES
+ */
+export interface expand {
+  profile: boolean;
+  contact: boolean;
+  template: boolean;
+  history: boolean;
+  [key: string]: boolean;
+};
+
+/**
  * CONTACT LIST TYPES/INTERFACES
  */
 export interface contact{

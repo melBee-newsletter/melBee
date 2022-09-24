@@ -1,17 +1,12 @@
-import React, { useCallback, useState, useEffect } from "react";
-import axios, { AxiosResponse, AxiosError } from "axios";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Template from "./Template";
 import Loading from "../../../components/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-
-type template = {
-  id: number;
-  thumbnail: string;
-  title: string;
-  body: string;
-};
+import { template } from "../../../type";
+import { getMelbeeTemplates, getMyTemplates, seedTemplate } from "../api";
+import { clickEvent } from "../../../type";
 
 type Props = {
   expand: boolean;
@@ -19,7 +14,6 @@ type Props = {
 };
 
 const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
-  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
@@ -33,7 +27,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   const [display, setDisplay] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const handleExpand = (e: any) => {
+  const handleExpand = (e: clickEvent) => {
     e.preventDefault();
     setExpand({ template: !expand });
   };
@@ -42,61 +36,26 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
     !expand ? setDirection(DOWN) : setDirection(UP);
   }, [expand]);
 
-  const seedTemplate = useCallback(() => {
-    axios({
-      method: "post",
-      url: `${BASE_URL}/template/seed`,
-      data: "tomatoTest",
-    })
-      .then((res: AxiosResponse) => {
-        setSeedDone(true);
-      })
-      .catch((err: AxiosError<{ error: string }>) => {
-        console.log(err.response!.data);
-      });
+  useEffect(() => {
+    (async function(){
+      await seedTemplate()
+    .then((seeded) => {
+      setSeedDone(seeded);
+    })})();
   }, []);
 
   useEffect(() => {
-    seedTemplate();
-  }, [seedTemplate]);
+    (async function getAllTemplates() {
+      const idToFetchAll = 0;
+      const allTemplates = await getMelbeeTemplates(idToFetchAll);
+      setMelBeeTemplates(allTemplates);
+    })();
 
-  useEffect(() => {
-    const getAllTemplates = (id: number) => {
-      axios({
-        method: "get",
-        url: `${BASE_URL}/template/${id}`,
-      })
-        .then((res: AxiosResponse) => {
-          const data = res.data;
-          for (let i = 0; i < data.length; i++) {
-            setMelBeeTemplates((current) => [...current, data[i]]);
-          }
-        })
-        .catch((err: AxiosError<{ error: string }>) => {
-          console.log(err.response!.data);
-        });
-    };
-
-    const idToFetchAll = 0;
-    getAllTemplates(idToFetchAll);
-
-    const getSavedTemplate = () => {
-      axios({
-        method: "get",
-        url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-      })
-        .then((res: AxiosResponse) => {
-          let data = res.data;
-          data.map((template: template) => {
-            setMyTemplates((current) => [template, ...current]);
-            setFetchTemplate(true);
-          });
-        })
-        .catch((err: AxiosError<{ error: string }>) => {
-          console.log(err.response!.data);
-        });
-    };
-    getSavedTemplate();
+    (async function () {
+      const allMyTemplates = await getMyTemplates();
+      setMyTemplates(allMyTemplates);
+      setFetchTemplate(true);
+    })();
   }, [seedDone]);
 
   useEffect(() => {
@@ -113,32 +72,18 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
 
   useEffect(() => {
     const handleMyTemplate = (i: number) => {
-      axios({
-        method: "get",
-        url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-      })
-        .then((res: AxiosResponse) => {
-          let data = res.data;
-          const index = data.length - 1 - i;
-          localStorage.setItem("melBeeTempStoragedraft", data[index].body);
-        })
-        .then(() => navigate("/user/edit"));
+      localStorage.setItem("melBeeTempStoragedraft", myTemplates[i].body)
+      navigate("/user/edit")
     };
     if (selectMy !== null) handleMyTemplate(selectMy);
   }, [selectMy]);
 
   useEffect(() => {
-    const handleMelBeeTemplate = (i: number) => {
+    const handleMelBeeTemplate = async (i: number) => {
       const templateId = melBeeTemplates[i].id;
-      axios({
-        method: "get",
-        url: `${BASE_URL}/template/${templateId}`,
-      })
-        .then((res) => {
-          const data = res.data[0];
-          localStorage.setItem("melBeeTempStoragedraft", data.body);
-        })
-        .then(() => navigate("/user/edit"));
+      const chosenTemplate = await getMelbeeTemplates(templateId);
+      localStorage.setItem("melBeeTempStoragedraft", chosenTemplate[0].body);
+      navigate("/user/edit");
     };
     if (selectMb !== null) handleMelBeeTemplate(selectMb);
   }, [selectMb]);

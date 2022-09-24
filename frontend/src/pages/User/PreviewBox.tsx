@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { saveMyTemplate } from "./api";
+import { templateToSave } from "../../type";
+import { clickEvent } from "../../type";
 
 type Props = {
   reachLimit: boolean;
-};
-
-interface templateToSave {
-  title: string,
-  thumbnail: string,
-  body: string,
 };
 
 const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
@@ -20,7 +16,7 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
   const [title, setTitle] = useState<string>("");
   const [saved, setSaved] = useState<boolean>(false);
 
-  const handleSave = async (e: React.ChangeEvent<any>) => {
+  const handleSave = async (e: clickEvent) => {
     e.preventDefault();
     if (title) {
       const templateToSave: templateToSave = {
