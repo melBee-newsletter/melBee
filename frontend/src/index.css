@@ -137,11 +137,9 @@ footer {
   width: 70px;
 }
 
-.historyInfo {
-  /* margin-left: 8%; */
-  width: 1000px;
-  margin: 0 auto;
-}
+/* .historyInfo {
+
+} */
 
 .attention {
   color: #DD1C1C;

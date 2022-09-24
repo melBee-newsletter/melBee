@@ -43,7 +43,7 @@ const History: React.FC<Props> = ({
   return (
     <div key={`history${i}`}>
       {!viewHistory[i] ? (
-        <ul className="flex items-center justify-around historyList mb-2 last:mb-0">
+        <ul className="flex items-center justify-around historyList mb-2 last:mb-0 lg:w-[99%] mr-auto ml-auto">
           <li className="text-left">
             送信日時: {convertDate(history.date_sent)}
           </li>
@@ -62,7 +62,7 @@ const History: React.FC<Props> = ({
         </ul>
       ) : (
         <div className="">
-          <div className="">
+          <div className="lg:w-[89.5%] mr-auto ml-auto">
             <div className="historyInfo">
               <ul className="flex items-center historyInfoFrame">
                 <li className="text-left mb-3 mr-4">
