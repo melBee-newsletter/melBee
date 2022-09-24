@@ -53,12 +53,6 @@ footer {
 
 /* index */
 
-.header {
-  position: fixed;
-  width: 100%;
-  background: #f5f5f5;
-}
-
 .textArea_privacy {
   display: none;
 }

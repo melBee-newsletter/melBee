@@ -31,10 +31,10 @@ function Landing() {
   return (
     <div className="App top">
       <Header />
-      <main className="main_top">
-        <div className="mv mainMiddle_top">
+      <main className="main_top before:invisible after:invisible md:before:visible md:after:visible">
+        <div className="mv mainMiddle_top before:invisible md:before:visible">
           <div className="lg:flex lg:justify-center">
-            <div className="lg:flex contentL_top lg:justify-between lg:items-center">
+            <div className="w-screen pr-5 lg:w-[670px] lg:flex contentL_top lg:justify-between lg:items-center">
               <div>
                 <h2 className="mainTtl text-left font-bold">
                   想い<span className="font-light text-7xl">を</span>
@@ -53,7 +53,7 @@ function Landing() {
                 </p>
               </div>
               {!isLoggedIn && (
-                <div className="flex text-base writing-v border-r border-slate-800 pr-4">
+                <div className="flex text-base writing-v border-r border-slate-800 pr-4 invisible md:visible">
                   <p className="mb-3 text-base text-gray-500">
                     ログインまたは無料で新規登録
                   </p>
