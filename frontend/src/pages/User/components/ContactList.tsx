@@ -109,7 +109,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
   };
 
   return (
-    <div className="justify-center mb-10 lg:px-10 lg:py-6 border rounded-lg drop-shadow-xl bg-white">
+    <div className="justify-center mb-10 md:px-5 lg:px-10 py-6 border rounded-lg drop-shadow-xl bg-white">
       <div
         className="flex justify-between cursor-pointer"
         onClick={handleExpand}
@@ -131,7 +131,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
               })}
             </div>
           </div>
-          <div className="flex justify-between px-2">
+          <div className="lg:flex lg:justify-between px-2">
             <div className="text-left">
               <form onSubmit={handleAdd}>
                 <label className="text-left mb-2 block">
@@ -143,7 +143,6 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                   value={email}
                   placeholder="メールアドレス"
                   onChange={(e) => setEmail(e.target.value)}
-                  style={{ width: 350 }}
                 />
                 <button
                   disabled={!email}
@@ -167,7 +166,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
 
             <div className="">
               {selectedEmail.length > 0 ? (
-                <div className="text-right">
+                <div className="lg:text-right sm:text-left sm:mt-5 lg:mt-0">
                   <p className="text-base mb-2">
                     選択したメールアドレスを削除する
                   </p>
@@ -181,7 +180,7 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
                   </button>
                 </div>
               ) : (
-                <div className="text-right">
+                <div className="lg:text-right sm:text-left sm:mt-5 lg:mt-0">
                   <p className="text-base mb-2">
                     メールアドレス選択後削除を行えます
                   </p>

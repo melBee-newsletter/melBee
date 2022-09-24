@@ -44,17 +44,17 @@ const History: React.FC<Props> = ({
     <div key={`history${i}`}>
       {!viewHistory[i] ? (
         <ul className="flex items-center justify-around historyList mb-2 last:mb-0 lg:w-[99%] mr-auto ml-auto">
-          <li className="text-left">
+          <li className="text-left lg:w-[265px] sm:text-sm lg:text-base">
             送信日時: {convertDate(history.date_sent)}
           </li>
-          <li className="text-left">
+          <li className="text-left sm:text-sm lg:text-base lg:w-[300px]">
             件名:<span className="font-bold">{history.subject}</span>
           </li>
           <li>
             {" "}
             <button
               onClick={() => handleView(i)}
-              className="rounded-xl px-5 py-2 text-white text-sm bg-orangeGradation"
+              className="rounded-xl px-5 py-2 text-white bg-orangeGradation"
             >
               詳細
             </button>

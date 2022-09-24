@@ -46,11 +46,13 @@ const Portal: React.FC<Props> = ({
       <div className="portalContent pt-20 mb-40">
         <div className="flex justify-between mb-6">
           <div className="text-left">
-            <h2 className="font-bold text-3xl">melBeeへようこそ!</h2>
+            <h2 className="font-bold lg:text-3xl sm:text-[1.6rem]">
+              melBeeへようこそ!
+            </h2>
             {showLimit && (
-              <p className="mt-1 text-lg font-bold">{todayMessage}</p>
+              <p className="lg:mt-1 lg:text-lg font-bold">{todayMessage}</p>
             )}
-            <div className="mt-2">
+            <p className="mt-2 sm:text-sm">
               {!showLimit ? (
                 <p className="my-4"> </p>
               ) : !reachLimit ? (
@@ -63,7 +65,7 @@ const Portal: React.FC<Props> = ({
                   本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。
                 </span>
               )}
-            </div>
+            </p>
           </div>
         </div>
 

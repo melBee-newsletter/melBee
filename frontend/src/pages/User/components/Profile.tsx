@@ -51,7 +51,7 @@ const Profile: React.FC<Props> = ({
   };
 
   return (
-    <div className="justify-center mb-10 lg:px-10 lg:py-6 border rounded-lg drop-shadow-xl bg-white">
+    <div className="justify-center mb-10 md:px-5 lg:px-10  py-6 border rounded-lg drop-shadow-xl bg-white">
       <div
         className="flex justify-between cursor-pointer"
         onClick={handleExpand}
