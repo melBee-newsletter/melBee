@@ -49,12 +49,11 @@
 }
 
 .mv {
-  width: 1200px;
+  /* width: 1200px; */
   height: calc(100% - 166px);
   margin: 0 auto;
 }
 .contentL_top {
-  width: 670px;
   padding-right: 1.25rem;
   z-index: 49;
 }
