@@ -48,7 +48,7 @@ const Portal: React.FC<Props> = ({
           <div className="text-left">
             <h2 className="font-bold text-3xl">melBeeへようこそ!</h2>
             {showLimit && (
-              <p className="mt-1 text-lg font-bold ">{todayMessage}</p>
+              <p className="mt-1 text-lg font-bold">{todayMessage}</p>
             )}
             <div className="mt-2">
               {!showLimit ? (

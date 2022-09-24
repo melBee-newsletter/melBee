@@ -13,7 +13,7 @@ const Header: FC = () => {
 
   return (
     <div className="header drop-shadow-md py-1">
-      <div className="flex items-end justify-between ">
+      <div className="flex items-end justify-between">
         <a href={logoLink} className="py-1">
           <img
             src={headerLogo}
