@@ -19,9 +19,9 @@ const EditorBox: React.FC = () => {
   }, []);
 
   return (
-    <div className="">
+    <div className="pt-20">
       {loading && <Loading word={"L O A D I N G"} />}
-      <div className="flex justify-end mb-4 px-20 pt-10">
+      <div className="flex justify-end mb-4">
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -75,7 +75,7 @@ const EditorBox: React.FC = () => {
           toolbar_location: "auto",
           inline: false,
           statusbar: false,
-          width: "91.666667%",
+          width: "100%",
           height: "800",
           menubar: false,
           quickbars_insert_toolbar: "table | image",
