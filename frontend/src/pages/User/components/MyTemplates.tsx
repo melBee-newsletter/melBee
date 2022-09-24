@@ -107,7 +107,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
             <div className="">
               {myTemplates.length > 0 && (
                 <div>
-                  <h4 className="my-4">保存テンプレート</h4>
+                  <h4 className="my-4 ">保存テンプレート</h4>
                   <div className="grid gap-4 grid-cols-4">
                     {localStorage.melBeeTempStoragedraft && (
                       <a
