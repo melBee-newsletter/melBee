@@ -62,10 +62,10 @@ const History: React.FC<Props> = ({
         </ul>
       ) : (
         <div className="">
-          <div className="lg:w-[89.5%] mr-auto ml-auto">
+          <div className="lg:w-[88.5%] mr-auto ml-auto">
             <div className="historyInfo">
               <ul className="flex items-center historyInfoFrame">
-                <li className="text-left mb-3 mr-4">
+                <li className="lg:w-[265px] text-left mb-3 mr-24">
                   <span className="titleHistory">送信日時:</span>
                   {convertDate(history.date_sent)}
                 </li>
