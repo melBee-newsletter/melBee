@@ -19,7 +19,7 @@ const EditorBox: React.FC = () => {
   }, []);
 
   return (
-    <div className="pt-20 mb-28">
+    <div className="pt-24 mb-28">
       {loading && <Loading word={"L O A D I N G"} />}
       <h2 className="text-xl font-medium mb-4">テンプレート編集</h2>
       <Editor

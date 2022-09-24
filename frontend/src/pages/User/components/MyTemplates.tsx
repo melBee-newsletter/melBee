@@ -110,7 +110,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
             <div className="">
               {myTemplates.length > 0 && (
                 <div>
-                  <h4 className="my-4">保存テンプレート</h4>
+                  <p className="mt-4 mb-7 font-bold">保存テンプレート</p>
                   <div className="grid gap-4 grid-cols-4">
                     {localStorage.melBeeTempStoragedraft && (
                       <a
@@ -149,7 +149,9 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
               )}
 
               <div>
-                <h3 className="my-4">melBeeオリジナル テンプレート</h3>
+                <p className="mt-5 mb-7 font-bold">
+                  melBeeオリジナル テンプレート
+                </p>
                 <div className="grid gap-4 grid-cols-4">
                   {melBeeTemplates.map((template, i) => {
                     return (
