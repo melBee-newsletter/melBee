@@ -21,27 +21,7 @@ const EditorBox: React.FC = () => {
   return (
     <div className="pt-20">
       {loading && <Loading word={"L O A D I N G"} />}
-      <div className="flex justify-end mb-4">
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            navigate(TEMPLATE_PATH);
-          }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl mr-4 text-lg text-white font-medium bg-orangeGradation"
-        >
-          {"選び直す"}
-        </button>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            navigate(PREVIEW_PATH);
-          }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
-        >
-          {"プレビュー"}
-        </button>
-      </div>
-
+      <h2 className="text-xl font-medium mb-4">テンプレート編集</h2>
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}
@@ -141,6 +121,26 @@ const EditorBox: React.FC = () => {
           },
         }}
       ></Editor>
+      <div className="flex justify-center mb-4 mt-4">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(TEMPLATE_PATH);
+          }}
+          className="rounded-xl px-6 py-2 drop-shadow-xl mr-4 text-lg text-white font-medium bg-orangeGradation"
+        >
+          {"選び直す"}
+        </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(PREVIEW_PATH);
+          }}
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+        >
+          {"プレビュー"}
+        </button>
+      </div>
     </div>
   );
 };
