@@ -7,7 +7,7 @@ type Props = {
 
 const Template: React.FC<Props> = ({ template }) => {
   return (
-    <div className="">
+    <div className="sm:mb-5 md:mb-0">
       <div>
         <p className="pb-3">{template.title.slice(0, 20)}</p>
       </div>

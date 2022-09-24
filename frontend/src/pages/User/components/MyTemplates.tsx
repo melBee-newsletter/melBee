@@ -91,7 +91,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   return (
     <>
       {loading && <Loading word={"L O A D I N G"} />}
-      <div className="justify-center md:px-5 lg:px-10 py-6 mb-10 border rounded-lg drop-shadow-xl bg-white">
+      <div className="justify-center sm:px-5 lg:px-10 py-6 mb-10 border rounded-lg drop-shadow-xl bg-white">
         <div
           className="flex justify-between cursor-pointer"
           onClick={handleExpand}
@@ -106,12 +106,12 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
           </span>
         </div>
         {expand && (
-          <div className="flex justify-center">
+          <div className="md:flex md:justify-center">
             <div className="">
               {myTemplates.length > 0 && (
                 <div>
                   <p className="mt-4 mb-7 font-bold">保存テンプレート</p>
-                  <div className="grid sm:gap-2 lg:gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  <div className="md:grid lg:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {localStorage.melBeeTempStoragedraft && (
                       <a
                         className="mb-5 cursor-pointer"
@@ -152,7 +152,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
                 <p className="mt-5 mb-7 font-bold">
                   melBeeオリジナル テンプレート
                 </p>
-                <div className="grid sm:gap-2 lg:gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="md:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
                   {melBeeTemplates.map((template, i) => {
                     return (
                       <a
