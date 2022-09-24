@@ -177,13 +177,14 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
       )}
       {reachLimit && !sendComplete && (
         <div className="flex justify-center">
-          <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
+          <p>申し訳ございません、本日の送信リミットに達しました。</p>
         </div>
       )}
       {!reachLimit && !sendComplete && (
-        <div className="sendArea pt-20 mx-auto mb-28">
+        <div className="sendArea pt-24 mx-auto mb-28">
           <div className="mb-8">
-            <h3 className="text-xl font-bold mb-4">メールタイトルのご入力</h3>
+            <h2 className="text-xl font-bold mb-1">メールタイトルのご入力</h2>
+            <p className="mb-5">送信するメールのタイトルをご入力ください。</p>
             <input
               type="text"
               placeholder="メールタイトルの入力をしてください。"
@@ -193,7 +194,8 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
               className="border rounded-lg p-2 text-lg sendTitle w-full"
             />
           </div>
-          <h3 className="text-xl font-bold mb-4">送信先メールアドレスの選択</h3>
+          <h2 className="text-xl font-bold mb-1">メールアドレスの選択</h2>
+          <p className="mb-4">送信先メールアドレスを選択してください。</p>
           <div className="flex text-xl pl-6">
             <input
               type="checkbox"
@@ -206,7 +208,7 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
               <p className="text-base ml-2">アドレスを全て解除</p>
             )}
           </div>
-          <div className="scroll flex flex-wrap border items-start rounded-xl mt-3 mb-4 px-3 py-1 bg-white">
+          <div className="scroll flex flex-wrap border items-start rounded-xl mt-2 mb-4 px-3 py-1 bg-white">
             {allEmails.map((email, i) => {
               return displayEmailWithCheckbox(email, i);
             })}
@@ -247,7 +249,7 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
             </div>
           </div>
 
-          <div className="flex justify-center mt-4 text-lg">
+          <div className="flex justify-center mt-8">
             <button
               onClick={(e) => {
                 e.preventDefault();

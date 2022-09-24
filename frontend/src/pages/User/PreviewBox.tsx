@@ -34,9 +34,9 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
   };
 
   return (
-    <div className="pt-20 mb-28">
-      <h2 className="text-xl font-medium ">プレビュー</h2>
-      <p className="mb-4">送信前に内容をご確認ください</p>
+    <div className="pt-24 mb-28">
+      <h2 className="text-xl font-medium mb-1">プレビュー</h2>
+      <p className="mb-5">送信前に内容をご確認ください</p>
       {/* <div className="flex justify-end mx-auto mb-4">
         <button
           onClick={(e) => {
@@ -66,7 +66,7 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
           __html: localStorage.melBeeTempStoragedraft,
         }}
       />
-      <div className="flex justify-center mx-auto mb-4 mt-4">
+      <div className="flex justify-center items-center mx-auto my-8">
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -84,21 +84,23 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
             }}
             className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
           >
-            {"送信"}
+            {"送信準備 >"}
           </button>
         ) : (
-          <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
+          <p>申し訳ございません、本日の送信リミットに達しました。</p>
         )}
       </div>
       <div className="w-4/6 mx-auto mt-10">
         {!saved ? (
           <form onSubmit={handleSave}>
-            <label className="text-left">
-              <span className="text-lg font-bold">
+            <label className="text-left leading-loose">
+              <span className="text-lg font-bold mb-2">
                 作成テンプレートタイトル
               </span>
               <br />
-              作成したテンプレートは保存可能です。
+              <span className="text-base">
+                作成したテンプレートは保存可能です。
+              </span>
               <input
                 type="text"
                 placeholder="タイトル（２０文字まで）"
@@ -108,7 +110,7 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
                 className="border rounded-lg p-2 w-full mt-2"
               />
             </label>
-            <p className="text-sm attention mt-1 mb-3 text-left">
+            <p className="text-sm attention mt-1 mb-8 text-left">
               ※ただし、ログアウト・画面を閉じると、下書きデータは削除されます。
             </p>
             <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation">
@@ -116,7 +118,7 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
             </button>
           </form>
         ) : (
-          <div className="text-xl">テンプレートが保存されました。</div>
+          <p>テンプレートが保存されました。</p>
         )}
       </div>
     </div>

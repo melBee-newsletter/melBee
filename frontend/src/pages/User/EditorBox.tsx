@@ -21,7 +21,10 @@ const EditorBox: React.FC = () => {
   return (
     <div className="pt-24 mb-28">
       {loading && <Loading word={"L O A D I N G"} />}
-      <h2 className="text-xl font-medium mb-4">テンプレート編集</h2>
+      <h2 className="text-xl font-medium mb-1">テンプレート編集</h2>
+      <p className="mb-5">
+        画像やテキスト、レイアウトのカスタマイズを行うことができます。
+      </p>
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}
@@ -121,7 +124,7 @@ const EditorBox: React.FC = () => {
           },
         }}
       ></Editor>
-      <div className="flex justify-center mb-4 mt-4">
+      <div className="flex justify-center mb-4 mt-8">
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -138,7 +141,7 @@ const EditorBox: React.FC = () => {
           }}
           className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
         >
-          {"プレビュー"}
+          {"プレビュー >"}
         </button>
       </div>
     </div>

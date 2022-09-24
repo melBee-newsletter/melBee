@@ -11,7 +11,7 @@ const SendComplete: React.FC<Props> = ({ reachLimit, setSendComplete }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white py-20 mt-32 mb-28">
+    <div className="bg-white py-24 mt-32 mb-28">
       <div className="">
         <div>
           {/* <img
@@ -20,7 +20,7 @@ const SendComplete: React.FC<Props> = ({ reachLimit, setSendComplete }) => {
             className="py-2 text-center"
             width="200"
           /> */}
-          <p className="text-xl font-bold text-center mb-4">送信完了しました</p>
+          <p className="text-xl text-center mb-4">送信完了しました</p>
         </div>
       </div>
       {!reachLimit ? (
