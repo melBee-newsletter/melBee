@@ -132,7 +132,7 @@ const EditorBox: React.FC = () => {
           }}
           className="rounded-xl px-6 py-2 drop-shadow-xl mr-4 text-lg text-white font-medium bg-grayGradation"
         >
-          {"戻る"}
+          {"< 戻る"}
         </button>
         <button
           onClick={(e) => {
