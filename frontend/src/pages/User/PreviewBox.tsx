@@ -23,7 +23,7 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
         title: title,
         thumbnail: "",
         body: localStorage.melBeeTempStoragedraft,
-      }
+      };
       const isSaved = await saveMyTemplate(templateToSave);
       setSaved(isSaved);
     } else {
@@ -35,30 +35,6 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
 
   return (
     <div className="w-full px-10">
-      <div className="flex justify-end w-11/12 mx-auto mb-4">
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            navigate(EDIT_PATH);
-          }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation mr-4"
-        >
-          {"編集"}
-        </button>
-        {!reachLimit ? (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              navigate(SEND_PATH);
-            }}
-            className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
-          >
-            {"送信"}
-          </button>
-        ) : (
-          <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
-        )}
-      </div>
       <div className="text-left">
         {!saved ? (
           <form onSubmit={handleSave}>
@@ -84,6 +60,30 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
           </form>
         ) : (
           <div className="text-xl">テンプレートが保存されました。</div>
+        )}
+      </div>
+      <div className="flex justify-end w-11/12 mx-auto mb-4">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(EDIT_PATH);
+          }}
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation mr-4"
+        >
+          {"編集"}
+        </button>
+        {!reachLimit ? (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(SEND_PATH);
+            }}
+            className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+          >
+            {"送信"}
+          </button>
+        ) : (
+          <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
         )}
       </div>
       <h3 className="mt-8 text-2xl">プレビュー</h3>

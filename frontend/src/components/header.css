@@ -1,5 +1,5 @@
 #root .App .fixed .header .flex {
-  width: 84.5%;
+  width: 70%;
   margin: 0 auto;
 }
 
@@ -23,6 +23,6 @@
 
 .portalContent {
   background-image: url("../assets/bgImage.png");
-  background-position: right top;
+  background-position: right 60px;
   background-repeat: no-repeat;
 }

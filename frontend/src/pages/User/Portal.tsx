@@ -42,15 +42,14 @@ const Portal: React.FC<Props> = ({
   }, []);
 
   return (
-    <main className="App-header">
-      <div className="w-11/12 mx-auto portalContent">
+    <>
+      <div className="portalContent pt-20">
         <div className="flex justify-between mb-6">
           <div className="text-left">
-            <h2 className="font-bold text-4xl">
-              melBeeへようこそ!
-              <br />
-              {showLimit && <span className="text-2xl">{todayMessage}</span>}
-            </h2>
+            <h2 className="font-bold text-3xl">melBeeへようこそ!</h2>
+            {showLimit && (
+              <p className="mt-1 text-lg font-bold">{todayMessage}</p>
+            )}
             <div className="mt-2">
               {!showLimit ? (
                 <p className="my-4"> </p>
@@ -85,7 +84,7 @@ const Portal: React.FC<Props> = ({
           setAnalytics={setAnalytics}
         />
       </div>
-    </main>
+    </>
   );
 };
 

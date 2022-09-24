@@ -37,11 +37,11 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   }, [expand]);
 
   useEffect(() => {
-    (async function(){
-      await seedTemplate()
-    .then((seeded) => {
-      setSeedDone(seeded);
-    })})();
+    (async function () {
+      await seedTemplate().then((seeded) => {
+        setSeedDone(seeded);
+      });
+    })();
   }, []);
 
   useEffect(() => {
@@ -72,8 +72,8 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
 
   useEffect(() => {
     const handleMyTemplate = (i: number) => {
-      localStorage.setItem("melBeeTempStoragedraft", myTemplates[i].body)
-      navigate("/user/edit")
+      localStorage.setItem("melBeeTempStoragedraft", myTemplates[i].body);
+      navigate("/user/edit");
     };
     if (selectMy !== null) handleMyTemplate(selectMy);
   }, [selectMy]);
@@ -91,12 +91,9 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   return (
     <>
       {loading && <Loading word={"L O A D I N G"} />}
-      <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
-        <div
-          className="flex justify-between font-medium"
-          onClick={handleExpand}
-        >
-          <h3 className="text-xl">メールを作成</h3>
+      <div className="justify-center lg:px-10 lg:py-6 mb-10 border rounded-lg drop-shadow-xl bg-white">
+        <div className="flex justify-between" onClick={handleExpand}>
+          <h3 className="text-xl font-medium">メールを作成</h3>
           <span className={direction}>
             {" "}
             <FontAwesomeIcon
@@ -107,11 +104,11 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
         </div>
         {expand && (
           <div className="flex justify-center">
-            <div className="bg-white w-full">
+            <div className="">
               {myTemplates.length > 0 && (
                 <div>
-                  <h4 className="mt-3 mb-6 text-lg">保存されたテンプレート</h4>
-                  <div className="grid grid-cols-4 gap-4">
+                  <h4 className="my-4">保存テンプレート</h4>
+                  <div className="grid gap-4 grid-cols-4">
                     {localStorage.melBeeTempStoragedraft && (
                       <a
                         className="mb-5 cursor-pointer"
@@ -149,9 +146,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
               )}
 
               <div>
-                <h3 className="my-6 font-bold text-lg">
-                  melBeeオリジナル テンプレート
-                </h3>
+                <h3 className="my-4">melBeeオリジナル テンプレート</h3>
                 <div className="grid gap-4 grid-cols-4">
                   {melBeeTemplates.map((template, i) => {
                     return (
