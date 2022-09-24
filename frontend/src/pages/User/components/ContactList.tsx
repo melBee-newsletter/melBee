@@ -43,12 +43,12 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
 
   const displayEmail = (email: string, i: number) => {
     return (
-      <div key={i} className="flex mr-5 mb-1 p-1">
-        <label>
+      <div key={i} className="mr-4 last:mr-0 mb-4">
+        <label className="">
           <input
             type="checkbox"
             id={String(i)}
-            className="mr-2"
+            className="mr-1"
             checked={isChecked[i]}
             onChange={(e: Event) => handleCheck(i)}
           />
@@ -109,9 +109,9 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
   };
 
   return (
-    <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
-      <div className="flex justify-between font-medium" onClick={handleExpand}>
-        <h3 className="text-xl">連絡先一覧</h3>
+    <div className="justify-center mb-10 lg:px-10 lg:py-6 border rounded-lg drop-shadow-xl bg-white">
+      <div className="flex justify-between" onClick={handleExpand}>
+        <h3 className="text-xl font-medium">連絡先一覧</h3>
         <span className={direction}>
           <FontAwesomeIcon
             className="bg-yellow-200 rounded-lg p-1.5"
@@ -120,96 +120,92 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
         </span>
       </div>
       {expand && (
-        <div className="">
+        <div className="mt-4">
           <div className="">
-            <div className="w-full">
-              <div className="w-full scroll flex flex-wrap items-baseline content-start border rounded-xl my-3 px-1">
-                {contactList.map((email, i) => {
-                  return displayEmail(email, i);
-                })}
+            <div className="scroll flex flex-wrap justify-start border rounded-xl p-[0.9rem] mb-[1.2rem]">
+              {contactList.map((email, i) => {
+                return displayEmail(email, i);
+              })}
+            </div>
+          </div>
+          <div className="flex justify-between px-2">
+            <div className="text-left">
+              <form onSubmit={handleAdd}>
+                <label className="text-left mb-2 block">
+                  メールアドレスを連絡先に新規登録する
+                </label>
+                <input
+                  className="border rounded-lg p-2 mb-2"
+                  type="email"
+                  value={email}
+                  placeholder="メールアドレス"
+                  onChange={(e) => setEmail(e.target.value)}
+                  style={{ width: 350 }}
+                />
+                <button
+                  disabled={!email}
+                  className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2"
+                >
+                  {" "}
+                  登録{" "}
+                </button>
+              </form>
+              <div className="mt-3">
+                <p className="mb-2">メールアドレス一括登録 (CSVファイル対応)</p>
+                <CSVReader setContactList={setContactList} />
+                {/* <br /> */}
+                <span className="text-sm attention">
+                  ※ファイルをアップロードすると、メールアドレスが自動登録されます
+                  <br />
+                  ※メールアドレスは一行目にまとめてください
+                </span>
               </div>
             </div>
-            <div className="flex justify-between px-2">
-              <div className="text-left">
-                <form onSubmit={handleAdd}>
-                  <label className="text-left mb-2 block">
-                    メールアドレスを連絡先に新規登録する
-                  </label>
-                  <input
-                    className="border rounded-lg p-2 text-base mb-2"
-                    type="email"
-                    value={email}
-                    placeholder="メールアドレス"
-                    onChange={(e) => setEmail(e.target.value)}
-                    style={{ width: 350 }}
-                  />
+
+            <div className="">
+              {selectedEmail.length > 0 ? (
+                <div className="text-right">
+                  <p className="text-base mb-2">
+                    選択したメールアドレスを削除する
+                  </p>
                   <button
-                    disabled={!email}
-                    className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2"
+                    type="submit"
+                    onClick={handleRemove}
+                    className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-redGradation"
                   >
                     {" "}
-                    登録{" "}
+                    削除{" "}
                   </button>
-                </form>
-                <div className="mt-3">
-                  <p className="mb-2">
-                    メールアドレス一括登録 (CSVファイル対応)
+                </div>
+              ) : (
+                <div className="text-right">
+                  <p className="text-base mb-2">
+                    メールアドレス選択後削除を行えます
                   </p>
-                  <CSVReader setContactList={setContactList} />
-                  {/* <br /> */}
-                  <span className="text-sm attention">
-                    ※ファイルをアップロードすると、メールアドレスが自動登録されます
-                    <br />
-                    ※メールアドレスは一行目にまとめてください
-                  </span>
+                  <button className="bg-grayGradation rounded-xl px-6 py-2 drop-shadow-xl text-lg font-medium text-white">
+                    {" "}
+                    削除{" "}
+                  </button>
                 </div>
-              </div>
-
-              <div className="">
-                {selectedEmail.length > 0 ? (
-                  <div className="text-right">
-                    <p className="text-base mb-2">
-                      選択したメールアドレスを削除する
-                    </p>
-                    <button
-                      type="submit"
-                      onClick={handleRemove}
-                      className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-redGradation"
-                    >
-                      {" "}
-                      削除{" "}
-                    </button>
-                  </div>
-                ) : (
-                  <div className="text-right">
-                    <p className="text-base mb-2">
-                      メールアドレス選択後削除を行えます
-                    </p>
-                    <button className="bg-grayGradation rounded-xl px-6 py-2 drop-shadow-xl text-lg font-medium text-white">
-                      {" "}
-                      削除{" "}
-                    </button>
-                  </div>
-                )}
-              </div>
+              )}
             </div>
-            {blackList.length > 0 && (
-              <div className="mt-10 mb-3">
-                <h3 className="text-base text-red-700">配信停止済み</h3>
-                <div
-                  className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-1"
-                  style={{ height: 150, overflow: "scroll" }}
-                >
-                  {blackList.map((email, i) => {
-                    return displayBlackList(email, i);
-                  })}
-                </div>
-                <p className="text-sm text-red-800">
-                  ※ 配信停止済みの連絡先にはメールを送信できません
-                </p>
-              </div>
-            )}
           </div>
+          {blackList.length > 0 && (
+            <div className="mt-10 mb-3">
+              <h3 className="text-base text-red-700">配信停止済み</h3>
+              <div
+                className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-1"
+                style={{ height: 150, overflow: "scroll" }}
+              >
+                {blackList.map((email, i) => {
+                  return displayBlackList(email, i);
+                })}
+              </div>
+              <p className="text-sm text-red-800">
+                ※ 配信停止済みの連絡先にはメールを送信できません
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>
