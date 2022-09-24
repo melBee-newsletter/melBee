@@ -43,7 +43,7 @@ const Portal: React.FC<Props> = ({
 
   return (
     <>
-      <div className="portalContent pt-20">
+      <div className="portalContent pt-20 mb-40">
         <div className="flex justify-between mb-6">
           <div className="text-left">
             <h2 className="font-bold text-3xl">melBeeへようこそ!</h2>

@@ -110,7 +110,10 @@ const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
 
   return (
     <div className="justify-center mb-10 lg:px-10 lg:py-6 border rounded-lg drop-shadow-xl bg-white">
-      <div className="flex justify-between" onClick={handleExpand}>
+      <div
+        className="flex justify-between cursor-pointer"
+        onClick={handleExpand}
+      >
         <h3 className="text-xl font-medium">連絡先一覧</h3>
         <span className={direction}>
           <FontAwesomeIcon

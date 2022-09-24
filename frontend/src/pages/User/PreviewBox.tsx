@@ -34,7 +34,7 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
   };
 
   return (
-    <div className="pt-20">
+    <div className="pt-20 mb-28">
       <h2 className="text-xl font-medium ">プレビュー</h2>
       <p className="mb-4">送信前に内容をご確認ください</p>
       {/* <div className="flex justify-end mx-auto mb-4">
@@ -72,9 +72,9 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
             e.preventDefault();
             navigate(EDIT_PATH);
           }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation mr-4"
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-grayGradation mr-4"
         >
-          {"編集"}
+          {"戻る"}
         </button>
         {!reachLimit ? (
           <button
@@ -82,7 +82,7 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
               e.preventDefault();
               navigate(SEND_PATH);
             }}
-            className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+            className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
           >
             {"送信"}
           </button>
@@ -111,7 +111,7 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
             <p className="text-sm attention mt-1 mb-3 text-left">
               ※ただし、ログアウト・画面を閉じると、下書きデータは削除されます。
             </p>
-            <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation">
+            <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation">
               保存
             </button>
           </form>

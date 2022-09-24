@@ -52,7 +52,10 @@ const Profile: React.FC<Props> = ({
 
   return (
     <div className="justify-center mb-10 lg:px-10 lg:py-6 border rounded-lg drop-shadow-xl bg-white">
-      <div className="flex justify-between" onClick={handleExpand}>
+      <div
+        className="flex justify-between cursor-pointer"
+        onClick={handleExpand}
+      >
         <h3 className="text-xl font-medium">マーケティングツール</h3>
         <span className={direction}>
           <FontAwesomeIcon
@@ -76,9 +79,9 @@ const Profile: React.FC<Props> = ({
                 ></input>
                 <button
                   onClick={handleClick}
-                  className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+                  className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
                 >
-                  確定
+                  設定
                 </button>
               </div>
             ) : (

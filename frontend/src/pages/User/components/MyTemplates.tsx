@@ -92,7 +92,10 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
     <>
       {loading && <Loading word={"L O A D I N G"} />}
       <div className="justify-center lg:px-10 lg:py-6 mb-10 border rounded-lg drop-shadow-xl bg-white">
-        <div className="flex justify-between" onClick={handleExpand}>
+        <div
+          className="flex justify-between cursor-pointer"
+          onClick={handleExpand}
+        >
           <h3 className="text-xl font-medium">メールを作成</h3>
           <span className={direction}>
             {" "}

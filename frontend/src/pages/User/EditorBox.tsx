@@ -19,7 +19,7 @@ const EditorBox: React.FC = () => {
   }, []);
 
   return (
-    <div className="pt-20">
+    <div className="pt-20 mb-28">
       {loading && <Loading word={"L O A D I N G"} />}
       <h2 className="text-xl font-medium mb-4">テンプレート編集</h2>
       <Editor
@@ -127,16 +127,16 @@ const EditorBox: React.FC = () => {
             e.preventDefault();
             navigate(TEMPLATE_PATH);
           }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl mr-4 text-lg text-white font-medium bg-orangeGradation"
+          className="rounded-xl px-6 py-2 drop-shadow-xl mr-4 text-lg text-white font-medium bg-grayGradation"
         >
-          {"選び直す"}
+          {"戻る"}
         </button>
         <button
           onClick={(e) => {
             e.preventDefault();
             navigate(PREVIEW_PATH);
           }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
         >
           {"プレビュー"}
         </button>
