@@ -40,11 +40,11 @@ code {
 
 /* footer */
 footer {
-  margin-top: auto;
-  width: 100%;
+  /* margin-top: auto;
+  width: 100%; */
   /*追加*/
-  position: absolute;
-  bottom: 0;
+  /* position: absolute;
+  bottom: 0; */
 }
 .footer {
   background: #f5f5f5;

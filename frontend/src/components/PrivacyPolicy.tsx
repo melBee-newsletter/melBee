@@ -6,7 +6,7 @@ type Props = {
 
 const PrivacyPolicy: React.FC<Props> = ({ displayPP }) => {
   return (
-    <div className="rounded-xl absolute top-[50%] bottom-0 left-0 right-0 m-auto w-4/6 bg-gray-50 p-6 h-[500px] overflow-y-auto drop-shadow-xl z-50">
+    <div className="rounded-xl absolute top-0 lg:top-[50%] bottom-0 left-0 right-0 m-auto w-4/6 bg-gray-50 p-6 h-[500px] overflow-y-auto drop-shadow-xl z-50">
       <div>
         <h2 className="font-bold mb-4">プライバシーポリシー</h2>
         <div className="text-left">
