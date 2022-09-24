@@ -34,7 +34,7 @@ function Landing() {
       <main className="main_top before:invisible after:invisible md:before:visible md:after:visible">
         <div className="mv mainMiddle_top before:invisible md:before:visible">
           <div className="lg:flex lg:justify-center">
-            <div className="lg:flex contentL_top lg:justify-between lg:items-center">
+            <div className="w-screen pr-5 lg:w-[670px] lg:flex contentL_top lg:justify-between lg:items-center">
               <div>
                 <h2 className="mainTtl text-left font-bold">
                   想い<span className="font-light text-7xl">を</span>
