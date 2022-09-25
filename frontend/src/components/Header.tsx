@@ -12,7 +12,7 @@ const Header: FC = () => {
   const isLoggedIn = true ? session != null : false;
   const logoLink = isLoggedIn ? "/user" : "/";
 
-  const handleLogout = async (e: clickEvent) => {
+  const handleLogout = (e: clickEvent) => {
     e.preventDefault();
     sessionStorage.removeItem("isLoggedIn");
     sessionStorage.removeItem("melbeeID");
