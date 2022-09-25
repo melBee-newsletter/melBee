@@ -22,7 +22,7 @@ const Profile: React.FC<Props> = ({
 
   const handleExpand = (e: clickEvent) => {
     e.preventDefault();
-    setExpand({ profile: !expand });
+    setExpand({ marketingTool: !expand });
   };
 
   useEffect(() => {
