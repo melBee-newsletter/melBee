@@ -28,23 +28,3 @@ export const checkEmail = async (email: string) => {
 
     return emailFound;
 };
-
-/**
- * TEMPLATES
- */
-
-/**
- * Seed template when app loaded
- * @returns 
- */
- export const seedTemplate = async () => {
-  axios({
-    method: "post",
-    url: `${BASE_URL}/template/seed`,
-    data: "tomatoTest",
-  })
-  .catch((err: AxiosError<{ error: string }>) => {
-    console.log(err.response!.data);
-  });
-  return true;
-};

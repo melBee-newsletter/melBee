@@ -4,7 +4,7 @@ import Template from "./Template";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { template } from "../../../type";
-import { getMelbeeTemplates, getMyTemplates, deleteMyTemplate } from "../api";
+import { seedTemplate, getMelbeeTemplates, getMyTemplates, deleteMyTemplate } from "../api";
 import { clickEvent } from "../../../type";
 
 type Props = {
@@ -17,6 +17,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
+  
   const [melBeeTemplates, setMelBeeTemplates] = useState<template[]>([]);
   const [myTemplates, setMyTemplates] = useState<template[]>([]);
   const [selectMy, SetSelectMy] = useState<number | null>(null);
@@ -30,6 +31,15 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   useEffect(() => {
     !expand ? setDirection(DOWN) : setDirection(UP);
   }, [expand]);
+
+  useEffect(() => {
+    (async function () {
+      await getMelbeeTemplates(1)
+      .then((res) => {
+        if (!res[0].id) seedTemplate();
+      });
+    })();
+  }, []);
 
   useEffect(() => {
     (async function getAllTemplates() {
