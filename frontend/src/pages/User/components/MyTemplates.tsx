@@ -89,19 +89,22 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   }, [selectMb]);
 
   const handleRemove = async (i: number) => {
+    const confirmDelete = window.confirm("保存テンプレートを削除しますか？");
     const templateId = myTemplates[i].id;
-    await deleteMyTemplate(templateId)
-    .then((deleteSuccess) => {
-      if (deleteSuccess) {
-        (async function () {
-          const allMyTemplates = await getMyTemplates();
-          setMyTemplates(allMyTemplates);
-          alert("テンプレートが削除されました。")
-        })();
-      } else {
-        alert("エラーが生じました。再度お試しください。");
-      }
-    });
+    if (confirmDelete) {
+      await deleteMyTemplate(templateId)
+      .then((deleteSuccess) => {
+        if (deleteSuccess) {
+          (async function () {
+            const allMyTemplates = await getMyTemplates();
+            setMyTemplates(allMyTemplates);
+            alert("テンプレートが削除されました。")
+          })();
+        } else {
+          alert("エラーが生じました。再度お試しください。");
+        }
+      });
+    };
   };
 
   return (
