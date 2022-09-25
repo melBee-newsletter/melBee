@@ -50,7 +50,7 @@ const Signup: React.FC<Props> = ({ email }) => {
           </label>
           <input
             type="email"
-            value={email}
+            defaultValue={email}
             className="border-solid border border-gray-300 p-1"
             name=""
             placeholder="youremail@example.com"
