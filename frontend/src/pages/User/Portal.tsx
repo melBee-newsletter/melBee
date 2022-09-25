@@ -3,6 +3,7 @@ import MyTemplates from "./components/MyTemplates";
 import ContactList from "./components/ContactList";
 import SentHistory from "./components/SentHistory";
 import Profile from "./components/Profile";
+import Loading from "../../components/Loading";
 import "../../components/header.css";
 import { portalMessage } from "./components/portalMessage";
 import { expand } from "../../type";
@@ -30,6 +31,7 @@ const Portal: React.FC<Props> = ({
     contact: false,
     history: false,
   });
+  const [loading, setLoading] = useState<boolean>(true);
   const [showLimit, setShowLimit] = useState<boolean>(false);
   const [todayMessage, setTodayMessage] = useState<string>("");
 
@@ -38,11 +40,13 @@ const Portal: React.FC<Props> = ({
     setTodayMessage(portalMessage[messageIndex]);
     setTimeout(() => {
       setShowLimit(true);
-    }, 800);
+      setLoading(false);
+    }, 1200);
   }, []);
 
   return (
     <>
+      {loading ? <Loading word={"L O A D I N G"} /> :
       <div className="portalContent pt-20 mb-40">
         <div className="flex justify-between mb-6">
           <div className="text-left">
@@ -85,7 +89,7 @@ const Portal: React.FC<Props> = ({
           analytics={analytics}
           setAnalytics={setAnalytics}
         />
-      </div>
+      </div>}
     </>
   );
 };

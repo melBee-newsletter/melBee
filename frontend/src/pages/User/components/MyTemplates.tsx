@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Template from "./Template";
-import Loading from "../../../components/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { template } from "../../../type";
@@ -22,9 +21,6 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   const [myTemplates, setMyTemplates] = useState<template[]>([]);
   const [selectMy, SetSelectMy] = useState<number | null>(null);
   const [selectMb, SetSelectMb] = useState<number | null>(null);
-  const [fetchTemplate, setFetchTemplate] = useState<boolean>(false);
-  const [display, setDisplay] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
 
   const handleExpand = (e: clickEvent) => {
     e.preventDefault();
@@ -45,21 +41,8 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
     (async function () {
       const allMyTemplates = await getMyTemplates();
       setMyTemplates(allMyTemplates);
-      setFetchTemplate(true);
     })();
   }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setDisplay(true);
-    }, 1000);
-  }, [fetchTemplate]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-  }, [display]);
 
   useEffect(() => {
     const handleMyTemplate = (i: number) => {
@@ -99,8 +82,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   };
 
   return (
-    <>
-      {loading && <Loading word={"L O A D I N G"} />}
+    <div>
       <div className="justify-center sm:px-5 lg:px-10 py-6 mb-10 border rounded-lg drop-shadow-xl bg-white">
         <div
           className="flex justify-between cursor-pointer"
@@ -197,7 +179,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

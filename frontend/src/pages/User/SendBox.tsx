@@ -167,8 +167,9 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
   };
 
   return (
-    <>
-      {loading && <Loading word={"S E N D I N G"} />}
+    <div>
+      {loading ? <Loading word={"S E N D I N G"} /> :
+      <div>
       {sendComplete && (
         <SendComplete
           reachLimit={reachLimit}
@@ -214,19 +215,6 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
             })}
           </div>
           <div className="mb-8">
-            {/* <div className="flex text-xl">
-              <input
-                type="checkbox"
-                onChange={handleCheckAll}
-                disabled={!allEmails.length}
-              />
-              {!selectAll ? (
-                <p className="text-base ml-2">すべて選択</p>
-              ) : (
-                <p className="text-base ml-2">すべて解除</p>
-              )}
-            </div> */}
-
             <div>
               <p className="mb-2 text-left">
                 メールアドレスを新規登録したい方は、こちらからご入力いただけます。
@@ -269,7 +257,8 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
           </div>
         </div>
       )}
-    </>
+      </div>}
+    </div>
   );
 };
 
