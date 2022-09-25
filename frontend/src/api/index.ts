@@ -23,7 +23,6 @@ export const checkEmail = async (email: string) => {
         if (res.data["isUserSignnedUp"] === true) emailFound = true;
     })
     .catch((err: AxiosError<{ error: string }>) => {
-        console.log(err.response!.data);
     });
 
     return emailFound;

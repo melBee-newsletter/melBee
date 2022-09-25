@@ -26,7 +26,6 @@ export const getContacts = async () => {
     };
   })
   .catch((err: AxiosError<{ error: string }>) => {
-    console.log(err.response!.data);
   });
   return {subscribedContacts: subscribedContacts, unsubscribedContacts: unsubscribedContacts};
 };
@@ -52,7 +51,6 @@ export const addContacts = async (emails: string[]) => {
     newContacts = emails;
   })
   .catch((err: AxiosError<{ error: string }>) => {
-    console.log(err.response!.data);
   });
 
   return newContacts;
@@ -80,7 +78,6 @@ export const addContacts = async (emails: string[]) => {
   })
   .catch((err: AxiosError<{ error: string }>) => {
     addSuccess = false;
-    console.log(err.response!.data);
   });
 
   return addSuccess;
@@ -105,7 +102,6 @@ export const deleteContacts = async (emails: string[]) => {
     deleteSuccess = true;
   })
   .catch((err: AxiosError<{ error: string }>) => {
-    console.log(err.response!.data);
   });
   return deleteSuccess;
 }
@@ -130,7 +126,6 @@ export const sendEmail = async (emailBody: emailBody) => {
       sendComplete = true;
     })
   .catch((err: AxiosError<{ error: string }>) => {
-    console.log(err.response!.data);
   });
   return sendComplete;
 };
@@ -151,7 +146,6 @@ export const saveSentHistory = async (sentHistory: sentHistory) => {
     sentHistorySaved = true;
   })
   .catch((err: AxiosError<{ error: string }>) => {
-    console.log(err.response!.data);
   });
   return sentHistorySaved;
 };
@@ -173,7 +167,6 @@ export const getSentHistory = async () => {
     };
   })
   .catch((err: AxiosError<{ error: string }>) => {
-    console.log(err.response!.data);
   });
   return sentHistory;
 };
@@ -238,7 +231,6 @@ export const getMyTemplates = async () => {
     }
   })
   .catch((err: AxiosError<{ error: string }>) => {
-    console.log(err.response!.data);
   });
   return myTemplates;
 };
@@ -259,7 +251,6 @@ export const saveMyTemplate = async (templateToSave: templateToSave) => {
     templateSaved = true;
   })
   .catch((err: AxiosError<{ error: string }>) => {
-    console.log(err.response!.data);
   });
   return templateSaved;
 };
@@ -279,7 +270,6 @@ export const deleteMyTemplate = async (templateId: number) => {
     deleted = true;
   })
   .catch((err: AxiosError<{ error: string }>) => {
-    console.log(err.response!.data);
   });
   return deleted;
 };
@@ -297,6 +287,5 @@ export const getExernalInfo = async () => {
     let data = res.data;
   })
   .catch((err: AxiosError<{ error: string }>) => {
-    console.log(err.response!.data);
   });
 }
