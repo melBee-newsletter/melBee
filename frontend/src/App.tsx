@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import Landing from './pages/Landing';
@@ -8,19 +8,12 @@ import EditorBox from './pages/User/EditorBox';
 import PreviewBox from './pages/User/PreviewBox';
 import SendBox from './pages/User/SendBox';
 import Portal from './pages/User/Portal';
-import { seedTemplate } from "./api";
 
 function App() {
   const [analytics, setAnalytics] = useState<string>("");
   const [countSent, setCountSent] = useState<number>(0);
   const [reachLimit, setReachLimit] = useState<boolean>(false);
   const SEND_LIMIT = 5;
-
-  useEffect(() => {
-    (async function () {
-      await seedTemplate();
-    })();
-  }, []);
 
   useEffect(() => {
     if (countSent >= SEND_LIMIT) setReachLimit(true);

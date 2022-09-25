@@ -183,6 +183,22 @@ export const getSentHistory = async () => {
  */
 
 /**
+ * Seed template when app loaded
+ * @returns 
+ */
+ export const seedTemplate = async () => {
+  axios({
+    method: "post",
+    url: `${BASE_URL}/template/seed`,
+    data: "tomatoTest",
+  })
+  .catch((err: AxiosError<{ error: string }>) => {
+    console.log(err.response!.data);
+  });
+  return true;
+};
+
+/**
  * Get melBee's Original Templates
  * @param id 
  * @returns 

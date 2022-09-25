@@ -37,30 +37,6 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
     <div className="pt-24 mb-28">
       <h2 className="text-xl font-medium mb-1">プレビュー</h2>
       <p className="mb-5">送信前に内容をご確認ください</p>
-      {/* <div className="flex justify-end mx-auto mb-4">
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            navigate(EDIT_PATH);
-          }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation mr-4"
-        >
-          {"編集"}
-        </button>
-        {!reachLimit ? (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              navigate(SEND_PATH);
-            }}
-            className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
-          >
-            {"送信"}
-          </button>
-        ) : (
-          <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
-        )}
-      </div> */}
       <div
         dangerouslySetInnerHTML={{
           __html: localStorage.melBeeTempStoragedraft,

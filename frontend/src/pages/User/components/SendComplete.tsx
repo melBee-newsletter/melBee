@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import headerLogo from "../assets/logo.png";
 
 type Props = {
   reachLimit: boolean;
@@ -14,12 +13,6 @@ const SendComplete: React.FC<Props> = ({ reachLimit, setSendComplete }) => {
     <div className="bg-white py-24 mt-32 mb-28">
       <div className="">
         <div>
-          {/* <img
-            src={headerLogo}
-            alt="melbee-logo"
-            className="py-2 text-center"
-            width="200"
-          /> */}
           <p className="text-xl text-center mb-4">送信完了しました</p>
         </div>
       </div>
