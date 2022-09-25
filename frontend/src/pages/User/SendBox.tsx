@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import SendComplete from "./components/SendComplete";
 import { useNavigate } from "react-router-dom";
-import "../../sendbox.css";
+import "./sendbox.css";
 import {
   getContacts,
   addContact,
