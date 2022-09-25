@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 
-import Landing from './pages/Landing/Landing';
-import Unsubscribe from './pages/Unsubscribe/Unsubscribe';
+import Landing from './pages/Landing';
+import Unsubscribe from './pages/Unsubscribe';
 
-import User from './pages/User/User';
+import User from './pages/User';
 import EditorBox from './pages/User/EditorBox';
 import PreviewBox from './pages/User/PreviewBox';
 import SendBox from './pages/User/SendBox';
