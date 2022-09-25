@@ -5,7 +5,7 @@ import Loading from "../../../components/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { template } from "../../../type";
-import { getMelbeeTemplates, getMyTemplates, seedTemplate, deleteMyTemplate } from "../api";
+import { getMelbeeTemplates, getMyTemplates, deleteMyTemplate } from "../api";
 import { clickEvent } from "../../../type";
 
 type Props = {
@@ -22,7 +22,6 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   const [myTemplates, setMyTemplates] = useState<template[]>([]);
   const [selectMy, SetSelectMy] = useState<number | null>(null);
   const [selectMb, SetSelectMb] = useState<number | null>(null);
-  const [seedDone, setSeedDone] = useState<boolean>(false);
   const [fetchTemplate, setFetchTemplate] = useState<boolean>(false);
   const [display, setDisplay] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -37,14 +36,6 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   }, [expand]);
 
   useEffect(() => {
-    (async function () {
-      await seedTemplate().then((seeded) => {
-        setSeedDone(seeded);
-      });
-    })();
-  }, []);
-
-  useEffect(() => {
     (async function getAllTemplates() {
       const idToFetchAll = 0;
       const allTemplates = await getMelbeeTemplates(idToFetchAll);
@@ -56,7 +47,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
       setMyTemplates(allMyTemplates);
       setFetchTemplate(true);
     })();
-  }, [seedDone]);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
