@@ -260,3 +260,40 @@ export const saveMyTemplate = async (templateToSave: templateToSave) => {
   });
   return templateSaved;
 };
+
+/**
+ * Deleted selected myTemplate from database
+ * @param templateId 
+ * @returns 
+ */
+export const deleteMyTemplate = async (templateId: number) => {
+  let deleted = false;
+  await axios({
+    method: "delete",
+    url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template/${templateId}`,
+  })
+  .then((res: AxiosResponse) => {
+    deleted = true;
+  })
+  .catch((err: AxiosError<{ error: string }>) => {
+    console.log(err.response!.data);
+  });
+  return deleted;
+};
+
+/**
+ * MARKETING TOOLS
+ */
+
+export const getExernalInfo = async () => {
+  await axios({
+    method: "get",
+    url: `${BASE_URL}/user/${sessionStorage.melbeeID}/external_info`,
+  })
+  .then((res: AxiosResponse) => {
+    let data = res.data;
+  })
+  .catch((err: AxiosError<{ error: string }>) => {
+    console.log(err.response!.data);
+  });
+}

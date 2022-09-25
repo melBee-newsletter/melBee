@@ -5,7 +5,7 @@ import Loading from "../../../components/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { template } from "../../../type";
-import { getMelbeeTemplates, getMyTemplates, seedTemplate } from "../api";
+import { getMelbeeTemplates, getMyTemplates, seedTemplate, deleteMyTemplate } from "../api";
 import { clickEvent } from "../../../type";
 
 type Props = {
@@ -88,6 +88,25 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
     if (selectMb !== null) handleMelBeeTemplate(selectMb);
   }, [selectMb]);
 
+  const handleRemove = async (i: number) => {
+    const confirmDelete = window.confirm("保存テンプレートを削除しますか？");
+    const templateId = myTemplates[i].id;
+    if (confirmDelete) {
+      await deleteMyTemplate(templateId)
+      .then((deleteSuccess) => {
+        if (deleteSuccess) {
+          (async function () {
+            const allMyTemplates = await getMyTemplates();
+            setMyTemplates(allMyTemplates);
+            alert("テンプレートが削除されました。")
+          })();
+        } else {
+          alert("エラーが生じました。再度お試しください。");
+        }
+      });
+    };
+  };
+
   return (
     <>
       {loading && <Loading word={"L O A D I N G"} />}
@@ -132,16 +151,28 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
                     )}
                     {myTemplates.map((template, i) => {
                       return (
-                        <a
-                          key={`myTemp${i}`}
-                          className="mb-5 cursor-pointer"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            SetSelectMy(i);
-                          }}
-                        >
-                          <Template template={template} />
-                        </a>
+                        <div key={`myTemp${i}`} className="relative">
+                          <a
+                            className="mb-5 cursor-pointer"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              SetSelectMy(i);
+                            }}
+                          >
+                            <Template template={template} />
+                          </a>
+                          <button
+                            type="submit"
+                            value={i}
+                            onClick={(e: clickEvent) => {
+                              e.preventDefault();
+                              handleRemove(i);
+                            }}
+                            className="absolute top-3 right-1 rounded-xl px-2 text-sm text-white bg-redGradation"
+                          >
+                            削除
+                          </button>
+                        </div>
                       );
                     })}
                   </div>
@@ -155,16 +186,18 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
                 <div className="md:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
                   {melBeeTemplates.map((template, i) => {
                     return (
-                      <a
-                        className="mb-5 cursor-pointer"
-                        key={`mbTemp${i}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          SetSelectMb(i);
-                        }}
-                      >
-                        <Template template={template} />
-                      </a>
+                      <div key={`mbTemp${i}`}>
+                        <a
+                          className="mb-5 cursor-pointer"
+                          key={`mbTemp${i}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            SetSelectMb(i);
+                          }}
+                        >
+                          <Template template={template} />
+                        </a>
+                      </div>
                     );
                   })}
                 </div>

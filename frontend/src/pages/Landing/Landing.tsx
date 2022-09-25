@@ -74,7 +74,8 @@ function Landing() {
                         <form id="mailForm" onSubmit={handleSubmit}>
                           <input
                             type="email"
-                            value={email}
+                            autoComplete="email"
+                            defaultValue={email}
                             className="inputArea bg-gray-100 border-gray rounded lg:w-96"
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="youremail@example.com"
