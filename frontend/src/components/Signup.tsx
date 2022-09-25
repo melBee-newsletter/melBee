@@ -50,6 +50,7 @@ const Signup: React.FC<Props> = ({ email }) => {
           </label>
           <input
             type="email"
+            autoComplete="email"
             defaultValue={email}
             className="border-solid border border-gray-300 p-1"
             name=""
@@ -64,6 +65,7 @@ const Signup: React.FC<Props> = ({ email }) => {
           <input
             className="border-solid border border-gray-300 p-1 bg-gray-100 focus:bg-white"
             type="password"
+            autoComplete="new-password"
             name=""
             id="password_signup"
           />

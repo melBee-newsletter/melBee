@@ -47,6 +47,7 @@ const Login: React.FC<Props> = ({ email }) => {
           </label>
           <input
             type="email"
+            autoComplete="email"
             className="border-solid border border-gray-300 p-1"
             name=""
             defaultValue={email}
@@ -60,6 +61,7 @@ const Login: React.FC<Props> = ({ email }) => {
           </label>
           <input
             type="password"
+            autoComplete="current-password"
             className="border-solid border border-gray-300 p-1 bg-gray-100 focus:bg-white"
             name=""
             id="password"
