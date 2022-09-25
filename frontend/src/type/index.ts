@@ -15,11 +15,27 @@ export type clickEvent = {
  * USER PORTAL TYPES/INTERFACES
  */
 export interface expand {
-  profile: boolean;
+  marketingTool: boolean;
   contact: boolean;
   template: boolean;
   history: boolean;
   [key: string]: boolean;
+};
+
+/**
+ * TEMPLATES TYPES/INTERFACES
+ */
+ export interface templateToSave {
+  title: string,
+  thumbnail: string,
+  body: string,
+};
+
+export interface template {
+  title: string,
+  thumbnail: string,
+  body: string,
+  id: number,
 };
 
 /**
@@ -57,17 +73,10 @@ export type history = {
 };
 
 /**
- * TEMPLATES TYPES/INTERFACES
+ * MARKETING TOOL
  */
-export interface templateToSave {
-  title: string,
-  thumbnail: string,
-  body: string,
-};
-
-export interface template {
-  title: string,
-  thumbnail: string,
-  body: string,
-  id: number,
-};
+export type SNS = {
+  facebook: string;
+  instagram: string;
+  twitter: string;
+}

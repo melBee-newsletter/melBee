@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MyTemplates from "./components/MyTemplates";
 import ContactList from "./components/ContactList";
 import SentHistory from "./components/SentHistory";
-import Profile from "./components/Profile";
+import MarketingTool from "./components/MarketingTool";
 import Loading from "../../components/Loading";
 import "../../components/header.css";
 import { portalMessage } from "./components/portalMessage";
@@ -27,7 +27,7 @@ const Portal: React.FC<Props> = ({
 }) => {
   const [expand, setExpand] = useState<expand>({
     template: true,
-    profile: false,
+    marketingTool: false,
     contact: false,
     history: false,
   });
@@ -83,8 +83,8 @@ const Portal: React.FC<Props> = ({
           setCountSent={setCountSent}
         />
 
-        <Profile
-          expand={expand.profile}
+        <MarketingTool
+          expand={expand.marketingTool}
           setExpand={setExpand}
           analytics={analytics}
           setAnalytics={setAnalytics}
