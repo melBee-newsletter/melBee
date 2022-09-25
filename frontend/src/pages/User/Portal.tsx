@@ -45,7 +45,7 @@ const Portal: React.FC<Props> = ({
   }, []);
 
   return (
-    <>
+    <div>
       {loading ? <Loading word={"L O A D I N G"} /> :
       <div className="portalContent pt-20 mb-40">
         <div className="flex justify-between mb-6">
@@ -90,7 +90,7 @@ const Portal: React.FC<Props> = ({
           setAnalytics={setAnalytics}
         />
       </div>}
-    </>
+    </div>
   );
 };
 
