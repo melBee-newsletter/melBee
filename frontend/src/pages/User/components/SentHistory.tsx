@@ -12,11 +12,7 @@ type Props = {
   setCountSent: Function;
 };
 
-const SentHistory: React.FC<Props> = ({
-  expand,
-  setExpand,
-  setCountSent,
-}) => {
+const SentHistory: React.FC<Props> = ({ expand, setExpand, setCountSent }) => {
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
@@ -52,22 +48,24 @@ const SentHistory: React.FC<Props> = ({
         setCountSent((newCountSent += 1));
       }
     };
-    (async function allSentHistory(){
-      await getSentHistory()
-      .then((sentHistory) => {
+    (async function allSentHistory() {
+      await getSentHistory().then((sentHistory) => {
         sentHistory.map((history: history) => {
           setSentHistory((current) => [history, ...current]);
           setViewHistory((prevStat) => [...prevStat, false]);
           checkSentDate(history.date_sent);
         });
-      })
+      });
     })();
   }, []);
 
   return (
-    <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
-      <div className="flex justify-between font-medium" onClick={handleExpand}>
-        <h3 className="text-xl">送信履歴</h3>
+    <div className="justify-center mb-10 md:px-5 lg:px-10 py-6 border rounded-lg drop-shadow-xl bg-white">
+      <div
+        className="flex justify-between cursor-pointer"
+        onClick={handleExpand}
+      >
+        <h3 className="text-xl font-medium">送信履歴</h3>
         <span className={direction}>
           <FontAwesomeIcon
             className="bg-yellow-200 rounded-lg p-1.5"
@@ -76,14 +74,14 @@ const SentHistory: React.FC<Props> = ({
         </span>
       </div>
       {expand && (
-        <div className="w-full mt-3">
+        <div className="mt-4">
           {sentHistory.length > 0 ? (
             <>
               {sentHistory.map((history, i) => {
                 return (
                   <div
                     key={`history${i}`}
-                    className="mb-4 pb-2 last:pb-0 last:mb-0 border-b-2 border-gray-100 last:border-b-0"
+                    className="mb-4 pb-2 last:pb-0 last:mb-0 border-b border-gray-100 last:border-b-0"
                   >
                     {
                       <History

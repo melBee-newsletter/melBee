@@ -19,29 +19,12 @@ const EditorBox: React.FC = () => {
   }, []);
 
   return (
-    <div className="">
+    <div className="pt-24 mb-28">
       {loading && <Loading word={"L O A D I N G"} />}
-      <div className="flex justify-end mb-4 px-20 pt-10">
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            navigate(TEMPLATE_PATH);
-          }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl mr-4 text-lg text-white font-medium bg-orangeGradation"
-        >
-          {"選び直す"}
-        </button>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            navigate(PREVIEW_PATH);
-          }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
-        >
-          {"プレビュー"}
-        </button>
-      </div>
-
+      <h2 className="text-xl font-medium mb-1">テンプレート編集</h2>
+      <p className="mb-5">
+        画像やテキスト、レイアウトのカスタマイズを行うことができます。
+      </p>
       <Editor
         apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
         onInit={(evt, editor) => (editorRef.current = editor)}
@@ -75,7 +58,7 @@ const EditorBox: React.FC = () => {
           toolbar_location: "auto",
           inline: false,
           statusbar: false,
-          width: "91.666667%",
+          width: "100%",
           height: "800",
           menubar: false,
           quickbars_insert_toolbar: "table | image",
@@ -141,6 +124,26 @@ const EditorBox: React.FC = () => {
           },
         }}
       ></Editor>
+      <div className="flex justify-center mb-4 mt-8">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(TEMPLATE_PATH);
+          }}
+          className="rounded-xl px-6 py-2 drop-shadow-xl mr-4 text-lg text-white font-medium bg-grayGradation"
+        >
+          {"< 戻る"}
+        </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(PREVIEW_PATH);
+          }}
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
+        >
+          {"プレビュー >"}
+        </button>
+      </div>
     </div>
   );
 };

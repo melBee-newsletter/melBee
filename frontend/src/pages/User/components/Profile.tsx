@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Event, clickEvent } from "../../../type";
- 
+
 type Props = {
   analytics: string;
   setAnalytics: Function;
@@ -51,9 +51,12 @@ const Profile: React.FC<Props> = ({
   };
 
   return (
-    <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
-      <div className="flex justify-between font-medium" onClick={handleExpand}>
-        <h3 className="text-xl">マーケティングツール</h3>
+    <div className="justify-center mb-10 md:px-5 lg:px-10  py-6 border rounded-lg drop-shadow-xl bg-white">
+      <div
+        className="flex justify-between cursor-pointer"
+        onClick={handleExpand}
+      >
+        <h3 className="text-xl font-medium">マーケティングツール</h3>
         <span className={direction}>
           <FontAwesomeIcon
             className="bg-yellow-200 rounded-lg p-1.5"
@@ -62,7 +65,7 @@ const Profile: React.FC<Props> = ({
         </span>
       </div>
       {expand && (
-        <div className="flex mt-3">
+        <div className="flex mt-4">
           <div>
             {analyticsEdit ? (
               <div>
@@ -76,9 +79,9 @@ const Profile: React.FC<Props> = ({
                 ></input>
                 <button
                   onClick={handleClick}
-                  className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+                  className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
                 >
-                  確定
+                  設定
                 </button>
               </div>
             ) : (

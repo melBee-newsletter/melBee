@@ -3,7 +3,13 @@ import Loading from "../../components/Loading";
 import SendComplete from "./components/SendComplete";
 import { useNavigate } from "react-router-dom";
 import "../../sendbox.css";
-import { getContacts, addContact, sendEmail, saveSentHistory, getSentHistory } from "./api"
+import {
+  getContacts,
+  addContact,
+  sendEmail,
+  saveSentHistory,
+  getSentHistory,
+} from "./api";
 import { clickEvent } from "../../type";
 
 type Props = {
@@ -18,7 +24,9 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
   const [allEmails, setAllEmails] = useState<string[]>([]);
   const [email, setEmail] = useState<string>("");
   const [receivers, setReceivers] = useState<string[]>([]);
-  const [isChecked, setIsChecked] = useState<boolean[]>(new Array(allEmails.length).fill(false));
+  const [isChecked, setIsChecked] = useState<boolean[]>(
+    new Array(allEmails.length).fill(false)
+  );
   const [selectAll, setSelectAll] = useState<boolean>(false);
   const [updateReceiver, setUpdateReceiver] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -30,12 +38,11 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
   useEffect(() => {
     if (analytics)
       TEMPLATE += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
-      (async function getAllContacts() {
-        await getContacts()
-        .then((res) => {
-          setAllEmails(res.subscribedContacts);
-          setIsChecked(new Array(res.subscribedContacts.length).fill(false));
-        })
+    (async function getAllContacts() {
+      await getContacts().then((res) => {
+        setAllEmails(res.subscribedContacts);
+        setIsChecked(new Array(res.subscribedContacts.length).fill(false));
+      });
     })();
     if (!localStorage.getItem("subject")) {
       localStorage.setItem("subject", subject);
@@ -48,7 +55,9 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
   };
 
   const handleCheck = (position: any | void) => {
-    const updateIsChecked = isChecked.map((stat, i) => i === position ? !stat : stat);
+    const updateIsChecked = isChecked.map((stat, i) =>
+      i === position ? !stat : stat
+    );
     setIsChecked(updateIsChecked);
     setUpdateReceiver(!updateReceiver);
   };
@@ -63,24 +72,34 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
   const handleAdd = async (e: clickEvent) => {
     e.preventDefault();
     if (email) {
-      await addContact(email)
-      .then((addSuccess) => {
+      await addContact(email).then((addSuccess) => {
         if (addSuccess) {
           setAllEmails((prevEmail) => [...prevEmail, email]);
           setIsChecked((prevStat) => [...prevStat, false]);
           setUpdateReceiver(!updateReceiver);
         } else {
-          alert("ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。");
-        };
-      })
+          alert(
+            "ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。"
+          );
+        }
+      });
       setEmail("");
     }
   };
 
   const displayEmailWithCheckbox = (email: string, i: number) => {
     return (
-      <div key={i} className="flex rounded-lg mr-3 px-3 py-1 h-fit text-base my-1">
-        <input type="checkbox" id={String(i)} checked={isChecked[i]} onChange={() => handleCheck(i)} className="mr-2" />
+      <div
+        key={i}
+        className="flex rounded-lg mr-3 px-3 py-1 h-fit text-base my-1"
+      >
+        <input
+          type="checkbox"
+          id={String(i)}
+          checked={isChecked[i]}
+          onChange={() => handleCheck(i)}
+          className="mr-2"
+        />
         <p>{email}</p>
       </div>
     );
@@ -104,44 +123,44 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
     if (receivers.length > 0) {
       setLoading(true);
       await sendEmail(emailBody)
-      .then((sendComplete) => {
-        setSendComplete(sendComplete);
-        setLoading(!sendComplete);
-      })
-      .then(async () => {
-        const sentHistory = {
-          subject: subject,
-          recipients: receivers.toString(),
-          template: TEMPLATE,
-          date_sent: DATE.toString(),
-          user_id: sessionStorage.melbeeID,
-        };
-        await saveSentHistory(sentHistory)
-      })
-      .then(async () => {
-        const sentHistory = await getSentHistory();
-        const TODAY = {
-          year: DATE.getFullYear(),
-          month: DATE.getMonth() + 1,
-          day: DATE.getDay(),
-        };
-
-        let newCountSent = 0;
-
-        const checkSentDate = (stringDate: string) => {
-          const sentDate = new Date(stringDate);
-          if (
-            sentDate.getFullYear() === TODAY.year &&
-            sentDate.getMonth() + 1 === TODAY.month &&
-            sentDate.getDay() === TODAY.day
-          ) {
-            setCountSent((newCountSent += 1));
+        .then((sendComplete) => {
+          setSendComplete(sendComplete);
+          setLoading(!sendComplete);
+        })
+        .then(async () => {
+          const sentHistory = {
+            subject: subject,
+            recipients: receivers.toString(),
+            template: TEMPLATE,
+            date_sent: DATE.toString(),
+            user_id: sessionStorage.melbeeID,
           };
-        };
-        for (let i = 0; i < sentHistory.length; i++) {
-          checkSentDate(sentHistory[i].date_sent);
-        };
-      })
+          await saveSentHistory(sentHistory);
+        })
+        .then(async () => {
+          const sentHistory = await getSentHistory();
+          const TODAY = {
+            year: DATE.getFullYear(),
+            month: DATE.getMonth() + 1,
+            day: DATE.getDay(),
+          };
+
+          let newCountSent = 0;
+
+          const checkSentDate = (stringDate: string) => {
+            const sentDate = new Date(stringDate);
+            if (
+              sentDate.getFullYear() === TODAY.year &&
+              sentDate.getMonth() + 1 === TODAY.month &&
+              sentDate.getDay() === TODAY.day
+            ) {
+              setCountSent((newCountSent += 1));
+            }
+          };
+          for (let i = 0; i < sentHistory.length; i++) {
+            checkSentDate(sentHistory[i].date_sent);
+          }
+        });
     } else {
       alert("送信先を選択してください");
     }
@@ -158,32 +177,44 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
       )}
       {reachLimit && !sendComplete && (
         <div className="flex justify-center">
-          <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
+          <p>申し訳ございません、本日の送信リミットに達しました。</p>
         </div>
       )}
       {!reachLimit && !sendComplete && (
-        <div className="sendArea pt-24 w-11/12 mx-auto ">
-          <div className="flex items-center justify-start pl-6">
-            <h3 className="text-xl mr-3">件名 :</h3>
+        <div className="sendArea pt-24 mx-auto mb-28">
+          <div className="mb-8">
+            <h2 className="text-xl font-bold mb-1">メールタイトルのご入力</h2>
+            <p className="mb-5">送信するメールのタイトルをご入力ください。</p>
             <input
               type="text"
-              placeholder="件名"
+              placeholder="メールタイトルの入力をしてください。"
               onChange={(e) => handleSubject(e.target.value)}
               id="subjectId"
               value={subject}
-              className="border rounded-lg p-2 text-lg sendTitle"
+              className="border rounded-lg p-2 text-lg sendTitle w-full"
             />
           </div>
-          <h3 className="text-xl mt-6 mb-2">
-            送信先メールアドレスをお選びください
-          </h3>
-          <div className="scroll flex flex-wrap border items-start rounded-xl my-3 px-3 py-1">
+          <h2 className="text-xl font-bold mb-1">メールアドレスの選択</h2>
+          <p className="mb-4">送信先メールアドレスを選択してください。</p>
+          <div className="flex text-xl pl-6">
+            <input
+              type="checkbox"
+              onChange={handleCheckAll}
+              disabled={!allEmails.length}
+            />
+            {!selectAll ? (
+              <p className="text-base ml-2">アドレスを全て選択</p>
+            ) : (
+              <p className="text-base ml-2">アドレスを全て解除</p>
+            )}
+          </div>
+          <div className="scroll flex flex-wrap border items-start rounded-xl mt-2 mb-4 px-3 py-1 bg-white">
             {allEmails.map((email, i) => {
               return displayEmailWithCheckbox(email, i);
             })}
           </div>
-          <div className="flex justify-between items-center">
-            <div className="flex text-xl">
+          <div className="mb-8">
+            {/* <div className="flex text-xl">
               <input
                 type="checkbox"
                 onChange={handleCheckAll}
@@ -194,26 +225,31 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
               ) : (
                 <p className="text-base ml-2">すべて解除</p>
               )}
-            </div>
+            </div> */}
 
-            <div className="">
-              <form onSubmit={handleAdd}>
-                <input
-                  className="border rounded-lg p-2 text-base"
-                  type="email"
-                  value={email}
-                  placeholder="メールアドレス"
-                  onChange={(e) => setEmail(e.target.value)}
-                  style={{ width: 350 }}
-                />
-                <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-3 w-28">
-                  {" "}
-                  追加{" "}
-                </button>
-              </form>
+            <div>
+              <p className="mb-2 text-left">
+                メールアドレスを新規登録したい方は、こちらからご入力いただけます。
+              </p>
+              <div className="text-left">
+                <form onSubmit={handleAdd}>
+                  <input
+                    className="border rounded-lg p-2 text-base w-3/6"
+                    type="email"
+                    value={email}
+                    placeholder="新規メールアドレスの登録はこちらから"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2 w-28">
+                    {" "}
+                    追加{" "}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
-          <div className="flex justify-end mt-6 text-lg">
+
+          <div className="flex justify-center mt-8">
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -226,7 +262,7 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
             <button
               type="submit"
               onClick={handleSend}
-              className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-3 w-36"
+              className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-3 w-28"
             >
               送信
             </button>

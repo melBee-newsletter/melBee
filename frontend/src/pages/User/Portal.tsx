@@ -42,16 +42,17 @@ const Portal: React.FC<Props> = ({
   }, []);
 
   return (
-    <main className="App-header">
-      <div className="w-11/12 mx-auto portalContent">
+    <>
+      <div className="portalContent pt-20 mb-40">
         <div className="flex justify-between mb-6">
           <div className="text-left">
-            <h2 className="font-bold text-4xl">
+            <h2 className="font-bold lg:text-3xl sm:text-[1.6rem]">
               melBeeへようこそ!
-              <br />
-              {showLimit && <span className="text-2xl">{todayMessage}</span>}
             </h2>
-            <div className="mt-2">
+            {showLimit && (
+              <p className="lg:mt-1 lg:text-lg font-bold">{todayMessage}</p>
+            )}
+            <p className="mt-2 sm:text-sm">
               {!showLimit ? (
                 <p className="my-4"> </p>
               ) : !reachLimit ? (
@@ -64,7 +65,7 @@ const Portal: React.FC<Props> = ({
                   本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。
                 </span>
               )}
-            </div>
+            </p>
           </div>
         </div>
 
@@ -85,7 +86,7 @@ const Portal: React.FC<Props> = ({
           setAnalytics={setAnalytics}
         />
       </div>
-    </main>
+    </>
   );
 };
 

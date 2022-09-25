@@ -20,16 +20,15 @@ const User: React.FC<Props> = ({ displayComponent }) => {
 
       <main className="App-header">
         {isLoggedIn && (
-          <div className="primaryContents w-11/12 mx-auto bg-gray-50 pt-24">
-            <div className="secondaryContents">{displayComponent}</div>
+          <div className="primaryContents w-10/12 mx-auto bg-gray-50">
+            <div className="secondaryContents w-10/12 mx-auto">
+              {displayComponent}
+            </div>
           </div>
         )}
         {!isLoggedIn && <NotLoggedIn />}
       </main>
-
-      <footer className="w-full">
-        <Footer />
-      </footer>
+      <Footer />
     </div>
   );
 };

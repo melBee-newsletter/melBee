@@ -20,23 +20,23 @@ const Signup: React.FC<Props> = ({ email }) => {
     if (!email) alert("eメールを設定してください");
     if (!password) alert("パスワードを設定してください");
     if (email && password) {
-    axios({
-      method: "post",
-      url: `${BASE_URL}/user/signup`,
-      data: {
-        email: email,
-        password: password,
-      },
-    })
-    .then((res: AxiosResponse) => {
-      sessionStorage.setItem("melbeeID", res.data.id);
-      sessionStorage.setItem("isLoggedIn", "true");
-      navigate(USER_PORTAL);
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-      window.confirm("パスワードが入力されていません。");
-      console.log(err.response!.data);
-    });
+      axios({
+        method: "post",
+        url: `${BASE_URL}/user/signup`,
+        data: {
+          email: email,
+          password: password,
+        },
+      })
+        .then((res: AxiosResponse) => {
+          sessionStorage.setItem("melbeeID", res.data.id);
+          sessionStorage.setItem("isLoggedIn", "true");
+          navigate(USER_PORTAL);
+        })
+        .catch((err: AxiosError<{ error: string }>) => {
+          window.confirm("パスワードが入力されていません。");
+          console.log(err.response!.data);
+        });
     }
   };
 
@@ -70,7 +70,7 @@ const Signup: React.FC<Props> = ({ email }) => {
         </div>
         <input
           type="button"
-          className="rounded-xl px-4 py-2 drop-shadow-xl text-white font-medium bg-orangeGradation mt-6 text-sm"
+          className="rounded-xl px-4 py-2 drop-shadow-xl text-white font-medium bg-blueGradation mt-6 text-sm"
           value="新規登録"
           onClick={handleSubmit}
         ></input>
