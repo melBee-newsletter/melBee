@@ -51,7 +51,7 @@ const EditorBox: React.FC = () => {
             convert_fonts_to_spans: true,
             fontsize_formats: "8pt,10pt,12pt,14pt,18pt,24pt,36pt",
             skin: "snow",
-            icons: "thin",
+            // icons: "thin", //uncommented this line due to unable to GET icons
             image_title: true,
             automatic_uploads: true,
             file_picker_types: "image",
