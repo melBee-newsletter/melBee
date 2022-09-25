@@ -216,7 +216,6 @@ export const getMelbeeTemplates = async (id: number) => {
     }
   })
   .catch((err: AxiosError<{ error: string }>) => {
-    console.log(err.response!.data);
   });
 
   return melbeeTemplates;
