@@ -151,9 +151,8 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
                     )}
                     {myTemplates.map((template, i) => {
                       return (
-                        <div className="relative">
+                        <div key={`myTemp${i}`} className="relative">
                           <a
-                            key={`myTemp${i}`}
                             className="mb-5 cursor-pointer"
                             onClick={(e) => {
                               e.preventDefault();
@@ -187,16 +186,18 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
                 <div className="md:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
                   {melBeeTemplates.map((template, i) => {
                     return (
-                      <a
-                        className="mb-5 cursor-pointer"
-                        key={`mbTemp${i}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          SetSelectMb(i);
-                        }}
-                      >
-                        <Template template={template} />
-                      </a>
+                      <div key={`mbTemp${i}`}>
+                        <a
+                          className="mb-5 cursor-pointer"
+                          key={`mbTemp${i}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            SetSelectMb(i);
+                          }}
+                        >
+                          <Template template={template} />
+                        </a>
+                      </div>
                     );
                   })}
                 </div>
