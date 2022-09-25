@@ -34,8 +34,7 @@ const Signup: React.FC<Props> = ({ email }) => {
           navigate(USER_PORTAL);
         })
         .catch((err: AxiosError<{ error: string }>) => {
-          window.confirm("パスワードが入力されていません。");
-          console.log(err.response!.data);
+          window.alert("パスワードが入力されていません。");
         });
     }
   };

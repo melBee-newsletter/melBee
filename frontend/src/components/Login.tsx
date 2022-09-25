@@ -32,8 +32,7 @@ const Login: React.FC<Props> = ({ email }) => {
         navigate(USER_PORTAL);
       })
       .catch((err: AxiosError<{ error: string }>) => {
-        window.confirm("メールアドレスとパスワードがマッチしません。");
-        console.log(err.response!.data);
+        window.alert("メールアドレスとパスワードがマッチしません。");
       });
   };
 

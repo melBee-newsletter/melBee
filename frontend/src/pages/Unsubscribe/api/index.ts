@@ -1,7 +1,12 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 
-
+/**
+ * Validate that entered unsubscribe path exists
+ * @param user_id 
+ * @param id 
+ * @returns 
+ */
 export const validateUserContact = async (user_id: number, id: number) => {
     let isValid = false;
     await axios ({
@@ -14,7 +19,6 @@ export const validateUserContact = async (user_id: number, id: number) => {
     }).then((res: AxiosResponse) => {
         isValid = res.data.isContactAdded;
     }).catch((err: AxiosError<{ error: string }>) => {
-        console.log(err.response!.data);
     });
     return isValid;
 };
@@ -41,7 +45,6 @@ export const unsubscribeContact = async (user_id: number, receiver_id: number, r
         status = true;
     })
     .catch((err: AxiosError<{ error: string }>) => {
-        console.log(err.response!.data);
     });
     return status;
 };
@@ -64,6 +67,5 @@ export const sendUnsubscribeNotification = (email: string, allGivenReasons: stri
         data: data,
     })
     .catch((err: AxiosError<{ error: string }>) => {
-        console.log(err.response!.data);
     });
 };
