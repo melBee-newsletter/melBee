@@ -15,7 +15,7 @@ export type clickEvent = {
  * USER PORTAL TYPES/INTERFACES
  */
 export interface expand {
-  profile: boolean;
+  marketingTool: boolean;
   contact: boolean;
   template: boolean;
   history: boolean;
