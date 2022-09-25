@@ -23,6 +23,22 @@ export interface expand {
 };
 
 /**
+ * TEMPLATES TYPES/INTERFACES
+ */
+ export interface templateToSave {
+  title: string,
+  thumbnail: string,
+  body: string,
+};
+
+export interface template {
+  title: string,
+  thumbnail: string,
+  body: string,
+  id: number,
+};
+
+/**
  * CONTACT LIST TYPES/INTERFACES
  */
 export interface contact{
@@ -57,17 +73,10 @@ export type history = {
 };
 
 /**
- * TEMPLATES TYPES/INTERFACES
+ * MARKETING TOOL
  */
-export interface templateToSave {
-  title: string,
-  thumbnail: string,
-  body: string,
-};
-
-export interface template {
-  title: string,
-  thumbnail: string,
-  body: string,
-  id: number,
-};
+export type SNS = {
+  facebook: string;
+  instagram: string;
+  twitter: string;
+}
