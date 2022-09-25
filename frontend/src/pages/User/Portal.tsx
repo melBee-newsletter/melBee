@@ -52,7 +52,7 @@ const Portal: React.FC<Props> = ({
             {showLimit && (
               <p className="lg:mt-1 lg:text-lg font-bold">{todayMessage}</p>
             )}
-            <p className="mt-2 sm:text-sm">
+            <div className="mt-2 sm:text-sm">
               {!showLimit ? (
                 <p className="my-4"> </p>
               ) : !reachLimit ? (
@@ -65,7 +65,7 @@ const Portal: React.FC<Props> = ({
                   本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。
                 </span>
               )}
-            </p>
+            </div>
           </div>
         </div>
 
