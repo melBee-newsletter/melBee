@@ -4,12 +4,20 @@ import headerLogo from "../assets/logo-no-text.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faDoorOpen } from "@fortawesome/free-solid-svg-icons";
+import { clickEvent } from "../type";
 
 const Header: FC = () => {
   const navigate = useNavigate();
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
   const logoLink = isLoggedIn ? "/user" : "/";
+
+  const handleLogout = async (e: clickEvent) => {
+    e.preventDefault();
+    sessionStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("melbeeID");
+    navigate("/");
+  };
 
   return (
     <div className="header drop-shadow-md py-1 w-screen md:w-full fixed">
@@ -52,13 +60,7 @@ const Header: FC = () => {
                   <a
                     className="block transition hover"
                     href="/"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      sessionStorage.removeItem("isLoggedIn");
-                      sessionStorage.removeItem("melbeeID");
-                      alert("ログアウトされました");
-                      navigate("/");
-                    }}
+                    onClick={handleLogout}
                   >
                     <FontAwesomeIcon
                       className="text-gray-800 h-[28px] md:h-[32px] md:w-[36px]"
