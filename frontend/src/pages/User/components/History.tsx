@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { history } from "../../../type";
 
 type Props = {
@@ -14,6 +14,8 @@ const History: React.FC<Props> = ({
   viewHistory,
   setViewHistory,
 }) => {
+  const [recipients, setRecipents] = useState<string[]>([]);
+
   const convertDate = (stringDate: string) => {
     const test = new Date(stringDate);
     const year = test.getFullYear();
@@ -25,6 +27,11 @@ const History: React.FC<Props> = ({
       <span className="font-bold">{`${year}年${month}月${date}日 ${hour}時${min}分`}</span>
     );
   };
+
+  useEffect(() =>{
+    const splitRecipients = history.recipients.split(",");
+    setRecipents(splitRecipients);
+  }, []);
 
   const handleView = (position: number) => {
     const updateView = viewHistory.map((stat, i) =>
@@ -78,10 +85,10 @@ const History: React.FC<Props> = ({
                 <li className="text-left lg:flex">
                   送信先:{" "}
                   <ul className="flex flex-wrap leading-tight">
-                    {JSON.parse(history.recipients).map(
+                    {recipients.map(
                       (email: string, i: number) => {
                         return (
-                          <li key={`email${i}`} className=" mb-2 ml-2">
+                          <li key={`email${i}`} className="mb-2 ml-2">
                             <p>{email}</p>
                           </li>
                         );
