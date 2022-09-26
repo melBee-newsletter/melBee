@@ -6,7 +6,10 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { template, clickEvent, Props } from "../../../type";
 import { templateAPI } from "../api";
 
-const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => {
+const MyTemplates: React.FC<Props["portalExpand"]> = ({
+  expand,
+  setExpand,
+}) => {
   const navigate = useNavigate();
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
@@ -104,8 +107,8 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
             <div className="">
               {(myTemplates.length > 0 ||
                 localStorage.melBeeTempStoragedraft) && (
-                <div>
-                  <p className="mt-4 mb-7 font-bold">保存テンプレート</p>
+                <div className="md:mb-9">
+                  <p className="mt-4 mb-5 font-bold">保存テンプレート</p>
                   <div className="md:grid lg:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {localStorage.melBeeTempStoragedraft && (
                       <a
@@ -144,7 +147,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
                               e.preventDefault();
                               handleRemove(i);
                             }}
-                            className="px-2 py-1 text-sm rounded-xl text-white bg-redGradation deleteBtn mt-[-2px]"
+                            className="rounded-xl px-5 py-2 text-white text-sm text-white bg-redGradation"
                           >
                             削除
                           </button>
@@ -156,9 +159,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
               )}
 
               <div>
-                <p className="mt-5 mb-7 font-bold">
-                  melBeeオリジナル テンプレート
-                </p>
+                <p className="mb-5 font-bold">melBeeオリジナル テンプレート</p>
                 <div className="md:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
                   {melBeeTemplates.map((template, i) => {
                     return (
