@@ -64,7 +64,7 @@ const Landing: React.FC = () => {
               {!isLoggedIn && (
                 <div className="flex md:my-4 lg:my-0 text-base verticalText border-r border-slate-800 pr-4 invisible md:visible">
                   <p className="mb-3 text-base text-gray-500">
-                    ログインまたは無料で新規登録
+                    {t("ログインまたは無料で新規登録")}
                   </p>
                   <p className="text-base font-bold text-gray-600">
                     Let's get started with…

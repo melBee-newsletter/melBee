@@ -3,11 +3,13 @@ import { LogInForm } from "./Interfaces";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { clickEvent, Props } from "../type";
+import { useTranslation } from "react-i18next";
 
 const Login: React.FC<Props["email"]> = ({ email }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
   const USER_PORTAL = "/user";
+  const { t } = useTranslation();
 
   const handleSubmit = (e: clickEvent) => {
     const form: LogInForm | null = document.getElementById("login-form");
@@ -28,17 +30,17 @@ const Login: React.FC<Props["email"]> = ({ email }) => {
         navigate(USER_PORTAL);
       })
       .catch((err: AxiosError<{ error: string }>) => {
-        window.alert("メールアドレスとパスワードがマッチしません。");
+        window.alert(t("メールアドレスとパスワードがマッチしません。"));
       });
   };
 
   return (
     <div className="bg-white p-5 shadow-xl z-50 ml-6">
-      <h1 className="mb-5 ttl_top text-lg text-gray-700">ログイン</h1>
+      <h1 className="mb-5 ttl_top text-lg text-gray-700">{t("ログイン")}</h1>
       <form id="login-form">
         <div className="lg:flex mb-4">
           <label htmlFor="email" className="lg:w-52 text-base text-gray-700">
-            メールアドレス
+            {t("メールアドレス")}
           </label>
           <input
             type="email"
@@ -52,7 +54,7 @@ const Login: React.FC<Props["email"]> = ({ email }) => {
         </div>
         <div className="lg:flex">
           <label htmlFor="password" className="lg:w-52 text-base text-gray-700">
-            パスワード
+            {t("パスワード")}
           </label>
           <input
             type="password"

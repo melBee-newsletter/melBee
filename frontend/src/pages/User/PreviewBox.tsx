@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { templateAPI } from "./api";
 import { templateToSave, clickEvent, Props } from "../../type";
+import { useTranslation } from "react-i18next";
 
 const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
   const navigate = useNavigate();
   const EDIT_PATH = "/user/edit";
   const SEND_PATH = "/user/send";
-
   const [title, setTitle] = useState<string>("");
   const [saved, setSaved] = useState<boolean>(false);
-
+  const { t } = useTranslation();
+  
   const handleSave = async (e: clickEvent) => {
     e.preventDefault();
     if (title) {
@@ -30,8 +31,8 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
 
   return (
     <div className="pt-24 mb-28">
-      <h2 className="text-xl font-medium mb-1">プレビュー</h2>
-      <p className="mb-5">送信前に内容をご確認ください</p>
+      <h2 className="text-xl font-medium mb-1">{t("プレビュー")}</h2>
+      <p className="mb-5">{t("送信前に内容をご確認ください")}</p>
       <div
         dangerouslySetInnerHTML={{
           __html: localStorage.melBeeTempStoragedraft,
@@ -45,7 +46,7 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
           }}
           className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-grayGradation"
         >
-          {"< テンプレート編集"}
+          {t("< テンプレート編集")}
         </button>
         {!reachLimit ? (
           <button
@@ -55,11 +56,11 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
             }}
             className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-6"
           >
-            {"送信画面 >"}
+            {t("送信画面 >")}
           </button>
         ) : (
           <p className="ml-6">
-            申し訳ございません、本日の送信リミットに達しました。
+            {t("申し訳ございません、本日の送信リミットに達しました。")}
           </p>
         )}
       </div>
@@ -68,15 +69,15 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
           <form onSubmit={handleSave}>
             <label className="text-left leading-loose">
               <span className="text-lg font-bold mb-2">
-                作成テンプレートタイトル
+               {t("作成テンプレートタイトル")}
               </span>
               <br />
               <span className="text-base">
-                作成したテンプレートは保存可能です。
+                {t("作成したテンプレートは保存可能です。")}
               </span>
               <input
                 type="text"
-                placeholder="タイトル（２０文字まで）"
+                placeholder={t("タイトル（２０文字まで）")}
                 maxLength={20}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -84,14 +85,14 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
               />
             </label>
             <p className="text-sm attention mt-1 mb-8 text-left">
-              ※ただし、ログアウト・画面を閉じると、下書きデータは削除されます。
+              {t("※ただし、ログアウト・画面を閉じると、下書きデータは削除されます。")}
             </p>
             <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation">
-              保存
+              {t("保存")}
             </button>
           </form>
         ) : (
-          <p>テンプレートが保存されました。</p>
+          <p>{t("テンプレートが保存されました。")}</p>
         )}
       </div>
     </div>

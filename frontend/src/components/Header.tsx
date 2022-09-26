@@ -70,8 +70,6 @@ const Header: React.FC = ({}) => {
             className="w-[38px] md:w-[45px]"
           />
         </a>
-
-        {isLoggedIn && (
           <>
             <nav className="mr-5">
               <ul className="flex items-end py-1 navArea">
@@ -107,14 +105,14 @@ const Header: React.FC = ({}) => {
                     </ul>
                   </div>
                 </div>
-
+                {isLoggedIn && ( <>
                 <li className="mr-5 relative group">
                   <span
                     className={[
                       "whitespace-nowrap rounded-lg bg-slate-800 px-2 py-1 text-white absolute opacity-0 group-hover:opacity-100 absolute top-10 left-1/2 -translate-x-1/2 before:content-[''] before:absolute before:-translate-x-1/2 before:left-1/2 before:bottom-full before:border-4 before:border-transparent before:border-b-slate-800 text-sm",
                     ].join()}
                   >
-                    登録情報
+                    {t("登録情報")}
                     <div></div>
                   </span>
                   <a className="block transition hover" href="/user">
@@ -130,7 +128,7 @@ const Header: React.FC = ({}) => {
                       "whitespace-nowrap rounded-lg bg-slate-800 px-2 py-1 text-white absolute opacity-0 group-hover:opacity-100 absolute top-10 left-1/2 -translate-x-1/2 before:content-[''] before:absolute before:-translate-x-1/2 before:left-1/2 before:bottom-full before:border-4 before:border-transparent before:border-b-slate-800 text-sm",
                     ].join()}
                   >
-                    ログアウト
+                    {t("ログアウト")}
                   </span>
                   <a
                     className="block transition hover"
@@ -143,10 +141,12 @@ const Header: React.FC = ({}) => {
                     />
                   </a>
                 </li>
+                </>
+                )}
               </ul>
             </nav>
           </>
-        )}
+        
       </div>
     </div>
   );
