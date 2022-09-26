@@ -7,6 +7,7 @@ import {
   faInstagram,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   analytics: string;
@@ -29,6 +30,8 @@ const Profile: React.FC<Props> = ({
     e.preventDefault();
     setExpand({ marketingTool: !expand });
   };
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     !expand ? setDirection(DOWN) : setDirection(UP);
@@ -85,7 +88,7 @@ const Profile: React.FC<Props> = ({
         className="flex justify-between cursor-pointer"
         onClick={handleExpand}
       >
-        <p className="text-xl font-medium">マーケティングツール</p>
+        <p className="text-xl font-medium">{t("マーケティングツール")}</p>
         <span className={direction}>
           <FontAwesomeIcon
             className="bg-yellow-200 rounded-lg p-1.5"
@@ -104,19 +107,19 @@ const Profile: React.FC<Props> = ({
                       htmlFor="analyticsTag"
                       className="w-[250px] text-left cursor-pointer align-middle"
                     >
-                      Analyticsタグの設定
+                      {t("Analyticsタグの設定")}
                     </label>
                     <input
                       type="text"
                       onChange={(e: Event) => setAnalytics(e.target.value)}
                       defaultValue={analytics}
-                      placeholder="Google Analyticsタグ"
+                      placeholder={t("Google Analyticsタグ")}
                       id="analyticsTag"
                       className="border rounded-lg p-2 w-full"
                     ></input>
                   </div>
                   <div>
-                    <p className="mb-2 text-left">SNSの設定</p>
+                    <p className="mb-2 text-left">{t("SNSの設定")}</p>
                     <ul className="mb-6">
                       <li className="text-left mb-3 flex justify-between items-center">
                         {" "}
@@ -138,7 +141,7 @@ const Profile: React.FC<Props> = ({
                           onChange={(e: Event) =>
                             (SNS.facebook = e.target.value)
                           }
-                          placeholder="アカウント名"
+                          placeholder={t("アカウント名")}
                           id="facebook"
                           className="border rounded-lg p-2 w-full"
                         ></input>
@@ -163,7 +166,7 @@ const Profile: React.FC<Props> = ({
                           onChange={(e: Event) =>
                             (SNS.twitter = e.target.value)
                           }
-                          placeholder="アカウント名"
+                          placeholder={t("アカウント名")}
                           id="twitter"
                           className="border rounded-lg p-2 w-full"
                         ></input>
@@ -188,7 +191,7 @@ const Profile: React.FC<Props> = ({
                           onChange={(e: Event) =>
                             (SNS.instagram = e.target.value)
                           }
-                          placeholder="アカウント名"
+                          placeholder={t("アカウント名")}
                           id="instagram"
                           className="border rounded-lg p-2 w-full"
                         ></input>
@@ -227,12 +230,14 @@ const Profile: React.FC<Props> = ({
               <div className="text-left">
                 {/* <h3 className="mt-4 mb-2 font-bold">Google Analytics</h3> */}
                 {analytics ? (
-                  <p className="mb-6">Analyticsタグの設定 {analytics}</p>
+                  <p className="mb-6">
+                    {t("Analyticsタグの設定")} {analytics}
+                  </p>
                 ) : (
-                  <p className="mb-6">Analyticsタグの設定 未設定</p>
+                  <p className="mb-6">{t("Analyticsタグの設定 未設定")}</p>
                 )}
 
-                <p className="mb-2">SNSの設定</p>
+                <p className="mb-2">{t("SNSの設定")}</p>
                 <p className="mb-3">
                   <span className="mr-2">
                     <FontAwesomeIcon
@@ -249,7 +254,7 @@ const Profile: React.FC<Props> = ({
                       <span>facebook.com/{SNS.facebook}</span>
                     </a>
                   ) : (
-                    <span>未設定</span>
+                    <span>{t("未設定")}</span>
                   )}
                 </p>
 
@@ -269,7 +274,7 @@ const Profile: React.FC<Props> = ({
                       <span>twitter.com/{SNS.twitter}</span>
                     </a>
                   ) : (
-                    <span>未設定</span>
+                    <span>{t("未設定")}</span>
                   )}
                 </p>
 
@@ -289,13 +294,13 @@ const Profile: React.FC<Props> = ({
                       <span>instagram.com/{SNS.instagram}</span>
                     </a>
                   ) : (
-                    <span>未設定</span>
+                    <span>{t("未設定")}</span>
                   )}
                 </p>
 
                 {/* <h3 className="mt-4 mb-2 font-bold">ホームページ</h3> */}
                 <p>
-                  <span className="mr-1">ホームページを設定する</span>
+                  <span className="mr-1">{t("ホームページを設定する")}</span>
                   {homepage ? (
                     <a
                       href={`http://${homepage}`}
@@ -314,7 +319,7 @@ const Profile: React.FC<Props> = ({
                     className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
                     onClick={enableEdit}
                   >
-                    編集
+                    {t("編集")}
                   </button>
                 </div>
               </div>
