@@ -5,8 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { template, clickEvent, Props } from "../../../type";
 import { templateAPI } from "../api";
+import { useTranslation } from "react-i18next";
 
-const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => {
+const MyTemplates: React.FC<Props["portalExpand"]> = ({
+  expand,
+  setExpand,
+}) => {
   const navigate = useNavigate();
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
@@ -16,6 +20,8 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
   const [myTemplates, setMyTemplates] = useState<template[]>([]);
   const [selectMy, SetSelectMy] = useState<number | null>(null);
   const [selectMb, SetSelectMb] = useState<number | null>(null);
+
+  const { t } = useTranslation();
 
   const handleExpand = (e: clickEvent) => {
     e.preventDefault();
@@ -66,7 +72,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
   }, [selectMb]);
 
   const handleRemove = async (i: number) => {
-    const confirmDelete = window.confirm("保存テンプレートを削除しますか？");
+    const confirmDelete = window.confirm(t("保存テンプレートを削除しますか？"));
     const templateId = myTemplates[i].id;
     if (confirmDelete) {
       await templateAPI.deleteMy(templateId).then((deleteSuccess) => {
@@ -74,10 +80,10 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
           (async function () {
             const allMyTemplates = await templateAPI.getMy();
             setMyTemplates(allMyTemplates);
-            alert("テンプレートが削除されました。");
+            alert(t("テンプレートが削除されました。"));
           })();
         } else {
-          alert("エラーが生じました。再度お試しください。");
+          alert(t("エラーが生じました。再度お試しください。"));
         }
       });
     }
@@ -90,7 +96,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
           className="flex justify-between cursor-pointer"
           onClick={handleExpand}
         >
-          <h3 className="text-xl font-medium">メールを作成</h3>
+          <h3 className="text-xl font-medium">{t("メールを作成")}</h3>
           <span className={direction}>
             {" "}
             <FontAwesomeIcon
@@ -105,7 +111,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
               {(myTemplates.length > 0 ||
                 localStorage.melBeeTempStoragedraft) && (
                 <div>
-                  <p className="mt-4 mb-7 font-bold">保存テンプレート</p>
+                  <p className="mt-4 mb-7 font-bold">{t("保存テンプレート")}</p>
                   <div className="md:grid lg:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {localStorage.melBeeTempStoragedraft && (
                       <a
@@ -119,7 +125,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
                           template={{
                             id: NaN,
                             thumbnail: "",
-                            title: "下書き",
+                            title: t("下書き"),
                             body: localStorage.melBeeTempStoragedraft,
                           }}
                         />
@@ -146,7 +152,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
                             }}
                             className="px-2 py-1 text-sm rounded-xl text-white bg-redGradation deleteBtn mt-[-2px]"
                           >
-                            削除
+                            {t("削除")}
                           </button>
                         </div>
                       );
@@ -157,7 +163,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
 
               <div>
                 <p className="mt-5 mb-7 font-bold">
-                  melBeeオリジナル テンプレート
+                  {t("melBeeオリジナル テンプレート")}
                 </p>
                 <div className="md:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
                   {melBeeTemplates.map((template, i) => {

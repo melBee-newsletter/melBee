@@ -235,10 +235,10 @@ def seed_template(db: Session):
             title="最初から作成", thumbnail="", body=templates.default)
         db.add(db_template_default)
         db_template_defaultlight = models.Template(
-            title="デフォルトのメール", thumbnail="", body=templates.defaultlight)
+            title="デフォルトメルビー", thumbnail="", body=templates.defaultlight)
         db.add(db_template_defaultlight)
         db_template_defaultdark = models.Template(
-            title="クールなメール", thumbnail="", body=templates.defaultdark)
+            title="クールなメルビー", thumbnail="", body=templates.defaultdark)
         db.add(db_template_defaultdark)
         db_template_baby = models.Template(
             title="新しい家族", thumbnail="", body=templates.baby)
