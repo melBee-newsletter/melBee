@@ -16,7 +16,7 @@ i18n
   .use(HttpApi)
   .init({
     backend: {
-      loadPath: "assets/locales/{{lng}}/translation.json",
+      loadPath: "translation/{{lng}}/translation.json",
     },
     fallbackLng: "jpn",
     detection: {
