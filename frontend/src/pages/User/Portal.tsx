@@ -6,18 +6,9 @@ import MarketingTool from "./components/MarketingTool";
 import Loading from "../../components/Loading";
 import "../../components/header.css";
 import { portalMessage } from "./components/portalMessage";
-import { expand } from "../../type";
+import { expand, Props } from "../../type";
 import { useTranslation } from "react-i18next";
 
-type Props = {
-  analytics: string;
-  setAnalytics: Function;
-  countSent: number;
-  setCountSent: Function;
-  reachLimit: boolean;
-  sendLimit: number;
-  language: string;
-};
 
 const Portal: React.FC<Props> = ({
   analytics,

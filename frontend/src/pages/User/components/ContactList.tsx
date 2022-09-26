@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import CSVReader from "./CSVReader";
-import { getContacts, addContact, deleteContacts } from "../api";
-import { Event, clickEvent } from "../../../type";
 import { useTranslation } from "react-i18next";
+import { contactAPI } from "../api";
+import { Event, clickEvent, Props } from "../../../type";
 
 const ContactList: React.FC<Props["portalExpand"]> = ({
   expand,
