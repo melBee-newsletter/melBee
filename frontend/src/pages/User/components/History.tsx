@@ -23,7 +23,7 @@ const History: React.FC<Props["history"]> = ({
     );
   };
 
-  useEffect(() =>{
+  useEffect(() => {
     const splitRecipients = history.recipients.split(",");
     setRecipents(splitRecipients);
   }, []);
@@ -50,13 +50,14 @@ const History: React.FC<Props["history"]> = ({
             {t("送信日時:")} {convertDate(history.date_sent)}
           </li>
           <li className="text-left sm:text-sm lg:text-base lg:w-[300px]">
-            {t("件名:")}<span className="font-bold">{history.subject}</span>
+            {t("件名:")}
+            <span className="font-bold">{history.subject}</span>
           </li>
           <li>
             {" "}
             <button
               onClick={() => handleView(i)}
-              className="rounded-xl px-5 py-2 text-white bg-orangeGradation"
+              className="rounded-xl px-5 py-2 text-white bg-orangeGradation hoverEffect"
             >
               {t("詳細")}
             </button>
@@ -80,15 +81,13 @@ const History: React.FC<Props["history"]> = ({
                 <li className="text-left lg:flex">
                   {t("送信先:")}{" "}
                   <ul className="flex flex-wrap leading-tight">
-                    {recipients.map(
-                      (email: string, i: number) => {
-                        return (
-                          <li key={`email${i}`} className="mb-2 ml-2">
-                            <p>{email}</p>
-                          </li>
-                        );
-                      }
-                    )}
+                    {recipients.map((email: string, i: number) => {
+                      return (
+                        <li key={`email${i}`} className="mb-2 ml-2">
+                          <p>{email}</p>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </li>
               </ul>

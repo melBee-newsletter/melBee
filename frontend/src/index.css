@@ -156,3 +156,9 @@ code {
 .templateList div table tr td table tr td table {
   margin: 0 !important;
 }
+
+.hoverEffect:hover {
+  transform: translateY(2px);
+}
+
+

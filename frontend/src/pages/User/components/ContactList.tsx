@@ -149,10 +149,9 @@ const ContactList: React.FC<Props["portalExpand"]> = ({
                 />
                 <button
                   disabled={!email}
-                  className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-2"
+                  className="rounded-xl px-6 py-2 drop-shadow-xl hover:drop-shadow-none text-lg text-white font-medium bg-orangeGradation ml-2 hoverEffect pushRight"
                 >
-                  {" "}
-                  {t("登録")}{" "}
+                  {t("登録")}
                 </button>
               </form>
               <div className="mt-3">
@@ -180,7 +179,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({
                   <button
                     type="submit"
                     onClick={handleRemove}
-                    className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-redGradation"
+                    className="rounded-xl px-6 py-2 drop-shadow-xl hover:drop-shadow-none text-lg text-white font-medium bg-redGradation hoverEffect"
                   >
                     {" "}
                     {t("削除")}{" "}
