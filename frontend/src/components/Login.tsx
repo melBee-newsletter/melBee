@@ -48,7 +48,7 @@ const Login: React.FC<Props> = ({ email }) => {
             type="email"
             autoComplete="email"
             className="border-solid border border-gray-300 p-1"
-            name=""
+            name="login"
             defaultValue={email}
             placeholder="youremail@example.com"
             id="email"
@@ -62,7 +62,7 @@ const Login: React.FC<Props> = ({ email }) => {
             type="password"
             autoComplete="current-password"
             className="border-solid border border-gray-300 p-1 bg-gray-100 focus:bg-white"
-            name=""
+            name="login"
             id="password"
           />
         </div>
