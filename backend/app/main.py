@@ -58,7 +58,7 @@ def get_user(id: int, db: Session = Depends(get_db)):
 def get_template_by_user_id(id: int, db: Session = Depends(get_db)):
     templateuser = crud.get_user_template(db, id)
     if not templateuser:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+        raise HTTPException(status_code=204, detail="Invalid id. 無効なidです。")
     return templateuser
 
 
@@ -75,7 +75,7 @@ def add_template_by_user_id(id: int, template: schemas.TemplateBase, db: Session
 def get_sent_history_by_user_id(id: int, db: Session = Depends(get_db)):
     userhistory = crud.get_user_history(db, id)
     if not userhistory:
-        raise HTTPException(status_code=400, detail="Invalid id or no sent history. 無効なidもしくは送信履歴がありません。")
+        raise HTTPException(status_code=204, detail="Invalid id or no sent history. 無効なidもしくは送信履歴がありません。")
     return userhistory
 
 
@@ -169,7 +169,7 @@ def delete_user_template_by_id(user_id: int, template_id: int, db: Session = Dep
 def get_external_info(id: int, db: Session = Depends(get_db)):
     db_external_info = crud.get_external_info(db, id)
     if not db_external_info:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+        raise HTTPException(status_code=204, detail="Invalid id. 無効なidです。")
     return db_external_info
 
 @app.patch("/user/{id}/external_info")
@@ -248,7 +248,7 @@ def seed_templates(db: Session = Depends(get_db)):
 def get_a_single_template_by_id_or_get_all_with_0(id: int, db: Session = Depends(get_db)):
     db_template = crud.get_template_by_id(db, id)
     if not db_template:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+        raise HTTPException(status_code=204, detail="Invalid id. 無効なidです。")
     return db_template
 
 # ----- /email ------ #
