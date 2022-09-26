@@ -81,6 +81,16 @@ export type SNS = {
   twitter: string;
 };
 
+export type externalInfo = {
+  analytics: string;
+  SNS: {
+    facebook: string;
+    instagram: string;
+    twitter: string;
+  };
+  homepage: string;
+};
+
 /**
  * PROPS
  */
