@@ -9,6 +9,25 @@ import Footer from "../../components/Footer";
 import Login from "../../components/Login";
 import Signup from "../../components/Signup";
 import { checkEmail } from "../../api";
+import { useTranslation, initReactI18next } from "react-i18next";
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import HttpApi from "i18next-http-backend";
+
+// i18n
+//   .use(LanguageDetector)
+//   .use(initReactI18next)
+//   .use(HttpApi)
+//   .init({
+//     backend: {
+//       loadPath: "assets/locales/{{lng}}/translation.json",
+//     },
+//     fallbackLng: "jpn",
+//     detection: {
+//       order: ["localStorage", "sessionStorage", "htmlTag", "subdomain"],
+//       caches: ["cookie", "localStorage"],
+//     },
+//   });
 
 function Landing() {
   const session: null | string = sessionStorage.getItem("isLoggedIn");
@@ -39,11 +58,15 @@ function Landing() {
             <div className="w-screen pr-5 md:w-[670px] lg:flex z-50 md:pl-5 lg:justify-between lg:items-center">
               <div>
                 <h2 className="mainTtl text-left font-bold">
-                  想い
-                  <span className="font-light text-5xl md:text-7xl">を</span>
+                  {t("想い")}
+                  <span className="font-light text-5xl md:text-7xl">
+                    {t("を")}
+                  </span>
                   <br />
-                  カタチ
-                  <span className="font-light text-5xl md:text-7xl ">に</span>
+                  {t("カタチ")}
+                  <span className="font-light text-5xl md:text-7xl ">
+                    {t("に")}
+                  </span>
                 </h2>
                 <p className="text-left leading-loose text-base z-20">
                   {t("melBeeは、さまざまなデザインテンプレート")}

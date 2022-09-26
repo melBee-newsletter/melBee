@@ -1,15 +1,35 @@
-import React, { FC } from "react";
+import React, { useEffect, FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import headerLogo from "../assets/logo-no-text.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 import { clickEvent } from "../type";
+import { useTranslation, initReactI18next } from "react-i18next";
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import HttpApi from "i18next-http-backend";
+
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .use(HttpApi)
+  .init({
+    backend: {
+      loadPath: "assets/locales/{{lng}}/translation.json",
+    },
+    fallbackLng: "jpn",
+    detection: {
+      order: ["localStorage", "sessionStorage", "htmlTag", "subdomain"],
+      caches: ["cookie", "localStorage"],
+    },
+  });
 
 const Header: FC = () => {
   const navigate = useNavigate();
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
+  const [language, setLanguage] = useState<string>("jpn");
   const logoLink = isLoggedIn ? "/user" : "/";
 
   const handleLogout = (e: clickEvent) => {
@@ -19,6 +39,13 @@ const Header: FC = () => {
     navigate("/");
   };
 
+  useEffect(() => {
+    localStorage.setItem("i18next", "en");
+  }, [language]);
+
+  const handleClick = () => {
+    setLanguage("hi");
+  };
   return (
     <div className="header drop-shadow-md py-1 w-screen md:w-full fixed">
       <div className="flex items-end justify-between">
@@ -41,6 +68,11 @@ const Header: FC = () => {
                     ].join()}
                   >
                     登録情報
+                    <div>
+                      <button type="button" onClick={handleClick}>
+                        Click Me
+                      </button>
+                    </div>
                   </span>
                   <a className="block transition hover" href="/user">
                     <FontAwesomeIcon
