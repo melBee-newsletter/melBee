@@ -7,6 +7,7 @@ import Loading from "../../components/Loading";
 import "../../components/header.css";
 import { portalMessage } from "./components/portalMessage";
 import { expand, Props } from "../../type";
+import { useTranslation } from "react-i18next";
 
 const Portal: React.FC<Props["portal"]> = ({
   analytics,
@@ -35,6 +36,8 @@ const Portal: React.FC<Props["portal"]> = ({
     }, 1200);
   }, []);
 
+  const { t } = useTranslation();
+
   return (
     <div>
       {loading ? (
@@ -44,22 +47,33 @@ const Portal: React.FC<Props["portal"]> = ({
           <div className="flex justify-between mb-6">
             <div className="text-left">
               <h2 className="font-bold lg:text-3xl sm:text-[1.6rem]">
-                melBeeへようこそ!
+                {t("melBeeへようこそ!")}
               </h2>
               {showLimit && (
-                <p className="lg:mt-1 lg:text-lg font-bold">{todayMessage}</p>
+                <p className="lg:mt-1 lg:text-lg font-bold">
+                  {t(todayMessage)}
+                </p>
               )}
-              <div className="mt-2">
+              <div className="mt-2 sm:text-sm">
                 {!showLimit ? (
                   <p className="my-4"> </p>
                 ) : !reachLimit ? (
                   <span>
-                    本日 <strong>{countSent} 通</strong> 送信されました。残り{" "}
-                    <strong>{sendLimit - countSent} 通</strong> 送信できます。
+                    {t("本日")}{" "}
+                    <strong>
+                      {countSent} {t("通")}
+                    </strong>{" "}
+                    {t("送信されました。残り")}{" "}
+                    <strong>
+                      {sendLimit - countSent} {t("通")}
+                    </strong>{" "}
+                    {t("送信できます。")}
                   </span>
                 ) : (
                   <span>
-                    本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。
+                    {t(
+                      "本日の送信リミットに達しましたが、引き続きテンプレート作成はご利用いただけます。"
+                    )}
                   </span>
                 )}
               </div>

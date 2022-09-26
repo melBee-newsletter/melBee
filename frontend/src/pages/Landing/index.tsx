@@ -9,8 +9,9 @@ import Footer from "../../components/Footer";
 import Login from "../../components/Login";
 import Signup from "../../components/Signup";
 import { checkEmail } from "../../api";
+import { useTranslation, initReactI18next } from "react-i18next";
 
-function Landing() {
+const Landing: React.FC = () => {
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
 
@@ -28,6 +29,8 @@ function Landing() {
     setisUserSignnedUP(foundEmail);
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className="App top">
       <Header />
@@ -37,21 +40,25 @@ function Landing() {
             <div className="w-screen pr-5 md:w-[670px] lg:flex z-50 md:pl-5 lg:justify-between lg:items-center">
               <div>
                 <h2 className="mainTtl text-left font-bold">
-                  想い
-                  <span className="font-light text-5xl md:text-7xl">を</span>
+                  {t("想い")}
+                  <span className="font-light text-5xl md:text-7xl">
+                    {t("を")}
+                  </span>
                   <br />
-                  カタチ
-                  <span className="font-light text-5xl md:text-7xl ">に</span>
+                  {t("カタチ")}
+                  <span className="font-light text-5xl md:text-7xl ">
+                    {t("に")}
+                  </span>
                 </h2>
                 <p className="text-left leading-loose text-base z-20">
-                  melBeeは、さまざまなデザインテンプレート
+                  {t("melBeeは、さまざまなデザインテンプレート")}
                   <br />
-                  の中から招待状やメルマガを作り、
+                  {t("の中から招待状やメルマガを作り、")}
                   <br />
-                  相手にそのまま送信もできる デザインツールです。
+                  {t("相手にそのまま送信もできる デザインツールです。")}
                   <br />
-                  あなたの「作りたい！」がきっとある。 <br />
-                  デザインをもっと身近に、簡単に。
+                  {t("あなたの「作りたい！」がきっとある。")} <br />
+                  {t("デザインをもっと身近に、簡単に。")}
                 </p>
               </div>
               {!isLoggedIn && (
@@ -116,6 +123,6 @@ function Landing() {
       <Footer />
     </div>
   );
-}
+};
 
 export default Landing;

@@ -1,12 +1,31 @@
-import React, { FC } from "react";
+import React, { useEffect, FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import headerLogo from "../assets/logo-no-text.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 import { clickEvent } from "../type";
+import { useTranslation, initReactI18next } from "react-i18next";
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import HttpApi from "i18next-http-backend";
 
-const Header: FC = () => {
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .use(HttpApi)
+  .init({
+    backend: {
+      loadPath: "assets/locales/{{lng}}/translation.json",
+    },
+    fallbackLng: "jpn",
+    detection: {
+      order: ["localStorage", "sessionStorage", "htmlTag", "subdomain"],
+      caches: ["cookie", "localStorage"],
+    },
+  });
+
+const Header: React.FC = ({}) => {
   const navigate = useNavigate();
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
@@ -18,6 +37,28 @@ const Header: FC = () => {
     sessionStorage.removeItem("melbeeID");
     navigate("/");
   };
+
+  const languages = [
+    {
+      code: "fr",
+      name: "Français",
+      country_code: "fr",
+    },
+    {
+      code: "en",
+      name: "English",
+      country_code: "gb",
+    },
+    {
+      code: "jpn",
+      name: "日本語",
+      country_code: "jpn",
+    },
+  ];
+
+  const currentLanguageCode = localStorage.getItem("i18nextLng");
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
+  const { t } = useTranslation();
 
   return (
     <div className="header drop-shadow-md py-1 w-screen md:w-full fixed">
@@ -34,6 +75,39 @@ const Header: FC = () => {
           <>
             <nav className="mr-5">
               <ul className="flex items-end py-1">
+                <div className="container">
+                  <div className="language-select">
+                    <button
+                      className="btn btn-link dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <span className="dropdown-item-text">{t("言語")}</span>
+                      </li>
+                      {languages.map(({ code, name, country_code }) => (
+                        <li key={country_code}>
+                          <a
+                            href="#"
+                            className={"test"}
+                            onClick={() => {
+                              i18n.changeLanguage(code);
+                            }}
+                          >
+                            {name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
                 <li className="mr-5 relative group">
                   <span
                     className={[
@@ -41,6 +115,7 @@ const Header: FC = () => {
                     ].join()}
                   >
                     登録情報
+                    <div></div>
                   </span>
                   <a className="block transition hover" href="/user">
                     <FontAwesomeIcon
