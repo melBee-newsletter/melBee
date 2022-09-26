@@ -2,13 +2,9 @@ import React from "react";
 import { SignUpForm } from "./Interfaces";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
-import { clickEvent } from "../type";
+import { clickEvent, Props } from "../type";
 
-type Props = {
-  email: string;
-};
-
-const Signup: React.FC<Props> = ({ email }) => {
+const Signup: React.FC<Props["email"]> = ({ email }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 
   const navigate = useNavigate();

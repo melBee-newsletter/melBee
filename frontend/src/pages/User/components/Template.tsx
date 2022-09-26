@@ -1,11 +1,7 @@
 import React from "react";
-import { template } from "../../../type";
+import { Props } from "../../../type";
 
-type Props = {
-  template: template;
-};
-
-const Template: React.FC<Props> = ({ template }) => {
+const Template: React.FC<Props["template"]> = ({ template }) => {
   return (
     <>
       <div className="sm:mb-5 md:mb-3">

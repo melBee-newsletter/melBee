@@ -1,10 +1,7 @@
 import React from "react";
+import { Props } from "../type";
 
-type Props = {
-  displayPP: Function;
-};
-
-const PrivacyPolicy: React.FC<Props> = ({ displayPP }) => {
+const PrivacyPolicy: React.FC<Props["privacyPolicy"]> = ({ displayPP }) => {
   return (
     <div className="rounded-xl absolute top-0 lg:top-[50%] bottom-0 left-0 right-0 m-auto w-4/6 bg-gray-50 p-6 h-[500px] overflow-y-auto drop-shadow-xl z-50">
       <div>
