@@ -110,8 +110,8 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
             <div className="">
               {(myTemplates.length > 0 ||
                 localStorage.melBeeTempStoragedraft) && (
-                <div className="md:mb-9">
-                  <p className="mt-4 mb-5 font-bold">{t("保存テンプレート")}</p>
+                <div>
+                  <p className="mt-4 mb-7 font-bold">{t("保存テンプレート")}</p>
                   <div className="md:grid lg:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {localStorage.melBeeTempStoragedraft && (
                       <a
