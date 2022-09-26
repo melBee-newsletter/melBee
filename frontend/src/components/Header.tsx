@@ -70,8 +70,6 @@ const Header: React.FC = ({}) => {
             className="w-[38px] md:w-[45px]"
           />
         </a>
-
-        
           <>
             <nav className="mr-5">
               <ul className="flex items-end py-1 navArea">
@@ -107,7 +105,7 @@ const Header: React.FC = ({}) => {
                     </ul>
                   </div>
                 </div>
-                {isLoggedIn && ( <div>
+                {isLoggedIn && ( <>
                 <li className="mr-5 relative group">
                   <span
                     className={[
@@ -143,7 +141,7 @@ const Header: React.FC = ({}) => {
                     />
                   </a>
                 </li>
-                </div>
+                </>
                 )}
               </ul>
             </nav>
