@@ -10,31 +10,8 @@ import Login from "../../components/Login";
 import Signup from "../../components/Signup";
 import { checkEmail } from "../../api";
 import { useTranslation, initReactI18next } from "react-i18next";
-import i18n from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import HttpApi from "i18next-http-backend";
 
-type Props = {
-  language: string;
-  setLanguage: React.Dispatch<React.SetStateAction<string>>;
-};
-
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .use(HttpApi)
-  .init({
-    backend: {
-      loadPath: "assets/locales/{{lng}}/translation.json",
-    },
-    fallbackLng: "jpn",
-    detection: {
-      order: ["localStorage", "sessionStorage", "htmlTag", "subdomain"],
-      caches: ["cookie", "localStorage"],
-    },
-  });
-
-const Landing: React.FC<Props> = ({ language, setLanguage }) => {
+const Landing: React.FC = () => {
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
 
