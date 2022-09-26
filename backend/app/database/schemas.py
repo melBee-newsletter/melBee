@@ -24,6 +24,13 @@ class User(UserBase):
     class Config:
         orm_mode = True
 
+class UserExternalInfo(BaseModel):
+    analyticsID: str
+    instagramID: str
+    twitterID: str
+    facebookID: str
+    homepage: str
+
 # ---- ExternalInfo ---- #
 
 class ExternalInfo(BaseModel):
