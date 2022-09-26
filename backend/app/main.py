@@ -165,6 +165,12 @@ def delete_user_template_by_id(user_id: int, template_id: int, db: Session = Dep
         raise HTTPException(status_code=400, detail="Data cannot be delete. データの削除ができません。")
     return {"message": "Data deleted succesfully. データは削除されました。"}
 
+@app.get("/user/{id}/external_info")
+def get_external_info(id: int, db: Session = Depends(get_db)):
+    db_external_info = crud.get_external_info(db, id)
+    if not db_external_info:
+        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+    return db_external_info
 
 @app.patch("/user/{id}/external_info", response_model={})
 def update_external_info(id: int,  info: str, media: str, db: Session = Depends(get_db)):

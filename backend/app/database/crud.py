@@ -29,7 +29,7 @@ def get_user_history(db: Session, id: int):
 
 def create_user(db: Session, user: schemas.UserCreate):
     hashed_password = pwd_context.hash(user.password)
-    db_user = models.User(email=user.email, hashed_password=hashed_password)
+    db_user = models.User(email=user.email, hashed_password=hashed_password, analyticsID = "", instagramID = "", twitterID = "", facebookID = "", homepage = "")
     session = Session()
     try:
         db.add(db_user)
@@ -87,6 +87,10 @@ def add_sent_history(user: schemas.User, db: Session, senthistory: schemas.SentH
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
+
+
+def get_external_info(db: Session, user_id: int):
+    return db.query(models.User.analyticsID, models.User.instagramID, models.User.twitterID, models.User.facebookID, models.User.homepage).filter(models.User.id == user_id).first()
 
 
 def update_external_info(db: Session, id: int, info: str, media: str) -> tuple():
@@ -272,6 +276,7 @@ def send_email(db: Session, receiver, subject, message_body, user_id):
     user_email = db.query(models.User.email).filter(
         models.User.id == user_id).scalar()
     return mailSender.send_email(receiver, subject, message_body, user_id, user_email, receiver_id)
+
 
 def send_unsub_note(db: Session, email, subject, message_body):
     return mailSender.send_unsub_note(email, subject, message_body)
