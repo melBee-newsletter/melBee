@@ -6,7 +6,7 @@ const PrivacyPolicy: React.FC<Props["privacyPolicy"]> = ({ displayPP }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="rounded-xl absolute top-0 lg:top-[50%] bottom-0 left-0 right-0 m-auto w-4/6 bg-gray-50 p-6 h-[500px] overflow-y-auto drop-shadow-xl z-50">
+    <div className="rounded-xl absolute top-0 lg:top-[50%] bottom-0 left-0 right-0 m-auto w-4/6 bg-gray-50 p-8 h-[400px] overflow-y-auto drop-shadow-xl z-50">
       <div>
         <h2 className="font-bold mb-4">{t("プライバシーポリシー")}</h2>
         <div className="text-left">
@@ -124,7 +124,8 @@ const PrivacyPolicy: React.FC<Props["privacyPolicy"]> = ({ displayPP }) => {
           <p className="leading-relaxed">
             本ポリシーに関するお問い合わせは、下記の窓口までお願いいたします。
             <br />
-            住所: 〒106-0046 東京都港区元麻布３丁目１番３５号 VORT 元麻布 地下2/F
+            住所: 〒106-0046 東京都港区元麻布３丁目１番３５号 VORT 元麻布
+            地下2/F
             <br />
             社名: melBee, Inc.
             <br />
