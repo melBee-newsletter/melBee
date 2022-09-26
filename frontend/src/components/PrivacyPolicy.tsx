@@ -121,13 +121,13 @@ const PrivacyPolicy: React.FC<Props["privacyPolicy"]> = ({ displayPP }) => {
           <p className="leading-relaxed">
             本ポリシーに関するお問い合わせは、下記の窓口までお願いいたします。
             <br />
-            住所:〒106-0046 東京都港区元麻布３丁目１番３５号 VORT 元麻布 地下2/F
+            住所: 〒106-0046 東京都港区元麻布３丁目１番３５号 VORT 元麻布 地下2/F
             <br />
-            社名:melBee, Inc.
+            社名: melBee, Inc.
             <br />
-            担当部署:CC27
+            担当部署: CC27
             <br />
-            Eメールアドレス:
+            Eメールアドレス: melumeru0@gmail.com
           </p>
         </div>
       </div>

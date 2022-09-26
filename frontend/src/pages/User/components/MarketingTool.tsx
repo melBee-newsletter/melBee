@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Event, clickEvent, SNS } from "../../../type";
-import {
-  faFacebook,
-  faInstagram,
-  faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
+import { Event, clickEvent, externalLinks, Props, externalInfo } from "../../../type";
+import { externalInfoAPI } from "../api";
+import { faFacebook, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { useTranslation } from "react-i18next";
 
-type Props = {
-  analytics: string;
-  setAnalytics: Function;
-  expand: boolean;
-  setExpand: Function;
-};
-
-const Profile: React.FC<Props> = ({
+const MarketingTool: React.FC<Props["marketingTool"]> = ({
   analytics,
   setAnalytics,
   expand,
@@ -30,48 +21,52 @@ const Profile: React.FC<Props> = ({
     setExpand({ marketingTool: !expand });
   };
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     !expand ? setDirection(DOWN) : setDirection(UP);
   }, [expand]);
 
   const [editMode, setEditMode] = useState<boolean>(true);
-  const [infoFetched, setInfoFetched] = useState<boolean>(false);
-  const [SNS, setSNS] = useState<SNS>({
-    facebook: "",
-    instagram: "",
-    twitter: "",
+  const [externalInfo, setExternalInfo] = useState<externalLinks>({
+    facebookID: "",
+    instagramID: "",
+    twitterID: "",
+    homepage: "",
   });
-  const [homepage, setHomepage] = useState<string>("");
-
-  function checkExternalInfo() {
-    let hasExternalInfo = false;
-    if (analytics || homepage || SNS.facebook || SNS.instagram || SNS.twitter) {
-      hasExternalInfo = true;
-    }
-    return hasExternalInfo;
-  }
 
   useEffect(() => {
-    //TO DO: GET external links and set in all areas
-    setAnalytics("");
-    setSNS({
-      facebook: "",
-      instagram: "",
-      twitter: "",
-    });
-    setHomepage("");
-
-    setInfoFetched(true);
+    let hasExternalInfo: boolean = false;
+    (async function getExternalInfo() {
+      await externalInfoAPI.get()
+      .then((externalInfo: externalInfo) => {
+        setExternalInfo(externalInfo.externalLinks);
+        setAnalytics(externalInfo.analyticsID);
+        for (const info in externalInfo.externalLinks) {
+          if (externalInfo.externalLinks[info] || externalInfo.analyticsID) {
+            hasExternalInfo = true;
+          };
+        };
+      })
+      .then(() => {
+        setEditMode(!hasExternalInfo);
+      });
+    })();
   }, []);
 
-  useEffect(() => {
-    setEditMode(!checkExternalInfo());
-  }, [infoFetched]);
-
-  const confirmUpdate = (e: clickEvent) => {
+  const confirmUpdate = async (e: clickEvent) => {
     e.preventDefault();
-    //TO DO: compile data from the input, and call axios to patch data. (once done, then change edit mode to false.)
-    setEditMode(false);
+    const newExternalInfo = {
+      analyticsID: analytics,
+      facebookID: externalInfo.facebookID,
+      instagramID: externalInfo.instagramID,
+      twitterID: externalInfo.twitterID,
+      homepage: externalInfo.homepage,
+    };
+    await externalInfoAPI.update(newExternalInfo)
+    .then((updated) => {
+      setEditMode(!updated);
+    })
   };
 
   const enableEdit = (e: clickEvent) => {
@@ -134,9 +129,9 @@ const Profile: React.FC<Props> = ({
                         </label>
                         <input
                           type="text"
-                          defaultValue={SNS.facebook}
+                          defaultValue={externalInfo.facebookID}
                           onChange={(e: Event) =>
-                            (SNS.facebook = e.target.value)
+                            (externalInfo.facebookID = e.target.value)
                           }
                           placeholder="アカウント名"
                           id="facebook"
@@ -159,9 +154,9 @@ const Profile: React.FC<Props> = ({
                         </label>
                         <input
                           type="text"
-                          defaultValue={SNS.twitter}
+                          defaultValue={externalInfo.twitterID}
                           onChange={(e: Event) =>
-                            (SNS.twitter = e.target.value)
+                            (externalInfo.twitterID = e.target.value)
                           }
                           placeholder="アカウント名"
                           id="twitter"
@@ -184,9 +179,9 @@ const Profile: React.FC<Props> = ({
                         </label>
                         <input
                           type="text"
-                          defaultValue={SNS.instagram}
+                          defaultValue={externalInfo.instagramID}
                           onChange={(e: Event) =>
-                            (SNS.instagram = e.target.value)
+                            (externalInfo.instagramID = e.target.value)
                           }
                           placeholder="アカウント名"
                           id="instagram"
@@ -204,8 +199,8 @@ const Profile: React.FC<Props> = ({
                       </label>
                       <input
                         type="url"
-                        defaultValue={homepage}
-                        onChange={(e: Event) => setHomepage(e.target.value)}
+                        defaultValue={externalInfo.homepage}
+                        onChange={(e: Event) => externalInfo.homepage = e.target.value}
                         placeholder="www.homepage.com"
                         id="homepage"
                         className="border rounded-lg p-2 w-full"
@@ -225,7 +220,6 @@ const Profile: React.FC<Props> = ({
               </div>
             ) : (
               <div className="text-left">
-                {/* <h3 className="mt-4 mb-2 font-bold">Google Analytics</h3> */}
                 {analytics ? (
                   <p className="mb-6">Analyticsタグの設定 {analytics}</p>
                 ) : (
@@ -240,13 +234,14 @@ const Profile: React.FC<Props> = ({
                       className="w-[25px] h-full align-middle"
                     />
                   </span>
-                  {SNS.facebook ? (
+                  {externalInfo.facebookID ? (
                     <a
-                      href={`facebook.com/${SNS.facebook}`}
+                      href={`http://facebook.com/${externalInfo.facebookID}`}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="hover:text-sky-500 hover:underline"
                     >
-                      <span>facebook.com/{SNS.facebook}</span>
+                      <span>facebook.com/{externalInfo.facebookID}</span>
                     </a>
                   ) : (
                     <span>未設定</span>
@@ -260,13 +255,14 @@ const Profile: React.FC<Props> = ({
                       className="w-[25px] h-full align-middle"
                     />
                   </span>
-                  {SNS.twitter ? (
+                  {externalInfo.twitterID ? (
                     <a
-                      href={`twitter.com/${SNS.twitter}`}
+                      href={`http://twitter.com/${externalInfo.twitterID}`}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="hover:text-sky-500 hover:underline"
                     >
-                      <span>twitter.com/{SNS.twitter}</span>
+                      <span>twitter.com/{externalInfo.twitterID}</span>
                     </a>
                   ) : (
                     <span>未設定</span>
@@ -280,13 +276,14 @@ const Profile: React.FC<Props> = ({
                       className="w-[25px] h-full align-middle"
                     />
                   </span>
-                  {SNS.instagram ? (
+                  {externalInfo.instagramID ? (
                     <a
-                      href={`http://instagram.com/${SNS.instagram}`}
+                      href={`http://instagram.com/${externalInfo.instagramID}`}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="hover:text-sky-500 hover:underline"
                     >
-                      <span>instagram.com/{SNS.instagram}</span>
+                      <span>instagram.com/{externalInfo.instagramID}</span>
                     </a>
                   ) : (
                     <span>未設定</span>
@@ -296,13 +293,14 @@ const Profile: React.FC<Props> = ({
                 {/* <h3 className="mt-4 mb-2 font-bold">ホームページ</h3> */}
                 <p>
                   <span className="mr-1">ホームページを設定する</span>
-                  {homepage ? (
+                  {externalInfo?.homepage ? (
                     <a
-                      href={`http://${homepage}`}
+                      href={`http://${externalInfo?.homepage}`}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="hover:text-sky-500 hover:underline"
                     >
-                      <span>{homepage}</span>
+                      <span>{externalInfo.homepage}</span>
                     </a>
                   ) : (
                     <span>未設定</span>
@@ -326,4 +324,4 @@ const Profile: React.FC<Props> = ({
   );
 };
 
-export default Profile;
+export default MarketingTool;

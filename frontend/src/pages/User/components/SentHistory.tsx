@@ -4,8 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { sentHistoryAPI } from "../api";
 import { history, clickEvent, Props } from "../../../type";
+import { useTranslation } from "react-i18next";
 
-const SentHistory: React.FC<Props["sentHistory"]> = ({ expand, setExpand, setCountSent }) => {
+const SentHistory: React.FC<Props["sentHistory"]> = ({
+  expand,
+  setExpand,
+  setCountSent,
+}) => {
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
@@ -18,6 +23,8 @@ const SentHistory: React.FC<Props["sentHistory"]> = ({ expand, setExpand, setCou
     e.preventDefault();
     setExpand({ history: !expand });
   };
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     !expand ? setDirection(DOWN) : setDirection(UP);
@@ -58,7 +65,7 @@ const SentHistory: React.FC<Props["sentHistory"]> = ({ expand, setExpand, setCou
         className="flex justify-between cursor-pointer"
         onClick={handleExpand}
       >
-        <h3 className="text-xl font-medium">送信履歴</h3>
+        <h3 className="text-xl font-medium">{t("送信履歴")}</h3>
         <span className={direction}>
           <FontAwesomeIcon
             className="bg-yellow-200 rounded-lg p-1.5"
@@ -90,7 +97,7 @@ const SentHistory: React.FC<Props["sentHistory"]> = ({ expand, setExpand, setCou
             </>
           ) : (
             <div>
-              <p className="text-xl my-4">送信履歴はまだございません</p>
+              <p className="text-xl my-4">{t("送信履歴はまだございません")}</p>
             </div>
           )}
         </div>
