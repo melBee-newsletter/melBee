@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import CSVReader from "./CSVReader";
+import { useTranslation } from "react-i18next";
 import { contactAPI } from "../api";
 import { Event, clickEvent, Props } from "../../../type";
 
-const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => {
+const ContactList: React.FC<Props["portalExpand"]> = ({
+  expand,
+  setExpand,
+}) => {
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
@@ -21,6 +25,8 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
     e.preventDefault();
     setExpand({ contact: !expand });
   };
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     !expand ? setDirection(DOWN) : setDirection(UP);
@@ -70,7 +76,9 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
           setIsChecked((prevStat) => [...prevStat, false]);
         } else {
           alert(
-            "ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。"
+            t(
+              "ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。"
+            )
           );
         }
       });
@@ -98,7 +106,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
         setContactList(afterRemove);
         setIsChecked(new Array(afterRemove.length).fill(false));
       } else {
-        alert("エラーが生じました。再度お試しください。");
+        alert(t("エラーが生じました。再度お試しください。"));
       }
     });
   };
@@ -109,7 +117,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
         className="flex justify-between cursor-pointer"
         onClick={handleExpand}
       >
-        <h3 className="text-xl font-medium">連絡先一覧</h3>
+        <h3 className="text-xl font-medium">{t("連絡先一覧")}</h3>
         <span className={direction}>
           <FontAwesomeIcon
             className="bg-yellow-200 rounded-lg p-1.5"
@@ -130,13 +138,13 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
             <div className="text-left">
               <form onSubmit={handleAdd}>
                 <label className="text-left mb-2 block">
-                  メールアドレスを連絡先に新規登録する
+                  {t("メールアドレスを連絡先に新規登録する")}
                 </label>
                 <input
                   className="border rounded-lg p-2 mb-2"
                   type="email"
                   value={email}
-                  placeholder="メールアドレス"
+                  placeholder={t("メールアドレス")}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <button
@@ -144,17 +152,21 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
                   className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2"
                 >
                   {" "}
-                  登録{" "}
+                  {t("登録")}{" "}
                 </button>
               </form>
               <div className="mt-3">
-                <p className="mb-2">メールアドレス一括登録 (CSVファイル対応)</p>
+                <p className="mb-2">
+                  {t("メールアドレス一括登録 (CSVファイル対応)")}
+                </p>
                 <CSVReader setContactList={setContactList} />
                 {/* <br /> */}
                 <span className="text-sm attention">
-                  ※ファイルをアップロードすると、メールアドレスが自動登録されます
+                  {t(
+                    "※ファイルをアップロードすると、メールアドレスが自動登録されます"
+                  )}
                   <br />
-                  ※メールアドレスは一行目にまとめてください
+                  {t("※メールアドレスは一行目にまとめてください")}
                 </span>
               </div>
             </div>
@@ -163,7 +175,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
               {selectedEmail.length > 0 ? (
                 <div className="lg:text-right sm:text-left sm:mt-5 lg:mt-0">
                   <p className="text-base mb-2">
-                    選択したメールアドレスを削除する
+                    {t("選択したメールアドレスを削除する")}
                   </p>
                   <button
                     type="submit"
@@ -171,17 +183,17 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
                     className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-redGradation"
                   >
                     {" "}
-                    削除{" "}
+                    {t("削除")}{" "}
                   </button>
                 </div>
               ) : (
                 <div className="lg:text-right sm:text-left sm:mt-5 lg:mt-0">
                   <p className="text-base mb-2">
-                    メールアドレス選択後削除を行えます
+                    {t("メールアドレス選択後削除を行えます")}
                   </p>
                   <button className="bg-grayGradation rounded-xl px-6 py-2 drop-shadow-xl text-lg font-medium text-white">
                     {" "}
-                    削除{" "}
+                    {t("削除")}{" "}
                   </button>
                 </div>
               )}
@@ -189,7 +201,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
           </div>
           {blackList.length > 0 && (
             <div className="mt-10 mb-3">
-              <h3 className="text-base text-red-700">配信停止済み</h3>
+              <h3 className="text-base text-red-700">{t("配信停止済み")}</h3>
               <div
                 className="w-full scroll flex flex-wrap items-baseline border rounded-xl my-3 px-1"
                 style={{ height: 150, overflow: "scroll" }}
@@ -199,7 +211,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
                 })}
               </div>
               <p className="text-sm text-red-800">
-                ※ 配信停止済みの連絡先にはメールを送信できません
+                {t("※ 配信停止済みの連絡先にはメールを送信できません")}
               </p>
             </div>
           )}

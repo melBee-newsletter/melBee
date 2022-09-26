@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import "../../App.css";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -6,9 +6,11 @@ import NotLoggedIn from "./components/NotLoggedIn";
 
 type Props = {
   displayComponent: ReactNode;
+  language: string;
+  setLanguage: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const User: React.FC<Props> = ({ displayComponent }) => {
+const User: React.FC<Props> = ({ displayComponent, language, setLanguage }) => {
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
 
