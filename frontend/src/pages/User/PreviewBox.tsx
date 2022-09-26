@@ -11,7 +11,7 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
   const [title, setTitle] = useState<string>("");
   const [saved, setSaved] = useState<boolean>(false);
   const { t } = useTranslation();
-  
+
   const handleSave = async (e: clickEvent) => {
     e.preventDefault();
     if (title) {
@@ -69,7 +69,7 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
           <form onSubmit={handleSave}>
             <label className="text-left leading-loose">
               <span className="text-lg font-bold mb-2">
-               {t("作成テンプレートタイトル")}
+                {t("作成テンプレートタイトル")}
               </span>
               <br />
               <span className="text-base">
@@ -85,7 +85,9 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
               />
             </label>
             <p className="text-sm attention mt-1 mb-8 text-left">
-              {t("※ただし、ログアウト・画面を閉じると、下書きデータは削除されます。")}
+              {t(
+                "※テンプレートは「下書き」として自動保存もされます。タイトルを入力し保存することで、ご自身のオリジナルテンプレートとしても引き続きご利用いただけます。"
+              )}
             </p>
             <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation">
               {t("保存")}

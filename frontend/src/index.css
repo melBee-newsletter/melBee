@@ -132,3 +132,27 @@ code {
   visibility: visible;
   opacity: 1;
 }
+
+.templateList div {
+  width: 245px !important;
+}
+
+.templateList div table img{
+  width: 90% !important;
+}
+
+.templateList div table tr td h1 {
+  font-size: 14px !important;
+}
+
+.templateList div table tr td div,
+.templateList div table tr td p,
+.templateList div table tr td p span {
+  line-height: 1.5 !important;
+  font-size: 10px !important;
+  word-break:break-all;
+}
+
+.templateList div table tr td table tr td table {
+  margin: 0 !important;
+}

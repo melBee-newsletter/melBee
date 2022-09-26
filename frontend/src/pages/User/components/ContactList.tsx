@@ -149,7 +149,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({
                 />
                 <button
                   disabled={!email}
-                  className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2"
+                  className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-2"
                 >
                   {" "}
                   {t("登録")}{" "}
