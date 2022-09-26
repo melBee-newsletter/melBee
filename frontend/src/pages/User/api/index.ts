@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
-import { contact, emailBody, sentHistory, history, templateToSave, template, externalInfo } from "../../../type";
+import { contact, emailBody, sentHistory, history, templateToSave, template, externalInfo, allExternalInfo } from "../../../type";
 
 const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 
@@ -292,11 +292,11 @@ export const externalInfoAPI = {
    */
   get: async () => {
     const externalInfo: externalInfo = {
-      analytics: "",
+      analyticsID: "",
       externalLinks: {
-        facebook: "",
-        instagram: "",
-        twitter: "",
+        facebookID: "",
+        instagramID: "",
+        twitterID: "",
         homepage: "",
       },
     };
@@ -307,10 +307,10 @@ export const externalInfoAPI = {
     .then((res: AxiosResponse) => {
       let data = res.data;
       for (const info in data) {
-        if (info !== "analytics") {
+        if (info !== "analyticsID") {
           externalInfo.externalLinks[info] = data[info];
         } else {
-          externalInfo.analytics = data[info];
+          externalInfo.analyticsID = data[info];
         };
       };
     })
@@ -323,7 +323,7 @@ export const externalInfoAPI = {
    * @param externalInfo 
    * @returns 
    */
-  update: async (externalInfo: externalInfo) => {
+  update: async (externalInfo: allExternalInfo) => {
     let updated = false;
     await axios({
       method: "patch",

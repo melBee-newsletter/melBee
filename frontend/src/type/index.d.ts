@@ -82,22 +82,30 @@ export type SNS = {
 };
 
 export type externalInfo = {
-  analytics: string;
+  analyticsID: string;
   externalLinks: {
-    facebook: string;
-    instagram: string;
-    twitter: string;
+    facebookID: string;
+    instagramID: string;
+    twitterID: string;
     homepage: string;
     [key: string]: string;
   };
 };
 
 export type externalLinks = {
-  facebook: string;
-  instagram: string;
-  twitter: string;
+  facebookID: string;
+  instagramID: string;
+  twitterID: string;
   homepage: string;
-}
+};
+
+export type allExternalInfo = {
+  analyticsID: string;
+  facebookID: string;
+  instagramID: string;
+  twitterID: string;
+  homepage: string;
+};
 
 /**
  * PROPS
