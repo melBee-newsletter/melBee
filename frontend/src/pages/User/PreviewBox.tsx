@@ -43,9 +43,9 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
             e.preventDefault();
             navigate(EDIT_PATH);
           }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-grayGradation mr-4"
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-grayGradation"
         >
-          {"戻る"}
+          {"< テンプレート編集"}
         </button>
         {!reachLimit ? (
           <button
@@ -53,12 +53,14 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
               e.preventDefault();
               navigate(SEND_PATH);
             }}
-            className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
+            className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-6"
           >
-            {"送信準備 >"}
+            {"送信画面 >"}
           </button>
         ) : (
-          <p>申し訳ございません、本日の送信リミットに達しました。</p>
+          <p className="ml-6">
+            申し訳ございません、本日の送信リミットに達しました。
+          </p>
         )}
       </div>
       <div className="w-4/6 mx-auto mt-10">

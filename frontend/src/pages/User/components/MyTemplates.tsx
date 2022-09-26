@@ -150,7 +150,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
                               e.preventDefault();
                               handleRemove(i);
                             }}
-                            className="px-2 py-1 text-sm rounded-xl text-white bg-redGradation deleteBtn mt-[-2px]"
+                            className="rounded-xl px-5 py-2 text-white text-sm text-white bg-redGradation"
                           >
                             {t("削除")}
                           </button>

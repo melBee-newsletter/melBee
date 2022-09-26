@@ -6,7 +6,8 @@ const Template: React.FC<Props["template"]> = ({ template }) => {
   const { t } = useTranslation();
   return (
     <>
-      <div className="sm:mb-5 md:mb-3">
+      <p className="pb-2">{template.title.slice(0, 20)}</p>
+      <div className="sm:mb-5 md:mb-2">
         <div className="">
           <div className="overflow-y-scroll overflow-x-hidden templateList">
             <div

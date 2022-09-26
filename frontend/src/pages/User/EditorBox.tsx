@@ -133,16 +133,16 @@ const EditorBox: React.FC = () => {
                 e.preventDefault();
                 navigate(TEMPLATE_PATH);
               }}
-              className="rounded-xl px-6 py-2 drop-shadow-xl mr-4 text-lg text-white font-medium bg-grayGradation"
+              className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-grayGradation"
             >
-              {"< 戻る"}
+              {"< テンプレート一覧"}
             </button>
             <button
               onClick={(e) => {
                 e.preventDefault();
                 navigate(PREVIEW_PATH);
               }}
-              className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
+              className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-6"
             >
               {"プレビュー >"}
             </button>
