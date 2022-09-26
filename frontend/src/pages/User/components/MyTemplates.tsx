@@ -3,21 +3,15 @@ import { useNavigate } from "react-router-dom";
 import Template from "./Template";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { template } from "../../../type";
+import { template, clickEvent, Props } from "../../../type";
 import {
   seedTemplate,
   getMelbeeTemplates,
   getMyTemplates,
   deleteMyTemplate,
 } from "../api";
-import { clickEvent } from "../../../type";
 
-type Props = {
-  expand: boolean;
-  setExpand: Function;
-};
-
-const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
+const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => {
   const navigate = useNavigate();
   const DOWN = "rotate-90";
   const UP = "-rotate-90";

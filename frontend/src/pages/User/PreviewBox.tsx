@@ -1,14 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { saveMyTemplate } from "./api";
-import { templateToSave } from "../../type";
-import { clickEvent } from "../../type";
+import { templateToSave, clickEvent, Props } from "../../type";
 
-type Props = {
-  reachLimit: boolean;
-};
-
-const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
+const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
   const navigate = useNavigate();
   const EDIT_PATH = "/user/edit";
   const SEND_PATH = "/user/send";

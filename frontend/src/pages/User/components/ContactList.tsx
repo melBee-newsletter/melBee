@@ -3,14 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import CSVReader from "./CSVReader";
 import { getContacts, addContact, deleteContacts } from "../api";
-import { Event, clickEvent } from "../../../type";
+import { Event, clickEvent, Props } from "../../../type";
 
-type Props = {
-  expand: boolean;
-  setExpand: Function;
-};
-
-const ContactList: React.FC<Props> = ({ expand, setExpand }) => {
+const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => {
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);

@@ -3,16 +3,9 @@ import History from "./History";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { getSentHistory } from "../api";
-import { history } from "../../../type";
-import { clickEvent } from "../../../type";
+import { history, clickEvent, Props } from "../../../type";
 
-type Props = {
-  expand: boolean;
-  setExpand: Function;
-  setCountSent: Function;
-};
-
-const SentHistory: React.FC<Props> = ({ expand, setExpand, setCountSent }) => {
+const SentHistory: React.FC<Props["sentHistory"]> = ({ expand, setExpand, setCountSent }) => {
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);

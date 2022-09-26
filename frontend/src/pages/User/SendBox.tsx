@@ -10,15 +10,9 @@ import {
   saveSentHistory,
   getSentHistory,
 } from "./api";
-import { clickEvent } from "../../type";
+import { clickEvent, Props } from "../../type";
 
-type Props = {
-  analytics: string;
-  reachLimit: boolean;
-  setCountSent: Function;
-};
-
-const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
+const SendBox: React.FC<Props["send"]> = ({ analytics, reachLimit, setCountSent }) => {
   const navigate = useNavigate();
   const [subject, setSubject] = useState<string>("『melBee』からのお便り");
   const [allEmails, setAllEmails] = useState<string[]>([]);

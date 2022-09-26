@@ -1,12 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Props } from "../../../type";
 
-type Props = {
-  reachLimit: boolean;
-  setSendComplete: Function;
-};
-
-const SendComplete: React.FC<Props> = ({ reachLimit, setSendComplete }) => {
+const SendComplete: React.FC<Props["sendComplete"]> = ({ reachLimit, setSendComplete }) => {
   const navigate = useNavigate();
 
   return (
