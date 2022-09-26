@@ -3,22 +3,10 @@ import Loading from "../../components/Loading";
 import SendComplete from "./components/SendComplete";
 import { useNavigate } from "react-router-dom";
 import "./sendbox.css";
-import {
-  getContacts,
-  addContact,
-  sendEmail,
-  saveSentHistory,
-  getSentHistory,
-} from "./api";
-import { clickEvent } from "../../type";
+import { contactAPI, emailAPI, sentHistoryAPI } from "./api";
+import { clickEvent, Props } from "../../type";
 
-type Props = {
-  analytics: string;
-  reachLimit: boolean;
-  setCountSent: Function;
-};
-
-const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
+const SendBox: React.FC<Props["send"]> = ({ analytics, reachLimit, setCountSent }) => {
   const navigate = useNavigate();
   const [subject, setSubject] = useState<string>("『melBee』からのお便り");
   const [allEmails, setAllEmails] = useState<string[]>([]);
@@ -39,7 +27,7 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
     if (analytics)
       TEMPLATE += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
     (async function getAllContacts() {
-      await getContacts().then((res) => {
+      await contactAPI.get().then((res) => {
         setAllEmails(res.subscribedContacts);
         setIsChecked(new Array(res.subscribedContacts.length).fill(false));
       });
@@ -72,7 +60,7 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
   const handleAdd = async (e: clickEvent) => {
     e.preventDefault();
     if (email) {
-      await addContact(email).then((addSuccess) => {
+      await contactAPI.addSingle(email).then((addSuccess) => {
         if (addSuccess) {
           setAllEmails((prevEmail) => [...prevEmail, email]);
           setIsChecked((prevStat) => [...prevStat, false]);
@@ -122,7 +110,7 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
     };
     if (receivers.length > 0) {
       setLoading(true);
-      await sendEmail(emailBody)
+      await emailAPI.send(emailBody)
         .then((sendComplete) => {
           setSendComplete(sendComplete);
           setLoading(!sendComplete);
@@ -135,10 +123,10 @@ const SendBox: React.FC<Props> = ({ analytics, reachLimit, setCountSent }) => {
             date_sent: DATE.toString(),
             user_id: sessionStorage.melbeeID,
           };
-          await saveSentHistory(sentHistory);
+          await sentHistoryAPI.save(sentHistory);
         })
         .then(async () => {
-          const sentHistory = await getSentHistory();
+          const sentHistory = await sentHistoryAPI.get();
           const TODAY = {
             year: DATE.getFullYear(),
             month: DATE.getMonth() + 1,

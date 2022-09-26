@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { history } from "../../../type";
+import { Props } from "../../../type";
 
-type Props = {
-  history: history;
-  i: number;
-  viewHistory: boolean[];
-  setViewHistory: Function;
-};
-
-const History: React.FC<Props> = ({
+const History: React.FC<Props["history"]> = ({
   history,
   i,
   viewHistory,

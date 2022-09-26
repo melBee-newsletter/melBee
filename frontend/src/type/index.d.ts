@@ -73,10 +73,66 @@ export type history = {
 };
 
 /**
- * MARKETING TOOL
+ * MARKETING TOOL TYPES/INTERFACES
  */
 export type SNS = {
   facebook: string;
   instagram: string;
   twitter: string;
-}
+};
+
+/**
+ * PROPS
+ */
+export type Props = {
+  email: {
+    email: string;
+  },
+  loading: {
+    word: string;
+  },
+  privacyPolicy: {
+    displayPP: Function;
+  },
+  portal: {
+    analytics: string;
+    setAnalytics: Function;
+    countSent: number;
+    setCountSent: Function;
+    reachLimit: boolean;
+    sendLimit: number;
+  },
+  portalExpand: {
+    expand: boolean;
+    setExpand: Function;
+  },
+  csvReader: {
+    setContactList: Function;
+  },
+  history: {
+    history: history;
+    i: number;
+    viewHistory: boolean[];
+    setViewHistory: Function;
+  },
+  sendComplete: {
+    reachLimit: boolean;
+    setSendComplete: Function;
+  },
+  sentHistory: {
+    expand: boolean;
+    setExpand: Function;
+    setCountSent: Function;
+  },
+  template: {
+    template: template;
+  },
+  preview: {
+    reachLimit: boolean;
+  },
+  send: {
+    analytics: string;
+    reachLimit: boolean;
+    setCountSent: Function;
+  },
+};
