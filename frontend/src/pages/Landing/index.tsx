@@ -62,7 +62,7 @@ const Landing: React.FC = () => {
                 </p>
               </div>
               {!isLoggedIn && (
-                <div className="flex md:my-4 lg:my-0 text-base writing-v border-r border-slate-800 pr-4 invisible md:visible">
+                <div className="flex md:my-4 lg:my-0 text-base verticalText border-r border-slate-800 pr-4 invisible md:visible">
                   <p className="mb-3 text-base text-gray-500">
                     ログインまたは無料で新規登録
                   </p>

@@ -18,36 +18,6 @@
   border-right: 1px solid #959494;
 }
 
-/* .deleteBtn {
-  display: block;
-  position: relative;
-  width: 15px;
-  height: 15px;
-}
-
-.deleteBtn::before, .deleteBtn::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 3px;
-  height: 16px;
-  background: #333;
-  background-color: rgb(6 182 212);
-}
-
-.deleteBtn::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.deleteBtn::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.writing-v {
-  writing-mode: vertical-lr;
-} */
-
 .mv {
   height: calc(100% - 166px);
   margin: 0 auto;
@@ -96,7 +66,7 @@
   font-size: 10rem;
   font-family: 'Poppins';
   font-weight: bold;
-  left: 8%;
+  left: 3%;
   top: -18%;
 }
 
@@ -109,7 +79,7 @@
   font-size: 10rem;
   font-family: 'Poppins';
   font-weight: bold;
-  left: 8.5%;
+  left: 3%;
   bottom: 34%;
 }
 
@@ -123,7 +93,7 @@
   font-size: 10.5rem;
   font-family: 'Poppins';
   font-weight: bold;
-  left: 8%;
+  left: 3%;
   bottom: -1%;
 }
 
@@ -145,6 +115,10 @@
 
 .ttl_top::after {
   margin-left: 2rem;
+}
+
+.verticalText {
+  writing-mode: vertical-lr;
 }
 
 @media (min-width: 1536px) {
