@@ -14,22 +14,27 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
 
-// i18n
-//   .use(LanguageDetector)
-//   .use(initReactI18next)
-//   .use(HttpApi)
-//   .init({
-//     backend: {
-//       loadPath: "assets/locales/{{lng}}/translation.json",
-//     },
-//     fallbackLng: "jpn",
-//     detection: {
-//       order: ["localStorage", "sessionStorage", "htmlTag", "subdomain"],
-//       caches: ["cookie", "localStorage"],
-//     },
-//   });
+type Props = {
+  language: string;
+  setLanguage: React.Dispatch<React.SetStateAction<string>>;
+};
 
-function Landing() {
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .use(HttpApi)
+  .init({
+    backend: {
+      loadPath: "assets/locales/{{lng}}/translation.json",
+    },
+    fallbackLng: "jpn",
+    detection: {
+      order: ["localStorage", "sessionStorage", "htmlTag", "subdomain"],
+      caches: ["cookie", "localStorage"],
+    },
+  });
+
+const Landing: React.FC<Props> = ({ language, setLanguage }) => {
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
 
@@ -141,6 +146,6 @@ function Landing() {
       <Footer />
     </div>
   );
-}
+};
 
 export default Landing;

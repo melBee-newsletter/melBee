@@ -1,4 +1,6 @@
-  {  "想い":  "Pensées dans",
+  {  
+    "Language": "greatness",
+    "想い":  "Pensées dans",
     "を": "",
     "カタチ": "Forme",
     "に": "",
@@ -6,5 +8,30 @@
     "の中から招待状やメルマガを作り、": "Cela vous fournit différents modèles de conception",
     "相手にそのまま送信もできる デザインツールです。": "Pour créer des newsletters, des invitations, etc.",
     "あなたの「作りたい！」がきっとある。": "Vous trouverez le design qui satisfera votre imagination!",
-    "デザインをもっと身近に、簡単に。": "Rapprochez et simplifiez la conception professionnelle."
+    "デザインをもっと身近に、簡単に。": "Rapprochez et simplifiez la conception professionnelle.",
+    "言語": "Langue",
+    "melBeeへようこそ!": "Bienvenue a melBee!",
+    "あなたの想いをカタチにしよう": "Concrétisez vos pensées.",
+    "今日はどんな手紙を書きますか？": "Qu'allez-vous écrire aujourd'hui?",
+    "本日": "Vous avez envoyé",
+    "通": "",
+    "送信されました。残り": "mails aujourd'hui. Vous pouvez envoyer",
+    "送信できます。": "de plus.",
+    "連絡先一覧": "Liste de Contacts",
+    "ご入力されたメールアドレスはすでに連絡先に登録されているか、配信停止となっております。": "L'adresse e-mail saisie est soit déjà dans la liste des contacts, soit sur la liste noire.",
+    "エラーが生じました。再度お試しください。": "Erreur! Veuillez réessayer.",
+    "メールアドレスを連絡先に新規登録する": "Ajoutez l'adresse e-mail dans votre liste de contacts.",
+    "メールアドレス": "Adresse E-mail",
+    "登録": "Ajouter",
+    "メールアドレス一括登録 (CSVファイル対応)": "Ajouter plusieurs e-mails à l'aide d'un fichier CSV.",
+    "※ファイルをアップロードすると、メールアドレスが自動登録されます": "L'adresse e-mail sera automatiquement ajoutée une fois que vous aurez téléchargé le fichier CSV.",
+    "※メールアドレスは一行目にまとめてください": "Veuillez mettre toutes les adresses dans la première colonne.",
+    "選択したメールアドレスを削除する": "Supprimer l'adresse e-mail sélectionnée.",
+    "メールアドレス選択後削除を行えます": "Supprimer après avoir sélectionné l'adresse e-mail.",
+    "削除": "Supprimer",
+    "配信停止済み": "Liste noire",
+    "※ 配信停止済みの連絡先にはメールを送信できません": "Vous ne pouvez pas envoyer d'e-mail à une adresse sur liste noire."
+
+
+
 }

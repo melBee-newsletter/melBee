@@ -13,6 +13,8 @@ function App() {
   const [analytics, setAnalytics] = useState<string>("");
   const [countSent, setCountSent] = useState<number>(0);
   const [reachLimit, setReachLimit] = useState<boolean>(false);
+  const [language, setLanguage] = useState<string>("jpn");
+
   const SEND_LIMIT = 5;
 
   useEffect(() => {
@@ -22,13 +24,19 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route
+          path="/"
+          element={<Landing language={language} setLanguage={setLanguage} />}
+        />
         <Route
           path="/user"
           element={
             <User
+              language={language}
+              setLanguage={setLanguage}
               displayComponent={
                 <Portal
+                  language={language}
                   analytics={analytics}
                   setAnalytics={setAnalytics}
                   countSent={countSent}
@@ -42,18 +50,30 @@ function App() {
         />
         <Route
           path="/user/edit"
-          element={<User displayComponent={<EditorBox />} />}
+          element={
+            <User
+              language={language}
+              setLanguage={setLanguage}
+              displayComponent={<EditorBox />}
+            />
+          }
         />
         <Route
           path="/user/preview"
           element={
-            <User displayComponent={<PreviewBox reachLimit={reachLimit} />} />
+            <User
+              language={language}
+              setLanguage={setLanguage}
+              displayComponent={<PreviewBox reachLimit={reachLimit} />}
+            />
           }
         />
         <Route
           path="/user/send"
           element={
             <User
+              language={language}
+              setLanguage={setLanguage}
               displayComponent={
                 <SendBox
                   analytics={analytics}

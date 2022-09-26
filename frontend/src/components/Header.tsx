@@ -25,11 +25,10 @@ i18n
     },
   });
 
-const Header: FC = () => {
+const Header: React.FC = ({}) => {
   const navigate = useNavigate();
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
-  const [language, setLanguage] = useState<string>("jpn");
   const logoLink = isLoggedIn ? "/user" : "/";
 
   const handleLogout = (e: clickEvent) => {
@@ -39,13 +38,28 @@ const Header: FC = () => {
     navigate("/");
   };
 
-  useEffect(() => {
-    localStorage.setItem("i18next", "en");
-  }, [language]);
+  const languages = [
+    {
+      code: "fr",
+      name: "Français",
+      country_code: "fr",
+    },
+    {
+      code: "en",
+      name: "English",
+      country_code: "gb",
+    },
+    {
+      code: "jpn",
+      name: "日本語",
+      country_code: "jpn",
+    },
+  ];
 
-  const handleClick = () => {
-    setLanguage("hi");
-  };
+  const currentLanguageCode = localStorage.getItem("i18nextLng");
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
+  const { t } = useTranslation();
+
   return (
     <div className="header drop-shadow-md py-1 w-screen md:w-full fixed">
       <div className="flex items-end justify-between">
@@ -61,6 +75,39 @@ const Header: FC = () => {
           <>
             <nav className="mr-5">
               <ul className="flex items-end py-1">
+                <div className="container">
+                  <div className="language-select">
+                    <button
+                      className="btn btn-link dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    ></button>
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <span className="dropdown-item-text">{t("言語")}</span>
+                      </li>
+                      {languages.map(({ code, name, country_code }) => (
+                        <li key={country_code}>
+                          <a
+                            href="#"
+                            className={"test"}
+                            onClick={() => {
+                              i18n.changeLanguage(code);
+                            }}
+                          >
+                            {name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
                 <li className="mr-5 relative group">
                   <span
                     className={[
@@ -68,11 +115,7 @@ const Header: FC = () => {
                     ].join()}
                   >
                     登録情報
-                    <div>
-                      <button type="button" onClick={handleClick}>
-                        Click Me
-                      </button>
-                    </div>
+                    <div></div>
                   </span>
                   <a className="block transition hover" href="/user">
                     <FontAwesomeIcon
