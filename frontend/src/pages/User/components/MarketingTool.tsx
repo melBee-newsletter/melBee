@@ -4,7 +4,6 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Event, clickEvent, externalLinks, Props, externalInfo } from "../../../type";
 import { externalInfoAPI } from "../api";
 import { faFacebook, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
-
 import { useTranslation } from "react-i18next";
 
 const MarketingTool: React.FC<Props["marketingTool"]> = ({
@@ -30,9 +29,9 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
 
   const [editMode, setEditMode] = useState<boolean>(true);
   const [externalInfo, setExternalInfo] = useState<externalLinks>({
-    facebook: "",
-    instagram: "",
-    twitter: "",
+    facebookID: "",
+    instagramID: "",
+    twitterID: "",
     homepage: "",
   });
 
@@ -42,9 +41,9 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
       await externalInfoAPI.get()
       .then((externalInfo: externalInfo) => {
         setExternalInfo(externalInfo.externalLinks);
-        setAnalytics(externalInfo.analytics);
+        setAnalytics(externalInfo.analyticsID);
         for (const info in externalInfo.externalLinks) {
-          if (externalInfo.externalLinks[info] || externalInfo.analytics) {
+          if (externalInfo.externalLinks[info] || externalInfo.analyticsID) {
             hasExternalInfo = true;
           };
         };
@@ -55,10 +54,19 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
     })();
   }, []);
 
-  const confirmUpdate = (e: clickEvent) => {
+  const confirmUpdate = async (e: clickEvent) => {
     e.preventDefault();
-    //TO DO: compile data from the input, and call axios to patch data. (once done, then change edit mode to false.)
-    setEditMode(false);
+    const newExternalInfo = {
+      analyticsID: analytics,
+      facebookID: externalInfo.facebookID,
+      instagramID: externalInfo.instagramID,
+      twitterID: externalInfo.twitterID,
+      homepage: externalInfo.homepage,
+    };
+    await externalInfoAPI.update(newExternalInfo)
+    .then((updated) => {
+      setEditMode(!updated);
+    })
   };
 
   const enableEdit = (e: clickEvent) => {
@@ -67,7 +75,6 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
   };
 
   return (
-    // {infoFetched ? &&}
     <div className="justify-center mb-10 md:px-5 lg:px-10  py-6 border rounded-lg drop-shadow-xl bg-white">
       <div
         className="flex justify-between cursor-pointer"
@@ -122,9 +129,9 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                         </label>
                         <input
                           type="text"
-                          defaultValue={externalInfo.facebook}
+                          defaultValue={externalInfo.facebookID}
                           onChange={(e: Event) =>
-                            (externalInfo.facebook = e.target.value)
+                            (externalInfo.facebookID = e.target.value)
                           }
                           placeholder="アカウント名"
                           id="facebook"
@@ -147,9 +154,9 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                         </label>
                         <input
                           type="text"
-                          defaultValue={externalInfo.twitter}
+                          defaultValue={externalInfo.twitterID}
                           onChange={(e: Event) =>
-                            (externalInfo.twitter = e.target.value)
+                            (externalInfo.twitterID = e.target.value)
                           }
                           placeholder="アカウント名"
                           id="twitter"
@@ -172,9 +179,9 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                         </label>
                         <input
                           type="text"
-                          defaultValue={externalInfo.instagram}
+                          defaultValue={externalInfo.instagramID}
                           onChange={(e: Event) =>
-                            (externalInfo.instagram = e.target.value)
+                            (externalInfo.instagramID = e.target.value)
                           }
                           placeholder="アカウント名"
                           id="instagram"
@@ -213,7 +220,6 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
               </div>
             ) : (
               <div className="text-left">
-                {/* <h3 className="mt-4 mb-2 font-bold">Google Analytics</h3> */}
                 {analytics ? (
                   <p className="mb-6">Analyticsタグの設定 {analytics}</p>
                 ) : (
@@ -228,14 +234,14 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                       className="w-[25px] h-full align-middle"
                     />
                   </span>
-                  {externalInfo.facebook ? (
+                  {externalInfo.facebookID ? (
                     <a
-                      href={`http://facebook.com/${externalInfo.facebook}`}
+                      href={`http://facebook.com/${externalInfo.facebookID}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-sky-500 hover:underline"
                     >
-                      <span>facebook.com/{externalInfo.facebook}</span>
+                      <span>facebook.com/{externalInfo.facebookID}</span>
                     </a>
                   ) : (
                     <span>未設定</span>
@@ -249,14 +255,14 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                       className="w-[25px] h-full align-middle"
                     />
                   </span>
-                  {externalInfo.twitter ? (
+                  {externalInfo.twitterID ? (
                     <a
-                      href={`http://twitter.com/${externalInfo.twitter}`}
+                      href={`http://twitter.com/${externalInfo.twitterID}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-sky-500 hover:underline"
                     >
-                      <span>twitter.com/{externalInfo.twitter}</span>
+                      <span>twitter.com/{externalInfo.twitterID}</span>
                     </a>
                   ) : (
                     <span>未設定</span>
@@ -270,14 +276,14 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                       className="w-[25px] h-full align-middle"
                     />
                   </span>
-                  {externalInfo.instagram ? (
+                  {externalInfo.instagramID ? (
                     <a
-                      href={`http://instagram.com/${externalInfo.instagram}`}
+                      href={`http://instagram.com/${externalInfo.instagramID}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-sky-500 hover:underline"
                     >
-                      <span>instagram.com/{externalInfo.instagram}</span>
+                      <span>instagram.com/{externalInfo.instagramID}</span>
                     </a>
                   ) : (
                     <span>未設定</span>
