@@ -6,12 +6,14 @@ import headerLogo from "../assets/logo.png";
 import Login from "../../../components/Login";
 import Signup from "../../../components/Signup";
 import { checkEmail } from "../../../api"
+import { useTranslation } from "react-i18next";
 
 const NotLoggedIn: React.FC = () => {
   const [email, setEmail] = useState("");
   const [isUserSignnedUP, setisUserSignnedUP] = useState(false);
   const [isEmailSubmitted, setisEmailSubmitted] = useState(false);
-  
+  const { t } = useTranslation();
+
   const handleSubmit = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     const form: EmailForm | null = document.getElementById("mailForm");
@@ -27,9 +29,9 @@ const NotLoggedIn: React.FC = () => {
       <div className="flex justify-center mb-6">
         <img src={headerLogo} alt="melBee_logo" className="animate-pulse" width="200" />
       </div>
-      <h1 className="text-2xl mb-8">melBeeはログインされた方のみご利用になれます。</h1>
+      <h1 className="text-2xl mb-8">{t("melBeeはログインされた方のみご利用になれます。")}</h1>
         <p className="text-xl mb-3 text-gray-500">
-          ログインまたは無料で新規登録
+          {t("ログインまたは無料で新規登録")}
         </p>
         <div className="flex justify-center items-center">
             {!isEmailSubmitted && (
