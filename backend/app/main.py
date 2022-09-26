@@ -187,7 +187,7 @@ def update_external_info(externalInfo: schemas.UserExternalInfo, id: int, db: Se
 def get_contact(id: int, db: Session = Depends(get_db)):
     db_contact = crud.get_contact_list_by_user_id(db, id)
     if not db_contact:
-        raise HTTPException(status_code=400, detail="Invalid id or no contact list matched. 無効なidもしくはコンタクトリストがありません。")
+        raise HTTPException(status_code=204, detail="Invalid id or no contact list matched. 無効なidもしくはコンタクトリストがありません。")
     return db_contact
 
 
