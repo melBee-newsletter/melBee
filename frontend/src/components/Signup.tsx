@@ -69,7 +69,7 @@ const Signup: React.FC<Props["email"]> = ({ email }) => {
         <input
           type="button"
           className="rounded-xl px-4 py-2 drop-shadow-xl text-white font-medium bg-blueGradation mt-6 text-sm"
-          value="新規登録"
+          value={t("新規登録")}
           onClick={handleSubmit}
         ></input>
       </form>
