@@ -20,25 +20,22 @@ const Signup: React.FC<Props> = ({ email }) => {
     if (!email) alert("eメールを設定してください");
     if (!password) alert("パスワードを設定してください");
     if (email && password) {
-    axios({
-      method: "post",
-      url: `${BASE_URL}/user/signup`,
-      data: {
-        email: email,
-        password: password,
-      },
-    })
-    .then((res: AxiosResponse) => {
-      // TODO: Show something when successfully singed up
-      sessionStorage.setItem("melbeeID", res.data.id);
-      sessionStorage.setItem("isLoggedIn", "true");
-      navigate(USER_PORTAL);
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-      // TODO: Show something when error caused
-      window.confirm("パスワードが入力されていません。");
-      console.log(err.response!.data);
-    });
+      axios({
+        method: "post",
+        url: `${BASE_URL}/user/signup`,
+        data: {
+          email: email,
+          password: password,
+        },
+      })
+        .then((res: AxiosResponse) => {
+          sessionStorage.setItem("melbeeID", res.data.id);
+          sessionStorage.setItem("isLoggedIn", "true");
+          navigate(USER_PORTAL);
+        })
+        .catch((err: AxiosError<{ error: string }>) => {
+          window.alert("パスワードが入力されていません。");
+        });
     }
   };
 
@@ -52,7 +49,8 @@ const Signup: React.FC<Props> = ({ email }) => {
           </label>
           <input
             type="email"
-            value={email}
+            autoComplete="email"
+            defaultValue={email}
             className="border-solid border border-gray-300 p-1"
             name=""
             placeholder="youremail@example.com"
@@ -66,13 +64,14 @@ const Signup: React.FC<Props> = ({ email }) => {
           <input
             className="border-solid border border-gray-300 p-1 bg-gray-100 focus:bg-white"
             type="password"
+            autoComplete="new-password"
             name=""
             id="password_signup"
           />
         </div>
         <input
           type="button"
-          className="rounded-xl px-4 py-2 drop-shadow-xl text-white font-medium bg-orangeGradation mt-6 text-sm"
+          className="rounded-xl px-4 py-2 drop-shadow-xl text-white font-medium bg-blueGradation mt-6 text-sm"
           value="新規登録"
           onClick={handleSubmit}
         ></input>

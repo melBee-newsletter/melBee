@@ -1,17 +1,11 @@
-import React, { useCallback, useState, useEffect } from "react";
-import axios, { AxiosResponse, AxiosError } from "axios";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Template from "./Template";
-import Loading from "../../../components/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-
-type template = {
-  id: number;
-  thumbnail: string;
-  title: string;
-  body: string;
-};
+import { template } from "../../../type";
+import { seedTemplate, getMelbeeTemplates, getMyTemplates, deleteMyTemplate } from "../api";
+import { clickEvent } from "../../../type";
 
 type Props = {
   expand: boolean;
@@ -19,23 +13,17 @@ type Props = {
 };
 
 const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
-  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
+  
   const [melBeeTemplates, setMelBeeTemplates] = useState<template[]>([]);
   const [myTemplates, setMyTemplates] = useState<template[]>([]);
   const [selectMy, SetSelectMy] = useState<number | null>(null);
   const [selectMb, SetSelectMb] = useState<number | null>(null);
-  const [seedDone, setSeedDone] = useState<boolean>(false);
-  const [fetchTemplate, setFetchTemplate] = useState<boolean>(false);
-  const [display, setDisplay] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
 
-  const numOfTemplates = 12;
-
-  const handleExpand = (e: any) => {
+  const handleExpand = (e: clickEvent) => {
     e.preventDefault();
     setExpand({ template: !expand });
   };
@@ -44,117 +32,73 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
     !expand ? setDirection(DOWN) : setDirection(UP);
   }, [expand]);
 
-  const seedTemplate = useCallback(() => {
-    axios({
-      method: "post",
-      url: `${BASE_URL}/template/seed`,
-      data: "tomatoTest",
-    })
-      .then((res: AxiosResponse) => {
-        setSeedDone(true);
-      })
-      .catch((err: AxiosError<{ error: string }>) => {
-        console.log(err.response!.data);
+  useEffect(() => {
+    (async function () {
+      await getMelbeeTemplates(1)
+      .then((res) => {
+        if (!res[0].id) seedTemplate();
       });
+    })();
   }, []);
 
   useEffect(() => {
-    seedTemplate();
-  }, [seedTemplate]);
+    (async function getAllTemplates() {
+      const idToFetchAll = 0;
+      const allTemplates = await getMelbeeTemplates(idToFetchAll);
+      setMelBeeTemplates(allTemplates);
+    })();
 
-  useEffect(() => {
-    const getTemplate = (id: number) => {
-      axios({
-        method: "get",
-        url: `${BASE_URL}/template/${id}`,
-      })
-        .then((res: AxiosResponse) => {
-          let data = res.data;
-          data.id = id;
-          setMelBeeTemplates((current) => [...current, data]);
-        })
-        .catch((err: AxiosError<{ error: string }>) => {
-          console.log(err.response!.data);
-        });
-    };
-
-    for (let i = 1; i <= numOfTemplates; i++) {
-      getTemplate(i);
-    }
-
-    const getSavedTemplate = () => {
-      axios({
-        method: "get",
-        url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-      })
-        .then((res: AxiosResponse) => {
-          let data = res.data;
-          data.map((template: template) => {
-            setMyTemplates((current) => [template, ...current]);
-            setFetchTemplate(true);
-          });
-        })
-        .catch((err: AxiosError<{ error: string }>) => {
-          console.log(err.response!.data);
-        });
-    };
-    getSavedTemplate();
-  }, [seedDone]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setDisplay(true);
-    }, 1000);
-  }, [fetchTemplate]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-  }, [display]);
+    (async function () {
+      const allMyTemplates = await getMyTemplates();
+      setMyTemplates(allMyTemplates);
+    })();
+  }, []);
 
   useEffect(() => {
     const handleMyTemplate = (i: number) => {
-      axios({
-        method: "get",
-        url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-      })
-        .then((res: AxiosResponse) => {
-          let data = res.data;
-          const index = data.length - 1 - i;
-          localStorage.setItem("melBeeTempStoragedraft", data[index].body);
-        })
-        .then(() => navigate("/user/edit"));
+      localStorage.setItem("melBeeTempStoragedraft", myTemplates[i].body);
+      navigate("/user/edit");
     };
     if (selectMy !== null) handleMyTemplate(selectMy);
   }, [selectMy]);
 
   useEffect(() => {
-    const handleMelBeeTemplate = (i: number) => {
+    const handleMelBeeTemplate = async (i: number) => {
       const templateId = melBeeTemplates[i].id;
-      axios({
-        method: "get",
-        url: `${BASE_URL}/template/${templateId}`,
-      })
-        .then((res) => {
-          const data = res.data;
-          localStorage.setItem("melBeeTempStoragedraft", data.body);
-        })
-        .then(() => navigate("/user/edit"));
+      const chosenTemplate = await getMelbeeTemplates(templateId);
+      localStorage.setItem("melBeeTempStoragedraft", chosenTemplate[0].body);
+      navigate("/user/edit");
     };
     if (selectMb !== null) handleMelBeeTemplate(selectMb);
   }, [selectMb]);
 
+  const handleRemove = async (i: number) => {
+    const confirmDelete = window.confirm("保存テンプレートを削除しますか？");
+    const templateId = myTemplates[i].id;
+    if (confirmDelete) {
+      await deleteMyTemplate(templateId)
+      .then((deleteSuccess) => {
+        if (deleteSuccess) {
+          (async function () {
+            const allMyTemplates = await getMyTemplates();
+            setMyTemplates(allMyTemplates);
+            alert("テンプレートが削除されました。")
+          })();
+        } else {
+          alert("エラーが生じました。再度お試しください。");
+        }
+      });
+    };
+  };
+
   return (
-    <>
-      {loading && <Loading word={"L O A D I N G"} />}
-      <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
+    <div>
+      <div className="justify-center sm:px-5 lg:px-10 py-6 mb-10 border rounded-lg drop-shadow-xl bg-white">
         <div
-          className="flex justify-between text-lg font-medium"
+          className="flex justify-between cursor-pointer"
           onClick={handleExpand}
         >
-          {/* {expand ? <h3>手紙を送ろう</h3> : <h3>テンプレート一覧</h3>} */}
-          <h3>テンプレート一覧</h3>
+          <h3 className="text-xl font-medium">メールを作成</h3>
           <span className={direction}>
             {" "}
             <FontAwesomeIcon
@@ -164,14 +108,12 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
           </span>
         </div>
         {expand && (
-          <div className="flex justify-center">
-            <div className="bg-white w-full">
+          <div className="md:flex md:justify-center">
+            <div className="">
               {myTemplates.length > 0 && (
                 <div>
-                  <h4 className="mt-3 mb-6 font-bold">
-                    保存されたテンプレート
-                  </h4>
-                  <div className="grid gap-4 grid-cols-4">
+                  <p className="mt-4 mb-7 font-bold">保存テンプレート</p>
+                  <div className="md:grid lg:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
                     {localStorage.melBeeTempStoragedraft && (
                       <a
                         className="mb-5 cursor-pointer"
@@ -192,16 +134,28 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
                     )}
                     {myTemplates.map((template, i) => {
                       return (
-                        <a
-                          key={`myTemp${i}`}
-                          className="mb-5 cursor-pointer"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            SetSelectMy(i);
-                          }}
-                        >
-                          <Template template={template} />
-                        </a>
+                        <div key={`myTemp${i}`} className="relative">
+                          <a
+                            className="mb-5 cursor-pointer"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              SetSelectMy(i);
+                            }}
+                          >
+                            <Template template={template} />
+                          </a>
+                          <button
+                            type="submit"
+                            value={i}
+                            onClick={(e: clickEvent) => {
+                              e.preventDefault();
+                              handleRemove(i);
+                            }}
+                            className="absolute top-3 right-1 rounded-xl px-2 text-sm text-white bg-redGradation"
+                          >
+                            削除
+                          </button>
+                        </div>
                       );
                     })}
                   </div>
@@ -209,22 +163,24 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
               )}
 
               <div>
-                <h3 className="my-6 font-bold">
+                <p className="mt-5 mb-7 font-bold">
                   melBeeオリジナル テンプレート
-                </h3>
-                <div className="grid gap-4 grid-cols-4">
+                </p>
+                <div className="md:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
                   {melBeeTemplates.map((template, i) => {
                     return (
-                      <a
-                        className="mb-5 cursor-pointer"
-                        key={`mbTemp${i}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          SetSelectMb(i);
-                        }}
-                      >
-                        <Template template={template} />
-                      </a>
+                      <div key={`mbTemp${i}`}>
+                        <a
+                          className="mb-5 cursor-pointer"
+                          key={`mbTemp${i}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            SetSelectMb(i);
+                          }}
+                        >
+                          <Template template={template} />
+                        </a>
+                      </div>
                     );
                   })}
                 </div>
@@ -233,7 +189,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

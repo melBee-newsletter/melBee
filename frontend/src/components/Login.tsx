@@ -2,6 +2,7 @@ import React from "react";
 import { LogInForm } from "./Interfaces";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
+import { clickEvent } from "../type";
 
 type Props = {
   email: string;
@@ -12,7 +13,7 @@ const Login: React.FC<Props> = ({ email }) => {
   const navigate = useNavigate();
   const USER_PORTAL = "/user";
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: clickEvent) => {
     const form: LogInForm | null = document.getElementById("login-form");
     const email: string = form!["email"]!.value;
     const password: string = form!["password"]!.value;
@@ -31,8 +32,7 @@ const Login: React.FC<Props> = ({ email }) => {
         navigate(USER_PORTAL);
       })
       .catch((err: AxiosError<{ error: string }>) => {
-        window.confirm("メールアドレスとパスワードがマッチしません。");
-        console.log(err.response!.data);
+        window.alert("メールアドレスとパスワードがマッチしません。");
       });
   };
 
@@ -46,9 +46,10 @@ const Login: React.FC<Props> = ({ email }) => {
           </label>
           <input
             type="email"
+            autoComplete="email"
             className="border-solid border border-gray-300 p-1"
             name=""
-            value={email}
+            defaultValue={email}
             placeholder="youremail@example.com"
             id="email"
           />
@@ -59,6 +60,7 @@ const Login: React.FC<Props> = ({ email }) => {
           </label>
           <input
             type="password"
+            autoComplete="current-password"
             className="border-solid border border-gray-300 p-1 bg-gray-100 focus:bg-white"
             name=""
             id="password"
@@ -67,7 +69,7 @@ const Login: React.FC<Props> = ({ email }) => {
         <input
           type="button"
           value="ログイン"
-          className="rounded-xl px-4 py-2 drop-shadow-xl text-white font-medium bg-blueGradation mt-6 text-sm"
+          className="rounded-xl px-4 py-2 drop-shadow-xl text-white font-medium bg-orangeGradation mt-6 text-sm"
           onClick={handleSubmit}
         />
       </form>

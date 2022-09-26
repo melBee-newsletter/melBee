@@ -1,12 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { history } from "../../../type";
 
 type Props = {
-  history: {
-    date_sent: string;
-    recipients: string;
-    template: string;
-    subject: string;
-  };
+  history: history;
   i: number;
   viewHistory: boolean[];
   setViewHistory: Function;
@@ -18,6 +14,8 @@ const History: React.FC<Props> = ({
   viewHistory,
   setViewHistory,
 }) => {
+  const [recipients, setRecipents] = useState<string[]>([]);
+
   const convertDate = (stringDate: string) => {
     const test = new Date(stringDate);
     const year = test.getFullYear();
@@ -29,6 +27,11 @@ const History: React.FC<Props> = ({
       <span className="font-bold">{`${year}年${month}月${date}日 ${hour}時${min}分`}</span>
     );
   };
+
+  useEffect(() =>{
+    const splitRecipients = history.recipients.split(",");
+    setRecipents(splitRecipients);
+  }, []);
 
   const handleView = (position: number) => {
     const updateView = viewHistory.map((stat, i) =>
@@ -47,18 +50,18 @@ const History: React.FC<Props> = ({
   return (
     <div key={`history${i}`}>
       {!viewHistory[i] ? (
-        <ul className="flex items-center justify-around historyList mb-2 last:mb-0">
-          <li className="text-left">
+        <ul className="flex items-center justify-around historyList mb-2 last:mb-0 lg:w-[99%] mr-auto ml-auto">
+          <li className="text-left lg:w-[265px] sm:text-sm lg:text-base">
             送信日時: {convertDate(history.date_sent)}
           </li>
-          <li className="text-left">
+          <li className="text-left sm:text-sm lg:text-base lg:w-[300px]">
             件名:<span className="font-bold">{history.subject}</span>
           </li>
           <li>
             {" "}
             <button
               onClick={() => handleView(i)}
-              className="rounded-xl px-5 py-2 text-white text-sm bg-orangeGradation"
+              className="rounded-xl px-5 py-2 text-white bg-orangeGradation"
             >
               詳細
             </button>
@@ -66,34 +69,36 @@ const History: React.FC<Props> = ({
         </ul>
       ) : (
         <div className="">
-          <div className="">
-            <ul className="flex">
-              <li className="text-left mb-3 mr-32">
-                <span className="titleHistory">送信日時:</span>
-                {convertDate(history.date_sent)}
-              </li>
-              <li className="text-left mb-3">
-                <span className="titleHistory">件名:</span>
-                <span className="font-bold">{history.subject}</span>
-              </li>
-            </ul>
-            <ul className="mb-4">
-              <li className="text-left">
-                送信先:
-                <br />
-                <ul className="flex flex-wrap leading-tight">
-                  {JSON.parse(history.recipients).map(
-                    (email: string, i: number) => {
-                      return (
-                        <li key={`email${i}`} className=" mb-2 ml-2">
-                          <p>{email}</p>
-                        </li>
-                      );
-                    }
-                  )}
-                </ul>
-              </li>
-            </ul>
+          <div className="lg:w-[88.5%] mr-auto ml-auto">
+            <div className="historyInfo">
+              <ul className="flex items-center historyInfoFrame">
+                <li className="lg:w-[265px] text-left mb-3 mr-24">
+                  <span className="titleHistory">送信日時:</span>
+                  {convertDate(history.date_sent)}
+                </li>
+                <li className="text-left mb-3">
+                  <span className="titleHistory">件名:</span>
+                  <span className="font-bold">{history.subject}</span>
+                </li>
+              </ul>
+              <ul className="mb-4">
+                <li className="text-left lg:flex">
+                  送信先:{" "}
+                  <ul className="flex flex-wrap leading-tight">
+                    {recipients.map(
+                      (email: string, i: number) => {
+                        return (
+                          <li key={`email${i}`} className="mb-2 ml-2">
+                            <p>{email}</p>
+                          </li>
+                        );
+                      }
+                    )}
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
             <div className="">
               <div className="overflow-y-scroll templateHistory">
                 <div

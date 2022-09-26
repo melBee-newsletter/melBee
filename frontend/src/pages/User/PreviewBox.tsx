@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import axios, { AxiosResponse, AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
+import { saveMyTemplate } from "./api";
+import { templateToSave } from "../../type";
+import { clickEvent } from "../../type";
 
 type Props = {
   reachLimit: boolean;
 };
 
 const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
-  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
   const navigate = useNavigate();
   const EDIT_PATH = "/user/edit";
   const SEND_PATH = "/user/send";
@@ -15,56 +16,16 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
   const [title, setTitle] = useState<string>("");
   const [saved, setSaved] = useState<boolean>(false);
 
-  // const addEditedTemplate = () => {
-  //   console.log(sessionStorage.melbeeID);
-  //   axios({
-  //     method: "post",
-  //     url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-  //     data: {
-  //       title: `Saved Template ${Date().toLocaleString()}`,
-  //       thumbnail:
-  //         "https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/2dee0dc9-0afd-4bf9-a258-559073a64208",
-  //       body: localStorage.melBeeTempStoragedraft,
-  //     },
-  //   })
-  //     .then((res: AxiosResponse) => {
-  //       // TODO: Show something when successfully singed up
-  //       console.log(res.data);
-  //     })
-  //     .catch((err: AxiosError<{ error: string }>) => {
-  //       // TODO: Show something when error caused
-  //       window.confirm("何かやばい事が起こりました。");
-  //       console.log(err.response!.data);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   addEditedTemplate();
-  // }, []);
-
-  const handleSave = (e: React.ChangeEvent<any>): void => {
+  const handleSave = async (e: clickEvent) => {
     e.preventDefault();
     if (title) {
-      axios({
-        method: "post",
-        url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-        data: {
-          title: title,
-          thumbnail:
-            "https://drive.tiny.cloud/1/fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9/2dee0dc9-0afd-4bf9-a258-559073a64208",
-          body: localStorage.melBeeTempStoragedraft,
-        },
-      })
-        .then((res: AxiosResponse) => {
-          // TODO: Show something when successfully singed up
-          setSaved(true);
-          console.log(res.data);
-        })
-        .catch((err: AxiosError<{ error: string }>) => {
-          // TODO: Show something when error caused
-          window.confirm("何かやばい事が起こりました。");
-          console.log(err.response!.data);
-        });
+      const templateToSave: templateToSave = {
+        title: title,
+        thumbnail: "",
+        body: localStorage.melBeeTempStoragedraft,
+      };
+      const isSaved = await saveMyTemplate(templateToSave);
+      setSaved(isSaved);
     } else {
       alert(
         "テンプレートを保存するにはタイトルが必要です。\n タイトルを入力してください。"
@@ -73,16 +34,23 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
   };
 
   return (
-    <div className="w-full px-10">
-      <div className="flex justify-end w-11/12 mx-auto mb-4">
+    <div className="pt-24 mb-28">
+      <h2 className="text-xl font-medium mb-1">プレビュー</h2>
+      <p className="mb-5">送信前に内容をご確認ください</p>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: localStorage.melBeeTempStoragedraft,
+        }}
+      />
+      <div className="flex justify-center items-center mx-auto my-8">
         <button
           onClick={(e) => {
             e.preventDefault();
             navigate(EDIT_PATH);
           }}
-          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation mr-4"
+          className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-grayGradation mr-4"
         >
-          {"編集"}
+          {"戻る"}
         </button>
         {!reachLimit ? (
           <button
@@ -90,49 +58,45 @@ const PreviewBox: React.FC<Props> = ({ reachLimit }) => {
               e.preventDefault();
               navigate(SEND_PATH);
             }}
-            className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+            className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
           >
-            {"送信"}
+            {"送信準備 >"}
           </button>
         ) : (
-          <h3>申し訳ございません、本日の送信リミットに達しました。</h3>
+          <p>申し訳ございません、本日の送信リミットに達しました。</p>
         )}
       </div>
-      <div className="text-left">
+      <div className="w-4/6 mx-auto mt-10">
         {!saved ? (
           <form onSubmit={handleSave}>
-            <label>
-              作成テンプレートタイトル
+            <label className="text-left leading-loose">
+              <span className="text-lg font-bold mb-2">
+                作成テンプレートタイトル
+              </span>
+              <br />
+              <span className="text-base">
+                作成したテンプレートは保存可能です。
+              </span>
               <input
                 type="text"
                 placeholder="タイトル（２０文字まで）"
                 maxLength={20}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="border rounded-lg p-2"
+                className="border rounded-lg p-2 w-full mt-2"
               />
             </label>
-            <p className="text-sm attention mt-1 mb-3">
-              {/* 個人テンプレートに保存し、編集されたテンプレートを引き続きご利用いただけます。 */}
-              ※
-              作成したテンプレートは自動保存されるため、引き続きご利用いただけます。
+            <p className="text-sm attention mt-1 mb-8 text-left">
+              ※ただし、ログアウト・画面を閉じると、下書きデータは削除されます。
             </p>
-            <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation">
+            <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation">
               保存
             </button>
           </form>
         ) : (
-          <div className="text-xl">テンプレートが保存されました。</div>
+          <p>テンプレートが保存されました。</p>
         )}
       </div>
-      <h3 className="mt-8 text-2xl">プレビュー</h3>
-      <h5>送信前に内容をご確認ください</h5>
-      <br />
-      <div
-        dangerouslySetInnerHTML={{
-          __html: localStorage.melBeeTempStoragedraft,
-        }}
-      />
     </div>
   );
 };

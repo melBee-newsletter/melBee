@@ -51,6 +51,7 @@ class TemplateBase(BaseModel):
 
 
 class Template(TemplateBase):
+    id: int
     title: str
     thumbnail: str
     body: str
@@ -66,6 +67,11 @@ class SendEmail(BaseModel):
     subject: str
     message_body: str
     user_id: int
+
+class SendUnsubNote(BaseModel):
+    email: str
+    subject: str
+    message_body: str
 
 # --- SentHistory --- #
 
@@ -94,3 +100,8 @@ class Contact(BaseModel):
     email: str
     user_id: int
     is_subscribed: bool
+
+
+class ContactCheck(BaseModel):
+    id: int
+    user_id: int

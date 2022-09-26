@@ -6,10 +6,9 @@ import NotLoggedIn from "./components/NotLoggedIn";
 
 type Props = {
   displayComponent: ReactNode;
-  reachLimit: boolean;
 };
 
-const User: React.FC<Props> = ({ displayComponent, reachLimit }) => {
+const User: React.FC<Props> = ({ displayComponent }) => {
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
 
@@ -21,16 +20,15 @@ const User: React.FC<Props> = ({ displayComponent, reachLimit }) => {
 
       <main className="App-header">
         {isLoggedIn && (
-          <div className="primaryContents w-9/12 mx-auto bg-gray-50 pt-24">
-            <div className="secondaryContents">{displayComponent}</div>
+          <div className="primaryContents w-10/12 mx-auto bg-gray-50">
+            <div className="secondaryContents w-10/12 mx-auto">
+              {displayComponent}
+            </div>
           </div>
         )}
         {!isLoggedIn && <NotLoggedIn />}
       </main>
-
-      <footer className="w-full">
-        <Footer />
-      </footer>
+      <Footer />
     </div>
   );
 };

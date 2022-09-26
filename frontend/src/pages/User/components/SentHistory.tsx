@@ -1,30 +1,18 @@
 import React, { useState, useEffect } from "react";
-import axios, { AxiosResponse, AxiosError } from "axios";
 import History from "./History";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-
-type history = {
-  date_sent: string;
-  recipients: string;
-  template: string;
-  subject: string;
-};
+import { getSentHistory } from "../api";
+import { history } from "../../../type";
+import { clickEvent } from "../../../type";
 
 type Props = {
   expand: boolean;
   setExpand: Function;
-  countSent: number;
   setCountSent: Function;
 };
 
-const SentHistory: React.FC<Props> = ({
-  expand,
-  setExpand,
-  countSent,
-  setCountSent,
-}) => {
-  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
+const SentHistory: React.FC<Props> = ({ expand, setExpand, setCountSent }) => {
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
@@ -33,7 +21,7 @@ const SentHistory: React.FC<Props> = ({
     new Array(sentHistory.length).fill(false)
   );
 
-  const handleExpand = (e: any) => {
+  const handleExpand = (e: clickEvent) => {
     e.preventDefault();
     setExpand({ history: !expand });
   };
@@ -60,31 +48,24 @@ const SentHistory: React.FC<Props> = ({
         setCountSent((newCountSent += 1));
       }
     };
-
-    axios({
-      method: "get",
-      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
-    })
-      .then((res: AxiosResponse) => {
-        let data = res.data;
-        data.map((history: history) => {
+    (async function allSentHistory() {
+      await getSentHistory().then((sentHistory) => {
+        sentHistory.map((history: history) => {
           setSentHistory((current) => [history, ...current]);
           setViewHistory((prevStat) => [...prevStat, false]);
           checkSentDate(history.date_sent);
         });
-      })
-      .catch((err: AxiosError<{ error: string }>) => {
-        console.log(err.response!.data);
       });
+    })();
   }, []);
 
   return (
-    <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
+    <div className="justify-center mb-10 md:px-5 lg:px-10 py-6 border rounded-lg drop-shadow-xl bg-white">
       <div
-        className="flex justify-between text-lg font-medium"
+        className="flex justify-between cursor-pointer"
         onClick={handleExpand}
       >
-        <h3>送信履歴</h3>
+        <h3 className="text-xl font-medium">送信履歴</h3>
         <span className={direction}>
           <FontAwesomeIcon
             className="bg-yellow-200 rounded-lg p-1.5"
@@ -93,14 +74,14 @@ const SentHistory: React.FC<Props> = ({
         </span>
       </div>
       {expand && (
-        <div className="w-full mt-3">
+        <div className="mt-4">
           {sentHistory.length > 0 ? (
             <>
               {sentHistory.map((history, i) => {
                 return (
                   <div
                     key={`history${i}`}
-                    className="mb-4 pb-2 last:pb-0 last:mb-0 border-b-2 border-gray-100 last:border-b-0"
+                    className="mb-4 pb-2 last:pb-0 last:mb-0 border-b border-gray-100 last:border-b-0"
                   >
                     {
                       <History

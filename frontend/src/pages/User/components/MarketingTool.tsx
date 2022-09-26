@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-
-type Event = {
-  target: {
-    value: string;
-  };
-};
-
-type clickEvent = {
-  preventDefault: Function;
-};
+import { Event, clickEvent } from "../../../type";
 
 type Props = {
   analytics: string;
@@ -29,9 +20,9 @@ const Profile: React.FC<Props> = ({
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
 
-  const handleExpand = (e: any) => {
+  const handleExpand = (e: clickEvent) => {
     e.preventDefault();
-    setExpand({ profile: !expand });
+    setExpand({ marketingTool: !expand });
   };
 
   useEffect(() => {
@@ -40,12 +31,12 @@ const Profile: React.FC<Props> = ({
 
   const [analyticsEdit, setAnalyticsEdit] = useState(true);
 
-  const handleChange = (event: Event) => {
-    setAnalytics(event.target.value);
+  const handleChange = (e: Event) => {
+    setAnalytics(e.target.value);
   };
 
-  const handleClick = (event: clickEvent) => {
-    event.preventDefault();
+  const handleClick = (e: clickEvent) => {
+    e.preventDefault();
     if (analytics) {
       setAnalytics(analytics);
       setAnalyticsEdit(false);
@@ -54,18 +45,18 @@ const Profile: React.FC<Props> = ({
     }
   };
 
-  const handleEdit = (event: clickEvent) => {
-    event.preventDefault();
+  const handleEdit = (e: clickEvent) => {
+    e.preventDefault();
     setAnalyticsEdit(true);
   };
 
   return (
-    <div className="justify-center my-2 px-10 py-6 mb-8 border rounded-lg drop-shadow-xl bg-white">
+    <div className="justify-center mb-10 md:px-5 lg:px-10  py-6 border rounded-lg drop-shadow-xl bg-white">
       <div
-        className="flex justify-between text-lg font-medium"
+        className="flex justify-between cursor-pointer"
         onClick={handleExpand}
       >
-        <h3>登録情報</h3>
+        <h3 className="text-xl font-medium">マーケティングツール</h3>
         <span className={direction}>
           <FontAwesomeIcon
             className="bg-yellow-200 rounded-lg p-1.5"
@@ -74,7 +65,7 @@ const Profile: React.FC<Props> = ({
         </span>
       </div>
       {expand && (
-        <div className="flex mt-3">
+        <div className="flex mt-4">
           <div>
             {analyticsEdit ? (
               <div>
@@ -88,9 +79,9 @@ const Profile: React.FC<Props> = ({
                 ></input>
                 <button
                   onClick={handleClick}
-                  className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
+                  className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
                 >
-                  確定
+                  設定
                 </button>
               </div>
             ) : (

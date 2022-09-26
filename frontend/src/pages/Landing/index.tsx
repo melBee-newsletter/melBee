@@ -1,70 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import "../../App.css";
 import "./Landing.css";
 import { EmailForm } from "../../components/Interfaces";
-import axios, { AxiosResponse, AxiosError } from "axios";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Login from "../../components/Login";
 import Signup from "../../components/Signup";
-import { isPrivateIdentifier } from "typescript";
-import { useTranslation, initReactI18next } from "react-i18next";
-import i18n from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import HttpApi from "i18next-http-backend";
-
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .use(HttpApi)
-  .init({
-    backend: {
-      loadPath: "assets/locales/{{lng}}/translation.json",
-    },
-    fallbackLng: "jpn",
-    detection: {
-      order: ["localStorage", "sessionStorage", "htmlTag", "subdomain"],
-      caches: ["cookie", "localStorage"],
-    },
-  });
+import { checkEmail } from "../../api";
 
 function Landing() {
-  const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
+  const session: null | string = sessionStorage.getItem("isLoggedIn");
+  const isLoggedIn = true ? session != null : false;
+
   const [isUserSignnedUP, setisUserSignnedUP] = useState(false);
   const [isEmailSubmitted, setisEmailSubmitted] = useState(false);
   const [email, setEmail] = useState("");
 
-  const session: null | string = sessionStorage.getItem("isLoggedIn");
-  const isLoggedIn = true ? session != null : false;
-
-  const handleSubmit = (e: React.ChangeEvent<any>): void => {
+  const handleSubmit = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     const form: EmailForm | null = document.getElementById("mailForm");
     const email: string = form!["email_signup"]!.value;
 
-    axios({
-      method: "post",
-      url: `${BASE_URL}/user/check`,
-      data: {
-        email: email,
-      },
-    })
-      .then((res: AxiosResponse) => {
-        // TODO: Show something when successfully singed up
-        console.log(res.data);
-        setisEmailSubmitted(true);
-        if (res.data["isUserSignnedUp"] === true) {
-          setisUserSignnedUP(true);
-        } else {
-          setisUserSignnedUP(false);
-        }
-      })
-      .catch((err: AxiosError<{ error: string }>) => {
-        // TODO: Show something when error caused
-        console.log(err.response!.data);
-      });
+    const foundEmail = await checkEmail(email);
+    setisEmailSubmitted(true);
+    setisUserSignnedUP(foundEmail);
   };
 
   const { t } = useTranslation();
@@ -72,17 +33,17 @@ function Landing() {
   return (
     <div className="App top">
       <Header />
-      <main className="main_top">
-        <div className="mv mainMiddle_top">
+      <main className="main_top before:invisible after:invisible md:before:visible md:after:visible md:w-11/12 lg:w-full md:mx-auto lg:mx-0">
+        <div className="mv mainMiddle_top before:invisible md:before:visible">
           <div className="lg:flex lg:justify-center">
-            <div className="lg:flex contentL_top lg:justify-between lg:items-center">
+            <div className="w-screen pr-5 md:w-[670px] lg:flex z-50 md:pl-5 lg:justify-between lg:items-center">
               <div>
                 <h2 className="mainTtl text-left font-bold">
-                  {t("想い")}
-                  <span className="font-light text-7xl">{t("を")}</span>
+                  想い
+                  <span className="font-light text-5xl md:text-7xl">を</span>
                   <br />
-                  {t("カタチ")}
-                  <span className="font-light text-7xl">{t("に")}</span>
+                  カタチ
+                  <span className="font-light text-5xl md:text-7xl ">に</span>
                 </h2>
                 <p className="text-left leading-loose text-base z-20">
                   {t("melBeeは、さまざまなデザインテンプレート")}
@@ -92,11 +53,11 @@ function Landing() {
                   {t("相手にそのまま送信もできる デザインツールです。")}
                   <br />
                   {t("あなたの「作りたい！」がきっとある。")} <br />
-                  {t("デザインをもっと身近に、簡単に。")} 
+                  {t("デザインをもっと身近に、簡単に。")}
                 </p>
               </div>
               {!isLoggedIn && (
-                <div className="flex text-base writing-v border-r border-slate-800 pr-4">
+                <div className="flex md:my-4 lg:my-0 text-base writing-v border-r border-slate-800 pr-4 invisible md:visible">
                   <p className="mb-3 text-base text-gray-500">
                     ログインまたは無料で新規登録
                   </p>
@@ -107,7 +68,7 @@ function Landing() {
               )}
             </div>
             {!isLoggedIn && (
-              <div className="contentR_top lg:flex lg:justify-center lg:items-center">
+              <div className="md:w-[504px] md:flex lg:justify-center md:items-center md:ml-5 lg:ml-0">
                 <div>
                   {!isEmailSubmitted && (
                     <>
@@ -115,14 +76,15 @@ function Landing() {
                         <form id="mailForm" onSubmit={handleSubmit}>
                           <input
                             type="email"
-                            value={email}
+                            autoComplete="email"
+                            defaultValue={email}
                             className="inputArea bg-gray-100 border-gray rounded lg:w-96"
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="youremail@example.com"
                             id="email_signup"
                           />
                           {email ? (
-                            <button className="lg:absolute lg:top-1.5 submitBtn">
+                            <button className="md:absolute md:top-1.5 right-[-16px]">
                               <FontAwesomeIcon
                                 icon={faArrowRight}
                                 className="bg-yellow-300 p-3 rounded-3xl text-white"
@@ -131,7 +93,7 @@ function Landing() {
                           ) : (
                             <button
                               disabled={true}
-                              className="lg:absolute lg:top-1.5 submitBtn"
+                              className="md:absolute md:top-1.5 right-[-16px]"
                             >
                               <FontAwesomeIcon
                                 icon={faArrowRight}

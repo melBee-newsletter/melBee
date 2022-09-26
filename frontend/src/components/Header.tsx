@@ -1,39 +1,39 @@
-import React, { useState, FC } from "react";
+import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import headerLogo from "../assets/logo.png";
+import headerLogo from "../assets/logo-no-text.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faDoorOpen } from "@fortawesome/free-solid-svg-icons";
+import { clickEvent } from "../type";
 
 const Header: FC = () => {
   const navigate = useNavigate();
-  const [open, SetOpen] = useState(false);
-  const toggleFunction = () => {
-    SetOpen((prevState) => {
-      return !prevState;
-    });
-  };
-
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
   const logoLink = isLoggedIn ? "/user" : "/";
 
+  const handleLogout = (e: clickEvent) => {
+    e.preventDefault();
+    sessionStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("melbeeID");
+    navigate("/");
+  };
+
   return (
-    <div className="header drop-shadow-md">
-      <div className="flex items-center justify-between">
-        <a href={logoLink} className="px-5">
+    <div className="header drop-shadow-md py-1 w-screen md:w-full fixed">
+      <div className="flex items-end justify-between">
+        <a href={logoLink} className="py-1">
           <img
             src={headerLogo}
             alt="melBee_logo"
-            className="py-2 logo"
-            width="80"
+            className="w-[38px] md:w-[45px]"
           />
         </a>
 
         {isLoggedIn && (
           <>
-            <nav className="nav">
-              <ul className="flex items-center">
+            <nav className="mr-5">
+              <ul className="flex items-end py-1">
                 <li className="mr-5 relative group">
                   <span
                     className={[
@@ -44,7 +44,7 @@ const Header: FC = () => {
                   </span>
                   <a className="block transition hover" href="/user">
                     <FontAwesomeIcon
-                      className="iconUser text-gray-800"
+                      className="text-gray-800 h-[28px] md:h-[32px] md:w-[28px] "
                       icon={faUser}
                     />
                   </a>
@@ -60,16 +60,10 @@ const Header: FC = () => {
                   <a
                     className="block transition hover"
                     href="/"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      sessionStorage.removeItem("isLoggedIn");
-                      sessionStorage.removeItem("melbeeID");
-                      alert("ログアウトされました");
-                      navigate("/");
-                    }}
+                    onClick={handleLogout}
                   >
                     <FontAwesomeIcon
-                      className="iconLogout text-gray-800"
+                      className="text-gray-800 h-[28px] md:h-[32px] md:w-[36px]"
                       icon={faDoorOpen}
                     />
                   </a>
