@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Event, clickEvent, SNS } from "../../../type";
-import { faFacebook, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import {
+  faFacebook,
+  faInstagram,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 
 type Props = {
   analytics: string;
@@ -11,7 +15,12 @@ type Props = {
   setExpand: Function;
 };
 
-const Profile: React.FC<Props> = ({ analytics, setAnalytics, expand, setExpand }) => {
+const Profile: React.FC<Props> = ({
+  analytics,
+  setAnalytics,
+  expand,
+  setExpand,
+}) => {
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
@@ -27,16 +36,20 @@ const Profile: React.FC<Props> = ({ analytics, setAnalytics, expand, setExpand }
 
   const [editMode, setEditMode] = useState<boolean>(true);
   const [infoFetched, setInfoFetched] = useState<boolean>(false);
-  const [SNS, setSNS] = useState<SNS>({facebook: "", instagram: "", twitter: ""});
+  const [SNS, setSNS] = useState<SNS>({
+    facebook: "",
+    instagram: "",
+    twitter: "",
+  });
   const [homepage, setHomepage] = useState<string>("");
-  
-  function checkExternalInfo(){
+
+  function checkExternalInfo() {
     let hasExternalInfo = false;
     if (analytics || homepage || SNS.facebook || SNS.instagram || SNS.twitter) {
       hasExternalInfo = true;
-    };
+    }
     return hasExternalInfo;
-  };
+  }
 
   useEffect(() => {
     //TO DO: GET external links and set in all areas
@@ -47,7 +60,7 @@ const Profile: React.FC<Props> = ({ analytics, setAnalytics, expand, setExpand }
       twitter: "",
     });
     setHomepage("");
-   
+
     setInfoFetched(true);
   }, []);
 
@@ -68,11 +81,12 @@ const Profile: React.FC<Props> = ({ analytics, setAnalytics, expand, setExpand }
 
   return (
     <div className="justify-center mb-10 md:px-5 lg:px-10  py-6 border rounded-lg drop-shadow-xl bg-white">
-      <div className="flex justify-between cursor-pointer" onClick={handleExpand}>
-        <h3 className="text-xl font-medium">
-          マーケティングツール
-        </h3>
-        <span className={direction}> 
+      <div
+        className="flex justify-between cursor-pointer"
+        onClick={handleExpand}
+      >
+        <h3 className="text-xl font-medium">マーケティングツール</h3>
+        <span className={direction}>
           <FontAwesomeIcon
             className="bg-yellow-200 rounded-lg p-1.5"
             icon={faArrowRight}
@@ -86,7 +100,7 @@ const Profile: React.FC<Props> = ({ analytics, setAnalytics, expand, setExpand }
               <div>
                 <form>
                   <h3 className="mt-4 mb-2 font-bold">Google Analytics</h3>
-                  <label for="">Analyticsタグ設定</label>
+                  <label htmlFor="">Analyticsタグ設定</label>
                   <input
                     type="text"
                     onChange={(e: Event) => setAnalytics(e.target.value)}
@@ -98,44 +112,44 @@ const Profile: React.FC<Props> = ({ analytics, setAnalytics, expand, setExpand }
                   <h3 className="mt-4 mb-2 font-bold">SNS</h3>
                   <label>
                     <span className="mr-1">
-                    <FontAwesomeIcon icon={faFacebook} />
-                    </span>
-                    {" "}
-                    facebook.com/</label>
+                      <FontAwesomeIcon icon={faFacebook} />
+                    </span>{" "}
+                    facebook.com/
+                  </label>
                   <input
                     type="text"
                     defaultValue={SNS.facebook}
-                    onChange={(e: Event) => SNS.facebook = e.target.value}
+                    onChange={(e: Event) => (SNS.facebook = e.target.value)}
                     placeholder="ユーザー名"
                     className="border rounded-lg p-2 mx-3"
                   ></input>
                   <br />
 
                   <label>
-                  <span className="mr-1">
-                    <FontAwesomeIcon icon={faTwitter} />
-                    </span>
-                    {" "} 
-                    twitter.com/</label>
+                    <span className="mr-1">
+                      <FontAwesomeIcon icon={faTwitter} />
+                    </span>{" "}
+                    twitter.com/
+                  </label>
                   <input
                     type="text"
                     defaultValue={SNS.twitter}
-                    onChange={(e: Event) => SNS.twitter = e.target.value}
+                    onChange={(e: Event) => (SNS.twitter = e.target.value)}
                     placeholder="ユーザー名"
                     className="border rounded-lg p-2 mx-3"
                   ></input>
                   <br />
 
                   <label>
-                  <span className="mr-1">
-                    <FontAwesomeIcon icon={faInstagram} />
-                    </span>
-                    {" "} 
-                    instagram.com/</label>
+                    <span className="mr-1">
+                      <FontAwesomeIcon icon={faInstagram} />
+                    </span>{" "}
+                    instagram.com/
+                  </label>
                   <input
                     type="text"
                     defaultValue={SNS.instagram}
-                    onChange={(e: Event) => SNS.instagram = e.target.value}
+                    onChange={(e: Event) => (SNS.instagram = e.target.value)}
                     placeholder="ユーザー名"
                     className="border rounded-lg p-2 mx-3"
                   ></input>
@@ -151,67 +165,90 @@ const Profile: React.FC<Props> = ({ analytics, setAnalytics, expand, setExpand }
                   ></input>
                   <br />
 
-                <div className="flex justify-center">
-                  <button
-                    onClick={confirmUpdate}
-                    className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation mt-4"
-                  >
-                  設定
-                  </button>
-                </div>
+                  <div className="flex justify-center">
+                    <button
+                      onClick={confirmUpdate}
+                      className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation mt-4"
+                    >
+                      設定
+                    </button>
+                  </div>
                 </form>
               </div>
-              ) : (
-                <div>
-                  <h3 className="mt-4 mb-2 font-bold">
-                    Google Analytics
-                  </h3>
-                  {analytics ? <p>Analyticsタグ: {analytics}</p> : <span>未設定</span>}
-                  
-                  <h3 className="mt-4 mb-2 font-bold">
-                    SNS
-                  </h3>
-                  <p>
-                    <span className="mr-1">
+            ) : (
+              <div>
+                <h3 className="mt-4 mb-2 font-bold">Google Analytics</h3>
+                {analytics ? (
+                  <p>Analyticsタグ: {analytics}</p>
+                ) : (
+                  <span>未設定</span>
+                )}
+
+                <h3 className="mt-4 mb-2 font-bold">SNS</h3>
+                <p>
+                  <span className="mr-1">
                     <FontAwesomeIcon icon={faFacebook} />
-                    </span>
-                    {SNS.facebook ? <a href={`facebook.com/${SNS.facebook}`} target="_blank"><span>facebook.com/{SNS.facebook}</span></a> : <span>未設定</span>}
-                   </p>
-                  
-                  <p>
-                    <span className="mr-1">
+                  </span>
+                  {SNS.facebook ? (
+                    <a href={`facebook.com/${SNS.facebook}`} target="_blank">
+                      <span>facebook.com/{SNS.facebook}</span>
+                    </a>
+                  ) : (
+                    <span>未設定</span>
+                  )}
+                </p>
+
+                <p>
+                  <span className="mr-1">
                     <FontAwesomeIcon icon={faTwitter} />
-                    </span>
-                    {SNS.twitter ? <a href={`twitter.com/${SNS.twitter}`} target="_blank"><span>twitter.com/{SNS.twitter}</span></a> : <span>未設定</span>}
-                  </p>
+                  </span>
+                  {SNS.twitter ? (
+                    <a href={`twitter.com/${SNS.twitter}`} target="_blank">
+                      <span>twitter.com/{SNS.twitter}</span>
+                    </a>
+                  ) : (
+                    <span>未設定</span>
+                  )}
+                </p>
 
-                  <p>
-                    <span className="mr-1">
+                <p>
+                  <span className="mr-1">
                     <FontAwesomeIcon icon={faInstagram} />
-                    </span>
-                    {SNS.instagram ? <a href={`http://instagram.com/${SNS.instagram}`} target="_blank"><span>instagram.com/{SNS.instagram}</span></a> : <span>未設定</span>}
-                  </p>
+                  </span>
+                  {SNS.instagram ? (
+                    <a
+                      href={`http://instagram.com/${SNS.instagram}`}
+                      target="_blank"
+                    >
+                      <span>instagram.com/{SNS.instagram}</span>
+                    </a>
+                  ) : (
+                    <span>未設定</span>
+                  )}
+                </p>
 
-                  <h3 className="mt-4 mb-2 font-bold">
-                    ホームページ
-                  </h3>
-                  <p>
-                    <span className="mr-1">
-                    HP
-                    </span>
-                    {homepage ? <a href={`http://${homepage}`} target="_blank"><span>{homepage}</span></a> : <span>未設定</span>}
-                  </p>
+                <h3 className="mt-4 mb-2 font-bold">ホームページ</h3>
+                <p>
+                  <span className="mr-1">HP</span>
+                  {homepage ? (
+                    <a href={`http://${homepage}`} target="_blank">
+                      <span>{homepage}</span>
+                    </a>
+                  ) : (
+                    <span>未設定</span>
+                  )}
+                </p>
 
                 <div className="flex justify-center">
                   <button
                     className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
                     onClick={enableEdit}
-                    >
+                  >
                     編集
                   </button>
                 </div>
               </div>
-              )}
+            )}
           </div>
         </div>
       )}

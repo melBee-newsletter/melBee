@@ -36,7 +36,6 @@ function App() {
               setLanguage={setLanguage}
               displayComponent={
                 <Portal
-                  language={language}
                   analytics={analytics}
                   setAnalytics={setAnalytics}
                   countSent={countSent}
