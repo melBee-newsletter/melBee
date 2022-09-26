@@ -40,14 +40,14 @@ const Header: React.FC = ({}) => {
 
   const languages = [
     {
-      code: "fr",
-      name: "Français",
-      country_code: "fr",
-    },
-    {
       code: "en",
       name: "English",
       country_code: "gb",
+    },
+    {
+      code: "fr",
+      name: "Français",
+      country_code: "fr",
     },
     {
       code: "jpn",
@@ -90,12 +90,12 @@ const Header: React.FC = ({}) => {
                       </li> */}
                       {languages.map(({ code, name, country_code }) => (
                         <li
-                          className="block hover:bg-gray-100"
+                          className="block hover:bg-gray-100 border-b-2 border-gray-100 last:border-b-0"
                           key={country_code}
                         >
                           <a
                             href="#"
-                            className={"py-2 block "}
+                            className={"py-2 block"}
                             onClick={() => {
                               i18n.changeLanguage(code);
                             }}
