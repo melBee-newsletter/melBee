@@ -74,28 +74,28 @@ const Header: React.FC = ({}) => {
         {isLoggedIn && (
           <>
             <nav className="mr-5">
-              <ul className="flex items-end py-1">
-                <div className="container">
-                  <div className="language-select">
-                    <button
-                      className="btn btn-link dropdown-toggle"
+              <ul className="flex items-end py-1 navArea">
+                <div className="">
+                  <div className="language-select relative mr-5">
+                    <a
+                      className="font-medium border-gray-400 border rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center bg-white"
                       type="button"
-                      id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    ></button>
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton1"
+                      id="dropdownButton"
                     >
-                      <li>
+                      言語選択 ▼
+                    </a>
+                    <ul className="z-10 w-32 bg-white rounded divide-gray-100 shadow dark:bg-gray-700py-1 text-sm text-gray-700 dropdown__lists">
+                      {/* <li className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                         <span className="dropdown-item-text">{t("言語")}</span>
-                      </li>
+                      </li> */}
                       {languages.map(({ code, name, country_code }) => (
-                        <li key={country_code}>
+                        <li
+                          className="block hover:bg-gray-100"
+                          key={country_code}
+                        >
                           <a
                             href="#"
-                            className={"test"}
+                            className={"py-2 block "}
                             onClick={() => {
                               i18n.changeLanguage(code);
                             }}

@@ -7,6 +7,10 @@
   margin: 0 auto;
 }
 
+#root .App .fixed .header .flex.navArea {
+  width: auto;
+}
+
 #root .App .fixed .header .flex a.px-5{
   padding: 0;
 }
