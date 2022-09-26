@@ -3,14 +3,15 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import "./EditorBox.css";
+import { useTranslation } from "react-i18next";
 
 const EditorBox: React.FC = () => {
   const navigate = useNavigate();
   const TEMPLATE_PATH = "/user";
   const PREVIEW_PATH = "/user/preview";
   const [loading, setLoading] = useState<boolean>(true);
-
   const editorRef = useRef<tinyMCEEditor | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setTimeout(() => {
@@ -24,9 +25,9 @@ const EditorBox: React.FC = () => {
         <Loading word={"L O A D I N G"} />
       ) : (
         <div className="pt-24 mb-28">
-          <h2 className="text-xl font-medium mb-1">テンプレート編集</h2>
+          <h2 className="text-xl font-medium mb-1">{t("テンプレート編集")}</h2>
           <p className="mb-5">
-            画像やテキスト、レイアウトのカスタマイズを行うことができます。
+            {t("画像やテキスト、レイアウトのカスタマイズを行うことができます。")}
           </p>
           <Editor
             apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
@@ -135,7 +136,7 @@ const EditorBox: React.FC = () => {
               }}
               className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-grayGradation"
             >
-              {"< テンプレート一覧"}
+              {t("< テンプレート一覧")}
             </button>
             <button
               onClick={(e) => {
@@ -144,7 +145,7 @@ const EditorBox: React.FC = () => {
               }}
               className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-6"
             >
-              {"プレビュー >"}
+              {t("プレビュー >")}
             </button>
           </div>
         </div>
