@@ -43,8 +43,7 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 
 def add_user_template(user: schemas.User, db: Session, usertemplate: schemas.TemplateBase):
-    usertemplate = models.UserTemplate(
-        user_id=user.id, title=usertemplate.title, thumbnail=usertemplate.thumbnail, body=usertemplate.body)
+    usertemplate = models.UserTemplate(user_id=user.id, title=usertemplate.title, thumbnail=usertemplate.thumbnail, body=usertemplate.body)
     session = Session()
     try:
         db.add(usertemplate)
@@ -60,8 +59,7 @@ def add_user_template(user: schemas.User, db: Session, usertemplate: schemas.Tem
 def delete_user_template_by_id(db: Session, user_id: int, template_id: int) -> list():
     session = Session()
     try:
-        db.query(models.UserTemplate).filter(models.UserTemplate.user_id ==
-                                             user_id, models.UserTemplate.id == template_id).delete()
+        db.query(models.UserTemplate).filter(models.UserTemplate.user_id == user_id, models.UserTemplate.id == template_id).delete()
         db.commit()
     except:
         session.rollback()
@@ -71,8 +69,7 @@ def delete_user_template_by_id(db: Session, user_id: int, template_id: int) -> l
 
 
 def add_sent_history(user: schemas.User, db: Session, senthistory: schemas.SentHistory):
-    senthistory = models.SentHistory(user_id=user.id, subject=senthistory.subject,
-                                     recipients=senthistory.recipients, template=senthistory.template, date_sent=senthistory.date_sent)
+    senthistory = models.SentHistory(user_id=user.id, subject=senthistory.subject, recipients=senthistory.recipients, template=senthistory.template, date_sent=senthistory.date_sent)
     session = Session()
     try:
         db.add(senthistory)
@@ -93,37 +90,15 @@ def get_external_info(db: Session, user_id: int):
     return db.query(models.User.analyticsID, models.User.instagramID, models.User.twitterID, models.User.facebookID, models.User.homepage).filter(models.User.id == user_id).first()
 
 
-def update_external_info(db: Session, id: int, info: str, media: str) -> tuple():
-    media_types = ["analytics", "instagram", "twitter", "facebook", "homepage"]
-    if media not in media_types:
-        return (False, "Unsupported media type. サポートされていないメディアです。")
-
-    media_col = media + "ID"
-    db_external_info = db.query(models.ExternalInfo).filter(
-        models.ExternalInfo.user_id == id).first()
+def update_external_info(db: Session, user_id:int, analyticsID: str, instagramID: str, twitterID: str, facebookID: str, homepage: str):
     session = Session()
-
-    if db_external_info:
-        try:
-            setattr(db_external_info, media_col, info)
-            db.commit()
-        except Exception as err:
-            session.rollback()
-            return (False, err.args)
-        finally:
-            session.close()
-    else:
-        try:
-            external_info = models.ExternalInfo(user_id=id)
-            setattr(external_info, media_col, info)
-            db.add(external_info)
-            db.commit()
-        except Exception as err:
-            session.rollback()
-            return (False, err.args)
-        finally:
-            session.close()
-    return (True, None)
+    try:
+        db.query(models.User).filter(models.User.id == user_id).update(dict(analyticsID = analyticsID, instagramID = instagramID, twitterID = twitterID, facebookID = facebookID, homepage = homepage))
+        db.commit()
+    except:
+        session.rollback()
+    finally:
+        session.close()
 
 
 def add_analytics(user: schemas.User, analyticsID: str):
@@ -160,8 +135,7 @@ def get_single_contact_by_user_id(db: Session, contact_id, user_id):
 
 
 def add_contact_list(db: Session, email: str, user_id: int, is_subscribed: bool):
-    contact = models.ContactList(
-        email=email, user_id=user_id, is_subscribed=is_subscribed)
+    contact = models.ContactList(email=email, user_id=user_id, is_subscribed=is_subscribed)
     session = Session()
     try:
         db.add(contact)
@@ -177,8 +151,7 @@ def delete_contact_by_email_and_user_id(db: Session, emails: list[str], user_id:
     session = Session()
     try:
         for email in emails:
-            db.query(models.ContactList).filter(models.ContactList.email ==
-                                                email, models.ContactList.user_id == user_id).delete()
+            db.query(models.ContactList).filter(models.ContactList.email == email, models.ContactList.user_id == user_id).delete()
         db.commit()
     except:
         session.rollback()
@@ -190,8 +163,7 @@ def delete_contact_by_email_and_user_id(db: Session, emails: list[str], user_id:
 def unsubscribe_contact_by_email_and_user_id(db: Session, receiver_email: str, receiver_id: int, user_id: int):
     session = Session()
     try:
-        db.query(models.ContactList).filter(
-            models.ContactList.email == receiver_email, models.ContactList.id == receiver_id, models.ContactList.user_id == user_id).update({"is_subscribed": False})
+        db.query(models.ContactList).filter(models.ContactList.email == receiver_email, models.ContactList.id == receiver_id, models.ContactList.user_id == user_id).update({"is_subscribed": False})
         db.commit()
     except:
         session.rollback()
@@ -203,8 +175,7 @@ def unsubscribe_contact_by_email_and_user_id(db: Session, receiver_email: str, r
 def subscribe_contact_by_email_and_user_id(db: Session, receiver_email: str, receiver_id: int, user_id: int):
     session = Session()
     try:
-        db.query(models.ContactList).filter(
-            models.ContactList.email == receiver_email, models.ContactList.id == receiver_id, models.ContactList.user_id == user_id).update({"is_subscribed": True})
+        db.query(models.ContactList).filter(models.ContactList.email == receiver_email, models.ContactList.id == receiver_id, models.ContactList.user_id == user_id).update({"is_subscribed": True})
         db.commit()
     except:
         session.rollback()
@@ -235,10 +206,10 @@ def seed_template(db: Session):
             title="最初から作成", thumbnail="", body=templates.default)
         db.add(db_template_default)
         db_template_defaultlight = models.Template(
-            title="デフォルトのメール", thumbnail="", body=templates.defaultlight)
+            title="デフォルトメルビー", thumbnail="", body=templates.defaultlight)
         db.add(db_template_defaultlight)
         db_template_defaultdark = models.Template(
-            title="クールなメール", thumbnail="", body=templates.defaultdark)
+            title="クールなメルビー", thumbnail="", body=templates.defaultdark)
         db.add(db_template_defaultdark)
         db_template_baby = models.Template(
             title="新しい家族", thumbnail="", body=templates.baby)
@@ -271,10 +242,8 @@ def seed_template(db: Session):
 
 
 def send_email(db: Session, receiver, subject, message_body, user_id):
-    receiver_id = db.query(models.ContactList.id).filter(
-        models.ContactList.user_id == user_id, models.ContactList.email == receiver).scalar()
-    user_email = db.query(models.User.email).filter(
-        models.User.id == user_id).scalar()
+    receiver_id = db.query(models.ContactList.id).filter(models.ContactList.user_id == user_id, models.ContactList.email == receiver).scalar()
+    user_email = db.query(models.User.email).filter(models.User.id == user_id).scalar()
     return mailSender.send_email(receiver, subject, message_body, user_id, user_email, receiver_id)
 
 

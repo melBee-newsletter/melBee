@@ -1,7 +1,9 @@
 import React from "react";
 import { Props } from "../../../type";
+import { useTranslation } from "react-i18next";
 
 const Template: React.FC<Props["template"]> = ({ template }) => {
+  const { t } = useTranslation();
   return (
     <>
       <p className="pb-2">{template.title.slice(0, 20)}</p>
@@ -17,6 +19,9 @@ const Template: React.FC<Props["template"]> = ({ template }) => {
           </div>
         </div>
       </div>
+      <p className="break-all inline-block w-[73%] templateTitle">
+        {t(template.title.slice(0, 20))}
+      </p>
     </>
   );
 };
