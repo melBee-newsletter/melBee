@@ -58,7 +58,7 @@ def get_user(id: int, db: Session = Depends(get_db)):
 def get_template_by_user_id(id: int, db: Session = Depends(get_db)):
     templateuser = crud.get_user_template(db, id)
     if not templateuser:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+        raise HTTPException(status_code=204, detail="Invalid id. 無効なidです。")
     return templateuser
 
 
@@ -75,7 +75,7 @@ def add_template_by_user_id(id: int, template: schemas.TemplateBase, db: Session
 def get_sent_history_by_user_id(id: int, db: Session = Depends(get_db)):
     userhistory = crud.get_user_history(db, id)
     if not userhistory:
-        raise HTTPException(status_code=400, detail="Invalid id or no sent history. 無効なidもしくは送信履歴がありません。")
+        raise HTTPException(status_code=204, detail="Invalid id or no sent history. 無効なidもしくは送信履歴がありません。")
     return userhistory
 
 
@@ -169,17 +169,16 @@ def delete_user_template_by_id(user_id: int, template_id: int, db: Session = Dep
 def get_external_info(id: int, db: Session = Depends(get_db)):
     db_external_info = crud.get_external_info(db, id)
     if not db_external_info:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+        raise HTTPException(status_code=204, detail="Invalid id. 無効なidです。")
     return db_external_info
 
-@app.patch("/user/{id}/external_info", response_model={})
-def update_external_info(id: int,  info: str, media: str, db: Session = Depends(get_db)):
-    isOK, msg = crud.update_external_info(db, id, info, media)
-    if isOK:
-        return {"message": "External info updated. 外部情報が更新されました。"}
-    else:
-        raise HTTPException(status_code=400, detail=msg)
-
+@app.patch("/user/{id}/external_info")
+def update_external_info(externalInfo: schemas.UserExternalInfo, id: int, db: Session = Depends(get_db)):
+    try:
+        crud.update_external_info(db, id, externalInfo.analyticsID, externalInfo.instagramID, externalInfo.twitterID, externalInfo.facebookID, externalInfo.homepage)
+    except:
+        raise HTTPException(status_code=400, detail="External cannot be updated. 外部情報の更新ができません。")
+    return {"message": "External info updated. 外部情報が更新されました。"}
 
 #  ----- /user/contact_list ----- #
 
@@ -222,8 +221,7 @@ def delete_contact_by_email_and_user_id(emails: list[str], user_id: int, db: Ses
 
 @app.patch("/user/contact/unsubscribe", response_model={})
 def unsubscribe_contact_by_email_and_user_id(receiver_email: str, receiver_id: int, user_id: int, db: Session = Depends(get_db)):
-    crud.unsubscribe_contact_by_email_and_user_id(
-        db, receiver_email, receiver_id, user_id)
+    crud.unsubscribe_contact_by_email_and_user_id(db, receiver_email, receiver_id, user_id)
     if not unsubscribe_contact_by_email_and_user_id:
         raise HTTPException(status_code=400, detail="Invalid email address or no contact list matched. 無効なメールアドレスもしくはコンタクトリストがありません。")
     return {"message": "Data changed succesfully. データは変更されました。"}
@@ -233,8 +231,7 @@ def unsubscribe_contact_by_email_and_user_id(receiver_email: str, receiver_id: i
 
 @app.patch("/user/contact/subscribe", response_model={})
 def subscribe_contact_by_email_and_user_id(receiver_email: str, receiver_id: int, user_id: int, db: Session = Depends(get_db)):
-    crud.subscribe_contact_by_email_and_user_id(
-        db, receiver_email, receiver_id, user_id)
+    crud.subscribe_contact_by_email_and_user_id(db, receiver_email, receiver_id, user_id)
     if not subscribe_contact_by_email_and_user_id:
         raise HTTPException(status_code=400, detail="Invalid email address or no contact list matched. 無効なメールアドレスもしくはコンタクトリストがありません。")
     return {"message": "Data changed succesfully. データは変更されました。"}
@@ -251,7 +248,7 @@ def seed_templates(db: Session = Depends(get_db)):
 def get_a_single_template_by_id_or_get_all_with_0(id: int, db: Session = Depends(get_db)):
     db_template = crud.get_template_by_id(db, id)
     if not db_template:
-        raise HTTPException(status_code=400, detail="Invalid id. 無効なidです。")
+        raise HTTPException(status_code=204, detail="Invalid id. 無効なidです。")
     return db_template
 
 # ----- /email ------ #
