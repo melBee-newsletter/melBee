@@ -1,4 +1,3 @@
-from turtle import home
 from sqlalchemy.orm import Session
 import database.models as models
 import database.schemas as schemas
