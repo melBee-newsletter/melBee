@@ -110,7 +110,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
         {expand && (
           <div className="md:flex md:justify-center">
             <div className="">
-              {myTemplates.length > 0 && (
+              {(myTemplates.length > 0 || localStorage.melBeeTempStoragedraft) && (
                 <div>
                   <p className="mt-4 mb-7 font-bold">保存テンプレート</p>
                   <div className="md:grid lg:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
