@@ -293,12 +293,12 @@ export const externalInfoAPI = {
   get: async () => {
     const externalInfo: externalInfo = {
       analytics: "",
-      SNS: {
+      externalLinks: {
         facebook: "",
         instagram: "",
         twitter: "",
+        homepage: "",
       },
-      homepage: "",
     };
     await axios({
       method: "get",
@@ -306,14 +306,35 @@ export const externalInfoAPI = {
     })
     .then((res: AxiosResponse) => {
       let data = res.data;
-      externalInfo.analytics = data.analytics;
-      externalInfo.SNS.facebook = data.facebook;
-      externalInfo.SNS.instagram = data.instagram;
-      externalInfo.SNS.twitter = data.twitter;
-      externalInfo.homepage = data.homepage;
+      for (const info in data) {
+        if (info !== "analytics") {
+          externalInfo.externalLinks[info] = data[info];
+        } else {
+          externalInfo.analytics = data[info];
+        };
+      };
     })
     .catch((err: AxiosError<{ error: string }>) => {
     });
     return externalInfo;
+  },
+  /**
+   * Update user's external info
+   * @param externalInfo 
+   * @returns 
+   */
+  update: async (externalInfo: externalInfo) => {
+    let updated = false;
+    await axios({
+      method: "patch",
+      url: `${BASE_URL}/user/${sessionStorage.melbeeID}/external_info`,
+      data: externalInfo,
+    })
+    .then((res: AxiosResponse) => {
+      updated = true;
+    })
+    .catch((err: AxiosError<{ error: string }>) => {
+    });
+    return updated;
   },
 };

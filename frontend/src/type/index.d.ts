@@ -83,13 +83,21 @@ export type SNS = {
 
 export type externalInfo = {
   analytics: string;
-  SNS: {
+  externalLinks: {
     facebook: string;
     instagram: string;
     twitter: string;
+    homepage: string;
+    [key: string]: string;
   };
-  homepage: string;
 };
+
+export type externalLinks = {
+  facebook: string;
+  instagram: string;
+  twitter: string;
+  homepage: string;
+}
 
 /**
  * PROPS
@@ -144,5 +152,11 @@ export type Props = {
     analytics: string;
     reachLimit: boolean;
     setCountSent: Function;
+  },
+  marketingTool: {
+    analytics: string;
+    setAnalytics: Function;
+    expand: boolean;
+    setExpand: Function;
   },
 };
