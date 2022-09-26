@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import CSVReader from "./CSVReader";
-import { getContacts, addContact, deleteContacts } from "../api";
+import { contactAPI } from "../api";
 import { Event, clickEvent, Props } from "../../../type";
 
 const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => {
@@ -28,7 +28,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
 
   useEffect(() => {
     (async function getAllContacts() {
-      await getContacts().then((res) => {
+      await contactAPI.get().then((res) => {
         setContactList(res.subscribedContacts);
         setIsChecked(new Array(res.subscribedContacts.length).fill(false));
         setBlackList(res.unsubscribedContacts);
@@ -64,7 +64,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
   const handleAdd = async (e: clickEvent) => {
     e.preventDefault();
     if (email) {
-      await addContact(email).then((addSuccess) => {
+      await contactAPI.addSingle(email).then((addSuccess) => {
         if (addSuccess) {
           setContactList((prevEmail) => [...prevEmail, email]);
           setIsChecked((prevStat) => [...prevStat, false]);
@@ -92,7 +92,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
 
   const handleRemove = async (e: clickEvent) => {
     e.preventDefault();
-    await deleteContacts(selectedEmail).then((deleteSuccess) => {
+    await contactAPI.delete(selectedEmail).then((deleteSuccess) => {
       if (deleteSuccess) {
         const afterRemove = contactList.filter((_, i) => !isChecked[i]);
         setContactList(afterRemove);

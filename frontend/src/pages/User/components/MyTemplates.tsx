@@ -4,12 +4,7 @@ import Template from "./Template";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { template, clickEvent, Props } from "../../../type";
-import {
-  seedTemplate,
-  getMelbeeTemplates,
-  getMyTemplates,
-  deleteMyTemplate,
-} from "../api";
+import { templateAPI } from "../api";
 
 const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => {
   const navigate = useNavigate();
@@ -33,8 +28,8 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
 
   useEffect(() => {
     (async function () {
-      await getMelbeeTemplates(1).then((res) => {
-        if (!res[0].id) seedTemplate();
+      await templateAPI.getMelbee(1).then((res) => {
+        if (!res[0].id) templateAPI.seed();
       });
     })();
   }, []);
@@ -42,12 +37,12 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
   useEffect(() => {
     (async function getAllTemplates() {
       const idToFetchAll = 0;
-      const allTemplates = await getMelbeeTemplates(idToFetchAll);
+      const allTemplates = await templateAPI.getMelbee(idToFetchAll);
       setMelBeeTemplates(allTemplates);
     })();
 
     (async function () {
-      const allMyTemplates = await getMyTemplates();
+      const allMyTemplates = await templateAPI.getMy();
       setMyTemplates(allMyTemplates);
     })();
   }, []);
@@ -63,7 +58,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
   useEffect(() => {
     const handleMelBeeTemplate = async (i: number) => {
       const templateId = melBeeTemplates[i].id;
-      const chosenTemplate = await getMelbeeTemplates(templateId);
+      const chosenTemplate = await templateAPI.getMelbee(templateId);
       localStorage.setItem("melBeeTempStoragedraft", chosenTemplate[0].body);
       navigate("/user/edit");
     };
@@ -74,10 +69,10 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => 
     const confirmDelete = window.confirm("保存テンプレートを削除しますか？");
     const templateId = myTemplates[i].id;
     if (confirmDelete) {
-      await deleteMyTemplate(templateId).then((deleteSuccess) => {
+      await templateAPI.deleteMy(templateId).then((deleteSuccess) => {
         if (deleteSuccess) {
           (async function () {
-            const allMyTemplates = await getMyTemplates();
+            const allMyTemplates = await templateAPI.getMy();
             setMyTemplates(allMyTemplates);
             alert("テンプレートが削除されました。");
           })();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useCSVReader, formatFileSize } from "react-papaparse";
 import { styles, DEFAULT_REMOVE_HOVER_COLOR, REMOVE_HOVER_COLOR_LIGHT } from "./CSVReaderStyle"
-import { addContacts } from "../api";
+import { contactAPI } from "../api";
 import { Props } from "../../../type";
 
 const CSVReader: React.FC<Props["csvReader"]> = ({ setContactList }) => {
@@ -11,7 +11,7 @@ const CSVReader: React.FC<Props["csvReader"]> = ({ setContactList }) => {
   const [csvData, setCsvData] = useState([]);
 
   const addCsvToContacts = async (emails: string[]) => {
-    const newContact = await addContacts(emails);
+    const newContact = await contactAPI.addMultiple(emails);
     if (newContact) setContactList((prevEmail: string[]) => [...prevEmail, emails]);
   };
 

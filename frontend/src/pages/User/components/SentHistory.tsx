@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import History from "./History";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { getSentHistory } from "../api";
+import { sentHistoryAPI } from "../api";
 import { history, clickEvent, Props } from "../../../type";
 
 const SentHistory: React.FC<Props["sentHistory"]> = ({ expand, setExpand, setCountSent }) => {
@@ -42,7 +42,7 @@ const SentHistory: React.FC<Props["sentHistory"]> = ({ expand, setExpand, setCou
       }
     };
     (async function allSentHistory() {
-      await getSentHistory().then((sentHistory) => {
+      await sentHistoryAPI.get().then((sentHistory) => {
         sentHistory.map((history: history) => {
           setSentHistory((current) => [history, ...current]);
           setViewHistory((prevStat) => [...prevStat, false]);

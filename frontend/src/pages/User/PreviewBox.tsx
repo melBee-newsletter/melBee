@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { saveMyTemplate } from "./api";
+import { templateAPI } from "./api";
 import { templateToSave, clickEvent, Props } from "../../type";
 
 const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
@@ -19,7 +19,7 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
         thumbnail: "",
         body: localStorage.melBeeTempStoragedraft,
       };
-      const isSaved = await saveMyTemplate(templateToSave);
+      const isSaved = await templateAPI.saveMy(templateToSave);
       setSaved(isSaved);
     } else {
       alert(
