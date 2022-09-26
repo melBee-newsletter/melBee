@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./sendbox.css";
 import { contactAPI, emailAPI, sentHistoryAPI } from "./api";
 import { clickEvent, Props } from "../../type";
+import { useTranslation } from "react-i18next";
 
 const SendBox: React.FC<Props["send"]> = ({
   analytics,
@@ -23,7 +24,7 @@ const SendBox: React.FC<Props["send"]> = ({
   const [updateReceiver, setUpdateReceiver] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [sendComplete, setSendComplete] = useState<boolean>(false);
-
+  const { t } = useTranslation();
   let TEMPLATE = localStorage.melBeeTempStoragedraft;
   const DATE = new Date();
 
@@ -173,29 +174,29 @@ const SendBox: React.FC<Props["send"]> = ({
           )}
           {reachLimit && !sendComplete && (
             <div className="flex justify-center">
-              <p>申し訳ございません、本日の送信リミットに達しました。</p>
+              <p>{t("申し訳ございません、本日の送信リミットに達しました。")}</p>
             </div>
           )}
           {!reachLimit && !sendComplete && (
             <div className="sendArea pt-24 mx-auto mb-28">
               <div className="mb-8">
                 <h2 className="text-xl font-bold mb-1">
-                  メールタイトルのご入力
+                  {t("メールタイトルのご入力")}
                 </h2>
                 <p className="mb-5">
-                  送信するメールのタイトルをご入力ください。
+                  {t("送信するメールのタイトルをご入力ください。")}
                 </p>
                 <input
                   type="text"
-                  placeholder="メールタイトルの入力をしてください。"
+                  placeholder={t("メールタイトルの入力をしてください。")}
                   onChange={(e) => handleSubject(e.target.value)}
                   id="subjectId"
                   value={subject}
                   className="border rounded-lg p-2 text-lg sendTitle w-full"
                 />
               </div>
-              <h2 className="text-xl font-bold mb-1">メールアドレスの選択</h2>
-              <p className="mb-4">送信先メールアドレスを選択してください。</p>
+              <h2 className="text-xl font-bold mb-1">{t("メールアドレスの選択")}</h2>
+              <p className="mb-4">{t("送信先メールアドレスを選択してください。")}</p>
               <div className="flex text-xl pl-6">
                 <input
                   type="checkbox"
@@ -203,9 +204,9 @@ const SendBox: React.FC<Props["send"]> = ({
                   disabled={!allEmails.length}
                 />
                 {!selectAll ? (
-                  <p className="text-base ml-2">アドレスを全て選択</p>
+                  <p className="text-base ml-2">{t("アドレスを全て選択")}</p>
                 ) : (
-                  <p className="text-base ml-2">アドレスを全て解除</p>
+                  <p className="text-base ml-2">{t("アドレスを全て解除")}</p>
                 )}
               </div>
               <div className="scroll flex flex-wrap border items-start rounded-xl mt-2 mb-4 px-3 py-1 bg-white">
@@ -216,7 +217,7 @@ const SendBox: React.FC<Props["send"]> = ({
               <div className="mb-8">
                 <div>
                   <p className="mb-2 text-left">
-                    メールアドレスを新規登録したい方は、こちらからご入力いただけます。
+                    {t("メールアドレスを新規登録したい方は、こちらからご入力いただけます。")}
                   </p>
                   <div className="text-left">
                     <form onSubmit={handleAdd}>
@@ -224,12 +225,12 @@ const SendBox: React.FC<Props["send"]> = ({
                         className="border rounded-lg p-2 text-base w-3/6"
                         type="email"
                         value={email}
-                        placeholder="新規メールアドレスの登録はこちらから"
+                        placeholder={t("新規メールアドレスの登録はこちらから")}
                         onChange={(e) => setEmail(e.target.value)}
                       />
                       <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2 w-28">
                         {" "}
-                        追加{" "}
+                        {t("追加")}{" "}
                       </button>
                     </form>
                   </div>
@@ -244,14 +245,14 @@ const SendBox: React.FC<Props["send"]> = ({
                   }}
                   className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-grayGradation"
                 >
-                  &lt; プレビュー
+                  &lt; {t("プレビュー")}
                 </button>
                 <button
                   type="submit"
                   onClick={handleSend}
                   className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-6 w-28"
                 >
-                  送信
+                  {t("送信")}
                 </button>
               </div>
             </div>
