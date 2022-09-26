@@ -86,7 +86,7 @@ const Profile: React.FC<Props> = ({ analytics, setAnalytics, expand, setExpand }
               <div>
                 <form>
                   <h3 className="mt-4 mb-2 font-bold">Google Analytics</h3>
-                  <label>Analyticsタグ設定</label>
+                  <label for="">Analyticsタグ設定</label>
                   <input
                     type="text"
                     onChange={(e: Event) => setAnalytics(e.target.value)}
