@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Event, clickEvent, externalLinks, Props, externalInfo } from "../../../type";
+import {
+  Event,
+  clickEvent,
+  externalLinks,
+  Props,
+  externalInfo,
+} from "../../../type";
 import { externalInfoAPI } from "../api";
-import { faFacebook, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import {
+  faFacebook,
+  faInstagram,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 import { useTranslation } from "react-i18next";
 
 const MarketingTool: React.FC<Props["marketingTool"]> = ({
@@ -38,19 +48,20 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
   useEffect(() => {
     let hasExternalInfo: boolean = false;
     (async function getExternalInfo() {
-      await externalInfoAPI.get()
-      .then((externalInfo: externalInfo) => {
-        setExternalInfo(externalInfo.externalLinks);
-        setAnalytics(externalInfo.analyticsID);
-        for (const info in externalInfo.externalLinks) {
-          if (externalInfo.externalLinks[info] || externalInfo.analyticsID) {
-            hasExternalInfo = true;
-          };
-        };
-      })
-      .then(() => {
-        setEditMode(!hasExternalInfo);
-      });
+      await externalInfoAPI
+        .get()
+        .then((externalInfo: externalInfo) => {
+          setExternalInfo(externalInfo.externalLinks);
+          setAnalytics(externalInfo.analyticsID);
+          for (const info in externalInfo.externalLinks) {
+            if (externalInfo.externalLinks[info] || externalInfo.analyticsID) {
+              hasExternalInfo = true;
+            }
+          }
+        })
+        .then(() => {
+          setEditMode(!hasExternalInfo);
+        });
     })();
   }, []);
 
@@ -63,10 +74,9 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
       twitterID: externalInfo.twitterID,
       homepage: externalInfo.homepage,
     };
-    await externalInfoAPI.update(newExternalInfo)
-    .then((updated) => {
+    await externalInfoAPI.update(newExternalInfo).then((updated) => {
       setEditMode(!updated);
-    })
+    });
   };
 
   const enableEdit = (e: clickEvent) => {
@@ -80,7 +90,7 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
         className="flex justify-between cursor-pointer"
         onClick={handleExpand}
       >
-        <p className="text-xl font-medium">マーケティングツール</p>
+        <p className="text-xl font-medium">{t("マーケティングツール")}</p>
         <span className={direction}>
           <FontAwesomeIcon
             className="bg-yellow-200 rounded-lg p-1.5"
@@ -99,19 +109,19 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                       htmlFor="analyticsTag"
                       className="w-[250px] text-left cursor-pointer align-middle"
                     >
-                      Analyticsタグの設定
+                      {t("Analyticsタグの設定")}
                     </label>
                     <input
                       type="text"
                       onChange={(e: Event) => setAnalytics(e.target.value)}
                       defaultValue={analytics}
-                      placeholder="Google Analyticsタグ"
+                      placeholder={t("Google Analyticsタグ")}
                       id="analyticsTag"
                       className="border rounded-lg p-2 w-full"
                     ></input>
                   </div>
                   <div>
-                    <p className="mb-2 text-left">SNSの設定</p>
+                    <p className="mb-2 text-left">{t("SNSの設定")}</p>
                     <ul className="mb-6">
                       <li className="text-left mb-3 flex justify-between items-center">
                         {" "}
@@ -133,7 +143,7 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                           onChange={(e: Event) =>
                             (externalInfo.facebookID = e.target.value)
                           }
-                          placeholder="アカウント名"
+                          placeholder={t("アカウント名")}
                           id="facebook"
                           className="border rounded-lg p-2 w-full"
                         ></input>
@@ -158,7 +168,7 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                           onChange={(e: Event) =>
                             (externalInfo.twitterID = e.target.value)
                           }
-                          placeholder="アカウント名"
+                          placeholder={t("アカウント名")}
                           id="twitter"
                           className="border rounded-lg p-2 w-full"
                         ></input>
@@ -183,7 +193,7 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                           onChange={(e: Event) =>
                             (externalInfo.instagramID = e.target.value)
                           }
-                          placeholder="アカウント名"
+                          placeholder={t("アカウント名")}
                           id="instagram"
                           className="border rounded-lg p-2 w-full"
                         ></input>
@@ -195,12 +205,14 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                         htmlFor="homepage"
                         className="cursor-pointer w-[250px] text-left"
                       >
-                        ホームページを設定する
+                        {t("ホームページを設定する")}
                       </label>
                       <input
                         type="url"
                         defaultValue={externalInfo.homepage}
-                        onChange={(e: Event) => externalInfo.homepage = e.target.value}
+                        onChange={(e: Event) =>
+                          (externalInfo.homepage = e.target.value)
+                        }
                         placeholder="www.homepage.com"
                         id="homepage"
                         className="border rounded-lg p-2 w-full"
@@ -213,7 +225,7 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                       onClick={confirmUpdate}
                       className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation mt-4"
                     >
-                      設定
+                      {t("設定")}
                     </button>
                   </div>
                 </form>
@@ -221,12 +233,15 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
             ) : (
               <div className="text-left">
                 {analytics ? (
-                  <p className="mb-6">Analyticsタグの設定 {analytics}</p>
+                  <p className="mb-6">
+                    {" "}
+                    {t("Analyticsタグの設定")} {analytics}
+                  </p>
                 ) : (
-                  <p className="mb-6">Analyticsタグの設定 未設定</p>
+                  <p className="mb-6">{t("Analyticsタグの設定 未設定")}</p>
                 )}
 
-                <p className="mb-2">SNSの設定</p>
+                <p className="mb-2">{t("SNSの設定")}</p>
                 <p className="mb-3">
                   <span className="mr-2">
                     <FontAwesomeIcon
@@ -244,7 +259,7 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                       <span>facebook.com/{externalInfo.facebookID}</span>
                     </a>
                   ) : (
-                    <span>未設定</span>
+                    <span>{t("未設定")}</span>
                   )}
                 </p>
 
@@ -265,7 +280,7 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                       <span>twitter.com/{externalInfo.twitterID}</span>
                     </a>
                   ) : (
-                    <span>未設定</span>
+                    <span>{t("未設定")}</span>
                   )}
                 </p>
 
@@ -286,13 +301,13 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                       <span>instagram.com/{externalInfo.instagramID}</span>
                     </a>
                   ) : (
-                    <span>未設定</span>
+                    <span>{t("未設定")}</span>
                   )}
                 </p>
 
                 {/* <h3 className="mt-4 mb-2 font-bold">ホームページ</h3> */}
                 <p>
-                  <span className="mr-1">ホームページを設定する</span>
+                  <span className="mr-1">{t("ホームページを設定する")}</span>
                   {externalInfo?.homepage ? (
                     <a
                       href={`http://${externalInfo?.homepage}`}
@@ -303,7 +318,7 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                       <span>{externalInfo.homepage}</span>
                     </a>
                   ) : (
-                    <span>未設定</span>
+                    <span>{t("未設定")}</span>
                   )}
                 </p>
 
@@ -312,7 +327,7 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                     className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation"
                     onClick={enableEdit}
                   >
-                    編集
+                    {t("編集")}
                   </button>
                 </div>
               </div>
