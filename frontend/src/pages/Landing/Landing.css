@@ -18,7 +18,7 @@
   border-right: 1px solid #959494;
 }
 
-.deleteBtn {
+/* .deleteBtn {
   display: block;
   position: relative;
   width: 15px;
@@ -46,7 +46,7 @@
 
 .writing-v {
   writing-mode: vertical-lr;
-}
+} */
 
 .mv {
   height: calc(100% - 166px);

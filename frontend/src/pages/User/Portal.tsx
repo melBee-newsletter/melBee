@@ -90,23 +90,24 @@ const Portal: React.FC<Props> = ({
             </div>
           </div>
 
-          <MyTemplates expand={expand.template} setExpand={setExpand} />
+            <MyTemplates expand={expand.template} setExpand={setExpand} />
 
-          <ContactList expand={expand.contact} setExpand={setExpand} />
+            <ContactList expand={expand.contact} setExpand={setExpand} />
 
-          <SentHistory
-            expand={expand.history}
-            setExpand={setExpand}
-            setCountSent={setCountSent}
-          />
+            <SentHistory
+              expand={expand.history}
+              setExpand={setExpand}
+              setCountSent={setCountSent}
+            />
 
-          <MarketingTool
-            expand={expand.marketingTool}
-            setExpand={setExpand}
-            analytics={analytics}
-            setAnalytics={setAnalytics}
-          />
-        </div>
+            <MarketingTool
+              expand={expand.marketingTool}
+              setExpand={setExpand}
+              analytics={analytics}
+              setAnalytics={setAnalytics}
+            />
+          </div>
+      )
       )}
     </div>
   );

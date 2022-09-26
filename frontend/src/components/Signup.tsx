@@ -2,13 +2,9 @@ import React from "react";
 import { SignUpForm } from "./Interfaces";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
-import { clickEvent } from "../type";
+import { clickEvent, Props } from "../type";
 
-type Props = {
-  email: string;
-};
-
-const Signup: React.FC<Props> = ({ email }) => {
+const Signup: React.FC<Props["email"]> = ({ email }) => {
   const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 
   const navigate = useNavigate();
@@ -53,7 +49,7 @@ const Signup: React.FC<Props> = ({ email }) => {
             autoComplete="email"
             defaultValue={email}
             className="border-solid border border-gray-300 p-1"
-            name=""
+            name="signup"
             placeholder="youremail@example.com"
             id="email_signup"
           />
@@ -66,7 +62,7 @@ const Signup: React.FC<Props> = ({ email }) => {
             className="border-solid border border-gray-300 p-1 bg-gray-100 focus:bg-white"
             type="password"
             autoComplete="new-password"
-            name=""
+            name="signup"
             id="password_signup"
           />
         </div>

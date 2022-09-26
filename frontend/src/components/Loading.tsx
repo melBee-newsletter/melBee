@@ -1,11 +1,8 @@
 import React from "react";
 import headerLogo from "../assets/logo.png";
+import { Props } from "../type";
 
-type Props = {
-    word: string;
-};
-
-const Loading: React.FC<Props> = ({ word }) => {
+const Loading: React.FC<Props["loading"]> = ({ word }) => {
     return (
         <div className="flex justify-center items-baseline pt-72 bg-white h-screen w-full">
             <div className="flex justify-center w-full">

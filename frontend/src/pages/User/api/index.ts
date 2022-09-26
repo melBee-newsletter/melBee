@@ -6,12 +6,12 @@ const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 /**
  * USER'S CONTACT LIST
  */
-
+export const contactAPI = {
 /**
  * Get all contacts and returns as subscribed and unsubscribed arrays of contacts
  * @returns 
  */
-export const getContacts = async () => {
+ get: async () => {
   const subscribedContacts: string[] = [];
   const unsubscribedContacts: string[] = [];
   await axios({
@@ -28,14 +28,14 @@ export const getContacts = async () => {
   .catch((err: AxiosError<{ error: string }>) => {
   });
   return {subscribedContacts: subscribedContacts, unsubscribedContacts: unsubscribedContacts};
-};
+},
 
 /**
  * Add multiple emails to user's contact list
  * @param email 
  * @returns 
  */
-export const addContacts = async (emails: string[]) => {
+addMultiple: async (emails: string[]) => {
   let newContacts;
   const data = {
     email: emails,
@@ -54,14 +54,14 @@ export const addContacts = async (emails: string[]) => {
   });
 
   return newContacts;
-};
+},
 
 /**
  * Add single emails to user's contact list
  * @param email 
  * @returns 
  */
- export const addContact = async (email: string) => {
+ addSingle: async (email: string) => {
   let addSuccess;
   const data = {
     email: email,
@@ -81,14 +81,14 @@ export const addContacts = async (emails: string[]) => {
   });
 
   return addSuccess;
-};
+},
 
 /**
  * Delete single/multiple emails from user's contact list
  * @param emails 
  * @returns 
  */
-export const deleteContacts = async (emails: string[]) => {
+delete: async (emails: string[]) => {
   let deleteSuccess;
   await axios({
     method: "delete",
@@ -104,38 +104,45 @@ export const deleteContacts = async (emails: string[]) => {
   .catch((err: AxiosError<{ error: string }>) => {
   });
   return deleteSuccess;
-}
-
-/**
- * SENDING EMAIL & SENT HISTORY
- */
-
-/**
- * Send email to selected receivers
- * @param emailBody
- * @returns 
- */
-export const sendEmail = async (emailBody: emailBody) => {
-  let sendComplete = false;
-  await axios({
-    method: "post",
-    url: `${BASE_URL}/email/newsletter`,
-    data: emailBody,
-  })
-    .then((res: AxiosResponse) => {
-      sendComplete = true;
-    })
-  .catch((err: AxiosError<{ error: string }>) => {
-  });
-  return sendComplete;
+},
 };
 
+
+/**
+ * SENDING EMAIL
+ */
+export const emailAPI = {
+  /**
+   * Send email to selected receivers
+   * @param emailBody
+   * @returns 
+   */
+  send: async (emailBody: emailBody) => {
+    let sendComplete = false;
+    await axios({
+      method: "post",
+      url: `${BASE_URL}/email/newsletter`,
+      data: emailBody,
+    })
+      .then((res: AxiosResponse) => {
+        sendComplete = true;
+      })
+    .catch((err: AxiosError<{ error: string }>) => {
+    });
+    return sendComplete;
+  },
+};
+
+/**
+ * SENT HISTORY
+ */
+export const sentHistoryAPI = {
 /**
  * Save sent history after email is successfully sent
  * @param sentHistory 
  * @returns 
  */
-export const saveSentHistory = async (sentHistory: sentHistory) => {
+ save: async (sentHistory: sentHistory) => {
   let sentHistorySaved = false;
   await axios({
     method: "post",
@@ -148,13 +155,13 @@ export const saveSentHistory = async (sentHistory: sentHistory) => {
   .catch((err: AxiosError<{ error: string }>) => {
   });
   return sentHistorySaved;
-};
+},
 
 /**
  * Get user's all sent history
  * @returns 
  */
-export const getSentHistory = async () => {
+get: async () => {
   const sentHistory: history[] = [];
   await axios({
     method: "get",
@@ -169,17 +176,18 @@ export const getSentHistory = async () => {
   .catch((err: AxiosError<{ error: string }>) => {
   });
   return sentHistory;
+},
 };
 
 /**
  * TEMPLATES
  */
-
+export const templateAPI = {
 /**
  * Seed template when app loaded
  * @returns 
  */
- export const seedTemplate = async () => {
+ seed: async () => {
   axios({
     method: "post",
     url: `${BASE_URL}/template/seed`,
@@ -189,14 +197,14 @@ export const getSentHistory = async () => {
     console.log(err.response!.data);
   });
   return true;
-};
+},
 
 /**
  * Get melBee's Original Templates
  * @param id 
  * @returns 
  */
-export const getMelbeeTemplates = async (id: number) => {
+getMelbee: async (id: number) => {
   const melbeeTemplates: template[] = [];
   await axios({
     method: "get",
@@ -212,13 +220,13 @@ export const getMelbeeTemplates = async (id: number) => {
   });
 
   return melbeeTemplates;
-};
+},
 
 /**
  * Get user's saved templates
  * @returns 
  */
-export const getMyTemplates = async () => {
+getMy: async () => {
   const myTemplates: template[] = [];
   await axios({
     method: "get",
@@ -233,14 +241,14 @@ export const getMyTemplates = async () => {
   .catch((err: AxiosError<{ error: string }>) => {
   });
   return myTemplates;
-};
+},
 
 /**
  * Save edited page from preview page
  * @param templateToSave 
  * @returns 
  */
-export const saveMyTemplate = async (templateToSave: templateToSave) => {
+saveMy: async (templateToSave: templateToSave) => {
   let templateSaved = false;
   await axios({
     method: "post",
@@ -253,14 +261,14 @@ export const saveMyTemplate = async (templateToSave: templateToSave) => {
   .catch((err: AxiosError<{ error: string }>) => {
   });
   return templateSaved;
-};
+},
 
 /**
  * Deleted selected myTemplate from database
  * @param templateId 
  * @returns 
  */
-export const deleteMyTemplate = async (templateId: number) => {
+deleteMy: async (templateId: number) => {
   let deleted = false;
   await axios({
     method: "delete",
@@ -272,6 +280,7 @@ export const deleteMyTemplate = async (templateId: number) => {
   .catch((err: AxiosError<{ error: string }>) => {
   });
   return deleted;
+},
 };
 
 /**

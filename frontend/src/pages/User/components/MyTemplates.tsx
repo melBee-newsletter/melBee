@@ -3,21 +3,15 @@ import { useNavigate } from "react-router-dom";
 import Template from "./Template";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { template } from "../../../type";
-import { seedTemplate, getMelbeeTemplates, getMyTemplates, deleteMyTemplate } from "../api";
-import { clickEvent } from "../../../type";
+import { template, clickEvent, Props } from "../../../type";
+import { templateAPI } from "../api";
 
-type Props = {
-  expand: boolean;
-  setExpand: Function;
-};
-
-const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
+const MyTemplates: React.FC<Props["portalExpand"]> = ({ expand, setExpand }) => {
   const navigate = useNavigate();
   const DOWN = "rotate-90";
   const UP = "-rotate-90";
   const [direction, setDirection] = useState<string>(DOWN);
-  
+
   const [melBeeTemplates, setMelBeeTemplates] = useState<template[]>([]);
   const [myTemplates, setMyTemplates] = useState<template[]>([]);
   const [selectMy, SetSelectMy] = useState<number | null>(null);
@@ -34,9 +28,8 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
 
   useEffect(() => {
     (async function () {
-      await getMelbeeTemplates(1)
-      .then((res) => {
-        if (!res[0].id) seedTemplate();
+      await templateAPI.getMelbee(1).then((res) => {
+        if (!res[0]) templateAPI.seed();
       });
     })();
   }, []);
@@ -44,12 +37,12 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   useEffect(() => {
     (async function getAllTemplates() {
       const idToFetchAll = 0;
-      const allTemplates = await getMelbeeTemplates(idToFetchAll);
+      const allTemplates = await templateAPI.getMelbee(idToFetchAll);
       setMelBeeTemplates(allTemplates);
     })();
 
     (async function () {
-      const allMyTemplates = await getMyTemplates();
+      const allMyTemplates = await templateAPI.getMy();
       setMyTemplates(allMyTemplates);
     })();
   }, []);
@@ -65,7 +58,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
   useEffect(() => {
     const handleMelBeeTemplate = async (i: number) => {
       const templateId = melBeeTemplates[i].id;
-      const chosenTemplate = await getMelbeeTemplates(templateId);
+      const chosenTemplate = await templateAPI.getMelbee(templateId);
       localStorage.setItem("melBeeTempStoragedraft", chosenTemplate[0].body);
       navigate("/user/edit");
     };
@@ -76,19 +69,18 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
     const confirmDelete = window.confirm("保存テンプレートを削除しますか？");
     const templateId = myTemplates[i].id;
     if (confirmDelete) {
-      await deleteMyTemplate(templateId)
-      .then((deleteSuccess) => {
+      await templateAPI.deleteMy(templateId).then((deleteSuccess) => {
         if (deleteSuccess) {
           (async function () {
-            const allMyTemplates = await getMyTemplates();
+            const allMyTemplates = await templateAPI.getMy();
             setMyTemplates(allMyTemplates);
-            alert("テンプレートが削除されました。")
+            alert("テンプレートが削除されました。");
           })();
         } else {
           alert("エラーが生じました。再度お試しください。");
         }
       });
-    };
+    }
   };
 
   return (
@@ -110,7 +102,8 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
         {expand && (
           <div className="md:flex md:justify-center">
             <div className="">
-              {(myTemplates.length > 0 || localStorage.melBeeTempStoragedraft) && (
+              {(myTemplates.length > 0 ||
+                localStorage.melBeeTempStoragedraft) && (
                 <div>
                   <p className="mt-4 mb-7 font-bold">保存テンプレート</p>
                   <div className="md:grid lg:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -134,9 +127,9 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
                     )}
                     {myTemplates.map((template, i) => {
                       return (
-                        <div key={`myTemp${i}`} className="relative">
+                        <div key={`myTemp${i}`} className="templateBox">
                           <a
-                            className="mb-5 cursor-pointer"
+                            className="mb-5 cursor-pointer align-top"
                             onClick={(e) => {
                               e.preventDefault();
                               SetSelectMy(i);
@@ -151,7 +144,7 @@ const MyTemplates: React.FC<Props> = ({ expand, setExpand }) => {
                               e.preventDefault();
                               handleRemove(i);
                             }}
-                            className="absolute top-3 right-1 rounded-xl px-2 text-sm text-white bg-redGradation"
+                            className="px-2 py-1 text-sm rounded-xl text-white bg-redGradation deleteBtn mt-[-2px]"
                           >
                             削除
                           </button>
