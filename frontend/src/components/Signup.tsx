@@ -2,6 +2,7 @@ import React from "react";
 import { SignUpForm } from "./Interfaces";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosResponse, AxiosError } from "axios";
+import { clickEvent } from "../type";
 
 type Props = {
   email: string;
@@ -13,7 +14,7 @@ const Signup: React.FC<Props> = ({ email }) => {
   const navigate = useNavigate();
   const USER_PORTAL = "/user";
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: clickEvent) => {
     const form: SignUpForm | null = document.getElementById("signup-form");
     const email: string = form!["email_signup"]!.value;
     const password: string = form!["password_signup"]!.value;
