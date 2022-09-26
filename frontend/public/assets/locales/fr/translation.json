@@ -30,7 +30,9 @@
     "メールアドレス選択後削除を行えます": "Supprimer après avoir sélectionné l'adresse e-mail.",
     "削除": "Supprimer",
     "配信停止済み": "Liste noire",
-    "※ 配信停止済みの連絡先にはメールを送信できません": "Vous ne pouvez pas envoyer d'e-mail à une adresse sur liste noire."
+    "※ 配信停止済みの連絡先にはメールを送信できません": "Vous ne pouvez pas envoyer d'e-mail à une adresse sur liste noire.",
+    "クリックまたはファイルをドロップしてください": "Cliquez ou déposez le fichier CSV ici."
+
 
 
 

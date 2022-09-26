@@ -1,28 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useCSVReader, formatFileSize } from "react-papaparse";
-import { styles, DEFAULT_REMOVE_HOVER_COLOR, REMOVE_HOVER_COLOR_LIGHT } from "./CSVReaderStyle"
+import {
+  styles,
+  DEFAULT_REMOVE_HOVER_COLOR,
+  REMOVE_HOVER_COLOR_LIGHT,
+} from "./CSVReaderStyle";
 import { contactAPI } from "../api";
 import { Props } from "../../../type";
+import { useTranslation } from "react-i18next";
 
 const CSVReader: React.FC<Props["csvReader"]> = ({ setContactList }) => {
   const { CSVReader } = useCSVReader();
   const [zoneHover, setZoneHover] = useState(false);
-  const [removeHoverColor, setRemoveHoverColor] = useState(DEFAULT_REMOVE_HOVER_COLOR);
+  const [removeHoverColor, setRemoveHoverColor] = useState(
+    DEFAULT_REMOVE_HOVER_COLOR
+  );
   const [csvData, setCsvData] = useState([]);
 
   const addCsvToContacts = async (emails: string[]) => {
     const newContact = await contactAPI.addMultiple(emails);
-    if (newContact) setContactList((prevEmail: string[]) => [...prevEmail, emails]);
+    if (newContact)
+      setContactList((prevEmail: string[]) => [...prevEmail, emails]);
   };
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     function checkIfEmail(data: string) {
-      const regexExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
+      const regexExp =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
       return regexExp.test(data);
     }
     for (let i = 0; i < csvData.length; i++) {
       if (checkIfEmail(csvData[i][0])) addCsvToContacts(csvData[i][0]);
-    };
+    }
   }, [csvData]);
 
   return (
@@ -85,7 +96,7 @@ const CSVReader: React.FC<Props["csvReader"]> = ({ setContactList }) => {
                 </div>
               </>
             ) : (
-              "クリックまたはファイルをドロップしてください"
+              t("クリックまたはファイルをドロップしてください")
             )}
           </div>
         </>
