@@ -223,7 +223,7 @@ const MarketingTool: React.FC<Props["marketingTool"]> = ({
                   <div className="flex justify-center">
                     <button
                       onClick={confirmUpdate}
-                      className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation mt-4"
+                      className="rounded-xl px-6 py-2 drop-shadow-xl hover:drop-shadow-none text-lg text-white font-medium bg-orangeGradation mt-4 hoverEffect"
                     >
                       {t("設定")}
                     </button>

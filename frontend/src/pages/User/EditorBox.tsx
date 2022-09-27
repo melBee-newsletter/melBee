@@ -27,7 +27,9 @@ const EditorBox: React.FC = () => {
         <div className="pt-24 mb-28">
           <h2 className="text-xl font-medium mb-1">{t("テンプレート編集")}</h2>
           <p className="mb-5">
-            {t("画像やテキスト、レイアウトのカスタマイズを行うことができます。")}
+            {t(
+              "画像やテキスト、レイアウトのカスタマイズを行うことができます。"
+            )}
           </p>
           <Editor
             apiKey="fl35fbae1uoirilftuwgiaq0j9tyhw36quejctjkra1aeap9"
@@ -134,7 +136,7 @@ const EditorBox: React.FC = () => {
                 e.preventDefault();
                 navigate(TEMPLATE_PATH);
               }}
-              className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-grayGradation"
+              className="rounded-xl px-6 py-2 drop-shadow-xl hover:drop-shadow-none text-lg text-white font-medium bg-grayGradation hoverEffect"
             >
               {t("< テンプレート一覧")}
             </button>
@@ -143,7 +145,7 @@ const EditorBox: React.FC = () => {
                 e.preventDefault();
                 navigate(PREVIEW_PATH);
               }}
-              className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-6"
+              className="rounded-xl px-6 py-2 drop-shadow-xl hover:drop-shadow-none text-lg text-white font-medium bg-orangeGradation ml-6 hoverEffect"
             >
               {t("プレビュー >")}
             </button>
