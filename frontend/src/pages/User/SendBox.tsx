@@ -13,7 +13,8 @@ const SendBox: React.FC<Props["send"]> = ({
   setCountSent,
 }) => {
   const navigate = useNavigate();
-  const [subject, setSubject] = useState<string>("『melBee』からのお便り");
+  const { t } = useTranslation();
+  const [subject, setSubject] = useState<string>(t("『melBee』からのお便り"));
   const [allEmails, setAllEmails] = useState<string[]>([]);
   const [email, setEmail] = useState<string>("");
   const [receivers, setReceivers] = useState<string[]>([]);
@@ -24,7 +25,6 @@ const SendBox: React.FC<Props["send"]> = ({
   const [updateReceiver, setUpdateReceiver] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [sendComplete, setSendComplete] = useState<boolean>(false);
-  const { t } = useTranslation();
   let TEMPLATE = localStorage.melBeeTempStoragedraft;
   const DATE = new Date();
 
