@@ -23,7 +23,7 @@ def send_email(receiver, subject, message_body, user_id, user_email, receiver_id
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
   xmlns:o="urn:schemas-microsoft-com:office:office">
-​
+
 <head>
   <!--[if gte mso 9]>
 <xml>
@@ -40,7 +40,7 @@ def send_email(receiver, subject, message_body, user_id, user_email, receiver_id
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!--<![endif]-->
   <title></title>
-​
+
   <style type="text/css">
     @media only screen and (min-width: 520px) {{
         {{
@@ -49,22 +49,22 @@ def send_email(receiver, subject, message_body, user_id, user_email, receiver_id
             width: 500px !important;
           }}
         }}
-​
+
         .u-row .u-col {{
             {{
             vertical-align: top;
           }}
         }}
-​
+
         .u-row .u-col-100 {{
             {{
             width: 500px !important;
           }}
         }}
-​
+
       }}
     }}
-​
+
     @media (max-width: 520px) {{
         {{
         .u-row-container {{
@@ -74,7 +74,7 @@ def send_email(receiver, subject, message_body, user_id, user_email, receiver_id
             padding-right: 0px !important;
           }}
         }}
-​
+
         .u-row .u-col {{
             {{
             min-width: 320px !important;
@@ -82,19 +82,19 @@ def send_email(receiver, subject, message_body, user_id, user_email, receiver_id
             display: block !important;
           }}
         }}
-​
+
         .u-row {{
             {{
             width: calc(100% - 40px) !important;
           }}
         }}
-​
+
         .u-col {{
             {{
             width: 100% !important;
           }}
         }}
-​
+
         .u-col>div {{
             {{
             margin: 0 auto;
@@ -102,14 +102,14 @@ def send_email(receiver, subject, message_body, user_id, user_email, receiver_id
         }}
       }}
     }}
-​
+
     body {{
         {{
         margin: 0;
         padding: 0;
       }}
     }}
-​
+
     table,
     tr,
     td {{
@@ -118,33 +118,33 @@ def send_email(receiver, subject, message_body, user_id, user_email, receiver_id
         border-collapse: collapse;
       }}
     }}
-​
+
     p {{
         {{
         margin: 0;
       }}
     }}
-​
+
     .ie-container table,
     .mso-container table {{
         {{
         table-layout: fixed;
       }}
     }}
-​
+
     * {{
         {{
-        line-height: inherit;
+        line-height: 1.0;
       }}
     }}
-​
+
     a[x-apple-data-detectors='true'] {{
         {{
         color: inherit !important;
         text-decoration: none !important;
       }}
     }}
-​
+
     table,
     td {{
         {{
@@ -152,11 +152,7 @@ def send_email(receiver, subject, message_body, user_id, user_email, receiver_id
       }}
     }}
   </style>
-​
-​
-​
 </head>
-​
 <body class="clean-body u_body"
   style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #e7e7e7;color: #000000">
   <!--[if IE]><div class="ie-container"><![endif]-->
@@ -168,45 +164,44 @@ def send_email(receiver, subject, message_body, user_id, user_email, receiver_id
       <tr style="vertical-align: top">
         <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
           <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color: #e7e7e7;"><![endif]-->
-​
-​
           <div class="u-row-container" style="padding: 0px;background-color: #ffffff">
             <div class="u-row"
               style="Margin: 0 auto;min-width: 320px;max-width: 500px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">
               <div
-                style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
+                style="border-collapse: collapse;display: table;width: 100%;background-color: transparent;">
                 <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: #ffffff;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:500px;"><tr style="background-color: transparent;"><![endif]-->
-​
                 <!--[if (mso)|(IE)]><td align="center" width="500" style="background-color: #ffffff;width: 500px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
                 <div class="u-col u-col-100"
                   style="max-width: 320px;min-width: 500px;display: table-cell;vertical-align: top;">
-                  <div style="background-color: #ffffff;height: 100%;width: 100% !important;">
+                  <div style="background-color: #ffffff;width: 100% !important;">
                     <!--[if (!mso)&(!IE)]><!-->
                     <div
                       style="height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;">
                       <!--<![endif]-->
-​
-                      <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0"
+                      <table style="font-family:arial,helvetica,sans-serif; line-height:1.5;" role="presentation" cellpadding="0"
                         cellspacing="0" width="100%" border="0">
                         <tbody>
                           <tr>
                             <td
                               style="overflow-wrap:break-word;word-break:break-word;padding:0 10px;font-family:arial,helvetica,sans-serif;"
                               align="left">
-​
-                              <div style="text-align: center; word-wrap: break-word;">
-                                <p style="font-size: 12px; line-height: 140%; margin: 0;">このメールは{user_email}より送られています。
+                              <div style="text-align: center; word-wrap: break-word; line-height: 1.65;">
+                                <p style="font-size: 12px; margin: 0;">このメールは{user_email}より送られています。
                                 </p>
-                                <p style="font-size: 12px; line-height: 140%;">メールの配信停止を希望される方は<a
+                                <p style="font-size: 12px; margin:0">メールの配信停止を希望される方は<a
                                     href="{BASE_URL}/user/contact/unsubscribe/{user_id}/{receiver_id}">こちら</a>をクリックし、配信停止をしてください。
                                 </p>
+                                <p style="font-size: 12px; margin: 0;">This email was sent from {user_email}.
+                                </p>
+                                <p style="font-size: 12px; margin:0">If you want to unsubscribe, please <a
+                                    href="{BASE_URL}/user/contact/unsubscribe/{user_id}/{receiver_id}">click here</a>.
+                                </p>
+                                <p style="font-size: 12px; margin:0">Designed with melBee</p>
                               </div>
-​
                             </td>
                           </tr>
                         </tbody>
                       </table>
-​
                       <!--[if (!mso)&(!IE)]><!-->
                     </div>
                     <!--<![endif]-->
@@ -217,8 +212,6 @@ def send_email(receiver, subject, message_body, user_id, user_email, receiver_id
               </div>
             </div>
           </div>
-​
-​
           <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
         </td>
       </tr>
@@ -227,7 +220,6 @@ def send_email(receiver, subject, message_body, user_id, user_email, receiver_id
   <!--[if mso]></div><![endif]-->
   <!--[if IE]></div><![endif]-->
 </body>
-​
 </html>"""
 
     msg = EmailMessage()
