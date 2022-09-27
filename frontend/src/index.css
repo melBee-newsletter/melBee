@@ -70,7 +70,8 @@ code {
 }
 
 .bg-grayGradation {
-background: linear-gradient(0deg, #BABABA 0%, #CBCCCE 100%);
+/* background: linear-gradient(0deg, #BABABA 0%, #CBCCCE 100%); */
+background: linear-gradient(0deg, rgba(152, 152, 152, 1), rgba(181, 181, 181, 1) 50%, rgba(187, 187, 187, 1) 100%);
 }
 
 .bg-grayGradation2 {
