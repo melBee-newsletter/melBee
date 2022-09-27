@@ -1,7 +1,7 @@
   {  
     "Language": "greatness",
-    "想い":  "Pensées dans",
-    "を": "",
+    "想い":  "Pensées ",
+    "を": "en",
     "カタチ": "Forme",
     "に": "",
     "melBeeは、さまざまなデザインテンプレート": "melBee est un logiciel de conception entièrement personnalisable",
@@ -192,5 +192,8 @@
     "登録した覚えがないから": "Je ne me souviens pas de m'être inscrit",
     "メールの内容に興味が持てなかったから": "Je n'étais pas intéressé par le contenu de l'e-mail",
     "メールの情報がもの足りなかったから": "Informations insuffisantes dans l'e-mail",
-    "『melBee』からのお便り": "Newsletter de『melBee』"
+    "『melBee』からのお便り": "Newsletter de『melBee』",
+    "キーを叩いて想いを込める": "Appuyez sur la touche et mettez vos pensées dedans",
+    "「私らしい言葉」で届けよう": "Je vais le livrer dans mes propres mots",
+    "届けたい人が浮かびますか？": "Pouvez-vous penser à quelqu'un que vous voulez livrer?"
 }

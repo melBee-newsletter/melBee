@@ -40,6 +40,11 @@ const Header: React.FC = () => {
 
   const languages = [
     {
+      code: "jpn",
+      name: "日本語",
+      country_code: "jpn",
+    },
+    {
       code: "en",
       name: "English",
       country_code: "gb",
@@ -50,9 +55,9 @@ const Header: React.FC = () => {
       country_code: "fr",
     },
     {
-      code: "jpn",
-      name: "日本語",
-      country_code: "jpn",
+      code: "pt",
+      name: "Português",
+      country_code: "br",
     },
   ];
 

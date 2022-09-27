@@ -158,7 +158,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({
                 <p className="mb-2">
                   {t("メールアドレス一括登録 (CSVファイル対応)")}
                 </p>
-                <CSVReader setContactList={setContactList} />
+                <CSVReader setContactList={setContactList} setIsChecked={setIsChecked} />
                 {/* <br /> */}
                 <span className="text-sm attention">
                   {t(

@@ -36,7 +36,7 @@ export const contactAPI = {
    * @returns 
    */
   addMultiple: async (emails: string[]) => {
-    let newContacts;
+    let newContacts: string[] = [];
     const data = {
       email: emails,
       user_id: sessionStorage.melbeeID,
@@ -48,7 +48,11 @@ export const contactAPI = {
       data: data,
     })
     .then((res: AxiosResponse) => {
-      newContacts = emails;
+      if (res.data) {
+        for (let i = 0; i > res.data.length; i++) {
+          newContacts.push(res.data[i]);
+        };
+      };
     })
     .catch((err: AxiosError<{ error: string }>) => {
     });
