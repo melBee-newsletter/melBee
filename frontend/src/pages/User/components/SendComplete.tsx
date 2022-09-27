@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Props } from "../../../type";
 import { useTranslation } from "react-i18next";
 
-const SendComplete: React.FC<Props["sendComplete"]> = ({ reachLimit, setSendComplete }) => {
+const SendComplete: React.FC<Props["sendComplete"]> = ({
+  reachLimit,
+  setSendComplete,
+}) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -18,7 +21,7 @@ const SendComplete: React.FC<Props["sendComplete"]> = ({ reachLimit, setSendComp
         <div className="flex justify-center">
           <div>
             <button
-              className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation mr-4"
+              className="rounded-xl px-6 py-2 drop-shadow-xl hover:drop-shadow-none text-lg text-white font-medium bg-blueGradation mr-4 hoverEffect"
               onClick={(e) => {
                 e.preventDefault();
                 setSendComplete(false);
@@ -33,7 +36,7 @@ const SendComplete: React.FC<Props["sendComplete"]> = ({ reachLimit, setSendComp
                 e.preventDefault();
                 navigate("/user");
               }}
-              className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
+              className="rounded-xl px-6 py-2 drop-shadow-xl hover:drop-shadow-none text-lg text-white font-medium bg-orangeGradation hoverEffect"
             >
               {t("新規作成")}
             </button>
@@ -54,7 +57,7 @@ const SendComplete: React.FC<Props["sendComplete"]> = ({ reachLimit, setSendComp
                 e.preventDefault();
                 navigate("/user");
               }}
-              className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation"
+              className="rounded-xl px-6 py-2 drop-shadow-xl hover:drop-shadow-none text-lg text-white font-medium bg-orangeGradation hoverEffect"
             >
               {t("新規作成")}
             </button>

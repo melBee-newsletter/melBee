@@ -6,12 +6,14 @@ const PrivacyPolicy: React.FC<Props["privacyPolicy"]> = ({ displayPP }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="rounded-xl absolute top-0 lg:top-[50%] bottom-0 left-0 right-0 m-auto w-4/6 bg-gray-50 p-8 h-[400px] overflow-y-auto drop-shadow-xl z-50">
+    <div className="rounded-xl fixed top-0 bottom-0 left-0 right-0 m-auto w-4/6 bg-gray-50 p-8 h-[400px] overflow-y-auto drop-shadow-xl z-50">
       <div>
         <h2 className="font-bold mb-4">{t("プライバシーポリシー")}</h2>
         <div className="text-left">
           <p className="leading-relaxed">
-            {t("melBee,Inc.（以下、「当社」といいます。）は、本ウェブサイト上で提供するサービス（以下,「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。")}
+            {t(
+              "melBee,Inc.（以下、「当社」といいます。）は、本ウェブサイト上で提供するサービス（以下,「本サービス」といいます。）における、ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。"
+            )}
           </p>
           <h3 className="mt-2 font-bold">{t("第1条（個人情報）")}</h3>
           <p className="leading-relaxed">
@@ -187,9 +189,14 @@ const PrivacyPolicy: React.FC<Props["privacyPolicy"]> = ({ displayPP }) => {
           </p>
           <h3 className="mt-2 font-bold">{t("第10条（お問い合わせ窓口）")}</h3>
           <p className="leading-relaxed">
-            {t("本ポリシーに関するお問い合わせは、下記の窓口までお願いいたします。")}
+            {t(
+              "本ポリシーに関するお問い合わせは、下記の窓口までお願いいたします。"
+            )}
             <br />
-            {t("住所")}: {t("〒106-0046 東京都港区元麻布３丁目１番３５号 VORT 元麻布 地下2/F")}
+            {t("住所")}:{" "}
+            {t(
+              "〒106-0046 東京都港区元麻布３丁目１番３５号 VORT 元麻布 地下2/F"
+            )}
             <br />
             {t("社名")}: melBee, Inc.
             <br />
