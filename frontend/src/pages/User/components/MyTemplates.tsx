@@ -150,7 +150,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
                               e.preventDefault();
                               handleRemove(i);
                             }}
-                            className="rounded-xl px-5 py-2 text-white text-sm text-white bg-redGradation"
+                            className="rounded-xl px-5 py-2 text-white text-sm text-white bg-redGradation hoverEffect"
                           >
                             {t("削除")}
                           </button>

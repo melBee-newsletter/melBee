@@ -89,7 +89,7 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
                 "※テンプレートは「下書き」として自動保存もされます。タイトルを入力し保存することで、ご自身のオリジナルテンプレートとしても引き続きご利用いただけます。"
               )}
             </p>
-            <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation">
+            <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ">
               {t("保存")}
             </button>
           </form>
