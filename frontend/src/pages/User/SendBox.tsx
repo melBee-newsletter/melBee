@@ -195,8 +195,12 @@ const SendBox: React.FC<Props["send"]> = ({
                   className="border rounded-lg p-2 text-lg sendTitle w-full"
                 />
               </div>
-              <h2 className="text-xl font-bold mb-1">{t("メールアドレスの選択")}</h2>
-              <p className="mb-4">{t("送信先メールアドレスを選択してください。")}</p>
+              <h2 className="text-xl font-bold mb-1">
+                {t("メールアドレスの選択")}
+              </h2>
+              <p className="mb-4">
+                {t("送信先メールアドレスを選択してください。")}
+              </p>
               <div className="flex text-xl pl-6">
                 <input
                   type="checkbox"
@@ -217,7 +221,9 @@ const SendBox: React.FC<Props["send"]> = ({
               <div className="mb-8">
                 <div>
                   <p className="mb-2 text-left">
-                    {t("メールアドレスを新規登録したい方は、こちらからご入力いただけます。")}
+                    {t(
+                      "メールアドレスを新規登録したい方は、こちらからご入力いただけます。"
+                    )}
                   </p>
                   <div className="text-left">
                     <form onSubmit={handleAdd}>
@@ -228,7 +234,7 @@ const SendBox: React.FC<Props["send"]> = ({
                         placeholder={t("新規メールアドレスの登録はこちらから")}
                         onChange={(e) => setEmail(e.target.value)}
                       />
-                      <button className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-blueGradation ml-2 w-28">
+                      <button className="rounded-xl px-6 py-2 drop-shadow-xl hover:drop-shadow-none text-lg text-white font-medium bg-blueGradation ml-2 w-28 hoverEffect">
                         {" "}
                         {t("追加")}{" "}
                       </button>
@@ -243,14 +249,14 @@ const SendBox: React.FC<Props["send"]> = ({
                     e.preventDefault();
                     navigate("/user/preview");
                   }}
-                  className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-grayGradation"
+                  className="rounded-xl px-6 py-2 drop-shadow-xl hover:drop-shadow-none text-lg text-white font-medium bg-grayGradation hoverEffect"
                 >
                   &lt; {t("プレビュー")}
                 </button>
                 <button
                   type="submit"
                   onClick={handleSend}
-                  className="rounded-xl px-6 py-2 drop-shadow-xl text-lg text-white font-medium bg-orangeGradation ml-6 w-28"
+                  className="rounded-xl px-6 py-2 drop-shadow-xl hover:drop-shadow-none text-lg text-white font-medium bg-orangeGradation ml-6 w-28 hoverEffect"
                 >
                   {t("送信")}
                 </button>

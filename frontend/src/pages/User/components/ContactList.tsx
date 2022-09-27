@@ -190,7 +190,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({
                   <p className="text-base mb-2">
                     {t("メールアドレス選択後削除を行えます")}
                   </p>
-                  <button className="bg-grayGradation rounded-xl px-6 py-2 drop-shadow-xl text-lg font-medium text-white">
+                  <button className="bg-grayGradation2 rounded-xl px-6 py-2 drop-shadow-xl text-lg font-medium text-white">
                     {" "}
                     {t("削除")}{" "}
                   </button>
