@@ -80,7 +80,7 @@ const Header: React.FC = ({}) => {
                     type="button"
                     id="dropdownButton"
                   >
-                    言語選択 ▼
+                    {t("LANGUAGE")} ▼
                   </a>
                   <ul className="z-10 w-32 bg-white rounded divide-gray-100 shadow dark:bg-gray-700py-1 text-sm text-gray-700 dropdown__lists">
                     {/* <li className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">

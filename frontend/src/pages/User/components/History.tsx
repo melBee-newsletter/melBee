@@ -19,7 +19,7 @@ const History: React.FC<Props["history"]> = ({
     const hour = test.getHours();
     const min = test.getMinutes();
     return (
-      <span className="font-bold">{`${year}年${month}月${date}日 ${hour}時${min}分`}</span>
+      <span className="font-bold">{`${year}${t("年")}${month}${t("月")}${date}${t("日")} ${hour}${t("時")}${min}${t("分")}`}</span>
     );
   };
 

@@ -8,12 +8,14 @@ import {
   unsubscribeContact,
   sendUnsubscribeNotification,
 } from "./api";
+import { useTranslation } from "react-i18next";
 
 const Unsubscribe: React.FC = () => {
   const location = useLocation();
   const splitPath = location.pathname.split("/");
   const USER_ID = Number(splitPath[splitPath.length - 2]);
   const RECEIVER_ID = Number(splitPath[splitPath.length - 1]);
+  const { t } = useTranslation();
 
   const [validLink, setValidLink] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean[]>(
@@ -64,20 +66,20 @@ const Unsubscribe: React.FC = () => {
       <div className="h-screen w-full pt-36 px-52">
         {validLink && !unsubscribed && (
           <div className="w-full">
-            <h1 className="text-3xl font-bold pb-5 text-center">配信停止</h1>
+            <h1 className="text-3xl font-bold pb-5 text-center">{t("配信停止")}</h1>
             <p className="text-base font-bold text-center">
-              ページ最下部にメールアドレスを入力して「配信停止」ボタンを押すと、配信停止処理が完了します。
+              {t("ページ最下部にメールアドレスを入力して「配信停止」ボタンを押すと、配信停止処理が完了します。")}
             </p>
             <br />
             <div className="justify-center">
               <h5 className="pb-3 text-center">
-                よろしければ以下のアンケートにご回答ください。
+                {t("よろしければ以下のアンケートにご回答ください。")}
               </h5>
               <form action="" className="text-left justify-center">
                 <div className="bg-grayGradation border-solid border-2 border-slate-400 px-10 py-5 rounded-2xl mt-2">
                   <p>
-                    <strong>メールを配信停止する理由</strong>{" "}
-                    （あてはまる項目に、いくつでもチェックしてください）
+                    <strong>{t("メールを配信停止する理由")}</strong>{" "}
+                    （{t("あてはまる項目に、いくつでもチェックしてください")}）
                   </p>
                 </div>
                 <div className="px-20 py-2">
@@ -89,7 +91,7 @@ const Unsubscribe: React.FC = () => {
                             type="checkbox"
                             onChange={() => handleCheck(i)}
                           />
-                          <span className="pl-2">{reason}</span>
+                          <span className="pl-2">{t(reason)}</span>
                         </li>
                       );
                     })}
@@ -97,16 +99,16 @@ const Unsubscribe: React.FC = () => {
                 </div>
                 <div className="bg-grayGradation border-solid border-2 border-slate-400 px-10 py-5 rounded-2xl mt-4">
                   <p>
-                    <strong>上記以外の理由や詳しい理由</strong> <br />
+                    <strong>{t("上記以外の理由や詳しい理由")}</strong> <br />
                     <span className="text-sm pl-7 attention">
-                      ※お問合せ等は、こちらにご記入された場合、お答えできかねますので何卒ご了承ください。
+                      ※{t("お問合せ等は、こちらにご記入された場合、お答えできかねますので何卒ご了承ください。")}
                     </span>
                   </p>
                 </div>
                 <div className=" border-slate-400 px-20">
                   <input
                     type="form"
-                    placeholder="解約理由"
+                    placeholder={t("解約理由")}
                     onChange={(e) => setOtherReason(e.target.value)}
                     value={otherReason}
                     className="w-full h-36 my-3 px-10 border-2 border-gray-200 rounded-xl"
@@ -120,7 +122,7 @@ const Unsubscribe: React.FC = () => {
                       value={email}
                       className="inputArea bg-gray-100 border-gray rounded-lg w-72 mr-8"
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="メールアドレス"
+                      placeholder={t("メールアドレス")}
                       id="email_signup"
                     />
                     {email ? (
@@ -128,14 +130,14 @@ const Unsubscribe: React.FC = () => {
                         onClick={handleConfirm}
                         className="rounded-xl px-5 py-3 drop-shadow-xl text-lg text-white font-bold bg-blueGradation mt-5 w-36"
                       >
-                        配信停止
+                        {t("配信停止")}
                       </button>
                     ) : (
                       <button
                         className="grayscale rounded-xl px-5 py-3 drop-shadow-xl text-lg text-white font-bold bg-blueGradation mt-5 w-36"
                         disabled={true}
                       >
-                        配信停止
+                        {t("配信停止")}
                       </button>
                     )}
                   </div>
@@ -147,13 +149,13 @@ const Unsubscribe: React.FC = () => {
         {unsubscribed && (
           <div className="flex justify-center text-2xl py-24">
             <h1 className="text-center leading-loose">
-              メールマガジンの配信停止を承りました。
+              {t("メールマガジンの配信停止を承りました。")}
               <br />
-              システムの都合上、データの反映に数日かかることがあり、
+              {t("システムの都合上、データの反映に数日かかることがあり、")}
               <br />
-              お手続き後もメールが数件配信される場合がございます。
+              {t("お手続き後もメールが数件配信される場合がございます。")}
               <br />
-              誠に恐れ入りますが、何卒ご了承くださいませ。
+              {t("誠に恐れ入りますが、何卒ご了承くださいませ。")}
               <br />
             </h1>
           </div>
@@ -161,9 +163,9 @@ const Unsubscribe: React.FC = () => {
         {!unsubscribed && !validLink && (
           <div className="h-full w-full flex justify-center items-center text-center text-2xl leading-loose">
             <h1>
-              登録内容の確認ができませんでした。
+              {t("登録内容の確認ができませんでした。")}
               <br />
-              お客様のメールは登録解除されているかすでに受信停止済みになっております。
+              {t("お客様のメールは登録解除されているかすでに受信停止済みになっております。")}
             </h1>
           </div>
         )}
