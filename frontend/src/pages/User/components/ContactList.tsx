@@ -20,6 +20,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({
     new Array(contactList.length).fill(false)
   );
   const [selectedEmail, setSelectedEmail] = useState<string[]>([]);
+  const [updated, setUpdated] = useState<boolean>(false);
 
   const handleExpand = (e: clickEvent) => {
     e.preventDefault();
@@ -32,15 +33,21 @@ const ContactList: React.FC<Props["portalExpand"]> = ({
     !expand ? setDirection(DOWN) : setDirection(UP);
   }, [expand]);
 
+  async function getAllContacts() {
+    await contactAPI.get().then((res) => {
+      setContactList(res.subscribedContacts);
+      setIsChecked(new Array(res.subscribedContacts.length).fill(false));
+      setBlackList(res.unsubscribedContacts);
+    });
+  };
+
   useEffect(() => {
-    (async function getAllContacts() {
-      await contactAPI.get().then((res) => {
-        setContactList(res.subscribedContacts);
-        setIsChecked(new Array(res.subscribedContacts.length).fill(false));
-        setBlackList(res.unsubscribedContacts);
-      });
-    })();
+    getAllContacts();
   }, []);
+
+  useEffect(() => {
+    getAllContacts();
+  }, [updated]);
 
   const displayEmail = (email: string, i: number) => {
     return (
@@ -158,7 +165,7 @@ const ContactList: React.FC<Props["portalExpand"]> = ({
                 <p className="mb-2">
                   {t("メールアドレス一括登録 (CSVファイル対応)")}
                 </p>
-                <CSVReader setContactList={setContactList} />
+                <CSVReader setContactList={setContactList} setUpdated={setUpdated} />
                 {/* <br /> */}
                 <span className="text-sm attention">
                   {t(

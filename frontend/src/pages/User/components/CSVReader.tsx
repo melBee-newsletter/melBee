@@ -9,7 +9,7 @@ import { contactAPI } from "../api";
 import { Props } from "../../../type";
 import { useTranslation } from "react-i18next";
 
-const CSVReader: React.FC<Props["csvReader"]> = ({ setContactList }) => {
+const CSVReader: React.FC<Props["csvReader"]> = ({ setContactList, setUpdated }) => {
   const { CSVReader } = useCSVReader();
   const [zoneHover, setZoneHover] = useState(false);
   const [removeHoverColor, setRemoveHoverColor] = useState(
@@ -19,8 +19,10 @@ const CSVReader: React.FC<Props["csvReader"]> = ({ setContactList }) => {
 
   const addCsvToContacts = async (emails: string[]) => {
     const newContact = await contactAPI.addMultiple(emails);
-    if (newContact)
+    if (newContact) {
       setContactList((prevEmail: string[]) => [...prevEmail, emails]);
+      setUpdated(true);
+    };
   };
 
   const { t } = useTranslation();
