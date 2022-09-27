@@ -134,6 +134,7 @@ export type Props = {
   },
   csvReader: {
     setContactList: Function;
+    setUpdated: Function;
   },
   history: {
     history: history;
