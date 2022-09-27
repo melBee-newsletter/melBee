@@ -54,6 +54,11 @@ const Header: React.FC = () => {
       name: "日本語",
       country_code: "jpn",
     },
+    {
+      code: "pt-br",
+      name: "Português",
+      country_code: "br",
+    },
   ];
 
   // const currentLanguageCode = localStorage.getItem("i18nextLng");
