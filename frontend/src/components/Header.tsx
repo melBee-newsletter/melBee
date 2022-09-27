@@ -1,4 +1,4 @@
-import React, { useEffect, FC, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import headerLogo from "../assets/logo-no-text.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +16,7 @@ i18n
   .use(HttpApi)
   .init({
     backend: {
-      loadPath: "assets/locales/{{lng}}/translation.json",
+      loadPath: "translation/{{lng}}/translation.json",
     },
     fallbackLng: "jpn",
     detection: {
@@ -25,7 +25,7 @@ i18n
     },
   });
 
-const Header: React.FC = ({}) => {
+const Header: React.FC = () => {
   const navigate = useNavigate();
   const session: null | string = sessionStorage.getItem("isLoggedIn");
   const isLoggedIn = true ? session != null : false;
@@ -56,8 +56,8 @@ const Header: React.FC = ({}) => {
     },
   ];
 
-  const currentLanguageCode = localStorage.getItem("i18nextLng");
-  const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
+  // const currentLanguageCode = localStorage.getItem("i18nextLng");
+  // const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
   const { t } = useTranslation();
 
   return (
@@ -75,31 +75,27 @@ const Header: React.FC = ({}) => {
             <ul className="flex items-end py-1 navArea">
               <div className="">
                 <div className="language-select relative mr-5">
-                  <a
+                  <button
                     className="font-medium border-gray-400 border rounded-lg text-sm px-4 py-2 text-center inline-flex items-center bg-white"
                     type="button"
                     id="dropdownButton"
                   >
                     {t("LANGUAGE")} ▼
-                  </a>
+                  </button>
                   <ul className="z-10 w-32 bg-white rounded divide-gray-100 shadow dark:bg-gray-700py-1 text-sm text-gray-700 dropdown__lists">
-                    {/* <li className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                        <span className="dropdown-item-text">{t("言語")}</span>
-                      </li> */}
                     {languages.map(({ code, name, country_code }) => (
                       <li
                         className="block hover:bg-gray-100 border-b-2 border-gray-100 last:border-b-0"
                         key={country_code}
                       >
-                        <a
-                          href="#"
-                          className={"py-2 block"}
-                          onClick={() => {
+                        <button
+                          className="py-2 text-sm text-center inline-flex items-center"
+                          onClick={(e: clickEvent) => {
                             i18n.changeLanguage(code);
                           }}
                         >
                           {name}
-                        </a>
+                        </button>
                       </li>
                     ))}
                   </ul>
