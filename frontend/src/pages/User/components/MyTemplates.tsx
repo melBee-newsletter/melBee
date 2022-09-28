@@ -34,7 +34,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
 
   useEffect(() => {
     (async function () {
-      await templateAPI.getMelbee(1).then((res) => {
+      await templateAPI.getMelbee(2).then((res) => {
         if (!res[0]) templateAPI.seed();
       });
     })();
