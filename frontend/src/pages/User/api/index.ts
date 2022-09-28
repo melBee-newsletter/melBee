@@ -221,7 +221,7 @@ export const templateAPI = {
       .then((res: AxiosResponse) => {
         const data = res.data;
         console.log(sessionStorage.melbeeID);
-        if (sessionStorage.melbeeID === "6") {
+        if (sessionStorage.melbeeID === "1") {
           melbeeTemplates.push(data[0]);
         } else {
           for (let i = 1; i < data.length; i++) {
