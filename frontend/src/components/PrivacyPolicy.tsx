@@ -202,7 +202,7 @@ const PrivacyPolicy: React.FC<Props["privacyPolicy"]> = ({ displayPP }) => {
             <br />
             {t("担当部署")}: CC27
             <br />
-            {t("Eメールアドレス")}: melumeru0@gmail.com
+            {t("Eメールアドレス")}: melbeeletter@gmail.com
           </p>
         </div>
       </div>
