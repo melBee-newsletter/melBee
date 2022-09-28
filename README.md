@@ -6,9 +6,11 @@
 # Features
 
 melBee provides the following features:
-- foo
-- bar
-- foobar
+- Fully customizable newsletter maker
+- Able to store customized templates and view sent history
+- Draft auto-saver while editing template
+- Simple to add marketing tools such as Google Analytics and SNS
+- Unsubscribe option for newsletter receivers
 
 # Built With
 
