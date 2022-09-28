@@ -218,18 +218,14 @@ export const templateAPI = {
       method: "get",
       url: `${BASE_URL}/template/${id}`,
     })
-      .then((res: AxiosResponse) => {
-        const data = res.data;
-        console.log(sessionStorage.melbeeID);
-        if (sessionStorage.melbeeID === "1") {
-          melbeeTemplates.push(data[0]);
-        } else {
-          for (let i = 1; i < data.length; i++) {
-            melbeeTemplates.push(data[i]);
-          }
-        }
-      })
-      .catch((err: AxiosError<{ error: string }>) => {});
+    .then((res: AxiosResponse) => {
+      const data = res.data;
+      for (let i = 0; i < data.length; i++) {
+        melbeeTemplates.push(data[i]);
+      }
+    })
+    .catch((err: AxiosError<{ error: string }>) => {
+    });
 
     return melbeeTemplates;
   },
