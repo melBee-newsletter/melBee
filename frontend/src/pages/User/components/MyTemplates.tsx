@@ -20,7 +20,6 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
   const [myTemplates, setMyTemplates] = useState<template[]>([]);
   const [selectMy, SetSelectMy] = useState<number | null>(null);
   const [selectMb, SetSelectMb] = useState<number | null>(null);
-
   const { t } = useTranslation();
 
   const handleExpand = (e: clickEvent) => {
@@ -55,21 +54,21 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
 
   useEffect(() => {
     const handleMyTemplate = (i: number) => {
-      localStorage.setItem("melBeeTempStoragedraft", myTemplates[i].body);
+      sessionStorage.setItem("melBeeTempStoragedraft", myTemplates[i].body);
       navigate("/user/edit");
     };
     if (selectMy !== null) handleMyTemplate(selectMy);
-  }, [selectMy]);
+  }, [selectMy, myTemplates, navigate]);
 
   useEffect(() => {
     const handleMelBeeTemplate = async (i: number) => {
       const templateId = melBeeTemplates[i].id;
       const chosenTemplate = await templateAPI.getMelbee(templateId);
-      localStorage.setItem("melBeeTempStoragedraft", chosenTemplate[0].body);
+      sessionStorage.setItem("melBeeTempStoragedraft", chosenTemplate[0].body);
       navigate("/user/edit");
     };
     if (selectMb !== null) handleMelBeeTemplate(selectMb);
-  }, [selectMb]);
+  }, [selectMb, melBeeTemplates, navigate]);
 
   const handleRemove = async (i: number) => {
     const confirmDelete = window.confirm(t("保存テンプレートを削除しますか？"));
@@ -109,12 +108,12 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
           <div className="md:flex md:justify-center">
             <div className="">
               {(myTemplates.length > 0 ||
-                localStorage.melBeeTempStoragedraft) && (
+                sessionStorage.melBeeTempStoragedraft) && (
                 <div className="mb-12">
                   <p className="mt-4 mb-6 font-bold">{t("保存テンプレート")}</p>
                   <div className="md:grid lg:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
-                    {localStorage.melBeeTempStoragedraft && (
-                      <a
+                    {sessionStorage.melBeeTempStoragedraft && (
+                      <div
                         className="mb-5 cursor-pointer"
                         onClick={(e) => {
                           e.preventDefault();
@@ -126,15 +125,15 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
                             id: NaN,
                             thumbnail: "",
                             title: t("下書き"),
-                            body: localStorage.melBeeTempStoragedraft,
+                            body: sessionStorage.melBeeTempStoragedraft,
                           }}
                         />
-                      </a>
+                      </div>
                     )}
                     {myTemplates.map((template, i) => {
                       return (
                         <div key={`myTemp${i}`} className="templateBox">
-                          <a
+                          <div
                             className="mb-5 cursor-pointer align-top"
                             onClick={(e) => {
                               e.preventDefault();
@@ -142,7 +141,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
                             }}
                           >
                             <Template template={template} />
-                          </a>
+                          </div>
                           <button
                             type="submit"
                             value={i}
@@ -169,7 +168,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
                   {melBeeTemplates.map((template, i) => {
                     return (
                       <div key={`mbTemp${i}`}>
-                        <a
+                        <div
                           className="mb-5 cursor-pointer"
                           key={`mbTemp${i}`}
                           onClick={(e) => {
@@ -178,7 +177,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
                           }}
                         >
                           <Template template={template} />
-                        </a>
+                        </div>
                       </div>
                     );
                   })}

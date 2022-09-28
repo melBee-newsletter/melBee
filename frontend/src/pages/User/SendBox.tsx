@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Loading from "../../components/Loading";
 import SendComplete from "./components/SendComplete";
 import { useNavigate } from "react-router-dom";
@@ -25,26 +25,27 @@ const SendBox: React.FC<Props["send"]> = ({
   const [updateReceiver, setUpdateReceiver] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [sendComplete, setSendComplete] = useState<boolean>(false);
-  let TEMPLATE = localStorage.melBeeTempStoragedraft;
+  const TEMPLATE = useRef(sessionStorage.melBeeTempStoragedraft);
   const DATE = new Date();
 
   useEffect(() => {
-    if (analytics)
-      TEMPLATE += `<img src=https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail>`;
+    if (analytics) {
+      TEMPLATE.current += `<img src="https://www.google-analytics.com/collect?v=1&tid=${analytics}&cid=555&t=event&ec=emails&ea=open&dt=testemail" />`;
+    };
     (async function getAllContacts() {
       await contactAPI.get().then((res) => {
         setAllEmails(res.subscribedContacts);
         setIsChecked(new Array(res.subscribedContacts.length).fill(false));
       });
     })();
-    if (!localStorage.getItem("subject")) {
-      localStorage.setItem("subject", subject);
+    if (!sessionStorage.subject) {
+      sessionStorage.setItem("subject", subject);
     }
-  }, []);
+  }, [analytics, subject]);
 
   const handleSubject = (subject: string) => {
     setSubject(subject);
-    localStorage.setItem("subject", subject);
+    sessionStorage.setItem("subject", subject);
   };
 
   const handleCheck = (position: any | void) => {
@@ -99,18 +100,18 @@ const SendBox: React.FC<Props["send"]> = ({
   };
 
   useEffect(() => {
-    const selectedEmails = allEmails.filter((email, i) => {
+    const selectedEmails = allEmails.filter((_, i) => {
       return isChecked[i];
     });
     setReceivers(selectedEmails);
-  }, [updateReceiver]);
+  }, [updateReceiver, allEmails, isChecked]);
 
   const handleSend = async (e: clickEvent) => {
     e.preventDefault();
     const emailBody = {
       email: receivers,
       subject: subject,
-      message_body: TEMPLATE,
+      message_body: TEMPLATE.current,
       user_id: sessionStorage.melbeeID,
     };
     if (receivers.length > 0) {
@@ -125,7 +126,7 @@ const SendBox: React.FC<Props["send"]> = ({
           const sentHistory = {
             subject: subject,
             recipients: receivers.toString(),
-            template: TEMPLATE,
+            template: TEMPLATE.current,
             date_sent: DATE.toString(),
             user_id: sessionStorage.melbeeID,
           };
