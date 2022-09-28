@@ -202,6 +202,9 @@ def seed_template(db: Session):
 
     session = Session()
     try:
+        db_template_melBee = models.Template(
+            title="melBee Team", thumbnail="", body=templates.melBee)
+        db.add(db_template_melBee)
         db_template_default = models.Template(
             title="最初から作成", thumbnail="", body=templates.default)
         db.add(db_template_default)
