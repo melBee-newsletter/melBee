@@ -1,5 +1,14 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
-import { contact, emailBody, sentHistory, history, templateToSave, template, externalInfo, allExternalInfo } from "../../../type";
+import {
+  contact,
+  emailBody,
+  sentHistory,
+  history,
+  templateToSave,
+  template,
+  externalInfo,
+  allExternalInfo,
+} from "../../../type";
 
 const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 
@@ -9,7 +18,7 @@ const BASE_URL = process.env.REACT_APP_PUBLIC_URL || "http://localhost:8000";
 export const contactAPI = {
   /**
    * Get all contacts and returns as subscribed and unsubscribed arrays of contacts
-   * @returns 
+   * @returns
    */
   get: async () => {
     const subscribedContacts: string[] = [];
@@ -18,22 +27,24 @@ export const contactAPI = {
       method: "get",
       url: `${BASE_URL}/user/${sessionStorage.melbeeID}/contact_list/`,
     })
-    .then((res: AxiosResponse) => {
-      let data: contact[] = res.data;
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].is_subscribed) subscribedContacts.push(data[i].email);
-        if (!data[i].is_subscribed) unsubscribedContacts.push(data[i].email);
-      };
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-    });
-    return {subscribedContacts: subscribedContacts, unsubscribedContacts: unsubscribedContacts};
+      .then((res: AxiosResponse) => {
+        let data: contact[] = res.data;
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].is_subscribed) subscribedContacts.push(data[i].email);
+          if (!data[i].is_subscribed) unsubscribedContacts.push(data[i].email);
+        }
+      })
+      .catch((err: AxiosError<{ error: string }>) => {});
+    return {
+      subscribedContacts: subscribedContacts,
+      unsubscribedContacts: unsubscribedContacts,
+    };
   },
 
   /**
    * Add multiple emails to user's contact list
-   * @param email 
-   * @returns 
+   * @param email
+   * @returns
    */
   addMultiple: async (emails: string[]) => {
     let newContacts: string[] = [];
@@ -47,23 +58,22 @@ export const contactAPI = {
       url: `${BASE_URL}/user/contact_list`,
       data: data,
     })
-    .then((res: AxiosResponse) => {
-      if (res.data) {
-        for (let i = 0; i > res.data.length; i++) {
-          newContacts.push(res.data[i]);
-        };
-      };
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-    });
+      .then((res: AxiosResponse) => {
+        if (res.data) {
+          for (let i = 0; i > res.data.length; i++) {
+            newContacts.push(res.data[i]);
+          }
+        }
+      })
+      .catch((err: AxiosError<{ error: string }>) => {});
 
     return newContacts;
   },
 
   /**
    * Add single emails to user's contact list
-   * @param email 
-   * @returns 
+   * @param email
+   * @returns
    */
   addSingle: async (email: string) => {
     let addSuccess;
@@ -77,20 +87,20 @@ export const contactAPI = {
       url: `${BASE_URL}/user/contact_list`,
       data: data,
     })
-    .then((res: AxiosResponse) => {
-      addSuccess = true;
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-      addSuccess = false;
-    });
+      .then((res: AxiosResponse) => {
+        addSuccess = true;
+      })
+      .catch((err: AxiosError<{ error: string }>) => {
+        addSuccess = false;
+      });
 
     return addSuccess;
   },
 
   /**
    * Delete single/multiple emails from user's contact list
-   * @param emails 
-   * @returns 
+   * @param emails
+   * @returns
    */
   delete: async (emails: string[]) => {
     let deleteSuccess;
@@ -98,15 +108,14 @@ export const contactAPI = {
       method: "delete",
       url: `${BASE_URL}/user/contact_list`,
       params: {
-        user_id: sessionStorage.melbeeID
+        user_id: sessionStorage.melbeeID,
       },
-      data: emails
+      data: emails,
     })
-    .then((res: AxiosResponse) => {
-      deleteSuccess = true;
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-    });
+      .then((res: AxiosResponse) => {
+        deleteSuccess = true;
+      })
+      .catch((err: AxiosError<{ error: string }>) => {});
     return deleteSuccess;
   },
 };
@@ -118,7 +127,7 @@ export const emailAPI = {
   /**
    * Send email to selected receivers
    * @param emailBody
-   * @returns 
+   * @returns
    */
   send: async (emailBody: emailBody) => {
     let sendComplete = false;
@@ -130,8 +139,7 @@ export const emailAPI = {
       .then((res: AxiosResponse) => {
         sendComplete = true;
       })
-    .catch((err: AxiosError<{ error: string }>) => {
-    });
+      .catch((err: AxiosError<{ error: string }>) => {});
     return sendComplete;
   },
 };
@@ -142,27 +150,26 @@ export const emailAPI = {
 export const sentHistoryAPI = {
   /**
    * Save sent history after email is successfully sent
-   * @param sentHistory 
-   * @returns 
+   * @param sentHistory
+   * @returns
    */
   save: async (sentHistory: sentHistory) => {
     let sentHistorySaved = false;
     await axios({
       method: "post",
       url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
-      data: sentHistory
+      data: sentHistory,
     })
-    .then((res: AxiosResponse) => {
-      sentHistorySaved = true;
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-    });
+      .then((res: AxiosResponse) => {
+        sentHistorySaved = true;
+      })
+      .catch((err: AxiosError<{ error: string }>) => {});
     return sentHistorySaved;
   },
 
   /**
    * Get user's all sent history
-   * @returns 
+   * @returns
    */
   get: async () => {
     const sentHistory: history[] = [];
@@ -170,14 +177,13 @@ export const sentHistoryAPI = {
       method: "get",
       url: `${BASE_URL}/user/${sessionStorage.melbeeID}/sent_history`,
     })
-    .then((res: AxiosResponse) => {
-      let data = res.data;
-      for (let i = 0; i < data.length; i++) {
-        sentHistory.push(data[i]);
-      };
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-    });
+      .then((res: AxiosResponse) => {
+        let data = res.data;
+        for (let i = 0; i < data.length; i++) {
+          sentHistory.push(data[i]);
+        }
+      })
+      .catch((err: AxiosError<{ error: string }>) => {});
     return sentHistory;
   },
 };
@@ -188,24 +194,23 @@ export const sentHistoryAPI = {
 export const templateAPI = {
   /**
    * Seed template when app loaded
-   * @returns 
+   * @returns
    */
   seed: async () => {
     axios({
       method: "post",
       url: `${BASE_URL}/template/seed`,
       data: "tomatoTest",
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
+    }).catch((err: AxiosError<{ error: string }>) => {
       console.log(err.response!.data);
     });
-  return true;
+    return true;
   },
 
   /**
    * Get melBee's Original Templates
-   * @param id 
-   * @returns 
+   * @param id
+   * @returns
    */
   getMelbee: async (id: number) => {
     const melbeeTemplates: template[] = [];
@@ -213,21 +218,24 @@ export const templateAPI = {
       method: "get",
       url: `${BASE_URL}/template/${id}`,
     })
-    .then((res: AxiosResponse) => {
-      const data = res.data;
-      for (let i = 0; i < data.length; i++) {
-        melbeeTemplates.push(data[i]);
-      }
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-    });
+      .then((res: AxiosResponse) => {
+        const data = res.data;
+        if (sessionStorage.melbeeID === 6) {
+          melbeeTemplates.push(data[0]);
+        } else {
+          for (let i = 1; i < data.length; i++) {
+            melbeeTemplates.push(data[i]);
+          }
+        }
+      })
+      .catch((err: AxiosError<{ error: string }>) => {});
 
     return melbeeTemplates;
   },
 
   /**
    * Get user's saved templates
-   * @returns 
+   * @returns
    */
   getMy: async () => {
     const myTemplates: template[] = [];
@@ -235,41 +243,39 @@ export const templateAPI = {
       method: "get",
       url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
     })
-    .then((res: AxiosResponse) => {
-      let data = res.data;
-      for (let i = 0; i < data.length; i++) {
-        myTemplates.push(data[i]);
-      }
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-    });
+      .then((res: AxiosResponse) => {
+        let data = res.data;
+        for (let i = 0; i < data.length; i++) {
+          myTemplates.push(data[i]);
+        }
+      })
+      .catch((err: AxiosError<{ error: string }>) => {});
     return myTemplates;
   },
 
   /**
    * Save edited page from preview page
-   * @param templateToSave 
-   * @returns 
+   * @param templateToSave
+   * @returns
    */
   saveMy: async (templateToSave: templateToSave) => {
     let templateSaved = false;
     await axios({
       method: "post",
       url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template`,
-      data: templateToSave
+      data: templateToSave,
     })
-    .then((res: AxiosResponse) => {
-      templateSaved = true;
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-    });
+      .then((res: AxiosResponse) => {
+        templateSaved = true;
+      })
+      .catch((err: AxiosError<{ error: string }>) => {});
     return templateSaved;
   },
 
   /**
    * Deleted selected myTemplate from database
-   * @param templateId 
-   * @returns 
+   * @param templateId
+   * @returns
    */
   deleteMy: async (templateId: number) => {
     let deleted = false;
@@ -277,11 +283,10 @@ export const templateAPI = {
       method: "delete",
       url: `${BASE_URL}/user/${sessionStorage.melbeeID}/template/${templateId}`,
     })
-    .then((res: AxiosResponse) => {
-      deleted = true;
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-    });
+      .then((res: AxiosResponse) => {
+        deleted = true;
+      })
+      .catch((err: AxiosError<{ error: string }>) => {});
     return deleted;
   },
 };
@@ -308,24 +313,23 @@ export const externalInfoAPI = {
       method: "get",
       url: `${BASE_URL}/user/${sessionStorage.melbeeID}/external_info`,
     })
-    .then((res: AxiosResponse) => {
-      let data = res.data;
-      for (const info in data) {
-        if (info !== "analyticsID") {
-          externalInfo.externalLinks[info] = data[info];
-        } else {
-          externalInfo.analyticsID = data[info];
-        };
-      };
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-    });
+      .then((res: AxiosResponse) => {
+        let data = res.data;
+        for (const info in data) {
+          if (info !== "analyticsID") {
+            externalInfo.externalLinks[info] = data[info];
+          } else {
+            externalInfo.analyticsID = data[info];
+          }
+        }
+      })
+      .catch((err: AxiosError<{ error: string }>) => {});
     return externalInfo;
   },
   /**
    * Update user's external info
-   * @param externalInfo 
-   * @returns 
+   * @param externalInfo
+   * @returns
    */
   update: async (externalInfo: allExternalInfo) => {
     let updated = false;
@@ -334,11 +338,10 @@ export const externalInfoAPI = {
       url: `${BASE_URL}/user/${sessionStorage.melbeeID}/external_info`,
       data: externalInfo,
     })
-    .then((res: AxiosResponse) => {
-      updated = true;
-    })
-    .catch((err: AxiosError<{ error: string }>) => {
-    });
+      .then((res: AxiosResponse) => {
+        updated = true;
+      })
+      .catch((err: AxiosError<{ error: string }>) => {});
     return updated;
   },
 };
