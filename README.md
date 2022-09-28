@@ -1,7 +1,11 @@
 # melBee
-![melbee_logo](https://user-images.githubusercontent.com/90857923/191744973-d03244db-8c93-4206-9266-5fde117a5f62.png)
+<img src="https://user-images.githubusercontent.com/97425307/192698731-f55ea40c-00c9-432e-8356-7640c50a4107.png" width="250px" alt="melBee Logo">
 
 [melBee](https://melbee.herokuapp.com/) is the awesome email customizer in Japan. It is the only html email customizer that is available in Japanese as of September 22nd 2022. melBee helps individuals and small businesses create html rich emails easily, and provides the capacity of analyzing data of the sent emails.
+
+<a href="https://melbee.herokuapp.com/" target="_blank">
+<img width="800" alt="Screenshot 2022-09-27 at 10 38 18" src="https://user-images.githubusercontent.com/97425307/192698505-b34e51b7-1850-4888-a1dc-185784218bc6.png">
+</a>
 
 # Features
 
@@ -11,6 +15,12 @@ melBee provides the following features:
 - Draft auto-saver while editing template
 - Simple to add marketing tools such as Google Analytics and SNS
 - Unsubscribe option for newsletter receivers
+
+# Demo
+<a href="https://www.youtube.com/embed/Bj7EGQSIuTE?controls=0" target="_blank">
+<img width="500" alt="Link to YouTube Video" src="https://user-images.githubusercontent.com/97425307/192698075-bc402874-2da2-413b-9a5a-95df30572dd8.png">
+</a>
+
 
 # Built With
 
