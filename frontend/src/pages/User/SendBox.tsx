@@ -25,7 +25,7 @@ const SendBox: React.FC<Props["send"]> = ({
   const [updateReceiver, setUpdateReceiver] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [sendComplete, setSendComplete] = useState<boolean>(false);
-  const TEMPLATE = useRef(sessionStorage.melBeeTempStoragedraft);
+  const TEMPLATE = useRef(localStorage.melBeeTempStoragedraft);
   const DATE = new Date();
 
   useEffect(() => {
