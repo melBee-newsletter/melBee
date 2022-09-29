@@ -18,7 +18,7 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
       const templateToSave: templateToSave = {
         title: title,
         thumbnail: "",
-        body: sessionStorage.melBeeTempStoragedraft,
+        body: localStorage.melBeeTempStoragedraft,
       };
       const isSaved = await templateAPI.saveMy(templateToSave);
       setSaved(isSaved);
@@ -35,7 +35,7 @@ const PreviewBox: React.FC<Props["preview"]> = ({ reachLimit }) => {
       <p className="mb-5">{t("送信前に内容をご確認ください")}</p>
       <div
         dangerouslySetInnerHTML={{
-          __html: sessionStorage.melBeeTempStoragedraft,
+          __html: localStorage.melBeeTempStoragedraft,
         }}
       />
       <div className="flex justify-center items-center mx-auto my-8">

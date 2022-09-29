@@ -35,6 +35,7 @@ const Header: React.FC = () => {
     e.preventDefault();
     sessionStorage.removeItem("isLoggedIn");
     sessionStorage.removeItem("melbeeID");
+    localStorage.removeItem("melBeeTempStoragedraft");
     navigate("/");
   };
 

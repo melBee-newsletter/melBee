@@ -54,7 +54,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
 
   useEffect(() => {
     const handleMyTemplate = (i: number) => {
-      sessionStorage.setItem("melBeeTempStoragedraft", myTemplates[i].body);
+      localStorage.setItem("melBeeTempStoragedraft", myTemplates[i].body);
       navigate("/user/edit");
     };
     if (selectMy !== null) handleMyTemplate(selectMy);
@@ -64,7 +64,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
     const handleMelBeeTemplate = async (i: number) => {
       const templateId = melBeeTemplates[i].id;
       const chosenTemplate = await templateAPI.getMelbee(templateId);
-      sessionStorage.setItem("melBeeTempStoragedraft", chosenTemplate[0].body);
+      localStorage.setItem("melBeeTempStoragedraft", chosenTemplate[0].body);
       navigate("/user/edit");
     };
     if (selectMb !== null) handleMelBeeTemplate(selectMb);
@@ -108,11 +108,11 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
           <div className="md:flex md:justify-center">
             <div className="">
               {(myTemplates.length > 0 ||
-                sessionStorage.melBeeTempStoragedraft) && (
+                localStorage.melBeeTempStoragedraft) && (
                 <div className="mb-12">
                   <p className="mt-4 mb-6 font-bold">{t("保存テンプレート")}</p>
                   <div className="md:grid lg:grid md:gap-2 lg:gap-4 md:grid-cols-2 lg:grid-cols-4">
-                    {sessionStorage.melBeeTempStoragedraft && (
+                    {localStorage.melBeeTempStoragedraft && (
                       <div
                         className="mb-5 cursor-pointer"
                         onClick={(e) => {
@@ -125,7 +125,7 @@ const MyTemplates: React.FC<Props["portalExpand"]> = ({
                             id: NaN,
                             thumbnail: "",
                             title: t("下書き"),
-                            body: sessionStorage.melBeeTempStoragedraft,
+                            body: localStorage.melBeeTempStoragedraft,
                           }}
                         />
                       </div>
