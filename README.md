@@ -41,7 +41,7 @@ Backend
 
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/Takhof"><img src="https://i.ibb.co/1QJzhZW/20220928-122525.jpg" width="100px;" alt="Profile Picture"/><br /><sub><b>Thomas Hofman</b></sub></a><br /><p>Full-Stack Engineer</p></td>
+    <td align="center"><a href="https://github.com/Takhof"><img src="https://i.ibb.co/1QJzhZW/20220928-122525.jpg" width="100px;" alt="Profile Picture"/><br /><sub><b>Thomas Hofmann</b></sub></a><br /><p>Full-Stack Engineer</p></td>
     <td align="center"><a href="https://github.com/kugaitomomi"><img src="https://i.ibb.co/kGhrKwn/myself.png" width="100px;" alt="Profile Picture"/><br /><sub><b>Tomomi Kugai</b></sub></a><br /><p>Frontend Engineer / Designer</p></td>
     <td align="center"><a href="https://github.com/Hiro-Kanetake"><img src="https://i.ibb.co/mvbwWtZ/Hiro-CC27-edited-1.jpg" width="100px;" alt="Profile Picture"/><br /><sub><b>Hiro Kanetake</b></sub></a><br /><p>Frontend Engineer</p></td>
     <td align="center"><a href="https://github.com/julioqui"><img src="https://i.ibb.co/R6gdmbL/Julio-CC27-edited.jpg" width="100px;" alt="Profile Picture"/><br /><sub><b>Julio Quiezi</b></sub></a><br /><p>Backend Engineer</p></td>
