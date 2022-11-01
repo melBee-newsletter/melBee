@@ -35,7 +35,7 @@ Backend
 - FastAPI
 - SQLAlchemy
 - bcrypt
-- postgresSQL
+- postgreSQL
 
 # Developers
 
